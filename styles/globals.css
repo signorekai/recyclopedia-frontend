@@ -1,16 +1,62 @@
-html,
+@import 'fontawesome.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+}
+
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  @apply font-sans antialiased;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.header {
+  @apply bg-blue-dark lg:sticky w-full top-0;
+  @apply flex flex-row items-center;
+  @apply lg:p-4;
+  
+  .header-wrapper {
+    @apply pt-1;
+    @apply flex flex-row justify-between items-center relative flex-1;
+    @apply absolute top-full w-full h-full;
+  }
 }
 
-* {
-  box-sizing: border-box;
+.logo-wrapper {
+  @apply leading-none;
+}
+
+.desktop-menu-wrapper {
+  @apply hidden lg:flex flex-1 flex-row gap-x-6 justify-end text-white;
+  @apply pb-1;
+
+  a {
+    @apply transition-colors duration-100;
+    @apply hover:text-teal;
+  }
+}
+
+.icon-wrapper {
+  @apply pb-1 text-white gap-x-6 flex flex-row;
+
+  button {
+    @apply hover:text-teal transition-colors duration-100;
+    @apply p-2 -m-2;
+
+    path {
+      @apply stroke-current stroke-2;
+      @apply transition-all duration-300;
+    }
+  }
+}
+
+.modal-wrapper {
+  @apply fixed w-full h-full bg-grey-dark bg-opacity-80 flex flex-row justify-end;
+}
+
+.search-bar-wrapper {
+  @apply flex-1 border-grey-dark rounded-full border-1 text-white pl-3 pr-1 py-[3px];
+  @apply flex flex-row items-center;
+  @apply placeholder:text-grey;
 }
