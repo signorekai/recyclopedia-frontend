@@ -71,21 +71,15 @@ export default function Layout({
 
   useEffect(() => {
     // if headers are not shown at the start, show header once scrolled down
-    if (
-      scrollY.get() > 50 &&
-      scrolledHeaderVisible.current === false &&
-      hideHeaderOn !== ''
-    ) {
-      headerControls.set({
-        y: '-110%',
-        position: 'sticky',
-        display: 'flex',
-      });
-    }
 
     if (scrollY.get() > 60) {
       if (scrollDirection === showHeaderOn) {
         scrolledHeaderVisible.current = true;
+        headerControls.set({
+          y: '-110%',
+          position: 'sticky',
+          display: 'flex',
+        });
         headerControls.start({
           y: 0,
           transition: {
