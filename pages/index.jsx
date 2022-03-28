@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 
