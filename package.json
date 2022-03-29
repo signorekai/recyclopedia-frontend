@@ -14,7 +14,8 @@
     "react": "17.0.2",
     "react-content-loader": "^6.2.0",
     "react-dom": "17.0.2",
-    "react-use-scroll-direction": "^0.1.0"
+    "react-use-scroll-direction": "^0.1.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.4",
