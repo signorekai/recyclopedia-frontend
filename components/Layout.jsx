@@ -330,10 +330,18 @@ export default function Layout({
               </span>
             </div>
             <div className="order-2 lg:order-1">
-              <a href="https://facebook.com" className="social-icon">
+              <a
+                href="https://facebook.com"
+                className="social-icon"
+                target="_blank"
+                rel="noopener noreferrer">
                 <i className="fas fa-facebook" />
               </a>
-              <a href="https://instagram.com" className="social-icon">
+              <a
+                href="https://instagram.com"
+                className="social-icon"
+                target="_blank"
+                rel="noopener noreferrer">
                 <i className="fas fa-instagram" />
               </a>
             </div>
