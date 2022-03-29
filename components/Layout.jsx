@@ -13,7 +13,6 @@ import { useScrollDirection } from 'react-use-scroll-direction';
 const menuLinkVariant = {
   initial: { y: 30, opacity: 0 },
   animate: { y: 0, opacity: 1 },
-  exit: { duration: 0 },
 };
 
 const SearchIcon = ({
@@ -53,8 +52,7 @@ export default function Layout({
   const scrolledHeaderVisible = useRef(false);
 
   const { scrollY } = useViewportScroll();
-  const { isScrollingUp, isScrollingDown, scrollDirection } =
-    useScrollDirection();
+  const { scrollDirection } = useScrollDirection();
 
   const searchBar = useRef();
   const headerControls = useAnimation();
@@ -70,16 +68,17 @@ export default function Layout({
   };
 
   useEffect(() => {
-    // if headers are not shown at the start, show header once scrolled down
-
     if (scrollY.get() > 60) {
       if (scrollDirection === showHeaderOn) {
+        if (!scrolledHeaderVisible.current) {
+          headerControls.set({
+            y: '-110%',
+            position: 'sticky',
+            display: 'flex',
+          });
+        }
+
         scrolledHeaderVisible.current = true;
-        headerControls.set({
-          y: '-110%',
-          position: 'sticky',
-          display: 'flex',
-        });
         headerControls.start({
           y: 0,
           transition: {
@@ -173,11 +172,11 @@ export default function Layout({
                   <Link href="/donate">Donate</Link>
                   <Link href="/shop">Shop</Link>
                   <Link href="/news-tips">News & Tips</Link>
-                  <Link href="/news-tips">
+                  <Link href="/faq">
                     <a className="ml-2">FAQ</a>
                   </Link>
-                  <Link href="/news-tips">About Us</Link>
-                  <Link href="/news-tips">
+                  <Link href="/about-us">About Us</Link>
+                  <Link href="/feedback">
                     <a className="mr-8">Feedback</a>
                   </Link>
                 </div>
@@ -248,7 +247,7 @@ export default function Layout({
               variants={{
                 initial: { opacity: 0 },
                 animate: { opacity: 1 },
-                exit: { opacity: 0 },
+                exit: { opacity: 0, pointerEvents: 'none' },
               }}
               className="modal-wrapper">
               <div className="flex-1" onClick={handleMenuBtn}></div>
@@ -258,7 +257,7 @@ export default function Layout({
                   bounce: 0,
                   delay: 0.1,
                   duration: 0.3,
-                  delayChildren: 0.3,
+                  delayChildren: 0.2,
                   staggerChildren: 0.05,
                 }}
                 variants={{
@@ -292,15 +291,15 @@ export default function Layout({
                   }}
                   className="-mx-6 h-[2px] w-[calc(100%_+_3rem)] bg-grey-light"
                 />
-                <Link href="/news-tips" passHref>
+                <Link href="/faq" passHref>
                   <motion.a className="" variants={menuLinkVariant}>
                     FAQ
                   </motion.a>
                 </Link>
-                <Link href="/news-tips" passHref>
+                <Link href="/about-us" passHref>
                   <motion.a variants={menuLinkVariant}>About Us</motion.a>
                 </Link>
-                <Link href="/news-tips" passHref>
+                <Link href="/feedback" passHref>
                   <motion.a className="" variants={menuLinkVariant}>
                     Feedback
                   </motion.a>
@@ -320,6 +319,26 @@ export default function Layout({
           )}
         </AnimatePresence>
         {children}
+        <footer className="bg-blue-dark text-white">
+          <div className="container footer">
+            <div className="lg:order-2 flex-1 flex flex-col lg:flex-row lg:justify-between lg:items-center lg:px-10">
+              <span className="text-sm leading-tight">
+                A community driven, non-profit initiative
+              </span>
+              <span className="text-xs">
+                &copy; 2022 Recyclopedia. All rights reserved.
+              </span>
+            </div>
+            <div className="order-2 lg:order-1">
+              <a href="https://facebook.com" className="social-icon">
+                <i className="fas fa-facebook" />
+              </a>
+              <a href="https://instagram.com" className="social-icon">
+                <i className="fas fa-instagram" />
+              </a>
+            </div>
+          </div>
+        </footer>
       </main>
     </>
   );

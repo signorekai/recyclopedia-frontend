@@ -1,4 +1,5 @@
 @import 'fontawesome.css';
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,7 +7,15 @@
 
 @layer components {
   .container {
-    @apply max-w-screen-lg px-4 lg:px-5;
+    @apply max-w-screen-lg px-4 lg:px-5 mx-auto;
+
+    &.container--wide {
+      @apply max-w-[83rem];
+    }
+
+    &.container--fluid {
+      @apply max-w-none;
+    }
   }
 
   .search-bar-wrapper {
@@ -35,10 +44,65 @@
     @apply text-xl;
     @apply transition-all duration-100;
   }
+
+  .btn {
+    @apply w-full bg-coral p-4 text-center block rounded-[4px] my-6;
+    @apply text-white font-medium;
+  }
+
+  .carousel {
+    @apply max-w-full h-full;
+    @apply overflow-x-scroll overflow-y-auto snap-x snap-mandatory;
+    @apply hover:cursor-grab active:cursor-grabbing;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .carousel__slider {
+    @apply md:px-0 h-full gap-x-2;
+    @apply flex-1 self-stretch flex flex-row;
+    @apply max-w-none;
+    @apply hover:cursor-grab active:cursor-grabbing;
+
+    &::-webkit-scrollbar {
+      @apply hidden;
+    }
+  }
+
+  .carousel__card {
+    @apply snap-start h-full px-0 flex flex-col justify-between;
+  }
 }
 
 body {
   @apply font-sans antialiased;
+}
+
+h2 {
+  @apply text-2xl text-blue-light font-semibold align-middle flex flex-row items-center w-full;
+  @apply mb-3;
+  @apply lg:justify-center;
+}
+
+h3 {
+  @apply text-xl;
+}
+
+h4 {
+  @apply text-base text-blue-dark font-semibold;
+}
+
+h5 {
+  @apply text-sm text-blue uppercase font-archivo tracking-widest;
+  @apply lg:text-center;
+}
+
+h6.tag {
+  @apply font-archivo tracking-widest text-grey-dark uppercase;
+}
+
+a {
+  @apply hover:opacity-80 transition-all duration-200;
 }
 
 .header {
@@ -97,4 +161,19 @@ body {
   .fa-history {
     @apply text-grey pr-3;
   }
+}
+
+.home-items-grid {
+  *:nth-child(n + 5):nth-child(-n + 8) {
+    @apply hidden lg:block;
+  }
+}
+
+.footer {
+  @apply flex flex-row justify-between;
+  @apply mt-7 px-4 py-3;
+}
+
+.social-icon {
+  @apply p-2 text-2xl;
 }

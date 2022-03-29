@@ -18,12 +18,13 @@ module.exports = {
       transparent: 'transparent',
       blue: {
         dark: '#252B5C',
-        DEFAULT: '#224DBF',
+        DEFAULT: '#123592',
+        light: '#224DBF',
       },
       purple: 'rgb(168, 85, 247)',
       black: '#15193B',
       white: '#FEFAFA',
-      orange: '#FF6153',
+      coral: '#FF6153',
       teal: '#28C9AA',
       bg: '#F1EDEA',
       grey: {
@@ -33,11 +34,16 @@ module.exports = {
       },
     },
     extend: {
+      width: {
+        'screen-1/4': '25vw',
+        'screen-3/4': '75vw',
+      },
       borderWidth: {
         1: '1px',
       },
       fontFamily: {
         sans: ['ibm-plex-sans', ...defaultTheme.fontFamily.sans],
+        archivo: ['Archivo', ...defaultTheme.fontFamily.sans],
       },
     },
   },
