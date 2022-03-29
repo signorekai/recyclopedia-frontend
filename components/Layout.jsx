@@ -11,8 +11,8 @@ import {
 import { useScrollDirection } from 'react-use-scroll-direction';
 
 const menuLinkVariant = {
-  initial: { y: 30, opacity: 0 },
-  animate: { y: 0, opacity: 1 },
+  initial: { x: 30, opacity: 0 },
+  animate: { x: 0, opacity: 1 },
 };
 
 const SearchIcon = ({
@@ -68,7 +68,7 @@ export default function Layout({
   };
 
   useEffect(() => {
-    if (scrollY.get() > 60) {
+    if (scrollY.get() > 0) {
       if (scrollDirection === showHeaderOn) {
         if (!scrolledHeaderVisible.current) {
           headerControls.set({
@@ -77,8 +77,8 @@ export default function Layout({
             display: 'flex',
           });
         }
-
         scrolledHeaderVisible.current = true;
+
         headerControls.start({
           y: 0,
           transition: {
@@ -255,7 +255,6 @@ export default function Layout({
                 transition={{
                   type: 'spring',
                   bounce: 0,
-                  delay: 0.1,
                   duration: 0.3,
                   delayChildren: 0.2,
                   staggerChildren: 0.05,
