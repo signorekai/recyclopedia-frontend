@@ -2,7 +2,6 @@ import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 
 import { useWindowDimensions } from '../lib/hooks';
 import { Carousel, CarouselCard } from '../components/Carousel';
@@ -15,21 +14,25 @@ const dummySuggestions = [
     backgroundImage:
       'https://savanant.com/recyclopedia/wp-content/uploads/acrylic.jpg',
     headerText: 'Acrylic',
+    slug: 'acrylic',
   },
   {
     backgroundImage:
       'https://savanant.com/recyclopedia/wp-content/uploads/aluminum_can.jpg',
     headerText: 'Aluminium Cans & Tabs',
+    slug: 'aluminium-cans-tabs',
   },
   {
     backgroundImage:
       'https://savanant.com/recyclopedia/wp-content/uploads/corrugated_cardboard.jpg',
     headerText: 'Corrugated Cardboard',
+    slug: 'corrugated-cardboard',
   },
   {
     backgroundImage:
       'https://savanant.com/recyclopedia/wp-content/uploads/dirty_food_container.jpg',
     headerText: 'Dirty Food Containers',
+    slug: 'dirty-food-containers',
   },
 ];
 
@@ -64,14 +67,14 @@ export default function Home() {
       <h3 className="text-center mb-4 leading-none">
         All you need to know when you have something to throw
       </h3>
-      <SearchBar activeBackgroundColor="#F1EDEA" />
+      <SearchBar activeBackgroundColor="#F1EDEA" className="lg:w-[720px]" />
       <div className="container container--narrow">
-        <div className="grid grid-cols-2 grid-rows-2 lg:grid-cols-4 gap-x-2 gap-y-4 mt-6 lg:mt-20 home-items-grid">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 mt-6 lg:mt-20 home-items-grid">
           {suggestedItems.map((item, key) => (
             <Card
+              key={key}
               className="w-full"
               uniqueKey={`card-${key}`}
-              key={`card-${key}`}
               content={item}
             />
           ))}
