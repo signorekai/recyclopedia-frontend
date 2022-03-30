@@ -10,11 +10,13 @@ export const CarouselCard = ({ children, className = '' }) => {
 // https://codesandbox.io/s/z22v9qj5rx?file=%2Fsrc%2Findex.js%3A493-506
 
 export const Carousel = ({ children, className = '' }) => {
+  const carouselRef = useRef(null);
   const slidesContainer = useRef(null);
   const { width } = useWindowDimensions();
+  const events = useScrollDrag(carouselRef);
 
   return (
-    <div className={`carousel ${className}`}>
+    <div ref={carouselRef} {...events} className={`carousel ${className}`}>
       <div
         ref={slidesContainer}
         className="carousel__slider"

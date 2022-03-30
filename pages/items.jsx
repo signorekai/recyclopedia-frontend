@@ -6,6 +6,8 @@ import { useViewportScroll, useMotionValue } from 'framer-motion';
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
+import { useWindowDimensions } from '../lib/hooks';
+import InfiniteLoader from '../components/InfiniteLoader';
 
 const db = [
   {
@@ -86,14 +88,16 @@ export default function Page() {
   const x = useMotionValue(0);
   const [items, setItems] = useState([]);
   const { scrollDirection } = useScrollDirection();
+  const [itemsFinishedLoading, setItemsFinishedLoading] = useState(false);
   const { scrollY } = useViewportScroll();
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
     setItems([...db]);
   }, []);
 
   useEffect(() => {
-    if (scrollDirection === 'UP') {
+    if (scrollDirection === 'UP' && width < 1080) {
       x.set(52);
     } else if (scrollDirection === 'DOWN') {
       x.set(0);
@@ -101,6 +105,20 @@ export default function Page() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scrollY, scrollDirection]);
+
+  // todo dummy loading
+  const handleLoad = () => {
+    if (items.length < 30) {
+      const timeout = setTimeout(() => {
+        setItems([...items, ...db]);
+      }, 1000);
+      return () => {
+        clearTimeout(timeout);
+      };
+    } else {
+      setItemsFinishedLoading(true);
+    }
+  };
 
   return (
     <Layout showHeaderInitially={true} showHeaderOn="UP" hideHeaderOn="DOWN">
@@ -122,7 +140,7 @@ export default function Page() {
       </section>
       <SearchBar
         top={x}
-        className="py-2 sticky transition-all duration-200"
+        className="py-2 sticky lg:relative transition-all duration-200"
         wrapperClassName="max-w-[800px]"
         inactiveBackgroundColor="#28C9AA"
         activeBackgroundColor="#28C9AA"
@@ -140,6 +158,7 @@ export default function Page() {
           ))}
         </div>
       </div>
+      {!itemsFinishedLoading && <InfiniteLoader handleEnter={handleLoad} />}
     </Layout>
   );
 }
