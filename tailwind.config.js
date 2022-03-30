@@ -48,6 +48,11 @@ module.exports = {
         sans: ['ibm-plex-sans', ...defaultTheme.fontFamily.sans],
         archivo: ['Archivo', ...defaultTheme.fontFamily.sans],
       },
+      zIndex: {
+        60: '60',
+        70: '70',
+        80: '80',
+      },
     },
   },
   plugins: [],
