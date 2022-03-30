@@ -76,8 +76,12 @@ export default function Home() {
       <h3 className="text-center mb-4 leading-none text-white z-10 relative">
         All you need to know when you have something to throw
       </h3>
-      <SearchBar activeBackgroundColor="#F1EDEA" className="lg:w-[720px]" />
-      <div className="container container--narrow relative z-20">
+      <SearchBar
+        activeBackgroundColor="#F1EDEA"
+        className="lg:w-[720px]"
+        wrapperClassName="z-20"
+      />
+      <div className="container container--narrow relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-2 lg:gap-y-4 mt-6 lg:mt-12 home-items-grid">
           {suggestedItems.map((item, key) => (
             <Card
