@@ -21,7 +21,7 @@ const LinkWrapper = ({ children, content }) => {
     <>
       {content.hasOwnProperty('slug') ? (
         <Link href={`/items/${content.slug}`} passHref>
-          <a className="hover:scale-105 origin-center duration-200 transition-all">
+          <a className="hover:scale-105 origin-center duration-200 transition-all hover:opacity-100">
             {children}
           </a>
         </Link>
