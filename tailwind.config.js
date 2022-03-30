@@ -34,6 +34,9 @@ module.exports = {
       },
     },
     extend: {
+      borderRadius: {
+        30: '30px',
+      },
       width: {
         'screen-1/4': '25vw',
         'screen-3/4': '75vw',
