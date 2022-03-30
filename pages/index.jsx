@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 import { useWindowDimensions } from '../lib/hooks';
@@ -51,9 +52,12 @@ export default function Home() {
   const { height, width } = useWindowDimensions();
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setSuggestedItems(dummySuggestions);
     }, 2000);
+    return () => {
+      clearTimeout(timeout);
+    };
   }, []);
 
   return (
@@ -63,13 +67,18 @@ export default function Home() {
         <meta name="description" content="Recyclopedia" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="bg-gradient-to-b from-coral to-purple h-60 lg:h-96 -mb-44 lg:-mb-56"></div>
-      <h3 className="text-center mb-4 leading-none">
+      <div className="bg-gradient-to-b from-coral to-purple h-72 lg:h-96 absolute top-0 w-full left-0 z-0"></div>
+      <Link href="/">
+        <a className="block text-center mt-20 lg:mt-28">
+          <Image src="/img/logo.svg" alt="" width={172} height={28} />
+        </a>
+      </Link>
+      <h3 className="text-center mb-4 leading-none text-white z-10 relative">
         All you need to know when you have something to throw
       </h3>
       <SearchBar activeBackgroundColor="#F1EDEA" className="lg:w-[720px]" />
-      <div className="container container--narrow">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 mt-6 lg:mt-20 home-items-grid">
+      <div className="container container--narrow relative z-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-2 lg:gap-y-4 mt-6 lg:mt-12 home-items-grid">
           {suggestedItems.map((item, key) => (
             <Card
               key={key}
