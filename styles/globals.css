@@ -19,7 +19,7 @@
   }
 
   .search-bar-wrapper {
-    @apply flex-1 rounded-full border-1 pl-3 pr-1 py-[3px] lg:py-2 lg:pl-5;
+    @apply flex-1 rounded-30 border-1 pl-3 pr-1 py-[3px] lg:py-2 lg:pl-5;
     @apply mx-auto;
     @apply flex flex-row items-center;
     @apply placeholder:text-grey;
@@ -76,7 +76,7 @@
 }
 
 body {
-  @apply font-sans antialiased;
+  @apply font-sans antialiased bg-white;
 }
 
 h2 {
@@ -109,7 +109,8 @@ a {
 .header {
   @apply bg-blue-dark relative w-full top-0;
   @apply flex flex-row items-center;
-  @apply lg:p-4 z-20 lg:!translate-y-0;
+  @apply lg:p-4 z-40 lg:!translate-y-0;
+  @apply lg:sticky;
 
   .header-wrapper {
     @apply pt-1;
@@ -148,7 +149,7 @@ a {
 
 .modal-wrapper {
   @apply fixed w-full h-full bg-grey-dark bg-opacity-80 flex flex-row justify-end;
-  @apply z-50;
+  @apply z-30;
 }
 
 .search-suggestions {
