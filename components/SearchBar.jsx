@@ -3,10 +3,15 @@ import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { v4 as uuidV4 } from 'uuid';
 import { useWindowDimensions } from '../lib/hooks';
 
-const Suggestion = ({ text = '' }) => (
-  <li className="search-suggestion">
-    <span className="far fa-history"></span>
-    {text}
+const Suggestion = ({ text = '', selectSuggestion = () => {} }) => (
+  <li className="search-suggestion hover:cursor-pointer block">
+    <button
+      onClick={() => {
+        selectSuggestion(text);
+      }}>
+      <span className="far fa-history"></span>
+      {text}
+    </button>
   </li>
 );
 
@@ -58,11 +63,13 @@ export default function SearchBar({
     setIsFocused(true);
   };
 
+  const selectSuggestion = (suggestion) => {
+    setFormValue(suggestion);
+  };
+
   const handleOnBlur = (e) => {
     setIsFocused(false);
-    if (e.relatedTarget === closeBtnRef.current) {
-      handleClose();
-    }
+    if (e.relatedTarget) e.relatedTarget.click();
   };
 
   useEffect(() => {
@@ -120,7 +127,11 @@ export default function SearchBar({
                 className="search-suggestions absolute left-0 bottom-0 translate-y-[100%] lg:max-w-[800px]">
                 <ul>
                   {dummySuggestions.map((suggestion, key) => (
-                    <Suggestion key={key} text={suggestion} />
+                    <Suggestion
+                      key={key}
+                      selectSuggestion={selectSuggestion}
+                      text={suggestion}
+                    />
                   ))}
                 </ul>
               </motion.div>
@@ -158,7 +169,10 @@ export default function SearchBar({
                   id=""
                   className="search-bar bg-transparent peer text-black"
                 />
-                <button>
+                <button
+                  onClick={() => {
+                    console.log('submit!');
+                  }}>
                   <span className="far fa-search search-icon text-grey ease-in-out px-2"></span>
                 </button>
                 <button
@@ -179,7 +193,11 @@ export default function SearchBar({
               className="search-suggestions">
               <ul>
                 {dummySuggestions.map((suggestion, key) => (
-                  <Suggestion key={key} text={suggestion} />
+                  <Suggestion
+                    key={key}
+                    selectSuggestion={selectSuggestion}
+                    text={suggestion}
+                  />
                 ))}
               </ul>
             </motion.div>
