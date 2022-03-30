@@ -249,7 +249,7 @@ export default function Layout({
                 animate: { opacity: 1 },
                 exit: { opacity: 0, pointerEvents: 'none' },
               }}
-              className="modal-wrapper">
+              className="modal-wrapper top-[50px]">
               <div className="flex-1" onClick={handleMenuBtn}></div>
               <motion.div
                 transition={{
