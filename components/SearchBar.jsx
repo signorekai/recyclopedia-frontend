@@ -3,13 +3,18 @@ import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { v4 as uuidV4 } from 'uuid';
 import { useWindowDimensions } from '../lib/hooks';
 
-const Suggestion = ({ text = '', selectSuggestion = () => {} }) => (
-  <li className="search-suggestion hover:cursor-pointer block">
+const Suggestion = ({
+  text = '',
+  showIcon = true,
+  selectSuggestion = () => {},
+}) => (
+  <li className="search-suggestion">
     <button
+      className="hover:cursor-pointer w-full text-left"
       onClick={() => {
         selectSuggestion(text);
       }}>
-      <span className="far fa-history"></span>
+      {showIcon && <span className="far fa-history"></span>}
       {text}
     </button>
   </li>
