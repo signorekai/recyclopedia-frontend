@@ -1,5 +1,6 @@
 @import 'fontawesome.css';
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@700&display=swap');
+@import 'carousel.css';
 
 @tailwind base;
 @tailwind components;
@@ -51,7 +52,7 @@
     @apply text-white font-medium;
   }
 
-  .carousel {
+  .basic-carousel {
     @apply max-w-full h-full;
     @apply overflow-x-scroll overflow-y-auto snap-x snap-mandatory;
     @apply hover:cursor-grab active:cursor-grabbing;
@@ -59,9 +60,9 @@
     scrollbar-width: none;
   }
 
-  .carousel__slider {
+  .basic-carousel__slider {
     @apply md:px-0 h-full gap-x-2;
-    @apply flex-1 self-stretch flex flex-row;
+    @apply flex-1 items-start flex flex-row;
     @apply max-w-none;
     @apply hover:cursor-grab active:cursor-grabbing;
 
@@ -70,8 +71,23 @@
     }
   }
 
-  .carousel__card {
+  .basic-carousel__card {
     @apply snap-start h-full px-0 flex flex-col justify-between;
+  }
+
+  .divider-b {
+    @apply after:content-[""] after:w-[calc(100%+1rem)] after:-mx-2 after:h-[1px] after:bg-grey-light;
+    @apply after:mt-3 after:block;
+  }
+
+  .page-icons {
+    @apply absolute top-[50px] w-full z-20 p-4 lg:hidden;
+    @apply lg:hidden;
+    @apply flex flex-row justify-between;
+  }
+
+  .page-icon-wrapper {
+    @apply rounded-full bg-white bg-opacity-60 h-9 w-9 text-center text-2xl;
   }
 }
 
@@ -104,6 +120,10 @@ h6.tag {
 
 a {
   @apply hover:opacity-80 transition-all duration-200;
+}
+
+p + p {
+  @apply mt-[0.5em];
 }
 
 .header {
@@ -178,4 +198,25 @@ a {
 
 .social-icon {
   @apply p-2 text-2xl;
+}
+
+.carousel {
+  @apply relative;
+}
+
+.carousel__dot-group {
+  @apply mx-auto text-center absolute bottom-0 left-0 w-full;
+}
+
+.carousel__dot {
+  @apply px-1 pb-2;
+  span {
+    @apply w-[10px] h-[10px] inline-block bg-white bg-opacity-30 rounded-full;
+  }
+
+  &.carousel__dot--selected {
+    span {
+      @apply bg-opacity-80;
+    }
+  }
 }
