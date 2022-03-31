@@ -145,7 +145,7 @@ function Page({ data }) {
         <>
           <div className="page-icons">
             <Link href="/items">
-              <a className="page-icon-wrapper">
+              <a className="page-icon-wrapper leading-none">
                 <i className="far fa-angle-left text-blue"></i>
               </a>
             </Link>
@@ -170,6 +170,7 @@ function Page({ data }) {
                     height={image.height}
                     objectFit="cover"
                     objectPosition="center"
+                    layout="fill"
                     priority={key === 0}
                     alt=""
                   />
