@@ -1,56 +1,43 @@
 import { useEffect, useState } from 'react';
-import { useScrollDirection } from 'react-use-scroll-direction';
 import Head from 'next/head';
-import { useViewportScroll, useMotionValue } from 'framer-motion';
 import qs from 'qs';
+import useSWRInfinite from 'swr/infinite';
 
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
-import { useWindowDimensions } from '../lib/hooks';
+import { useSearchBarTopValue, useWindowDimensions } from '../lib/hooks';
 import InfiniteLoader from '../components/InfiniteLoader';
 
 const itemsPerPage = 4;
 
 export default function Page({ items: loadedItems }) {
-  const x = useMotionValue(0);
-  const [items, setItems] = useState(loadedItems);
-  const [currentPage, setCurrentPage] = useState(2);
-  const { scrollDirection } = useScrollDirection();
+  const x = useSearchBarTopValue();
   const [itemsFinishedLoading, setItemsFinishedLoading] = useState(false);
-  const { scrollY } = useViewportScroll();
-  const { width } = useWindowDimensions();
 
-  useEffect(() => {
-    if (scrollDirection === 'UP' && width < 1080) {
-      x.set(52);
-    } else if (scrollDirection === 'DOWN') {
-      x.set(0);
-    } else {
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scrollY, scrollDirection]);
-
-  // todo dummy loading
-  const handleLoad = () => {
-    const load = async () => {
-      const query = qs.stringify({
-        page: currentPage,
-        pageSize: itemsPerPage,
-      });
-
-      const res = await fetch(`/api/items?${query}`);
-      const result = await res.json();
-
-      if (result.meta.pagination.pageCount > currentPage) {
-        setCurrentPage(currentPage + 1);
-      } else {
+  const { data, size, setSize } = useSWRInfinite(
+    (pageIndex, previousPageData) => {
+      if (previousPageData && previousPageData.length !== itemsPerPage) {
         setItemsFinishedLoading(true);
+        return null;
       }
 
-      setItems([...items, ...result.data]);
-    };
-    load();
+      const query = qs.stringify({
+        page: pageIndex + 1,
+        pageSize: itemsPerPage,
+      });
+      return `/api/items?${query}`;
+    },
+    (url) =>
+      fetch(url)
+        .then((r) => r.json())
+        .then((res) => {
+          return res.data;
+        }),
+  );
+
+  const handleLoad = () => {
+    setSize(size + 1);
   };
 
   return (
@@ -81,20 +68,25 @@ export default function Page({ items: loadedItems }) {
       <div className="bg-teal pb-2 lg:pb-10"></div>
       <div className="container">
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-4 lg:gap-x-7 lg:gap-y-6 mt-6">
-          {items.map((item, key) => (
-            <Card
-              key={key}
-              className="w-full"
-              uniqueKey={`card-${key}`}
-              content={{
-                backgroundImage:
-                  item.images.length > 0 ? item.images[0].url : '',
-                headerText: item.title,
-                contentType: 'items',
-                slug: item.slug,
-              }}
-            />
-          ))}
+          {data &&
+            data.map((items) => (
+              <>
+                {items.map((item, key) => (
+                  <Card
+                    key={key}
+                    className="w-full"
+                    uniqueKey={`card-${key}`}
+                    content={{
+                      backgroundImage:
+                        item.images.length > 0 ? item.images[0].url : '',
+                      headerText: item.title,
+                      contentType: 'items',
+                      slug: item.slug,
+                    }}
+                  />
+                ))}
+              </>
+            ))}
         </div>
       </div>
       {!itemsFinishedLoading && <InfiniteLoader handleEnter={handleLoad} />}
