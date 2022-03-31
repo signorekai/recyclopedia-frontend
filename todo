@@ -1,2 +1,3 @@
-- stop overlay search bar on desktop
-- add page transitions
+✔ stop overlay search bar on desktop @done(22-03-30 17:53)
+☐ add page transitions
+☐ use strapi's responsive images instead of next's
