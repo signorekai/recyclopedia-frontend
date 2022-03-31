@@ -17,7 +17,6 @@ export default function handler(req, res) {
       },
     });
     const items = await result.json();
-    console.log(items);
     return items;
   }
   load().then((items) => {
