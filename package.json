@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "framer-motion": "^6.2.8",
+    "lodash.orderby": "^4.6.0",
     "luxon": "^2.3.1",
     "next": "12.1.0",
     "pure-react-carousel": "^1.28.1",
