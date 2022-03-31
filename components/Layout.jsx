@@ -97,6 +97,10 @@ export default function Layout({
           },
         });
       }
+    } else if (showHeaderOn === '') {
+      headerControls.set({
+        position: 'sticky',
+      });
     }
   }, [
     showHeaderInitially,
