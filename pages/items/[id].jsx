@@ -110,7 +110,7 @@ function Page({ data }) {
                             5: 'col-span-1',
                           }[data.images.length]
                     }`}>
-                    <Image
+                    <NewImage
                       src={image.url}
                       width={
                         data.images.length === 1
@@ -129,10 +129,7 @@ function Page({ data }) {
                               5: height * modifier * 0.25,
                             }[data.images.length]
                       }
-                      objectFit="cover"
-                      objectPosition="center"
-                      layout="responsive"
-                      priority={key === 0}
+                      formats={image.formats}
                       alt=""
                     />
                   </div>
@@ -164,11 +161,11 @@ function Page({ data }) {
                     {data.images.map((image, key) => (
                       <Slide key={key} index={key}>
                         <NewImage
-                          alternativeText={image.alternativeText}
-                          url={image.url}
+                          alt={image.alternativeText}
+                          src={image.url}
                           formats={image.formatS}
-                          width={image.width}
-                          height={image.height}
+                          width={width}
+                          height={width}
                         />
                       </Slide>
                     ))}
