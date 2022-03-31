@@ -102,7 +102,7 @@ export default function Page({ items: loadedItems }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const ip = process.env.API_URL;
   const query = qs.stringify({
     populate: ['images'],

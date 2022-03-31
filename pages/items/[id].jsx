@@ -367,8 +367,39 @@ function Page({ data }) {
   );
 }
 
-export async function getServerSideProps({ query }) {
-  const { id } = query;
+export async function getStaticPaths() {
+  // Call an external API endpoint to get posts
+  // const res = await fetch('https://.../posts')
+  // const posts = await res.json()
+
+  const ip = process.env.API_URL;
+  const queryParams = qs.stringify({
+    pagination: {
+      page: 1,
+      pagesize: 20,
+    },
+  });
+
+  const res = await fetch(`${ip}/api/items?${queryParams}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.API_KEY}`,
+    },
+  });
+  const result = await res.json();
+
+  if (result.data.length === 0) {
+    return { notFound: true };
+  }
+  // Get the paths we want to pre-render based on posts
+  const paths = result.data.map((item) => ({
+    params: { id: item.slug },
+  }));
+
+  return { paths, fallback: true };
+}
+
+export async function getStaticProps({ params }) {
+  const { id } = params;
   const ip = process.env.API_URL;
   const queryParams = qs.stringify({
     populate: [
@@ -393,9 +424,13 @@ export async function getServerSideProps({ query }) {
       Authorization: `Bearer ${process.env.API_KEY}`,
     },
   });
-  const { data } = await res.json();
+  const result = await res.json();
 
-  return { props: { data: data[0] } };
+  if (result.data.length === 0) {
+    return { notFound: true };
+  }
+
+  return { props: { data: result.data[0] } };
 
   // mock data
   return {
