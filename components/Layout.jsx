@@ -172,7 +172,7 @@ export default function Layout({
               <div className="flex flex-row">
                 <div className="desktop-menu-wrapper">
                   <Link href="/items">Items</Link>
-                  <Link href="/recycle">Recycle</Link>
+                  <Link href="/resources">Recycle</Link>
                   <Link href="/donate">Donate</Link>
                   <Link href="/shop">Shop</Link>
                   <Link href="/news-tips">News & Tips</Link>
@@ -272,7 +272,7 @@ export default function Layout({
                 <Link href="/items" passHref>
                   <motion.a variants={menuLinkVariant}>Items</motion.a>
                 </Link>
-                <Link href="/recycle" passHref>
+                <Link href="/resources" passHref>
                   <motion.a variants={menuLinkVariant}>Recycle</motion.a>
                 </Link>
                 <Link href="/donate" passHref>

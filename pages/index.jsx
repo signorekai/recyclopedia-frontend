@@ -68,7 +68,7 @@ export default function Home({ items }) {
               visible: { opacity: 1, y: 0 },
             }}
             className="py-5 px-3 lg:px-6 lg:flex-1 lg:text-center">
-            <Link href="/recycle" passHref>
+            <Link href="/resources" passHref>
               <a>
                 <h2>
                   <i className="far fa-recycle text-3xl mr-3 mt-1" /> Recycling
