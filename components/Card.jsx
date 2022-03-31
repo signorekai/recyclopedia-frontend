@@ -22,7 +22,7 @@ const LinkWrapper = ({ children, content }) => {
       {content.hasOwnProperty('slug') &&
       content.hasOwnProperty('contentType') ? (
         <Link href={`/${content.contentType}/${content.slug}`} passHref>
-          <a className="hover:scale-105 origin-center duration-200 transition-all hover:opacity-100">
+          <a className="origin-center duration-200 transition-all hover:opacity-100 group">
             {children}
           </a>
         </Link>
@@ -46,7 +46,7 @@ const Card = ({ content = {}, className = '', uniqueKey }) => {
             exit="exit"
             className={`${className}`}>
             <div
-              className="pb-[100%] bg-cover bg-center rounded-[4px]"
+              className="pb-[100%] bg-cover bg-center rounded-[4px] group-hover:opacity-90 transition-all duration-200"
               style={{
                 backgroundImage: `url(${content.backgroundImage})`,
               }}></div>
