@@ -6,7 +6,7 @@ export default function handler(req, res) {
     const query = qs.stringify({
       populate: ['images'],
       pagination: {
-        page: req.query.page,
+        page: parseInt(req.query.page) + 1,
         pageSize: req.query.pageSize,
       },
     });
@@ -17,8 +17,9 @@ export default function handler(req, res) {
       },
     });
     const items = await result.json();
-
-    res.status(200).json(items);
+    return items;
   }
-  load();
+  load().then((items) => {
+    res.status(200).json(items);
+  });
 }

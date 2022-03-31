@@ -1,44 +1,50 @@
-import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import qs from 'qs';
-import useSWRInfinite from 'swr/infinite';
+import { SWRConfig } from 'swr';
 
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
-import { useSearchBarTopValue, useWindowDimensions } from '../lib/hooks';
+import {
+  useFetchContent,
+  useSearchBarTopValue,
+  ITEMS_PER_PAGE,
+} from '../lib/hooks';
 import InfiniteLoader from '../components/InfiniteLoader';
 
-const itemsPerPage = 4;
+const Cards = () => {
+  const { data, loadNext, isFinished } = useFetchContent('items');
 
-export default function Page({ items: loadedItems }) {
-  const x = useSearchBarTopValue();
-  const [itemsFinishedLoading, setItemsFinishedLoading] = useState(false);
-
-  const { data, size, setSize } = useSWRInfinite(
-    (pageIndex, previousPageData) => {
-      if (previousPageData && previousPageData.length !== itemsPerPage) {
-        setItemsFinishedLoading(true);
-        return null;
-      }
-
-      const query = qs.stringify({
-        page: pageIndex + 1,
-        pageSize: itemsPerPage,
-      });
-      return `/api/items?${query}`;
-    },
-    (url) =>
-      fetch(url)
-        .then((r) => r.json())
-        .then((res) => {
-          return res.data;
-        }),
+  return (
+    <div className="container">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-4 lg:gap-x-7 lg:gap-y-6 mt-6">
+        {data &&
+          data.map((items) => (
+            <>
+              {items.map((item, key) => (
+                <Card
+                  key={key}
+                  className="w-full"
+                  uniqueKey={`card-${key}`}
+                  content={{
+                    backgroundImage:
+                      item.images.length > 0 ? item.images[0].url : '',
+                    headerText: item.title,
+                    contentType: 'items',
+                    slug: item.slug,
+                  }}
+                />
+              ))}
+            </>
+          ))}
+      </div>
+      {!isFinished && <InfiniteLoader handleEnter={loadNext} />}
+    </div>
   );
+};
 
-  const handleLoad = () => {
-    setSize(size + 1);
-  };
+export default function Page({ fallbackData }) {
+  const x = useSearchBarTopValue();
 
   return (
     <Layout showHeaderInitially={true} showHeaderOn="UP" hideHeaderOn="DOWN">
@@ -66,30 +72,9 @@ export default function Page({ items: loadedItems }) {
         activeBackgroundColor="#28C9AA"
       />
       <div className="bg-teal pb-2 lg:pb-10"></div>
-      <div className="container">
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-4 lg:gap-x-7 lg:gap-y-6 mt-6">
-          {data &&
-            data.map((items) => (
-              <>
-                {items.map((item, key) => (
-                  <Card
-                    key={key}
-                    className="w-full"
-                    uniqueKey={`card-${key}`}
-                    content={{
-                      backgroundImage:
-                        item.images.length > 0 ? item.images[0].url : '',
-                      headerText: item.title,
-                      contentType: 'items',
-                      slug: item.slug,
-                    }}
-                  />
-                ))}
-              </>
-            ))}
-        </div>
-      </div>
-      {!itemsFinishedLoading && <InfiniteLoader handleEnter={handleLoad} />}
+      <SWRConfig value={{ fallbackData }}>
+        <Cards />
+      </SWRConfig>
     </Layout>
   );
 }
@@ -99,8 +84,8 @@ export async function getStaticProps() {
   const query = qs.stringify({
     populate: ['images'],
     pagination: {
-      page: 1,
-      pageSize: itemsPerPage,
+      page: 0,
+      pageSize: ITEMS_PER_PAGE,
     },
   });
 
@@ -111,5 +96,7 @@ export async function getStaticProps() {
   });
   const items = await res.json();
 
-  return { props: { items: items.data } };
+  return { props: { fallbackData: [items.data] } };
+
+  // return { props: { items: items.data } };
 }
