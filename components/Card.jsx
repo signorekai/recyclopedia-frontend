@@ -37,8 +37,7 @@ const Card = ({ content = {}, className = '', uniqueKey }) => {
   return (
     <LinkWrapper content={content}>
       <AnimatePresence>
-        {content.hasOwnProperty('backgroundImage') &&
-        content.hasOwnProperty('headerText') ? (
+        {content.hasOwnProperty('headerText') ? (
           <motion.div
             variants={variants}
             initial="intial"
@@ -46,7 +45,7 @@ const Card = ({ content = {}, className = '', uniqueKey }) => {
             exit="exit"
             className={`${className}`}>
             <div
-              className="pb-[100%] bg-cover bg-center rounded-[4px] group-hover:opacity-90 transition-all duration-200"
+              className="pb-[100%] bg-cover bg-center rounded-[4px] group-hover:opacity-90 transition-all duration-200 bg-grey-light"
               style={{
                 backgroundImage: `url(${content.backgroundImage})`,
               }}></div>
