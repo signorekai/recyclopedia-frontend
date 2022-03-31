@@ -23,17 +23,25 @@ module.exports = {
       },
       purple: 'rgb(168, 85, 247)',
       black: '#15193B',
-      white: '#FEFAFA',
+      white: {
+        pure: '#ffffff',
+        DEFAULT: '#FEFAFA',
+      },
       coral: '#FF6153',
       teal: '#28C9AA',
       bg: '#F1EDEA',
       grey: {
         dark: '#707075',
+        mid: '#87878C',
         light: '#EBe7e5',
         DEFAULT: '#c8c8c8',
       },
     },
     extend: {
+      gridTemplateRows: {
+        8: 'repeat(8, minmax(0, 1fr))',
+        12: 'repeat(12, minmax(0, 1fr))',
+      },
       borderRadius: {
         30: '30px',
       },
