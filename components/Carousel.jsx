@@ -3,7 +3,9 @@ import { useScrollDrag, useWindowDimensions } from '../lib/hooks';
 
 export const CarouselCard = ({ children, className = '' }) => {
   return (
-    <article className={`carousel__card ${className}`}>{children}</article>
+    <article className={`basic-carousel__card ${className}`}>
+      {children}
+    </article>
   );
 };
 
@@ -16,10 +18,13 @@ export const Carousel = ({ children, className = '' }) => {
   const events = useScrollDrag(carouselRef);
 
   return (
-    <div ref={carouselRef} {...events} className={`carousel ${className}`}>
+    <div
+      ref={carouselRef}
+      {...events}
+      className={`basic-carousel ${className}`}>
       <div
         ref={slidesContainer}
-        className="carousel__slider"
+        className="basic-carousel__slider"
         style={{
           width: `${children.length * (width > 1080 ? 25 : 75)}vw`,
         }}>
