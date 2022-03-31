@@ -251,7 +251,7 @@ function Page({ data }) {
                               key={key}
                               className="w-64 border-1 rounded-md border-grey-light overflow-hidden relative">
                               <Image
-                                src={resource.coverImage.url}
+                                src={resource.images[0].url}
                                 width={256}
                                 height={158}
                                 objectFit="cover"
@@ -282,12 +282,16 @@ function Page({ data }) {
                               <h4 className="pr-4 text-blue-light">
                                 {resource.title}
                               </h4>
-                              <Image
-                                src={resource.coverImage.url}
-                                width={80}
-                                height={80}
-                                alt={resource.title}
-                              />
+                              {resource.images && resource.images.length > 0 ? (
+                                <Image
+                                  src={resource.images[0].url}
+                                  width={80}
+                                  height={80}
+                                  alt={resource.title}
+                                />
+                              ) : (
+                                <div className="w-20 h-20 bg-grey-light" />
+                              )}
                             </motion.div>
                           </a>
                         </Link>
@@ -322,28 +326,24 @@ function Page({ data }) {
                     {data.itemCategory.items.map((item, key) => (
                       <>
                         {item.id !== data.id && (
-                          <Link key={key} href={`/items/${item.slug}`}>
-                            <a>
-                              <CarouselCard
-                                key={key}
-                                className="w-36 lg:w-64 overflow-hidden relative">
-                                <Card
-                                  key={key}
-                                  className="w-full"
-                                  uniqueKey={`card-${key}`}
-                                  content={{
-                                    backgroundImage:
-                                      item.images.length > 0
-                                        ? item.images[0].url
-                                        : '',
-                                    headerText: item.title,
-                                    contentType: 'items',
-                                    slug: item.slug,
-                                  }}
-                                />
-                              </CarouselCard>
-                            </a>
-                          </Link>
+                          <CarouselCard
+                            key={key}
+                            className="w-36 lg:w-64 overflow-hidden relative">
+                            <Card
+                              key={key}
+                              className="w-full"
+                              uniqueKey={`card-${key}`}
+                              content={{
+                                backgroundImage:
+                                  item.images.length > 0
+                                    ? item.images[0].url
+                                    : '',
+                                headerText: item.title,
+                                contentType: 'items',
+                                slug: item.slug,
+                              }}
+                            />
+                          </CarouselCard>
                         )}
                       </>
                     ))}
@@ -406,7 +406,7 @@ export async function getStaticProps({ params }) {
       'images',
       'articles',
       'recommendations.resources',
-      'recommendations.resources.coverImage',
+      'recommendations.resources.images',
       'itemCategory',
       'itemCategory.items',
       'itemCategory.items.images',
