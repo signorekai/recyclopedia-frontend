@@ -28,7 +28,9 @@ const Cards = () => {
                   uniqueKey={`card-${key}`}
                   content={{
                     backgroundImage:
-                      item.images.length > 0 ? item.images[0].url : '',
+                      !!item.images && item.images.length > 0
+                        ? item.images[0].url
+                        : '',
                     headerText: item.title,
                     contentType: 'resources',
                     slug: item.slug,
