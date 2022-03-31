@@ -11,6 +11,7 @@ import Layout from '../../components/Layout';
 import { useWindowDimensions } from '../../lib/hooks';
 import { Carousel, CarouselCard } from '../../components/Carousel';
 import Card from '../../components/Card';
+import NewImage from '../../components/Image';
 
 const RecommendationCard = ({ children, recommendation }) => (
   <motion.div
@@ -162,15 +163,12 @@ function Page({ data }) {
                   <Slider>
                     {data.images.map((image, key) => (
                       <Slide key={key} index={key}>
-                        <Image
-                          src={image.url}
+                        <NewImage
+                          alternativeText={image.alternativeText}
+                          url={image.url}
+                          formats={image.formatS}
                           width={image.width}
                           height={image.height}
-                          objectFit="cover"
-                          objectPosition="center"
-                          layout="fill"
-                          priority={key === 0}
-                          alt=""
                         />
                       </Slide>
                     ))}
