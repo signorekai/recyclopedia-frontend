@@ -18,6 +18,7 @@
     "react-content-loader": "^6.2.0",
     "react-dom": "17.0.2",
     "react-use-scroll-direction": "^0.1.0",
+    "swr": "^1.2.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
