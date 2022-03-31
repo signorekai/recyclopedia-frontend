@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useScrollDirection } from 'react-use-scroll-direction';
 import Head from 'next/head';
 import { useViewportScroll, useMotionValue } from 'framer-motion';
+import qs from 'qs';
 
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
@@ -9,92 +10,16 @@ import Card from '../components/Card';
 import { useWindowDimensions } from '../lib/hooks';
 import InfiniteLoader from '../components/InfiniteLoader';
 
-const db = [
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/acrylic.jpg',
-    headerText: 'Acrylic',
-    slug: 'acrylic',
-  },
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/aluminum_can.jpg',
-    headerText: 'Aluminium Cans & Tabs',
-    slug: 'aluminium-cans-tabs',
-  },
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/corrugated_cardboard.jpg',
-    headerText: 'Corrugated Cardboard',
-    slug: 'corrugated-cardboard',
-  },
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/dirty_food_container.jpg',
-    headerText: 'Dirty Food Containers',
-    slug: 'dirty-food-containers',
-  },
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/acrylic.jpg',
-    headerText: 'Acrylic',
-    slug: 'acrylic',
-  },
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/aluminum_can.jpg',
-    headerText: 'Aluminium Cans & Tabs',
-    slug: 'aluminium-cans-tabs',
-  },
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/corrugated_cardboard.jpg',
-    headerText: 'Corrugated Cardboard',
-    slug: 'corrugated-cardboard',
-  },
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/dirty_food_container.jpg',
-    headerText: 'Dirty Food Containers',
-    slug: 'dirty-food-containers',
-  },
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/acrylic.jpg',
-    headerText: 'Acrylic',
-    slug: 'acrylic',
-  },
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/aluminum_can.jpg',
-    headerText: 'Aluminium Cans & Tabs',
-    slug: 'aluminium-cans-tabs',
-  },
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/corrugated_cardboard.jpg',
-    headerText: 'Corrugated Cardboard',
-    slug: 'corrugated-cardboard',
-  },
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/dirty_food_container.jpg',
-    headerText: 'Dirty Food Containers',
-    slug: 'dirty-food-containers',
-  },
-];
+const itemsPerPage = 4;
 
-export default function Page() {
+export default function Page({ items: loadedItems }) {
   const x = useMotionValue(0);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(loadedItems);
+  const [currentPage, setCurrentPage] = useState(2);
   const { scrollDirection } = useScrollDirection();
   const [itemsFinishedLoading, setItemsFinishedLoading] = useState(false);
   const { scrollY } = useViewportScroll();
   const { width } = useWindowDimensions();
-
-  useEffect(() => {
-    setItems([...db]);
-  }, []);
 
   useEffect(() => {
     if (scrollDirection === 'UP' && width < 1080) {
@@ -108,16 +33,24 @@ export default function Page() {
 
   // todo dummy loading
   const handleLoad = () => {
-    if (items.length < 30) {
-      const timeout = setTimeout(() => {
-        setItems([...items, ...db]);
-      }, 1000);
-      return () => {
-        clearTimeout(timeout);
-      };
-    } else {
-      setItemsFinishedLoading(true);
-    }
+    const load = async () => {
+      const query = qs.stringify({
+        page: currentPage,
+        pageSize: itemsPerPage,
+      });
+
+      const res = await fetch(`/api/items?${query}`);
+      const result = await res.json();
+
+      if (result.meta.pagination.pageCount > currentPage) {
+        setCurrentPage(currentPage + 1);
+      } else {
+        setItemsFinishedLoading(true);
+      }
+
+      setItems([...items, ...result.data]);
+    };
+    load();
   };
 
   return (
@@ -153,7 +86,13 @@ export default function Page() {
               key={key}
               className="w-full"
               uniqueKey={`card-${key}`}
-              content={item}
+              content={{
+                backgroundImage:
+                  item.images.length > 0 ? item.images[0].url : '',
+                headerText: item.title,
+                contentType: 'items',
+                slug: item.slug,
+              }}
             />
           ))}
         </div>
@@ -161,4 +100,24 @@ export default function Page() {
       {!itemsFinishedLoading && <InfiniteLoader handleEnter={handleLoad} />}
     </Layout>
   );
+}
+
+export async function getServerSideProps() {
+  const ip = process.env.API_URL;
+  const query = qs.stringify({
+    populate: ['images'],
+    pagination: {
+      page: 1,
+      pageSize: itemsPerPage,
+    },
+  });
+
+  const res = await fetch(`${ip}/api/items?${query}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.API_KEY}`,
+    },
+  });
+  const items = await res.json();
+
+  return { props: { items: items.data } };
 }

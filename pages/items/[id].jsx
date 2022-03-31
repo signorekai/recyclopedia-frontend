@@ -5,10 +5,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import { DateTime } from 'luxon';
+import qs from 'qs';
 
 import Layout from '../../components/Layout';
 import { useWindowDimensions } from '../../lib/hooks';
 import { Carousel, CarouselCard } from '../../components/Carousel';
+import Card from '../../components/Card';
 
 const RecommendationCard = ({ children, recommendation }) => (
   <motion.div
@@ -56,10 +58,12 @@ function Page({ data }) {
 
   const modifier = 0.5;
 
-  data.alternateSearchTerms = data.alternateSearchTerms
-    .split(', ')
-    .map((term) => term.charAt(0).toUpperCase() + term.slice(1))
-    .join(', ');
+  if (data.alternateSearchTerms) {
+    data.alternateSearchTerms = data.alternateSearchTerms
+      .split(', ')
+      .map((term) => term.charAt(0).toUpperCase() + term.slice(1))
+      .join(', ');
+  }
 
   const handleShare = () => {
     if (typeof window !== 'undefined') {
@@ -157,28 +161,30 @@ function Page({ data }) {
               </button>
             </div>
           </div>
-          <CarouselProvider
-            naturalSlideWidth={width}
-            naturalSlideHeight={width * 0.8}
-            totalSlides={data.images.length}>
-            <Slider>
-              {data.images.map((image, key) => (
-                <Slide key={key} index={key}>
-                  <Image
-                    src={image.url}
-                    width={image.width}
-                    height={image.height}
-                    objectFit="cover"
-                    objectPosition="center"
-                    layout="fill"
-                    priority={key === 0}
-                    alt=""
-                  />
-                </Slide>
-              ))}
-            </Slider>
-            <DotGroup className="z-30" />
-          </CarouselProvider>
+          {data.images && (
+            <CarouselProvider
+              naturalSlideWidth={width}
+              naturalSlideHeight={width * 0.8}
+              totalSlides={data.images.length}>
+              <Slider>
+                {data.images.map((image, key) => (
+                  <Slide key={key} index={key}>
+                    <Image
+                      src={image.url}
+                      width={image.width}
+                      height={image.height}
+                      objectFit="cover"
+                      objectPosition="center"
+                      layout="fill"
+                      priority={key === 0}
+                      alt=""
+                    />
+                  </Slide>
+                ))}
+              </Slider>
+              <DotGroup className="z-30" />
+            </CarouselProvider>
+          )}
         </>
       )}
       <div className="container">
@@ -246,7 +252,7 @@ function Page({ data }) {
                   showNav={false}
                   className="ml-[calc(25%+1rem)] gap-x-2 mt-6 mb-8">
                   {item.resources.map((resource, key) => (
-                    <Link key={key} href={`/resource/${resource.slug}`}>
+                    <Link key={key} href={`/resources/${resource.slug}`}>
                       <a>
                         <CarouselCard
                           key={key}
@@ -270,7 +276,7 @@ function Page({ data }) {
               ) : (
                 <section className="grid gap-y-2 my-4 divider-b after:mt-6">
                   {item.resources.map((resource, key) => (
-                    <Link key={key} href={`/resource/${resource.slug}`}>
+                    <Link key={key} href={`/resources/${resource.slug}`}>
                       <a>
                         <motion.div
                           initial={{
@@ -326,21 +332,20 @@ function Page({ data }) {
                           <CarouselCard
                             key={key}
                             className="w-36 lg:w-64 overflow-hidden relative">
-                            <div className="w-full h-36 lg:h-64 rounded-md bg-grey-light overflow-hidden">
-                              {item.images && (
-                                <Image
-                                  src={item.images[0].url}
-                                  width={width > 1080 ? 256 : 144}
-                                  height={width > 1080 ? 256 : 144}
-                                  objectFit="cover"
-                                  objectPosition="center"
-                                  alt={item.title}
-                                />
-                              )}
-                            </div>
-                            <h4 className="py-2 text-blue lg:text-lg leading-none">
-                              {item.title}
-                            </h4>
+                            <Card
+                              key={key}
+                              className="w-full"
+                              uniqueKey={`card-${key}`}
+                              content={{
+                                backgroundImage:
+                                  item.images.length > 0
+                                    ? item.images[0].url
+                                    : '',
+                                headerText: item.title,
+                                contentType: 'items',
+                                slug: item.slug,
+                              }}
+                            />
                           </CarouselCard>
                         </a>
                       </Link>
@@ -350,15 +355,13 @@ function Page({ data }) {
               </Carousel>
             </section>
             <div className="divider-b mt-4 mb-2"></div>
-            <span className="text-grey-dark text-sm">
-              Last Updated:{' '}
-              {DateTime.fromISO(data.updatedAt).toLocaleString(
-                DateTime.DATE_MED,
-              )}
-            </span>
-            <div className="divider-b mt-2"></div>
           </>
         )}
+        <span className="text-grey-dark text-sm mt-2 block">
+          Last Updated:{' '}
+          {DateTime.fromISO(data.updatedAt).toLocaleString(DateTime.DATE_MED)}
+        </span>
+        <div className="divider-b mt-2"></div>
       </div>
     </Layout>
   );
@@ -366,6 +369,33 @@ function Page({ data }) {
 
 export async function getServerSideProps({ query }) {
   const { id } = query;
+  const ip = process.env.API_URL;
+  const queryParams = qs.stringify({
+    populate: [
+      'recommendations',
+      'images',
+      'articles',
+      'recommendations.resources',
+      'recommendations.resources.coverImage',
+      'itemCategory',
+      'itemCategory.items',
+      'itemCategory.items.images',
+    ],
+    filters: {
+      slug: {
+        $eq: id,
+      },
+    },
+  });
+
+  const res = await fetch(`${ip}/api/items?${queryParams}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.API_KEY}`,
+    },
+  });
+  const { data } = await res.json();
+
+  return { props: { data: data[0] } };
 
   // mock data
   return {

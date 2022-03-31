@@ -19,8 +19,9 @@ const variants = {
 const LinkWrapper = ({ children, content }) => {
   return (
     <>
-      {content.hasOwnProperty('slug') ? (
-        <Link href={`/items/${content.slug}`} passHref>
+      {content.hasOwnProperty('slug') &&
+      content.hasOwnProperty('contentType') ? (
+        <Link href={`/${content.contentType}/${content.slug}`} passHref>
           <a className="hover:scale-105 origin-center duration-200 transition-all hover:opacity-100">
             {children}
           </a>

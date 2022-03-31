@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import qs from 'qs';
 
 import { useWindowDimensions } from '../lib/hooks';
 import { Carousel, CarouselCard } from '../components/Carousel';
@@ -10,55 +11,9 @@ import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
 
-const dummySuggestions = [
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/acrylic.jpg',
-    headerText: 'Acrylic',
-    slug: 'acrylic',
-  },
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/aluminum_can.jpg',
-    headerText: 'Aluminium Cans & Tabs',
-    slug: 'aluminium-cans-tabs',
-  },
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/corrugated_cardboard.jpg',
-    headerText: 'Corrugated Cardboard',
-    slug: 'corrugated-cardboard',
-  },
-  {
-    backgroundImage:
-      'https://savanant.com/recyclopedia/wp-content/uploads/dirty_food_container.jpg',
-    headerText: 'Dirty Food Containers',
-    slug: 'dirty-food-containers',
-  },
-];
-
-export default function Home() {
-  const [suggestedItems, setSuggestedItems] = useState([
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-  ]);
+export default function Home({ items }) {
   const [newsItems, setNewsItems] = useState([{}, {}, {}, {}, {}, {}, {}]);
   const { height, width } = useWindowDimensions();
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setSuggestedItems(dummySuggestions);
-    }, 2000);
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []);
 
   return (
     <Layout showHeaderInitially={false} showHeaderOn="DOWN">
@@ -83,12 +38,18 @@ export default function Home() {
       />
       <div className="container container--narrow relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-2 lg:gap-y-4 mt-6 lg:mt-12 home-items-grid">
-          {suggestedItems.map((item, key) => (
+          {items.map((item, key) => (
             <Card
               key={key}
               className="w-full"
               uniqueKey={`card-${key}`}
-              content={item}
+              content={{
+                backgroundImage:
+                  item.images.length > 0 ? item.images[0].url : '',
+                headerText: item.title,
+                slug: item.slug,
+                contentType: 'items',
+              }}
             />
           ))}
         </div>
@@ -184,4 +145,24 @@ export default function Home() {
       </div>
     </Layout>
   );
+}
+
+export async function getServerSideProps() {
+  const ip = process.env.API_URL;
+  const query = qs.stringify({
+    populate: ['images'],
+    pagination: {
+      page: 1,
+      pageSize: 8,
+    },
+  });
+
+  const res = await fetch(`${ip}/api/items?${query}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.API_KEY}`,
+    },
+  });
+  const items = await res.json();
+
+  return { props: { items: items.data } };
 }
