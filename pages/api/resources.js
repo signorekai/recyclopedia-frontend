@@ -13,8 +13,10 @@ export default function handler(req, res) {
 
     if (!!req.query.tag) {
       query.filters = {
-        title: {
-          $eq: req.query.tag,
+        resourceTags: {
+          title: {
+            $eq: req.query.tag,
+          },
         },
       };
     }
