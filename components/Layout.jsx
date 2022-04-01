@@ -137,7 +137,7 @@ export default function Layout({
             }`}>
             <div className="flex-1 flex flex-row items-center">
               <div className="hidden lg:inline-block lg:flex-1">
-                <Image src="/img/logo-mini.svg" width={42} height={19} alt="" />
+                <img src="/img/logo-mini.svg" width={42} height={19} alt="" />
               </div>
               <div className="search-bar-wrapper border-grey-dark text-white">
                 <input

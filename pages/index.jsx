@@ -25,7 +25,7 @@ export default function Home({ items }) {
       <div className="bg-gradient-to-b from-coral to-purple h-72 lg:h-96 absolute top-0 w-full left-0 z-0"></div>
       <Link href="/">
         <a className="block text-center mt-16 lg:mt-28">
-          <Image src="/img/logo.svg" alt="" width={172} height={28} />
+          <img src="/img/logo.svg" alt="" width={172} height={28} />
         </a>
       </Link>
       <h3 className="text-center mb-4 leading-none text-white z-10 relative">

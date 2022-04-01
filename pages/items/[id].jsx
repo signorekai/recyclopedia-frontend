@@ -245,25 +245,24 @@ function Page({ data }) {
                       showNav={false}
                       className="ml-[calc(25%+1rem)] gap-x-2 mt-6 mb-8">
                       {item.resources.map((resource, key) => (
-                        <Link key={key} href={`/resources/${resource.slug}`}>
-                          <a>
-                            <CarouselCard
-                              key={key}
-                              className="w-64 border-1 rounded-md border-grey-light overflow-hidden relative">
-                              <Image
+                        <CarouselCard
+                          key={key}
+                          className="w-64 border-1 rounded-md border-grey-light overflow-hidden relative">
+                          <Link key={key} href={`/resources/${resource.slug}`}>
+                            <a>
+                              <NewImage
                                 src={resource.images[0].url}
+                                format={resource.images[0].format}
                                 width={256}
                                 height={158}
-                                objectFit="cover"
-                                objectPosition="center"
                                 alt={resource.title}
                               />
                               <h4 className="py-2 px-3 text-blue text-lg">
                                 {resource.title}
                               </h4>
-                            </CarouselCard>
-                          </a>
-                        </Link>
+                            </a>
+                          </Link>
+                        </CarouselCard>
                       ))}
                     </Carousel>
                   ) : (
@@ -283,8 +282,9 @@ function Page({ data }) {
                                 {resource.title}
                               </h4>
                               {resource.images && resource.images.length > 0 ? (
-                                <Image
+                                <NewImage
                                   src={resource.images[0].url}
+                                  format={resource.images[0].format}
                                   width={80}
                                   height={80}
                                   alt={resource.title}
@@ -330,7 +330,6 @@ function Page({ data }) {
                             key={key}
                             className="w-36 lg:w-64 overflow-hidden relative">
                             <Card
-                              key={key}
                               className="w-full"
                               uniqueKey={`card-${key}`}
                               content={{
