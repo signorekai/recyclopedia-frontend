@@ -12,8 +12,12 @@ import {
 } from '../lib/hooks';
 import InfiniteLoader from '../components/InfiniteLoader';
 
+const CONTENT_TYPE = 'resources';
+
 const Cards = () => {
-  const { data, loadNext, isFinished } = useFetchContent('resources');
+  const { data, loadNext, isFinished } = useFetchContent('resources', {
+    populate: ['images'],
+  });
 
   return (
     <div className="container">
@@ -29,7 +33,9 @@ const Cards = () => {
                   content={{
                     backgroundImage:
                       !!item.images && item.images.length > 0
-                        ? item.images[0].url
+                        ? item.images[0].formats.small
+                          ? item.images[0].formats.small.url
+                          : item.images[0].url
                         : '',
                     headerText: item.title,
                     contentType: 'resources',
@@ -45,7 +51,7 @@ const Cards = () => {
   );
 };
 
-export default function Page({ fallbackData }) {
+export default function Page({ fallback }) {
   const x = useSearchBarTopValue();
 
   return (
@@ -68,13 +74,14 @@ export default function Page({ fallbackData }) {
       </section>
       <SearchBar
         top={x}
+        placeholderText="Search Resources"
         className="py-2 sticky lg:relative transition-all duration-200"
         wrapperClassName="max-w-[800px]"
         inactiveBackgroundColor="#224DBF"
         activeBackgroundColor="#224DBF"
       />
       <div className="bg-blue-light pb-2 lg:pb-10"></div>
-      <SWRConfig value={{ fallbackData }}>
+      <SWRConfig value={{ fallback }}>
         <Cards />
       </SWRConfig>
     </Layout>
@@ -91,14 +98,22 @@ export async function getStaticProps() {
     },
   });
 
-  const res = await fetch(`${ip}/api/resources?${query}`, {
+  const res = await fetch(`${ip}/api/${CONTENT_TYPE}?${query}`, {
     headers: {
       Authorization: `Bearer ${process.env.API_KEY}`,
     },
   });
   const items = await res.json();
 
-  return { props: { fallbackData: [items.data] } };
+  const cacheQuery = qs.stringify({
+    populate: ['images'],
+    page: 0,
+    pageSize: ITEMS_PER_PAGE,
+  });
+
+  const fallback = {};
+  fallback[`/api/${CONTENT_TYPE}?${cacheQuery}`] = [items.data];
+  return { props: { fallback } };
 
   // return { props: { items: items.data } };
 }
