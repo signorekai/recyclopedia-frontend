@@ -12,8 +12,6 @@ import {
 } from '../lib/hooks';
 import InfiniteLoader from '../components/InfiniteLoader';
 
-const CONTENT_TYPE = 'resources';
-
 const Cards = () => {
   const { data, loadNext, isFinished } = useFetchContent('resources', {
     populate: ['images'],
@@ -98,7 +96,7 @@ export async function getStaticProps() {
     },
   });
 
-  const res = await fetch(`${ip}/api/${CONTENT_TYPE}?${query}`, {
+  const res = await fetch(`${ip}/api/resources?${query}`, {
     headers: {
       Authorization: `Bearer ${process.env.API_KEY}`,
     },
@@ -112,7 +110,7 @@ export async function getStaticProps() {
   });
 
   const fallback = {};
-  fallback[`/api/${CONTENT_TYPE}?${cacheQuery}`] = [items.data];
+  fallback[`/api/resources?${cacheQuery}`] = [items.data];
   return { props: { fallback } };
 
   // return { props: { items: items.data } };
