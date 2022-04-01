@@ -36,7 +36,6 @@ export const AccordionHeader = ({ className = '' }) => {
     <div className={`border-grey border-b-1 ${className}`}>
       <Carousel
         autoScroll={false}
-        className="mt-5"
         autoSlideSize={true}
         scrollTo={scroll}
         sliderClassName="gap-x-8 relative">
@@ -44,6 +43,7 @@ export const AccordionHeader = ({ className = '' }) => {
           return (
             <CarouselCard key={key}>
               <button
+                className="pt-5"
                 onClick={() => {
                   setSelected(header);
                 }}>
