@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import qs from 'qs';
-import { SWRConfig } from 'swr';
+import useSWR, { SWRConfig } from 'swr';
 
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
@@ -9,42 +9,126 @@ import {
   useFetchContent,
   useSearchBarTopValue,
   ITEMS_PER_PAGE,
+  SWRFetcher,
 } from '../lib/hooks';
 import InfiniteLoader from '../components/InfiniteLoader';
+import {
+  AccordionBody,
+  AccordionHeader,
+  AccordionProvider,
+} from '../components/Accordion';
+
+const resourceTagQuery = qs.stringify({
+  sort: 'title',
+  pagination: {
+    page: 1,
+    pageSize: 100000,
+  },
+});
+
+const resourceCacheQuery = {
+  populate: ['images'],
+  page: 0,
+  pageSize: ITEMS_PER_PAGE,
+};
+
+const ResourceTab = ({ tag }) => {
+  const {
+    data: resources,
+    loadNext,
+    isFinished,
+    error,
+  } = useFetchContent('resources', {
+    tag,
+  });
+
+  return (
+    <>
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-4 lg:gap-x-7 lg:gap-y-6 mt-6">
+        {resources.map((items) => (
+          <>
+            {items.map((item, key) => (
+              <Card
+                key={key}
+                className="w-full"
+                uniqueKey={`card-${key}`}
+                content={{
+                  backgroundImage:
+                    !!item.images && item.images.length > 0
+                      ? item.images[0].formats.small
+                        ? item.images[0].formats.small.url
+                        : item.images[0].url
+                      : '',
+                  headerText: item.title,
+                  contentType: 'resources',
+                  slug: item.slug,
+                }}
+              />
+            ))}
+          </>
+        ))}
+      </div>
+      {!isFinished && <InfiniteLoader handleEnter={loadNext} />}
+    </>
+  );
+};
 
 const Cards = () => {
-  const { data, loadNext, isFinished } = useFetchContent('resources', {
+  const {
+    data: resources,
+    loadNext,
+    isFinished,
+  } = useFetchContent('resources', {
     populate: ['images'],
+  });
+
+  const { data: resourceTags } = useSWR(`/api/resource-tags`, SWRFetcher);
+
+  const items = {};
+
+  items['All'] = (
+    <>
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-4 lg:gap-x-7 lg:gap-y-6 mt-6">
+        {resources.map((items) => (
+          <>
+            {items.map((item, key) => (
+              <Card
+                key={key}
+                className="w-full"
+                uniqueKey={`card-${key}`}
+                content={{
+                  backgroundImage:
+                    !!item.images && item.images.length > 0
+                      ? item.images[0].formats.small
+                        ? item.images[0].formats.small.url
+                        : item.images[0].url
+                      : '',
+                  headerText: item.title,
+                  contentType: 'resources',
+                  slug: item.slug,
+                }}
+              />
+            ))}
+          </>
+        ))}
+      </div>
+      {!isFinished && <InfiniteLoader handleEnter={loadNext} />}
+    </>
+  );
+
+  resourceTags.map(({ title }, key) => {
+    items[title] = <ResourceTab tag={title} />;
   });
 
   return (
     <div className="container">
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-4 lg:gap-x-7 lg:gap-y-6 mt-6">
-        {data &&
-          data.map((items) => (
-            <>
-              {items.map((item, key) => (
-                <Card
-                  key={key}
-                  className="w-full"
-                  uniqueKey={`card-${key}`}
-                  content={{
-                    backgroundImage:
-                      !!item.images && item.images.length > 0
-                        ? item.images[0].formats.small
-                          ? item.images[0].formats.small.url
-                          : item.images[0].url
-                        : '',
-                    headerText: item.title,
-                    contentType: 'resources',
-                    slug: item.slug,
-                  }}
-                />
-              ))}
-            </>
-          ))}
-      </div>
-      {!isFinished && <InfiniteLoader handleEnter={loadNext} />}
+      {resourceTags && (
+        <AccordionProvider
+          headers={['All', ...resourceTags.map(({ title }) => title)]}>
+          <AccordionHeader />
+          <AccordionBody {...items} />
+        </AccordionProvider>
+      )}
     </div>
   );
 };
@@ -73,7 +157,7 @@ export default function Page({ fallback }) {
       <SearchBar
         top={x}
         placeholderText="Search Resources"
-        className="py-2 sticky lg:relative transition-all duration-200"
+        className="py-2 sticky lg:relative transition-all duration-200 z-20"
         wrapperClassName="max-w-[800px]"
         inactiveBackgroundColor="#224DBF"
         activeBackgroundColor="#224DBF"
@@ -88,30 +172,69 @@ export default function Page({ fallback }) {
 
 export async function getStaticProps() {
   const ip = process.env.API_URL;
-  const query = qs.stringify({
+  const resourceQuery = {
     populate: ['images'],
+    fields: ['title'],
     pagination: {
-      page: 0,
+      page: 1,
       pageSize: ITEMS_PER_PAGE,
     },
-  });
+  };
 
-  const res = await fetch(`${ip}/api/resources?${query}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.API_KEY}`,
+  const resourceResponse = await fetch(
+    `${ip}/api/resources?${qs.stringify(resourceQuery)}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.API_KEY}`,
+      },
     },
-  });
-  const items = await res.json();
+  );
+  const resources = await resourceResponse.json();
 
-  const cacheQuery = qs.stringify({
-    populate: ['images'],
-    page: 0,
-    pageSize: ITEMS_PER_PAGE,
-  });
+  ////////////////////////////////////////////////////////////////////
+
+  const resourceTagResponse = await fetch(
+    `${ip}/api/resource-tags?${resourceTagQuery}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.API_KEY}`,
+      },
+    },
+  );
+  const resourceTags = await resourceTagResponse.json();
+
+  ////////////////////////////////////////////////////////////////////
 
   const fallback = {};
-  fallback[`/api/resources?${cacheQuery}`] = [items.data];
-  return { props: { fallback } };
+  fallback[`/api/resources?${qs.stringify(resourceCacheQuery)}`] = [
+    resources.data,
+  ];
+  fallback[`/api/resource-tags`] = resourceTags.data;
 
-  // return { props: { items: items.data } };
+  const promises = resourceTags.data.map(async ({ title }) => {
+    const query = qs.stringify({
+      ...resourceQuery,
+      filters: { resourceTags: { title: { $eq: title } } },
+    });
+
+    const response = await fetch(`${ip}/api/resources?${query}`, {
+      headers: {
+        Authorization: `Bearer ${process.env.API_KEY}`,
+      },
+    });
+    const result = await response.json();
+
+    const cacheQuery = qs.stringify({
+      ...resourceCacheQuery,
+      tag: title,
+    });
+
+    fallback[`/api/resources?${cacheQuery}`] = [result.data];
+    return true;
+  });
+
+  await Promise.all(promises);
+  console.log(Object.keys(fallback));
+
+  return { props: { fallback } };
 }
