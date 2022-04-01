@@ -54,10 +54,31 @@
 
   .basic-carousel {
     @apply max-w-full h-full;
-    @apply overflow-x-scroll overflow-y-auto snap-x snap-mandatory;
+    @apply overflow-x-scroll overflow-y-auto;
     @apply hover:cursor-grab active:cursor-grabbing;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+
+    /* 
+      hack necessary for hiding ios safari
+      https://stackoverflow.com/a/61799019 
+    */
+    @apply pb-7 -mb-7;
+    clip-path: inset(0 0 28px 0);
+  }
+
+  .basic-carousel::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 0;
+    height: 0;
+    @apply bg-transparent;
+  }
+
+  .basic-carousel::-webkit-scrollbar-thumb {
+    -webkit-appearance: none;
+    width: 0;
+    height: 0;
+    @apply bg-transparent;
   }
 
   .basic-carousel__slider {
