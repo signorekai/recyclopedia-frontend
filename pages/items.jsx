@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Head from 'next/head';
 import qs from 'qs';
 import { SWRConfig } from 'swr';
@@ -13,7 +14,9 @@ import {
 import InfiniteLoader from '../components/InfiniteLoader';
 
 const Cards = () => {
-  const { data, loadNext, isFinished } = useFetchContent('items');
+  const { data, loadNext, isFinished, error } = useFetchContent('items', {
+    populate: ['images'],
+  });
 
   return (
     <div className="container">
@@ -43,7 +46,7 @@ const Cards = () => {
   );
 };
 
-export default function Page({ fallbackData }) {
+export default function Page({ fallback }) {
   const x = useSearchBarTopValue();
 
   return (
@@ -72,7 +75,7 @@ export default function Page({ fallbackData }) {
         activeBackgroundColor="#28C9AA"
       />
       <div className="bg-teal pb-2 lg:pb-10"></div>
-      <SWRConfig value={{ fallbackData }}>
+      <SWRConfig value={{ fallback }}>
         <Cards />
       </SWRConfig>
     </Layout>
@@ -96,7 +99,15 @@ export async function getStaticProps() {
   });
   const items = await res.json();
 
-  return { props: { fallbackData: [items.data] } };
+  const cacheQuery = qs.stringify({
+    populate: ['images'],
+    page: 0,
+    pageSize: ITEMS_PER_PAGE,
+  });
+
+  const fallback = {};
+  fallback[`/api/items?${cacheQuery}`] = [items.data];
+  return { props: { fallback } };
 
   // return { props: { items: items.data } };
 }
