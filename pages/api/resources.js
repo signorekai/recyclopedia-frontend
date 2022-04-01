@@ -3,13 +3,13 @@ import qs from 'qs';
 export default function handler(req, res) {
   async function load() {
     const ip = process.env.API_URL;
-    const query = qs.stringify({
+    const query = {
       populate: ['images'],
       pagination: {
         page: parseInt(req.query.page) + 1,
         pageSize: req.query.pageSize,
       },
-    });
+    };
 
     if (!!req.query.tag) {
       query.filters = {
@@ -19,7 +19,7 @@ export default function handler(req, res) {
       };
     }
 
-    const result = await fetch(`${ip}/api/resources?${query}`, {
+    const result = await fetch(`${ip}/api/resources?${qs.stringify(query)}`, {
       headers: {
         Authorization: `Bearer ${process.env.API_KEY}`,
       },
