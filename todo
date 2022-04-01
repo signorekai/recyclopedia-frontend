@@ -3,6 +3,7 @@ todos:
   ✔ use strapi's responsive images instead of next's @done(22-04-02 00:01)
   [] add page transitions
   [] use getStaticProps instead of getServerSideProps for /index.jsx
+  [] if user clicks on link that goes to current page, close menu
   
 bugs:
   [] icons at footer not showing up
