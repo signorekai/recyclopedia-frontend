@@ -1,10 +1,10 @@
-import { useMotionValue } from 'framer-motion';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, Children, cloneElement } from 'react';
 import { useScrollDrag, useWindowDimensions } from '../lib/hooks';
+import { motion, useMotionValue } from 'framer-motion';
 
-export const CarouselCard = ({ children, className = '' }) => {
+export const CarouselCard = ({ children, className = '', style = {} }) => {
   return (
-    <article className={`basic-carousel__card ${className}`}>
+    <article style={style} className={`basic-carousel__card ${className}`}>
       {children}
     </article>
   );
@@ -18,47 +18,49 @@ export const Carousel = ({
   snapToChild = true,
   sliderClassName = '',
   autoSlideSize = false,
-  mobileSlideSize = 75,
-  desktopSlideSize = 25,
-  slideSizeUnit = 'vw',
   autoScroll = true,
   scrollTo = 0,
+  disableScroll = false,
+  sliderStyle = {},
 }) => {
+  const transformX = useMotionValue(scrollTo);
   const carouselRef = useRef(null);
   const slidesContainer = useRef(null);
-  const { width } = useWindowDimensions();
-  const events = useScrollDrag(carouselRef, autoScroll);
-
-  // const scrollLeft = useMotionValue(scrollTo);
-  const style = {};
+  const { onMouseDown, onMouseMove } = useScrollDrag(carouselRef, autoScroll);
 
   if (!autoSlideSize) {
-    style['width'] = `${
-      children.length * (width > 1080 ? desktopSlideSize : mobileSlideSize)
-    }${slideSizeUnit}`;
+    sliderStyle['width'] = `${children.length * 100}%`;
   }
 
   useEffect(() => {
-    console.log(scrollTo);
-    carouselRef.current.scrollTo({
-      left: scrollTo,
-      behavior: 'smooth',
-    });
-  }, [scrollTo, slidesContainer]);
+    if (disableScroll) {
+      transformX.set(scrollTo * -1);
+    } else {
+      carouselRef.current.scrollTo({
+        left: scrollTo,
+        behavior: 'smooth',
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [disableScroll, scrollTo, carouselRef]);
 
   return (
     <div
       ref={carouselRef}
-      {...events}
+      onMouseDown={disableScroll ? () => {} : onMouseDown}
+      onMouseMove={disableScroll ? () => {} : onMouseMove}
       className={`basic-carousel ${
         snapToChild && 'snap-x snap-mandatory'
-      } ${className}`}>
-      <div
+      } ${className} ${disableScroll && 'overflow-hidden'}`}>
+      <motion.div
+        style={{
+          ...sliderStyle,
+          x: disableScroll ? transformX : 0,
+        }}
         ref={slidesContainer}
-        className={`basic-carousel__slider ${sliderClassName}`}
-        style={style}>
+        className={`basic-carousel__slider transition-transform duraiton-200 ${sliderClassName}`}>
         {children}
-      </div>
+      </motion.div>
     </div>
   );
 };
