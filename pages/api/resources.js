@@ -12,7 +12,11 @@ export default function handler(req, res) {
     });
 
     if (!!req.query.tag) {
-      query.filters.title.$eq = re.query.tag;
+      query.filters = {
+        title: {
+          $eq: req.query.tag,
+        },
+      };
     }
 
     const result = await fetch(`${ip}/api/resources?${query}`, {
