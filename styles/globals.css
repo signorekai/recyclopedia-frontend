@@ -119,7 +119,11 @@ h6.tag {
 }
 
 a {
-  @apply hover:opacity-80 transition-all duration-200;
+  @apply hover:opacity-80;
+}
+
+a:not(.motion-controlled) {
+  @apply transition-all duration-200;
 }
 
 p + p {

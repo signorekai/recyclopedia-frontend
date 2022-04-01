@@ -260,7 +260,6 @@ export default function Layout({
                   type: 'spring',
                   bounce: 0,
                   duration: 0.3,
-                  delayChildren: 0.2,
                   staggerChildren: 0.05,
                 }}
                 variants={{
@@ -270,19 +269,39 @@ export default function Layout({
                 }}
                 className="w-7/12 min-w-[220px] max-w-xs bg-white p-8 flex flex-col text-xl gap-y-6">
                 <Link href="/items" passHref>
-                  <motion.a variants={menuLinkVariant}>Items</motion.a>
+                  <motion.a
+                    className="motion-controlled"
+                    variants={menuLinkVariant}>
+                    Items
+                  </motion.a>
                 </Link>
                 <Link href="/resources" passHref>
-                  <motion.a variants={menuLinkVariant}>Recycle</motion.a>
+                  <motion.a
+                    className="motion-controlled"
+                    variants={menuLinkVariant}>
+                    Recycle
+                  </motion.a>
                 </Link>
                 <Link href="/donate" passHref>
-                  <motion.a variants={menuLinkVariant}>Donate</motion.a>
+                  <motion.a
+                    className="motion-controlled"
+                    variants={menuLinkVariant}>
+                    Donate
+                  </motion.a>
                 </Link>
                 <Link href="/shop" passHref>
-                  <motion.a variants={menuLinkVariant}>Shop</motion.a>
+                  <motion.a
+                    className="motion-controlled"
+                    variants={menuLinkVariant}>
+                    Shop
+                  </motion.a>
                 </Link>
                 <Link href="/news-tips" passHref>
-                  <motion.a variants={menuLinkVariant}>News & Tips</motion.a>
+                  <motion.a
+                    className="motion-controlled"
+                    variants={menuLinkVariant}>
+                    News & Tips
+                  </motion.a>
                 </Link>
                 <motion.div
                   style={{ originX: 1, originY: 0.5 }}
@@ -295,15 +314,23 @@ export default function Layout({
                   className="-mx-6 h-[2px] w-[calc(100%_+_3rem)] bg-grey-light"
                 />
                 <Link href="/faq" passHref>
-                  <motion.a className="" variants={menuLinkVariant}>
+                  <motion.a
+                    className="motion-controlled"
+                    variants={menuLinkVariant}>
                     FAQ
                   </motion.a>
                 </Link>
                 <Link href="/about-us" passHref>
-                  <motion.a variants={menuLinkVariant}>About Us</motion.a>
+                  <motion.a
+                    className="motion-controlled"
+                    variants={menuLinkVariant}>
+                    About Us
+                  </motion.a>
                 </Link>
                 <Link href="/feedback" passHref>
-                  <motion.a className="" variants={menuLinkVariant}>
+                  <motion.a
+                    className="motion-controlled"
+                    variants={menuLinkVariant}>
                     Feedback
                   </motion.a>
                 </Link>
