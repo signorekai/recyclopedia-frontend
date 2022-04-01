@@ -103,26 +103,16 @@ export const AccordionBody = ({ className = '', ...items }) => {
         {Object.keys(items).map((key, i) => {
           // const Item = items[key];
           return (
-            <>
-              {selected === key ? (
-                <CarouselCard
-                  style={{
-                    width: `${100 / Object.keys(items).length}%`,
-                    height: selected === key ? 'auto' : '0',
-                  }}
-                  key={i}>
-                  <div ref={(el) => (itemRefs.current[key] = el)}>
-                    {items[key]}
-                  </div>
-                </CarouselCard>
-              ) : (
-                <div
-                  ref={(el) => (itemRefs.current[key] = el)}
-                  style={{
-                    width: `${100 / Object.keys(items).length}%`,
-                  }}></div>
-              )}
-            </>
+            <CarouselCard
+              style={{
+                overflow: 'hidden',
+                width: `${100 / Object.keys(items).length}%`,
+                opacity: selected === key ? 1 : 0,
+                height: selected === key ? 'auto' : 10,
+              }}
+              key={i}>
+              <div ref={(el) => (itemRefs.current[key] = el)}>{items[key]}</div>
+            </CarouselCard>
           );
         })}
       </Carousel>
