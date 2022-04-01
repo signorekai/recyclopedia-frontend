@@ -1,6 +1,5 @@
 import qs from 'qs';
 
-// todo
 export default function handler(req, res) {
   async function load() {
     const ip = process.env.API_URL;
