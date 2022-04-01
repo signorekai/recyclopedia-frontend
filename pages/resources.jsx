@@ -234,7 +234,6 @@ export async function getStaticProps() {
   });
 
   await Promise.all(promises);
-  console.log(Object.keys(fallback));
 
   return { props: { fallback } };
 }
