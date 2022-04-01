@@ -1,4 +1,5 @@
-import { useRef } from 'react';
+import { useMotionValue } from 'framer-motion';
+import { useRef, useEffect } from 'react';
 import { useScrollDrag, useWindowDimensions } from '../lib/hooks';
 
 export const CarouselCard = ({ children, className = '' }) => {
@@ -11,23 +12,51 @@ export const CarouselCard = ({ children, className = '' }) => {
 
 // https://codesandbox.io/s/z22v9qj5rx?file=%2Fsrc%2Findex.js%3A493-506
 
-export const Carousel = ({ children, className = '' }) => {
+export const Carousel = ({
+  children,
+  className = '',
+  snapToChild = true,
+  sliderClassName = '',
+  autoSlideSize = false,
+  mobileSlideSize = 75,
+  desktopSlideSize = 25,
+  slideSizeUnit = 'vw',
+  autoScroll = true,
+  scrollTo = 0,
+}) => {
   const carouselRef = useRef(null);
   const slidesContainer = useRef(null);
   const { width } = useWindowDimensions();
-  const events = useScrollDrag(carouselRef);
+  const events = useScrollDrag(carouselRef, autoScroll);
+
+  // const scrollLeft = useMotionValue(scrollTo);
+  const style = {};
+
+  if (!autoSlideSize) {
+    style['width'] = `${
+      children.length * (width > 1080 ? desktopSlideSize : mobileSlideSize)
+    }${slideSizeUnit}`;
+  }
+
+  useEffect(() => {
+    console.log(scrollTo);
+    carouselRef.current.scrollTo({
+      left: scrollTo,
+      behavior: 'smooth',
+    });
+  }, [scrollTo, slidesContainer]);
 
   return (
     <div
       ref={carouselRef}
       {...events}
-      className={`basic-carousel ${className}`}>
+      className={`basic-carousel ${
+        snapToChild && 'snap-x snap-mandatory'
+      } ${className}`}>
       <div
         ref={slidesContainer}
-        className="basic-carousel__slider"
-        style={{
-          width: `${children.length * (width > 1080 ? 25 : 75)}vw`,
-        }}>
+        className={`basic-carousel__slider ${sliderClassName}`}
+        style={style}>
         {children}
       </div>
     </div>
