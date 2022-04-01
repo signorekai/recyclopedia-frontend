@@ -1,3 +1,7 @@
-✔ stop overlay search bar on desktop @done(22-03-30 17:53)
-☐ add page transitions
-☐ use strapi's responsive images instead of next's
+todos:
+  ✔ stop overlay search bar on desktop @done(22-03-30 17:53)
+  ✔ use strapi's responsive images instead of next's @done(22-04-02 00:01)
+  [] add page transitions
+  
+bugs:
+  [] icons at footer not showing up
