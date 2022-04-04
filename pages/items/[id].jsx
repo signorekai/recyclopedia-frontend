@@ -1,8 +1,6 @@
 import Head from 'next/head';
 import { CarouselProvider, Slider, Slide, DotGroup } from 'pure-react-carousel';
-import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import { DateTime } from 'luxon';
 import qs from 'qs';
