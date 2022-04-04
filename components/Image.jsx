@@ -1,21 +1,43 @@
 import orderBy from 'lodash.orderby';
 
-export default function Image({ width, height, alt, src, formats = [] }) {
+export default function Image({
+  layout = 'responsive',
+  width,
+  height,
+  alt,
+  src,
+  formats = [],
+  className = '',
+}) {
   let srcSet = '';
   const orderedFormats = orderBy(formats, 'width');
+
+  const acceptedLayout = ['responsive', 'fixed'];
+  if (acceptedLayout.indexOf(layout) === -1) {
+    layout = 'responsive';
+  }
 
   Object.values(orderedFormats).map((entry) => {
     srcSet += `${entry.url} ${entry.width}w, `;
   });
-
   srcSet += src;
+
+  const responsiveStyles = {
+    maxWidth: width,
+    maxHeight: height,
+    width: '100%',
+    height: '100%',
+  };
+
+  const fixedStyles = {
+    width,
+    height,
+  };
+
   return (
     <span
       className="inline-flex justify-center items-center w-[initial] h-[initial] relative overflow-hidden inset-0"
-      style={{
-        width,
-        height,
-      }}>
+      style={layout === 'responsive' ? responsiveStyles : fixedStyles}>
       <img
         sizes="100vw"
         width={width}
@@ -23,7 +45,7 @@ export default function Image({ width, height, alt, src, formats = [] }) {
         src={src}
         alt={alt}
         srcSet={srcSet}
-        className="object-cover object-center absolute w-0 h-0 min-w-full max-w-full min-h-full max-h-full"
+        className={`object-cover object-center absolute w-0 h-0 min-w-full max-w-full min-h-full max-h-full ${className}`}
       />
     </span>
   );

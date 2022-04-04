@@ -251,6 +251,7 @@ function Page({ data }) {
                           <Link key={key} href={`/resources/${resource.slug}`}>
                             <a>
                               <NewImage
+                                layout="fixed"
                                 src={resource.images[0].url}
                                 format={resource.images[0].format}
                                 width={256}
