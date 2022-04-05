@@ -9,6 +9,27 @@ import {
   useViewportScroll,
 } from 'framer-motion';
 import { useScrollDirection } from 'react-use-scroll-direction';
+import { useWindowDimensions } from '../lib/hooks';
+import { useRouter } from 'next/router';
+
+const menu = [
+  { label: 'Items', href: '/items' },
+  { label: 'Resources', href: '/resources' },
+  { label: 'Donate', href: '/donate' },
+  { label: 'Shop', href: '/shop' },
+  {
+    label: 'News & Tips',
+    href: '/news-tips',
+    className: 'divider-b-wider lg:after:h-0',
+  },
+  { label: 'FAQ', href: '/faq', className: 'lg:ml-2' },
+  { label: 'About Us', href: '/about-us' },
+  {
+    label: 'Feedback',
+    href: '/feedback',
+    className: 'lg:mr-8 divider-b-wider lg:after:h-0',
+  },
+];
 
 const menuLinkVariant = {
   initial: { x: 30, opacity: 0 },
@@ -47,6 +68,7 @@ export default function Layout({
   hideHeaderOn = '',
 }) {
   const [showMenu, setShowMenu] = useState(false);
+  const router = useRouter();
 
   const [showSearchBar, setShowSearchBar] = useState(false);
   const scrolledHeaderVisible = useRef(false);
@@ -171,18 +193,25 @@ export default function Layout({
               </div>
               <div className="flex flex-row">
                 <div className="desktop-menu-wrapper">
-                  <Link href="/items">Items</Link>
-                  <Link href="/resources">Recycle</Link>
-                  <Link href="/donate">Donate</Link>
-                  <Link href="/shop">Shop</Link>
-                  <Link href="/news-tips">News & Tips</Link>
-                  <Link href="/faq">
-                    <a className="ml-2">FAQ</a>
-                  </Link>
-                  <Link href="/about-us">About Us</Link>
-                  <Link href="/feedback">
-                    <a className="mr-8">Feedback</a>
-                  </Link>
+                  {menu.map((m) => {
+                    if (m.href === router.route) {
+                      return (
+                        <button
+                          onClick={() => {
+                            setShowMenu(false);
+                          }}
+                          className={`${m.className}`}>
+                          {m.label}
+                        </button>
+                      );
+                    } else {
+                      return (
+                        <Link key={m.href} href={m.href}>
+                          <a className={`${m.className}`}>{m.label}</a>
+                        </Link>
+                      );
+                    }
+                  })}
                 </div>
                 <div className="icon-wrapper">
                   <button className="hidden lg:block" id="bookmark-icon">
@@ -268,82 +297,29 @@ export default function Layout({
                   exit: { x: 0 },
                 }}
                 className="w-7/12 min-w-[220px] max-w-xs bg-white p-8 flex flex-col text-xl gap-y-6">
-                <Link href="/items" passHref>
-                  <motion.a
-                    className="motion-controlled"
-                    variants={menuLinkVariant}>
-                    Items
-                  </motion.a>
-                </Link>
-                <Link href="/resources" passHref>
-                  <motion.a
-                    className="motion-controlled"
-                    variants={menuLinkVariant}>
-                    Recycle
-                  </motion.a>
-                </Link>
-                <Link href="/donate" passHref>
-                  <motion.a
-                    className="motion-controlled"
-                    variants={menuLinkVariant}>
-                    Donate
-                  </motion.a>
-                </Link>
-                <Link href="/shop" passHref>
-                  <motion.a
-                    className="motion-controlled"
-                    variants={menuLinkVariant}>
-                    Shop
-                  </motion.a>
-                </Link>
-                <Link href="/news-tips" passHref>
-                  <motion.a
-                    className="motion-controlled"
-                    variants={menuLinkVariant}>
-                    News & Tips
-                  </motion.a>
-                </Link>
-                <motion.div
-                  style={{ originX: 1, originY: 0.5 }}
-                  transition={{ type: 'spring', bounce: 0.1, duration: 0.2 }}
-                  variants={{
-                    initial: { scaleX: 0, opacity: 1 },
-                    animate: { scaleX: 1 },
-                    exit: { opacity: 0 },
-                  }}
-                  className="-mx-6 h-[2px] w-[calc(100%_+_3rem)] bg-grey-light"
-                />
-                <Link href="/faq" passHref>
-                  <motion.a
-                    className="motion-controlled"
-                    variants={menuLinkVariant}>
-                    FAQ
-                  </motion.a>
-                </Link>
-                <Link href="/about-us" passHref>
-                  <motion.a
-                    className="motion-controlled"
-                    variants={menuLinkVariant}>
-                    About Us
-                  </motion.a>
-                </Link>
-                <Link href="/feedback" passHref>
-                  <motion.a
-                    className="motion-controlled"
-                    variants={menuLinkVariant}>
-                    Feedback
-                  </motion.a>
-                </Link>
-                <motion.div
-                  style={{ originX: 1, originY: 0.5 }}
-                  transition={{ type: 'spring', bounce: 0.1, duration: 0.2 }}
-                  variants={{
-                    initial: { scaleX: 0, opacity: 1 },
-                    animate: { scaleX: 1 },
-                    exit: { opacity: 0 },
-                  }}
-                  className="-mx-6 h-[2px] w-[calc(100%_+_3rem)] bg-grey-light"
-                />
+                {menu.map((m) => {
+                  if (m.href === router.route) {
+                    return (
+                      <button
+                        onClick={() => {
+                          setShowMenu(false);
+                        }}
+                        className={`text-left ${m.className}`}>
+                        {m.label}
+                      </button>
+                    );
+                  } else {
+                    return (
+                      <Link href={m.href} key={m.href} passHref>
+                        <motion.a
+                          className={`motion-controlled ${m.className}`}
+                          variants={menuLinkVariant}>
+                          {m.label}
+                        </motion.a>
+                      </Link>
+                    );
+                  }
+                })}
               </motion.div>
             </motion.div>
           )}
