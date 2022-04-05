@@ -26,7 +26,7 @@ const resourceTagQuery = qs.stringify({
   },
 });
 
-const resourceCacheQuery = {
+const strapiAPIQueryTemplate = {
   populate: ['images'],
   page: 0,
   pageSize: ITEMS_PER_PAGE,
@@ -45,86 +45,79 @@ const ResourceTab = ({ tag }) => {
   return (
     <>
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-4 lg:gap-x-7 lg:gap-y-6 mt-6">
-        {resources.map((items) => (
-          <>
-            {items.map((item, key) => (
-              <Card
-                key={key}
-                className="w-full"
-                uniqueKey={`card-${key}`}
-                content={{
-                  backgroundImage:
-                    !!item.images && item.images.length > 0
-                      ? item.images[0].formats.small
-                        ? item.images[0].formats.small.url
-                        : item.images[0].url
-                      : '',
-                  headerText: item.title,
-                  contentType: 'resources',
-                  slug: item.slug,
-                }}
-              />
-            ))}
-          </>
-        ))}
+        {resources.map((items) => {
+          return items.map((item, key) => (
+            <Card
+              key={key}
+              className="w-full"
+              uniqueKey={`card-${key}`}
+              content={{
+                backgroundImage:
+                  !!item.images && item.images.length > 0
+                    ? item.images[0].formats.small
+                      ? item.images[0].formats.small.url
+                      : item.images[0].url
+                    : '',
+                headerText: item.title,
+                contentType: 'resources',
+                slug: item.slug,
+              }}
+            />
+          ));
+        })}
       </div>
       {!isFinished && <InfiniteLoader handleEnter={loadNext} />}
     </>
   );
 };
 
-const Cards = () => {
+const Cards = ({ tags }) => {
   const {
     data: resources,
     loadNext,
     isFinished,
   } = useFetchContent('resources', {
     populate: ['images'],
+    tag: tags,
   });
 
-  const { data: resourceTags } = useSWR(`/api/resource-tags`, SWRFetcher);
-
   const items = {};
-
   items['All'] = (
     <>
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-4 lg:gap-x-7 lg:gap-y-6 mt-6">
-        {resources.map((items) => (
-          <>
-            {items.map((item, key) => (
-              <Card
-                key={key}
-                className="w-full"
-                uniqueKey={`card-${key}`}
-                content={{
-                  backgroundImage:
-                    !!item.images && item.images.length > 0
-                      ? item.images[0].formats.small
-                        ? item.images[0].formats.small.url
-                        : item.images[0].url
-                      : '',
-                  headerText: item.title,
-                  contentType: 'resources',
-                  slug: item.slug,
-                }}
-              />
-            ))}
-          </>
-        ))}
+        {resources.map((items) => {
+          return items.map((item, key) => (
+            <Card
+              key={key}
+              className="w-full"
+              uniqueKey={`card-${key}`}
+              content={{
+                backgroundImage:
+                  !!item.images && item.images.length > 0
+                    ? item.images[0].formats.small
+                      ? item.images[0].formats.small.url
+                      : item.images[0].url
+                    : '',
+                headerText: item.title,
+                contentType: 'resources',
+                slug: item.slug,
+              }}
+            />
+          ));
+        })}
       </div>
       {!isFinished && <InfiniteLoader handleEnter={loadNext} />}
     </>
   );
 
-  resourceTags.map(({ title }, key) => {
-    items[title] = <ResourceTab tag={title} />;
+  tags.map((tag, key) => {
+    items[tag] = <ResourceTab key={key} tag={tag} />;
   });
 
   return (
     <div className="container">
-      {resourceTags && (
-        <AccordionProvider
-          headers={['All', ...resourceTags.map(({ title }) => title)]}>
+      {tags && (
+        <AccordionProvider headers={['All', ...tags.map((title) => title)]}>
           <AccordionHeader />
           <AccordionBody {...items} />
         </AccordionProvider>
@@ -133,7 +126,7 @@ const Cards = () => {
   );
 };
 
-export default function Page({ fallback }) {
+export default function Page({ fallback, pageOptions, resourceTags }) {
   const x = useSearchBarTopValue();
 
   return (
@@ -164,7 +157,7 @@ export default function Page({ fallback }) {
       />
       <div className="bg-blue-light pb-2 lg:pb-10"></div>
       <SWRConfig value={{ fallback }}>
-        <Cards />
+        <Cards tags={resourceTags} />
       </SWRConfig>
     </Layout>
   );
@@ -172,7 +165,24 @@ export default function Page({ fallback }) {
 
 export async function getStaticProps() {
   const ip = process.env.API_URL;
-  const resourceQuery = {
+  const fallback = {};
+
+  const pageQuery = {
+    populate: ['resourceTags'],
+  };
+
+  const pageResponse = await fetch(
+    `${ip}/api/resource-page?${qs.stringify(pageQuery)}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.API_KEY}`,
+      },
+    },
+  );
+
+  const { data: pageOptions } = await pageResponse.json();
+
+  const resourceQueryTemplate = {
     populate: ['images'],
     fields: ['title'],
     pagination: {
@@ -181,39 +191,10 @@ export async function getStaticProps() {
     },
   };
 
-  const resourceResponse = await fetch(
-    `${ip}/api/resources?${qs.stringify(resourceQuery)}`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.API_KEY}`,
-      },
-    },
-  );
-  const resources = await resourceResponse.json();
-
-  ////////////////////////////////////////////////////////////////////
-
-  const resourceTagResponse = await fetch(
-    `${ip}/api/resource-tags?${resourceTagQuery}`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.API_KEY}`,
-      },
-    },
-  );
-  const resourceTags = await resourceTagResponse.json();
-
-  ////////////////////////////////////////////////////////////////////
-
-  const fallback = {};
-  fallback[`/api/resources?${qs.stringify(resourceCacheQuery)}`] = [
-    resources.data,
-  ];
-  fallback[`/api/resource-tags`] = resourceTags.data;
-
-  const promises = resourceTags.data.map(async ({ title }) => {
+  // get data of every related resourceTag
+  const promises = pageOptions.resourceTags.map(async ({ title }) => {
     const query = qs.stringify({
-      ...resourceQuery,
+      ...resourceQueryTemplate,
       filters: { resourceTags: { title: { $eq: title } } },
     });
 
@@ -225,7 +206,7 @@ export async function getStaticProps() {
     const result = await response.json();
 
     const cacheQuery = qs.stringify({
-      ...resourceCacheQuery,
+      ...strapiAPIQueryTemplate,
       tag: title,
     });
 
@@ -233,7 +214,28 @@ export async function getStaticProps() {
     return true;
   });
 
-  await Promise.all(promises);
+  // get data of all resources in all resourceTag
+  const titles = pageOptions.resourceTags.map(({ title }) => title);
 
-  return { props: { fallback } };
+  const query = qs.stringify({
+    ...resourceQueryTemplate,
+    filters: { resourceTags: { title: { $in: titles } } },
+  });
+
+  const response = await fetch(`${ip}/api/resources?${query}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.API_KEY}`,
+    },
+  });
+  const result = await response.json();
+
+  const cacheQuery = qs.stringify({
+    ...strapiAPIQueryTemplate,
+    tag: titles,
+  });
+
+  fallback[`/api/resources?${cacheQuery}`] = [result.data];
+
+  await Promise.all(promises);
+  return { props: { fallback, pageOptions, resourceTags: titles } };
 }
