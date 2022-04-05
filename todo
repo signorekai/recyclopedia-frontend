@@ -4,7 +4,7 @@ todos:
   [] add page transitions
   [] use getStaticProps instead of getServerSideProps for /index.jsx
   [] if user clicks on link that goes to current page, close menu
-  [] resources instead of items
+  [] resources instead of 'Recycle' on menu
   
 bugs:
   [] icons at footer not showing up
