@@ -43,6 +43,7 @@ module.exports = {
         12: 'repeat(12, minmax(0, 1fr))',
       },
       borderRadius: {
+        smd: '4px',
         30: '30px',
       },
       width: {

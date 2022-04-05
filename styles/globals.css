@@ -48,7 +48,7 @@
   }
 
   .btn {
-    @apply w-full bg-coral p-4 text-center block rounded-[4px] my-6;
+    @apply w-full bg-coral py-3 p-4 text-center block rounded-[4px] my-6;
     @apply text-white font-medium;
   }
 
@@ -137,6 +137,14 @@ h5 {
 
 h6.tag {
   @apply font-archivo tracking-widest text-grey-dark uppercase;
+}
+
+ul {
+  @apply px-4 pt-2 pb-4;
+}
+
+li {
+  @apply list-disc mb-1 last:mb-0;
 }
 
 a {
