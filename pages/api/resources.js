@@ -15,7 +15,7 @@ export default function handler(req, res) {
       query.filters = {
         resourceTags: {
           title: {
-            $eq: req.query.tag,
+            $in: req.query.tag.split(','),
           },
         },
       };

@@ -78,7 +78,7 @@ const Cards = ({ tags }) => {
     isFinished,
   } = useFetchContent('resources', {
     populate: ['images'],
-    tag: tags,
+    tag: tags.join(','),
   });
 
   const items = {};
@@ -231,11 +231,13 @@ export async function getStaticProps() {
 
   const cacheQuery = qs.stringify({
     ...strapiAPIQueryTemplate,
-    tag: titles,
+    tag: titles.join(','),
   });
 
   fallback[`/api/resources?${cacheQuery}`] = [result.data];
-
   await Promise.all(promises);
+
+  console.log(Object.keys(fallback));
+
   return { props: { fallback, pageOptions, resourceTags: titles } };
 }
