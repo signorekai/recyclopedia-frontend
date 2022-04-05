@@ -66,6 +66,7 @@ export default function Layout({
   showHeaderInitially = true,
   showHeaderOn = 'DOWN',
   hideHeaderOn = '',
+  ...props
 }) {
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter();
@@ -75,6 +76,7 @@ export default function Layout({
 
   const { scrollY } = useViewportScroll();
   const { scrollDirection } = useScrollDirection();
+  const { width } = useWindowDimensions();
 
   const searchBar = useRef();
   const headerControls = useAnimation();
@@ -103,6 +105,7 @@ export default function Layout({
 
         headerControls.start({
           y: 0,
+          maxHeight: 100,
           transition: {
             duration: 0.2,
           },
@@ -110,30 +113,23 @@ export default function Layout({
       } else if (
         scrollDirection === hideHeaderOn &&
         !showMenu &&
-        !showSearchBar
+        !showSearchBar &&
+        scrollY.get() > 50 &&
+        width < 1080
       ) {
         headerControls.start({
           y: '-110%',
+          maxHeight: 0,
+          overflow: 'hidden',
           transition: {
             duration: 0.2,
           },
         });
       }
-    } else if (showHeaderOn === '') {
-      headerControls.set({
-        position: 'sticky',
-      });
     }
-  }, [
-    showHeaderInitially,
-    showHeaderOn,
-    hideHeaderOn,
-    scrollDirection,
-    headerControls,
-    scrollY,
-    showMenu,
-    showSearchBar,
-  ]);
+    // showHeaderInitially, showHeaderOn, hideHeaderOn will never change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollDirection, headerControls, scrollY, showMenu, showSearchBar]);
 
   useEffect(() => {
     if (showSearchBar && searchBar) {
