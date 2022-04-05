@@ -325,35 +325,35 @@ export default function Layout({
           )}
         </AnimatePresence>
         {children}
-        <footer className="bg-blue-dark text-white">
-          <div className="container footer">
-            <div className="lg:order-2 flex-1 flex flex-col lg:flex-row lg:justify-between lg:items-center lg:px-10">
-              <span className="text-sm leading-tight">
-                A community driven, non-profit initiative
-              </span>
-              <span className="text-xs">
-                &copy; 2022 Recyclopedia. All rights reserved.
-              </span>
-            </div>
-            <div className="order-2 lg:order-1">
-              <a
-                href="https://facebook.com"
-                className="social-icon"
-                target="_blank"
-                rel="noopener noreferrer">
-                <i className="fas fa-facebook" />
-              </a>
-              <a
-                href="https://instagram.com"
-                className="social-icon"
-                target="_blank"
-                rel="noopener noreferrer">
-                <i className="fas fa-instagram" />
-              </a>
-            </div>
-          </div>
-        </footer>
       </main>
+      <footer className="bg-blue-dark text-white">
+        <div className="container footer">
+          <div className="lg:order-2 flex-1 flex flex-col lg:flex-row lg:justify-between lg:items-center lg:px-10">
+            <span className="text-sm leading-tight">
+              A community driven, non-profit initiative
+            </span>
+            <span className="text-xs">
+              &copy; 2022 Recyclopedia. All rights reserved.
+            </span>
+          </div>
+          <div className="order-2 lg:order-1">
+            <a
+              href="https://facebook.com"
+              className="social-icon"
+              target="_blank"
+              rel="noopener noreferrer">
+              <i className="fas fa-facebook" />
+            </a>
+            <a
+              href="https://instagram.com"
+              className="social-icon"
+              target="_blank"
+              rel="noopener noreferrer">
+              <i className="fas fa-instagram" />
+            </a>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }
