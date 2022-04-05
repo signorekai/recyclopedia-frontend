@@ -139,12 +139,11 @@ h6.tag {
   @apply font-archivo tracking-widest text-grey-dark uppercase;
 }
 
-ul {
+ul:not(.plain) {
   @apply px-4 pt-2 pb-4;
-}
-
-li {
-  @apply list-disc mb-1 last:mb-0;
+  li {
+    @apply list-disc mb-1 last:mb-0;
+  }
 }
 
 a {

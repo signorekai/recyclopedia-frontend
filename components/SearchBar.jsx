@@ -130,7 +130,7 @@ export default function SearchBar({
                 animate="animate"
                 exit="exit"
                 className="search-suggestions absolute left-0 bottom-0 translate-y-[100%] lg:max-w-[800px]">
-                <ul>
+                <ul className="plain">
                   {dummySuggestions.map((suggestion, key) => (
                     <Suggestion
                       key={key}
@@ -196,7 +196,7 @@ export default function SearchBar({
                 exit: { y: 50, scale: 0.9 },
               }}
               className="search-suggestions">
-              <ul>
+              <ul className="plain">
                 {dummySuggestions.map((suggestion, key) => (
                   <Suggestion
                     key={key}
