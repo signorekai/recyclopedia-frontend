@@ -58,7 +58,7 @@ export const Carousel = ({
           x: disableScroll ? transformX : 0,
         }}
         ref={slidesContainer}
-        className={`basic-carousel__slider transition-transform duraiton-200 ${sliderClassName}`}>
+        className={`basic-carousel__slider transition-transform duration-200 ${sliderClassName}`}>
         {children}
       </motion.div>
     </div>
