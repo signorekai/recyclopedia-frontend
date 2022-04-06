@@ -145,16 +145,30 @@ function Page({ data }) {
                       viewport={{ once: true }}
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
-                      className="btn order-5"
+                      className="btn order-5 mb-2"
                       href={data.url}
                       target="_blank"
                       rel="noopener noreferrer">
-                      Website
+                      Website{' '}
+                      <i className="text-xs ml-2 far fa-external-link-alt"></i>
+                    </motion.a>
+                  )}
+                  {data.address && (
+                    <motion.a
+                      viewport={{ once: true }}
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      className="btn order-5 mt-2"
+                      href={`https://www.google.com.sg/maps?hl=en&q=${data.address}`}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      View on Google Maps{' '}
+                      <i className="text-xs ml-2 far fa-external-link-alt"></i>
                     </motion.a>
                   )}
                   {data.locations && (
                     <motion.div
-                      className="order-6"
+                      className="order-6 mt-2"
                       viewport={{ once: true }}
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}>
