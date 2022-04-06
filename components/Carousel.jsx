@@ -51,7 +51,7 @@ export const Carousel = ({
       onMouseMove={disableScroll ? () => {} : onMouseMove}
       className={`basic-carousel ${
         snapToChild && 'snap-x snap-mandatory'
-      } ${className} ${disableScroll && 'overflow-hidden'}`}>
+      } ${className} ${disableScroll ? 'overflow-hidden' : ''}`}>
       <motion.div
         style={{
           ...sliderStyle,
