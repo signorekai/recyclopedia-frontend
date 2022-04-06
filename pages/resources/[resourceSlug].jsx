@@ -204,6 +204,38 @@ function Page({ data }) {
                         __html: data.items,
                       }}
                     />
+                    <Carousel
+                      autoSlideSize={true}
+                      showNav={false}
+                      className="mt-2 mb-6 h-auto"
+                      sliderStyle={{
+                        width:
+                          width > 1080
+                            ? 250 * data.relatedItems.length
+                            : width * 0.5 * data.relatedItems.length,
+                      }}>
+                      {data.relatedItems &&
+                        data.relatedItems.map((item, key) => (
+                          <CarouselCard
+                            key={key}
+                            className="w-screen-1/2 lg:w-[250px] mt-4">
+                            <Card
+                              className="w-full"
+                              uniqueKey={`related-${key}`}
+                              key={`related-${key}`}
+                              content={{
+                                contentType: 'items',
+                                slug: item.slug,
+                                headerText: item.title,
+                                backgroundImage:
+                                  item.images.length > 0
+                                    ? item.images[0].formats.small.url
+                                    : '',
+                              }}
+                            />
+                          </CarouselCard>
+                        ))}
+                    </Carousel>
                   </div>
                 </section>
               </div>
@@ -257,7 +289,7 @@ export async function getStaticProps({ params }) {
   const { resourceSlug } = params;
   const ip = process.env.API_URL;
   const queryParams = qs.stringify({
-    populate: ['images', 'resourceTags'],
+    populate: ['images', 'resourceTags', 'relatedItems', 'relatedItems.images'],
     filters: {
       slug: {
         $eq: resourceSlug,
