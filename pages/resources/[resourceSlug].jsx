@@ -18,6 +18,8 @@ const ResourceIcon = ({ tag }) => (
         Recycling: 'fa-recycle',
         Repair: 'fa-wrench',
         Trash: 'fa-trash-alt',
+        Charity: 'fa-box-heart',
+        'Animal Welfare': 'fa-cat',
       }[tag]
     }`}
   />
@@ -25,11 +27,13 @@ const ResourceIcon = ({ tag }) => (
 
 const ResourceBullet = ({ tag, className }) => (
   <div
-    className={`inline-flex flex-row py-2 px-3 uppercase font-archivo text-white rounded-md ${
+    className={`inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo text-white rounded-md ${
       {
         Recycling: 'bg-blue',
         Repair: 'bg-blue',
         Trash: 'bg-blue',
+        Charity: 'bg-purple',
+        'Animal Welfare': 'bg-coral',
       }[tag]
     } ${className}`}>
     <ResourceIcon tag={tag} />
