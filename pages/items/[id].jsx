@@ -12,14 +12,7 @@ import Card from '../../components/Card';
 import NewImage from '../../components/Image';
 
 const RecommendationCard = ({ children, recommendation }) => (
-  <motion.div
-    variants={{
-      initial: { opacity: 0, y: 30 },
-      animate: { opacity: 1, y: 0 },
-    }}
-    initial="initial"
-    whileInView="animate"
-    viewport={{ once: true }}
+  <div
     className={`p-4 pt-3 mt-3 lg:mt-0 rounded-md ${
       {
         Recycle: 'bg-blue-light',
@@ -32,7 +25,7 @@ const RecommendationCard = ({ children, recommendation }) => (
       }[recommendation]
     }`}>
     {children}
-  </motion.div>
+  </div>
 );
 
 const RecommendationIcon = ({ recommendation }) => (
@@ -69,7 +62,10 @@ function Page({ data }) {
   return (
     <>
       {data && (
-        <Layout showHeaderInitially={true} showHeaderOn="" hideHeaderOn="">
+        <Layout
+          showHeaderInitially={true}
+          showHeaderOn="UP"
+          hideHeaderOn="DOWN">
           <Head>
             <title>Recyclopedia - {data && data.title}</title>
             <meta name="description" content="Recyclopedia" />
@@ -189,7 +185,12 @@ function Page({ data }) {
             </section>
             {data.recommendations.map((item, key) => {
               return (
-                <div key={key} className="lg:divider-b">
+                <motion.div
+                  key={key}
+                  viewport={{ once: true }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  className="lg:divider-b">
                   <section
                     key={key}
                     className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
@@ -226,10 +227,7 @@ function Page({ data }) {
                         />
                       </RecommendationCard>
                       {item.otherText && (
-                        <motion.div
-                          viewport={{ once: true }}
-                          initial={{ opacity: 0 }}
-                          whileInView={{ opacity: 1 }}
+                        <div
                           className="text-base lg:text-lg mt-2 lg:mt-4 px-2"
                           dangerouslySetInnerHTML={{
                             __html: item.otherText,
@@ -297,7 +295,7 @@ function Page({ data }) {
                       ))}
                     </section>
                   )}
-                </div>
+                </motion.div>
               );
             })}
             {data.otherInfo && (
@@ -322,9 +320,9 @@ function Page({ data }) {
                   <Carousel
                     showNav={false}
                     className="gap-x-2 flex-1 mt-3 lg:mt-0">
-                    {data.itemCategory.items.map((item, key) => (
-                      <>
-                        {item.id !== data.id && (
+                    {data.itemCategory.items.map((item, key) => {
+                      if (item.id !== data.id) {
+                        return (
                           <CarouselCard
                             key={key}
                             className="w-36 lg:w-64 overflow-hidden relative">
@@ -342,9 +340,9 @@ function Page({ data }) {
                               }}
                             />
                           </CarouselCard>
-                        )}
-                      </>
-                    ))}
+                        );
+                      }
+                    })}
                   </Carousel>
                 </section>
                 <div className="divider-b mt-4 mb-2"></div>
