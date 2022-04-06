@@ -20,14 +20,14 @@ const menu = [
   {
     label: 'News & Tips',
     href: '/news-tips',
-    className: 'divider-b-wider lg:after:h-0',
+    className: 'divider-b-wider lg:after:hidden',
   },
   { label: 'FAQ', href: '/faq', className: 'lg:ml-2' },
   { label: 'About Us', href: '/about-us' },
   {
     label: 'Feedback',
     href: '/feedback',
-    className: 'lg:mr-8 divider-b-wider lg:after:h-0',
+    className: 'lg:mr-8 divider-b-wider lg:after:hidden',
   },
 ];
 
