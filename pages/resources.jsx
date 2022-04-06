@@ -9,7 +9,6 @@ import {
   useFetchContent,
   useSearchBarTopValue,
   ITEMS_PER_PAGE,
-  SWRFetcher,
 } from '../lib/hooks';
 import InfiniteLoader from '../components/InfiniteLoader';
 import {
@@ -18,21 +17,13 @@ import {
   AccordionProvider,
 } from '../components/Accordion';
 
-const resourceTagQuery = qs.stringify({
-  sort: 'title',
-  pagination: {
-    page: 1,
-    pageSize: 100000,
-  },
-});
-
 const strapiAPIQueryTemplate = {
   populate: ['images'],
   page: 0,
   pageSize: ITEMS_PER_PAGE,
 };
 
-const ResourceTab = ({ tag }) => {
+const ResourceTab = ({ tag, columnCount = 3 }) => {
   const {
     data: resources,
     loadNext,
@@ -44,7 +35,12 @@ const ResourceTab = ({ tag }) => {
 
   return (
     <>
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-4 lg:gap-x-7 lg:gap-y-6 mt-6">
+      <div
+        className={`grid grid-cols-2 ${
+          { 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4', 5: 'lg:grid-cols-5' }[
+            columnCount
+          ]
+        } gap-x-2 gap-y-4 lg:gap-x-7 lg:gap-y-6 mt-6`}>
         {resources.map((items) => {
           return items.map((item, key) => (
             <Card
@@ -71,7 +67,7 @@ const ResourceTab = ({ tag }) => {
   );
 };
 
-const Cards = ({ tags }) => {
+const Cards = ({ tags, columnCount = 3 }) => {
   const {
     data: resources,
     loadNext,
@@ -84,7 +80,12 @@ const Cards = ({ tags }) => {
   const items = {};
   items['All'] = (
     <>
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-4 lg:gap-x-7 lg:gap-y-6 mt-6">
+      <div
+        className={`grid grid-cols-2 ${
+          { 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4', 5: 'lg:grid-cols-5' }[
+            columnCount
+          ]
+        } gap-x-2 gap-y-4 lg:gap-x-7 lg:gap-y-6 mt-6`}>
         {resources.map((items) => {
           return items.map((item, key) => (
             <Card
@@ -111,7 +112,7 @@ const Cards = ({ tags }) => {
   );
 
   tags.map((tag, key) => {
-    items[tag] = <ResourceTab key={key} tag={tag} />;
+    items[tag] = <ResourceTab columnCount={columnCount} key={key} tag={tag} />;
   });
 
   return (
@@ -136,28 +137,38 @@ export default function Page({ fallback, pageOptions, resourceTags }) {
         <meta name="description" content="Recyclopedia" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section className="bg-blue-light py-4 lg:pt-10 text-white">
+      <section
+        className="py-4 lg:pt-10 text-white"
+        style={{ backgroundColor: pageOptions.colour }}>
         <div className="container max-w-[800px]">
           <h2 className="text-white lg:justify-start">
-            <i className="far fa-recycle text-3xl mr-3 mt-1" />
-            Recycle
+            <i
+              className={`${
+                { Regular: 'far', Solid: 'fas', Light: 'fal' }[
+                  pageOptions.iconStyle
+                ]
+              } fa-${pageOptions.icon} text-3xl mr-3 mt-1`}
+            />
+            {pageOptions.title}
           </h2>
-          <p className="text-lg leading-tight ">
-            Solutions that are part of the permanent landscape of recycling.
-          </p>
+          <p className="text-lg leading-tight ">{pageOptions.subtitle}</p>
         </div>
       </section>
       <SearchBar
         top={x}
-        placeholderText="Search Resources"
+        placeholderText={`Search ${pageOptions.title}`}
         className="py-2 sticky lg:relative transition-all duration-200 z-20"
         wrapperClassName="max-w-[800px]"
-        inactiveBackgroundColor="#224DBF"
-        activeBackgroundColor="#224DBF"
+        inactiveBackgroundColor={pageOptions.colour}
+        activeBackgroundColor={pageOptions.colour}
       />
-      <div className="bg-blue-light pb-2 lg:pb-10"></div>
+      <div
+        className="pb-2 lg:pb-10"
+        style={{
+          backgroundColor: pageOptions.colour,
+        }}></div>
       <SWRConfig value={{ fallback }}>
-        <Cards tags={resourceTags} />
+        <Cards tags={resourceTags} columnCount={pageOptions.gridColumnCount} />
       </SWRConfig>
     </Layout>
   );
@@ -236,8 +247,6 @@ export async function getStaticProps() {
 
   fallback[`/api/resources?${cacheQuery}`] = [result.data];
   await Promise.all(promises);
-
-  console.log(Object.keys(fallback));
 
   return { props: { fallback, pageOptions, resourceTags: titles } };
 }

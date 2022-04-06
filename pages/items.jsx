@@ -13,40 +13,43 @@ import {
 } from '../lib/hooks';
 import InfiniteLoader from '../components/InfiniteLoader';
 
-const Cards = () => {
+const Cards = ({ columnCount = 3 }) => {
   const { data, loadNext, isFinished, error } = useFetchContent('items', {
     populate: ['images'],
   });
 
   return (
     <div className="container">
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-4 lg:gap-x-7 lg:gap-y-6 mt-6">
+      <div
+        className={`grid grid-cols-2 ${
+          { 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4', 5: 'lg:grid-cols-5' }[
+            columnCount
+          ]
+        } gap-x-2 gap-y-4 lg:gap-x-7 lg:gap-y-6 mt-6`}>
         {data &&
-          data.map((items) => (
-            <>
-              {items.map((item, key) => (
-                <Card
-                  key={key}
-                  className="w-full"
-                  uniqueKey={`card-${key}`}
-                  content={{
-                    backgroundImage:
-                      item.images.length > 0 ? item.images[0].url : '',
-                    headerText: item.title,
-                    contentType: 'items',
-                    slug: item.slug,
-                  }}
-                />
-              ))}
-            </>
-          ))}
+          data.map((items) => {
+            return items.map((item, key) => (
+              <Card
+                key={key}
+                className="w-full"
+                uniqueKey={`card-${key}`}
+                content={{
+                  backgroundImage:
+                    item.images.length > 0 ? item.images[0].url : '',
+                  headerText: item.title,
+                  contentType: 'items',
+                  slug: item.slug,
+                }}
+              />
+            ));
+          })}
       </div>
       {!isFinished && <InfiniteLoader handleEnter={loadNext} />}
     </div>
   );
 };
 
-export default function Page({ fallback }) {
+export default function Page({ fallback, pageOptions }) {
   const x = useSearchBarTopValue();
 
   return (
@@ -76,7 +79,7 @@ export default function Page({ fallback }) {
       />
       <div className="bg-teal pb-2 lg:pb-10"></div>
       <SWRConfig value={{ fallback }}>
-        <Cards />
+        <Cards columnCount={pageOptions.gridColumnCount} />
       </SWRConfig>
     </Layout>
   );
@@ -84,6 +87,21 @@ export default function Page({ fallback }) {
 
 export async function getStaticProps() {
   const ip = process.env.API_URL;
+  const pageQuery = {
+    populate: ['resourceTags'],
+  };
+
+  const pageResponse = await fetch(
+    `${ip}/api/items-page?${qs.stringify(pageQuery)}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.API_KEY}`,
+      },
+    },
+  );
+
+  const { data: pageOptions } = await pageResponse.json();
+
   const query = qs.stringify({
     populate: ['images'],
     pagination: {
@@ -107,7 +125,7 @@ export async function getStaticProps() {
 
   const fallback = {};
   fallback[`/api/items?${cacheQuery}`] = [items.data];
-  return { props: { fallback } };
+  return { props: { fallback, pageOptions } };
 
   // return { props: { items: items.data } };
 }
