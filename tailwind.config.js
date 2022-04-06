@@ -21,7 +21,7 @@ module.exports = {
         DEFAULT: '#123592',
         light: '#224DBF',
       },
-      purple: 'rgb(168, 85, 247)',
+      purple: '#A855F7',
       black: '#15193B',
       white: {
         pure: '#ffffff',
@@ -48,6 +48,7 @@ module.exports = {
       },
       width: {
         'screen-1/4': '25vw',
+        'screen-1/2': '50vw',
         'screen-3/4': '75vw',
       },
       borderWidth: {
