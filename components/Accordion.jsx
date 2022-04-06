@@ -5,8 +5,12 @@ import { Carousel, CarouselCard } from './Carousel';
 
 const AccordionContext = createContext();
 
-export const AccordionProvider = ({ children, headers }) => {
-  const [selected, setSelected] = useState(headers[0]);
+export const AccordionProvider = ({
+  children,
+  headers,
+  startingItem = headers[0],
+}) => {
+  const [selected, setSelected] = useState(startingItem);
   // make sure the two search bars will animate to each other,
   // but not to other instances of this component
   const hash = useRef(uuidV4());
@@ -30,7 +34,7 @@ export const AccordionHeader = ({ className = '' }) => {
 
   useEffect(() => {
     setScroll(headerRefs.current[selected].offsetLeft);
-  }, [selected]);
+  }, [selected, headerRefs]);
 
   return (
     <div className={`border-grey border-b-1 ${className}`}>
@@ -108,7 +112,7 @@ export const AccordionBody = ({ className = '', ...items }) => {
                 overflow: 'hidden',
                 width: `${100 / Object.keys(items).length}%`,
                 opacity: selected === key ? 1 : 0,
-                height: selected === key ? 'auto' : 10,
+                maxHeight: selected === key ? 1000000000000000000 : 0,
               }}
               key={i}>
               <div ref={(el) => (itemRefs.current[key] = el)}>{items[key]}</div>
