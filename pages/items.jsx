@@ -101,6 +101,7 @@ export async function getStaticProps() {
 
   const query = qs.stringify({
     populate: ['images'],
+    fields: ['title', 'slug'],
     pagination: {
       page: 0,
       pageSize: ITEMS_PER_PAGE,

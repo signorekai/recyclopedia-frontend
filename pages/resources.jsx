@@ -194,7 +194,7 @@ export async function getStaticProps() {
 
   const resourceQueryTemplate = {
     populate: ['images'],
-    fields: ['title'],
+    fields: ['title', 'slug'],
     pagination: {
       page: 1,
       pageSize: ITEMS_PER_PAGE,
