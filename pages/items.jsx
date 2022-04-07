@@ -60,10 +60,10 @@ export default function Page({ fallback, pageOptions }) {
       </Head>
       <section className="bg-teal py-4 lg:pt-10 text-white">
         <div className="container max-w-[800px]">
-          <h2 className="text-white lg:justify-start">
+          <h1 className="text-white">
             <i className="far fa-box text-3xl mr-3 mt-1" />
             {pageOptions.title}
-          </h2>
+          </h1>
           <p className="text-lg leading-tight ">{pageOptions.subtitle}</p>
         </div>
       </section>

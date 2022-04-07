@@ -120,6 +120,11 @@ body {
   @apply font-sans antialiased bg-white min-h-screen;
 }
 
+h1 {
+  @apply text-3xl text-blue-light font-semibold align-middle flex flex-row items-center w-full;
+  @apply mb-3;
+}
+
 h2 {
   @apply text-2xl text-blue-light font-semibold align-middle flex flex-row items-center w-full;
   @apply mb-3;

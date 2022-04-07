@@ -140,7 +140,7 @@ export default function Page({ fallback, pageOptions, resourceTags }) {
         className="py-4 lg:pt-10 text-white"
         style={{ backgroundColor: pageOptions.colour }}>
         <div className="container max-w-[800px]">
-          <h2 className="text-white lg:justify-start">
+          <h1 className="text-white">
             <i
               className={`${
                 { Regular: 'far', Solid: 'fas', Light: 'fal' }[
@@ -149,7 +149,7 @@ export default function Page({ fallback, pageOptions, resourceTags }) {
               } fa-${pageOptions.icon} text-3xl mr-3 mt-1`}
             />
             {pageOptions.title}
-          </h2>
+          </h1>
           <p className="text-lg leading-tight ">{pageOptions.subtitle}</p>
         </div>
       </section>
