@@ -338,14 +338,14 @@ export default function Layout({
               className="social-icon"
               target="_blank"
               rel="noopener noreferrer">
-              <i className="fas fa-facebook" />
+              <i className="fab fa-facebook" />
             </a>
             <a
               href="https://instagram.com"
               className="social-icon"
               target="_blank"
               rel="noopener noreferrer">
-              <i className="fas fa-instagram" />
+              <i className="fab fa-instagram" />
             </a>
           </div>
         </div>
