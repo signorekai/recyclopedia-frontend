@@ -3,7 +3,7 @@
  * License - https://fontawesome.com/license (Commercial License)
  */
 @font-face {
-  font-family: 'Font Awesome 5 Pro';
+  font-family: 'font-awesome-5';
   font-style: normal;
   font-weight: 400;
   font-display: block;
@@ -16,6 +16,6 @@
 }
 
 .far {
-  font-family: 'Font Awesome 5 Pro';
+  font-family: 'font-awesome-5';
   font-weight: 400;
 }
