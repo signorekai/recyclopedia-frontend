@@ -57,7 +57,6 @@ export default function Page({ fallback, pageOptions }) {
       <Head>
         <title>Recyclopedia - {pageOptions.title}</title>
         <meta name="description" content={pageOptions.subtitle} />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <section className="bg-teal py-4 lg:pt-10 text-white">
         <div className="container max-w-[800px]">

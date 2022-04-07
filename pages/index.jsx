@@ -20,7 +20,6 @@ export default function Home({ items }) {
       <Head>
         <title>Recyclopedia</title>
         <meta name="description" content="Recyclopedia" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="bg-gradient-to-b from-coral to-purple h-72 lg:h-96 absolute top-0 w-full left-0 z-0"></div>
       <Link href="/">
