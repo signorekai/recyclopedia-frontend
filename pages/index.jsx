@@ -27,7 +27,7 @@ export default function Home({ items }) {
           <img src="/img/logo.svg" alt="" width={172} height={28} />
         </a>
       </Link>
-      <h3 className="text-center mb-4 leading-none text-white z-10 relative">
+      <h3 className="text-center mb-4 px-2 leading-none text-white z-10 relative">
         All you need to know when you have something to throw
       </h3>
       <SearchBar
