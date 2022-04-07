@@ -1,9 +1,48 @@
-import Layout from '../components/Layout';
 import Head from 'next/head';
 import qs from 'querystring';
+import { useState, useEffect } from 'react';
+import { motion, useMotionValue } from 'framer-motion';
+
+import Layout from '../components/Layout';
+
+const FAQCard = ({ header, content, openByDefault = false }) => {
+  const [expanded, setExpanded] = useState(openByDefault);
+  const maxHeight = useMotionValue(0);
+
+  useEffect(() => {
+    maxHeight.set(expanded ? '50vh' : 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [expanded]);
+
+  const handleClick = () => {
+    setExpanded(!expanded);
+  };
+
+  return (
+    <dl className={`px-4 divider-b ${expanded ? 'after:mt-4' : 'after:mt-0'}`}>
+      <dt className="flex flex-row items-center">
+        <button onClick={handleClick} className="flex-1">
+          <h3 className="text-black my-4 text-left">{header}</h3>
+        </button>
+        {expanded ? (
+          <i className="far fa-chevron-up"></i>
+        ) : (
+          <i className="far fa-chevron-down"></i>
+        )}
+      </dt>
+      <motion.dd
+        style={{
+          maxHeight,
+        }}
+        className="overflow-hidden transition-all duration-200 opacity-80"
+        dangerouslySetInnerHTML={{ __html: content }}></motion.dd>
+    </dl>
+  );
+};
 
 export default function Page({ pageOptions }) {
   console.log(JSON.stringify({ ...pageOptions }, null, ' '));
+  const { section: sections } = pageOptions;
 
   return (
     <Layout showHeaderInitially={true} showHeaderOn="UP" hideHeaderOn="DOWN">
@@ -14,6 +53,32 @@ export default function Page({ pageOptions }) {
       <div className="container relative z-10 pt-4 lg:pt-10">
         <h1 className="text-black">{pageOptions.title}</h1>
         <p className="text-lg leading-tight">{pageOptions.subtitle}</p>
+      </div>
+      <div className="lg:container">
+        {sections.map((section) => (
+          <section key={`faq-${section.title}`} className="faq-section">
+            <header className="faq-header">
+              <h2 className="text-black mb-0 lg:justify-start">
+                {section.title}
+              </h2>
+            </header>
+            {section.item.map((item) => (
+              <FAQCard
+                key={`faq-${section.title}-${item.header}`}
+                header={item.header}
+                content={item.content}
+              />
+            ))}
+          </section>
+        ))}
+      </div>
+      <div className="container pt-8">
+        <p>
+          Didn&apos;t find what you were looking for?
+          <br />
+          Reach out to us at{' '}
+          <a href="mailto:hello@recyclopedia.sg">hello@recyclopedia.sg</a>
+        </p>
       </div>
     </Layout>
   );

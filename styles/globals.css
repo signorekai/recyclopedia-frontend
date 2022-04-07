@@ -49,7 +49,9 @@
 
   .btn {
     @apply w-full bg-coral py-3 p-4 text-center block rounded-[4px] my-6;
-    @apply text-white font-medium;
+    @apply !text-white font-medium;
+
+    @apply hover:bg-purple;
   }
 
   .basic-carousel {
@@ -272,4 +274,12 @@ p + p {
       @apply bg-opacity-80;
     }
   }
+}
+
+.faq-section {
+  @apply mt-7;
+}
+
+.faq-header {
+  @apply bg-bg px-4 py-2;
 }
