@@ -208,6 +208,18 @@ p + p {
   }
 }
 
+#__next {
+  @apply flex flex-col min-h-screen;
+}
+
+.main {
+  @apply flex-1;
+
+  a {
+    @apply text-blue;
+  }
+}
+
 .modal-wrapper {
   @apply fixed w-full h-full bg-grey-dark bg-opacity-80 flex flex-row justify-end;
   @apply z-30;
@@ -234,7 +246,7 @@ p + p {
 
 .footer {
   @apply flex flex-row justify-between;
-  @apply mt-7 px-4 py-3;
+  @apply px-4 py-3;
 }
 
 .social-icon {

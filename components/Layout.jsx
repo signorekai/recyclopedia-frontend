@@ -148,7 +148,7 @@ export default function Layout({
         }}
         animate={headerControls}
         className="header">
-        <div className="overflow-hidden h-full flex-1 pl-4">
+        <div className="overflow-hidden h-full flex-1 pl-4 max-w-[1600px] mx-auto">
           <div
             className={`flex flex-col h-[200%] relative ease-in-out transition-transform duration-200 ${
               showSearchBar ? 'translate-y-0' : '-translate-y-full'
@@ -265,7 +265,7 @@ export default function Layout({
           </svg>
         </button>
       </motion.header>
-      <main>
+      <main className="main">
         <AnimatePresence>
           {showMenu && (
             <motion.div
@@ -322,8 +322,8 @@ export default function Layout({
         </AnimatePresence>
         {children}
       </main>
-      <footer className="bg-blue-dark text-white">
-        <div className="container footer">
+      <footer className="bg-blue-dark text-white mt-7">
+        <div className="container container--wide footer">
           <div className="lg:order-2 flex-1 flex flex-col lg:flex-row lg:justify-between lg:items-center lg:px-10">
             <span className="text-sm leading-tight">
               A community driven, non-profit initiative
