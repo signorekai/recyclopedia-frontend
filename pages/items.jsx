@@ -55,19 +55,17 @@ export default function Page({ fallback, pageOptions }) {
   return (
     <Layout showHeaderInitially={true} showHeaderOn="UP" hideHeaderOn="DOWN">
       <Head>
-        <title>Recyclopedia - Items</title>
-        <meta name="description" content="Recyclopedia" />
+        <title>Recyclopedia - {pageOptions.title}</title>
+        <meta name="description" content={pageOptions.subtitle} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section className="bg-teal py-4 lg:pt-10 text-white">
         <div className="container max-w-[800px]">
           <h2 className="text-white lg:justify-start">
             <i className="far fa-box text-3xl mr-3 mt-1" />
-            Items
+            {pageOptions.title}
           </h2>
-          <p className="text-lg leading-tight ">
-            Find the best option to give your items a second life.
-          </p>
+          <p className="text-lg leading-tight ">{pageOptions.subtitle}</p>
         </div>
       </section>
       <SearchBar

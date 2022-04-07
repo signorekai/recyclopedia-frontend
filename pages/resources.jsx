@@ -133,8 +133,8 @@ export default function Page({ fallback, pageOptions, resourceTags }) {
   return (
     <Layout showHeaderInitially={true} showHeaderOn="UP" hideHeaderOn="DOWN">
       <Head>
-        <title>Recyclopedia - Items</title>
-        <meta name="description" content="Recyclopedia" />
+        <title>Recyclopedia - {pageOptions.title}</title>
+        <meta name="description" content={pageOptions.subtitle} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section
