@@ -51,7 +51,7 @@
     @apply w-full bg-coral py-3 p-4 text-center block rounded-[4px] my-6;
     @apply !text-white font-medium;
 
-    @apply hover:bg-purple;
+    @apply hover:bg-coral-dark;
   }
 
   .basic-carousel {
