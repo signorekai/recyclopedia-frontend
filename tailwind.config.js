@@ -38,6 +38,9 @@ module.exports = {
       },
     },
     extend: {
+      letterSpacing: {
+        2: '2px',
+      },
       gridTemplateRows: {
         8: 'repeat(8, minmax(0, 1fr))',
         12: 'repeat(12, minmax(0, 1fr))',

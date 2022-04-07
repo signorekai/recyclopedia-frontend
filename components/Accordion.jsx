@@ -53,7 +53,7 @@ export const AccordionHeader = ({ className = '' }) => {
                 }}>
                 <div
                   ref={(el) => (headerRefs.current[header] = el)}
-                  className={`text-xs uppercase font-bold tracking-wider font-archivo pb-1 ${
+                  className={`text-xs uppercase font-bold tracking-2 font-archivo pb-1 ${
                     selected === header ? 'text-blue' : 'text-black'
                   }`}>
                   {header}
@@ -75,7 +75,7 @@ export const AccordionHeader = ({ className = '' }) => {
                       animate="animate"
                       exit="exit"
                       className="h-1 bg-blue w-full"
-                      layoutId={`${hash}-selector`}></motion.div>
+                      layoutId={`${hash.current}-selector`}></motion.div>
                   )}
                 </AnimatePresence>
               </button>
