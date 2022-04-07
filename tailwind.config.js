@@ -27,7 +27,7 @@ module.exports = {
         pure: '#ffffff',
         DEFAULT: '#FEFAFA',
       },
-      coral: '#FF6153',
+      coral: { DEFAULT: '#FF6153', dark: 'rgb(219, 45, 30)' },
       teal: '#28C9AA',
       bg: '#F1EDEA',
       grey: {
