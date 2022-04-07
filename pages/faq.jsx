@@ -41,7 +41,6 @@ const FAQCard = ({ header, content, openByDefault = false }) => {
 };
 
 export default function Page({ pageOptions }) {
-  console.log(JSON.stringify({ ...pageOptions }, null, ' '));
   const { section: sections } = pageOptions;
 
   return (
