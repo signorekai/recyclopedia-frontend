@@ -9,6 +9,7 @@ import {
   useFetchContent,
   useSearchBarTopValue,
   ITEMS_PER_PAGE,
+  staticFetcher,
 } from '../lib/hooks';
 import InfiniteLoader from '../components/InfiniteLoader';
 import {
@@ -177,20 +178,12 @@ export async function getStaticProps() {
   const ip = process.env.API_URL;
   const fallback = {};
 
-  const pageQuery = {
-    populate: ['resourceTags'],
-  };
-
-  const pageResponse = await fetch(
-    `${ip}/api/resource-page?${qs.stringify(pageQuery)}`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.API_KEY}`,
-      },
-    },
+  const pageOptions = await staticFetcher(
+    `${ip}/api/resource-page?${qs.stringify({
+      populate: ['resourceTags'],
+    })}`,
+    process.env.API_KEY,
   );
-
-  const { data: pageOptions } = await pageResponse.json();
 
   const resourceQueryTemplate = {
     populate: ['images'],
@@ -203,48 +196,40 @@ export async function getStaticProps() {
 
   // get data of every related resourceTag
   const promises = pageOptions.resourceTags.map(async ({ title }) => {
-    const query = qs.stringify({
-      ...resourceQueryTemplate,
-      filters: { resourceTags: { title: { $eq: title } } },
-    });
+    const result = await staticFetcher(
+      `${ip}/api/resources?${qs.stringify({
+        ...resourceQueryTemplate,
+        filters: { resourceTags: { title: { $eq: title } } },
+      })}`,
+      process.env.API_KEY,
+    );
 
-    const response = await fetch(`${ip}/api/resources?${query}`, {
-      headers: {
-        Authorization: `Bearer ${process.env.API_KEY}`,
-      },
-    });
-    const result = await response.json();
-
-    const cacheQuery = qs.stringify({
-      ...strapiAPIQueryTemplate,
-      tag: title,
-    });
-
-    fallback[`/api/resources?${cacheQuery}`] = [result.data];
+    fallback[
+      `/api/resources?${qs.stringify({
+        ...strapiAPIQueryTemplate,
+        tag: title,
+      })}`
+    ] = [result];
     return true;
   });
 
   // get data of all resources in all resourceTag
   const titles = pageOptions.resourceTags.map(({ title }) => title);
 
-  const query = qs.stringify({
-    ...resourceQueryTemplate,
-    filters: { resourceTags: { title: { $in: titles } } },
-  });
+  const result = await staticFetcher(
+    `${ip}/api/resources?${qs.stringify({
+      ...resourceQueryTemplate,
+      filters: { resourceTags: { title: { $in: titles } } },
+    })}`,
+    process.env.API_KEY,
+  );
 
-  const response = await fetch(`${ip}/api/resources?${query}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.API_KEY}`,
-    },
-  });
-  const result = await response.json();
-
-  const cacheQuery = qs.stringify({
-    ...strapiAPIQueryTemplate,
-    tag: titles.join(','),
-  });
-
-  fallback[`/api/resources?${cacheQuery}`] = [result.data];
+  fallback[
+    `/api/resources?${qs.stringify({
+      ...strapiAPIQueryTemplate,
+      tag: titles.join(','),
+    })}`
+  ] = [result];
   await Promise.all(promises);
 
   return { props: { fallback, pageOptions, resourceTags: titles } };

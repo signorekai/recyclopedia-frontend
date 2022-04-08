@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import qs from 'querystring';
 import Layout from '../components/Layout';
-import { ServerFetcher } from '../lib/hooks';
+import { staticFetcher } from '../lib/hooks';
 
 export default function Page({ pageOptions }) {
   console.log(pageOptions);
@@ -16,7 +16,7 @@ export default function Page({ pageOptions }) {
 }
 
 export async function getStaticProps() {
-  const pageOptions = await ServerFetcher(
+  const pageOptions = await staticFetcher(
     `${process.env.API_URL}/api/about-us-page?${qs.stringify({
       populate: ['supporters'],
     })}`,
