@@ -37,7 +37,7 @@ const ResourceTab = ({ tag, columnCount = 3 }) => {
   return (
     <>
       <div
-        className={`grid grid-cols-2 ${
+        className={`grid grid-cols-2 md:grid-cols-3 ${
           { 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4', 5: 'lg:grid-cols-5' }[
             columnCount
           ]
@@ -82,7 +82,7 @@ const Cards = ({ tags, columnCount = 3 }) => {
   items['All'] = (
     <>
       <div
-        className={`grid grid-cols-2 ${
+        className={`grid grid-cols-2 md:grid-cols-3 ${
           { 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4', 5: 'lg:grid-cols-5' }[
             columnCount
           ]
