@@ -15,8 +15,8 @@ import { useRouter } from 'next/router';
 const menu = [
   { label: 'Items', href: '/items' },
   { label: 'Resources', href: '/resources' },
-  { label: 'Donate', href: '/donate' },
-  { label: 'Shop', href: '/shop' },
+  { label: 'Donations & Charities', href: '/donate' },
+  { label: 'Shops', href: '/shops' },
   {
     label: 'News & Tips',
     href: '/news-tips',
