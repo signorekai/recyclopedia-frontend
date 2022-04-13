@@ -209,6 +209,12 @@ export default function SearchBar({
           </motion.div>
         )}
       </AnimatePresence>
+      <div
+        className="pb-2 lg:pb-10"
+        style={{
+          backgroundColor: inactiveBackgroundColor,
+        }}
+      />
     </>
   );
 }

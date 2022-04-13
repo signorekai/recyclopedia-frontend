@@ -161,11 +161,6 @@ export default function Page({ fallback, pageOptions, resourceTags }) {
         inactiveBackgroundColor={pageOptions.colour}
         activeBackgroundColor={pageOptions.colour}
       />
-      <div
-        className="pb-2 lg:pb-10"
-        style={{
-          backgroundColor: pageOptions.colour,
-        }}></div>
       <SWRConfig value={{ fallback }}>
         <Cards tags={resourceTags} columnCount={pageOptions.gridColumnCount} />
       </SWRConfig>

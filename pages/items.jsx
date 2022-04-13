@@ -74,7 +74,6 @@ export default function Page({ fallback, pageOptions }) {
         inactiveBackgroundColor="#28C9AA"
         activeBackgroundColor="#28C9AA"
       />
-      <div className="bg-teal pb-2 lg:pb-10"></div>
       <SWRConfig value={{ fallback }}>
         <Cards columnCount={pageOptions.gridColumnCount} />
       </SWRConfig>
