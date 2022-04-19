@@ -140,7 +140,7 @@ export default function Page({ fallback, pageOptions, resourceTags }) {
       <section
         className="py-4 lg:pt-10 text-white"
         style={{ backgroundColor: pageOptions.colour }}>
-        <div className="container max-w-[800px]">
+        <div className="container container--narrow">
           <h1 className="text-white">
             <i
               className={`${
