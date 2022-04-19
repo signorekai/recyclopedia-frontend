@@ -35,7 +35,11 @@ const Cards = ({ columnCount = 3 }) => {
                 uniqueKey={`card-${key}`}
                 content={{
                   backgroundImage:
-                    item.images.length > 0 ? item.images[0].url : '',
+                    item.images.length > 0
+                      ? item.images[0].formats.small
+                        ? item.images[0].formats.small.url
+                        : items.images[0].url
+                      : '',
                   headerText: item.title,
                   contentType: 'items',
                   slug: item.slug,
@@ -58,10 +62,18 @@ export default function Page({ fallback, pageOptions }) {
         <title>Recyclopedia - {pageOptions.title}</title>
         <meta name="description" content={pageOptions.subtitle} />
       </Head>
-      <section className="bg-teal py-4 lg:pt-10 text-white">
-        <div className="container max-w-[800px]">
+      <section
+        className="py-4 lg:pt-10 text-white"
+        style={{ backgroundColor: pageOptions.colour }}>
+        <div className="container container--narrow">
           <h1 className="text-white">
-            <i className="far fa-box text-3xl mr-3 mt-1" />
+            <i
+              className={`${
+                { Regular: 'far', Light: 'fal', Solid: 'fas' }[
+                  pageOptions.iconStyle
+                ]
+              } fa-${pageOptions.icon} text-3xl mr-3 mt-1`}
+            />
             {pageOptions.title}
           </h1>
           <p className="text-lg leading-tight ">{pageOptions.subtitle}</p>
@@ -71,8 +83,8 @@ export default function Page({ fallback, pageOptions }) {
         top={x}
         className="py-2 sticky lg:relative transition-all duration-200"
         wrapperClassName="max-w-[800px]"
-        inactiveBackgroundColor="#28C9AA"
-        activeBackgroundColor="#28C9AA"
+        inactiveBackgroundColor={pageOptions.colour}
+        activeBackgroundColor={pageOptions.colour}
       />
       <SWRConfig value={{ fallback }}>
         <Cards columnCount={pageOptions.gridColumnCount} />
