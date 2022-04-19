@@ -107,6 +107,10 @@
     @apply after:mt-3 after:block;
   }
 
+  .divider-b-taller {
+    @apply after:mt-8;
+  }
+
   .divider-b-wider {
     @apply after:content-[""] after:block after:mt-6 after:-mx-6 after:h-[2px] after:w-[calc(100%_+_3rem)] after:bg-grey-light;
   }
