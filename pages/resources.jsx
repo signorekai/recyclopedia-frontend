@@ -173,7 +173,7 @@ export async function getStaticProps() {
   const ip = process.env.API_URL;
   const fallback = {};
 
-  const pageOptions = await staticFetcher(
+  const { data: pageOptions } = await staticFetcher(
     `${ip}/api/resource-page?${qs.stringify({
       populate: ['resourceTags'],
     })}`,
@@ -191,7 +191,7 @@ export async function getStaticProps() {
 
   // get data of every related resourceTag
   const promises = pageOptions.resourceTags.map(async ({ title }) => {
-    const result = await staticFetcher(
+    const { data: result } = await staticFetcher(
       `${ip}/api/resources?${qs.stringify({
         ...resourceQueryTemplate,
         filters: { resourceTags: { title: { $eq: title } } },
@@ -211,7 +211,7 @@ export async function getStaticProps() {
   // get data of all resources in all resourceTag
   const titles = pageOptions.resourceTags.map(({ title }) => title);
 
-  const result = await staticFetcher(
+  const { data: result } = await staticFetcher(
     `${ip}/api/resources?${qs.stringify({
       ...resourceQueryTemplate,
       filters: { resourceTags: { title: { $in: titles } } },

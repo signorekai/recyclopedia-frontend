@@ -83,7 +83,7 @@ export default function Page({ pageOptions }) {
 }
 
 export async function getStaticProps() {
-  const pageOptions = await staticFetcher(
+  const { data: pageOptions } = await staticFetcher(
     `${process.env.API_URL}/api/about-us-page?${qs.stringify({
       populate: ['supporters', 'supporters.image'],
     })}`,
