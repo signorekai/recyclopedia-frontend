@@ -42,6 +42,7 @@ export default function SearchBar({
   className = '',
   wrapperClassName = 'max-w-screen-lg ',
   handleOnChange = () => {},
+  showBottomSpacing = true,
 }) {
   const [isFocused, setIsFocused] = useState(false);
   const [formValue, setFormValue] = useState('');
@@ -209,12 +210,14 @@ export default function SearchBar({
           </motion.div>
         )}
       </AnimatePresence>
-      <div
-        className="pb-2 lg:pb-10"
-        style={{
-          backgroundColor: inactiveBackgroundColor,
-        }}
-      />
+      {showBottomSpacing && (
+        <div
+          className="pb-2 lg:pb-10"
+          style={{
+            backgroundColor: inactiveBackgroundColor,
+          }}
+        />
+      )}
     </>
   );
 }

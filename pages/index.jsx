@@ -1,7 +1,6 @@
 import Head from 'next/head';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import qs from 'qs';
 
@@ -34,6 +33,7 @@ export default function Home({ items }) {
         activeBackgroundColor="#F1EDEA"
         className="lg:w-[720px]"
         wrapperClassName="z-20"
+        showBottomSpacing={false}
       />
       <div className="container container--narrow relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-2 lg:gap-y-4 mt-6 lg:mt-12 home-items-grid">
