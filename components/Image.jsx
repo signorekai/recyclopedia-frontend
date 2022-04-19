@@ -6,6 +6,7 @@ export default function Image({
   height,
   alt,
   src,
+  sizes = '100vw',
   formats = [],
   className = '',
 }) {
@@ -39,7 +40,7 @@ export default function Image({
       className="inline-flex justify-center items-center w-[initial] h-[initial] relative overflow-hidden inset-0"
       style={layout === 'responsive' ? responsiveStyles : fixedStyles}>
       <img
-        sizes="100vw"
+        sizes={sizes}
         width={width}
         height={height}
         src={src}
