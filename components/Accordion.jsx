@@ -22,7 +22,12 @@ export const AccordionProvider = ({
   );
 };
 
-export const AccordionHeader = ({ className = '' }) => {
+export const AccordionHeader = ({
+  className = '',
+  carouselClassName = '',
+  sliderClassName = '',
+  cardClassName = '',
+}) => {
   const {
     selected,
     setSelected,
@@ -42,12 +47,13 @@ export const AccordionHeader = ({ className = '' }) => {
         autoScroll={false}
         autoSlideSize={true}
         scrollTo={scroll}
-        sliderClassName="gap-x-8 relative">
+        className={carouselClassName}
+        sliderClassName={`gap-x-8 relative ${sliderClassName}`}>
         {items.map((header, key) => {
           return (
-            <CarouselCard key={key}>
+            <CarouselCard className={cardClassName} key={key}>
               <button
-                className="pt-5"
+                className={`pt-5`}
                 onClick={() => {
                   setSelected(header);
                 }}>
