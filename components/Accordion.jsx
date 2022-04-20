@@ -15,6 +15,10 @@ export const AccordionProvider = ({
   // but not to other instances of this component
   const hash = useRef(uuidV4());
 
+  useEffect(() => {
+    setSelected(startingItem);
+  }, [startingItem]);
+
   return (
     <AccordionContext.Provider value={{ selected, setSelected, headers, hash }}>
       {children}
@@ -27,6 +31,7 @@ export const AccordionHeader = ({
   carouselClassName = '',
   sliderClassName = '',
   cardClassName = '',
+  onSelect = () => {},
 }) => {
   const {
     selected,
@@ -55,6 +60,7 @@ export const AccordionHeader = ({
               <button
                 className={`pt-5`}
                 onClick={() => {
+                  onSelect(header);
                   setSelected(header);
                 }}>
                 <div
