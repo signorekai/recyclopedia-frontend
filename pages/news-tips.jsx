@@ -39,8 +39,8 @@ const Card = ({ params = {} }) => {
                 <div className="w-1/3 md:min-h-[150px]">
                   <NewImage
                     className="aspect-[248/184] md:rounded-md"
-                    sizes="750px"
-                    src={article.coverImage.url}
+                    sizes="270px"
+                    src={article.coverImage.formats.small.url}
                     formats={article.coverImage.formats}
                     layout="responsive"
                   />
@@ -90,7 +90,7 @@ export default function Page({
   articleTabs['All'] = (
     <Card
       params={{
-        populate: ['coverImage', 'items', 'category'],
+        populate: ['coverImage', 'category'],
         category: categoryTitles.join(','),
       }}
     />
@@ -101,7 +101,7 @@ export default function Page({
       <Card
         key={key}
         params={{
-          populate: ['coverImage', 'items', 'category'],
+          populate: ['coverImage', 'category'],
           category: categoryTitle,
         }}
       />
@@ -140,7 +140,7 @@ export default function Page({
         inactiveBackgroundColor={pageOptions.colour}
         activeBackgroundColor={pageOptions.colour}
       />
-      <div className="md:container md:pt-10">
+      <div className="container md:pt-10">
         {featuredArticles && (
           <div className="grid md:grid-cols-2 gap-8">
             {featuredArticles.map(({ article }) => (
@@ -149,10 +149,14 @@ export default function Page({
                   <a>
                     <NewImage
                       className="aspect-[503/374] lg:rounded-md"
-                      sizes="750px"
+                      sizes="600px"
                       width={'100%'}
                       height={width >= 1080 ? 374 : 278}
-                      src={article.coverImage.url}
+                      src={
+                        article.coverImage.formats.large
+                          ? article.coverImage.formats.large.url
+                          : article.coverImage.url
+                      }
                       formats={article.coverImage.formats}
                       layout="fixed"
                     />

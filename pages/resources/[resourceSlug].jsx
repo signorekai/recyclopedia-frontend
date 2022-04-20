@@ -221,6 +221,7 @@ function Page({ data }) {
                             className="w-screen-1/2 lg:w-[250px] mt-4">
                             <Card
                               className="w-full"
+                              imgClassName="h-[200px]"
                               uniqueKey={`related-${key}`}
                               key={`related-${key}`}
                               content={{
