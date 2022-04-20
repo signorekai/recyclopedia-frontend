@@ -33,7 +33,12 @@ const LinkWrapper = ({ children, content }) => {
   );
 };
 
-const Card = ({ content = {}, className = '', uniqueKey }) => {
+const Card = ({
+  content = {},
+  className = '',
+  uniqueKey,
+  imgClassName = 'pb-[100%]',
+}) => {
   return (
     <LinkWrapper content={content}>
       <AnimatePresence>
@@ -45,7 +50,7 @@ const Card = ({ content = {}, className = '', uniqueKey }) => {
             exit="exit"
             className={`${className}`}>
             <div
-              className="pb-[100%] bg-cover bg-center rounded-[4px] group-hover:opacity-90 transition-all duration-200 bg-grey-light"
+              className={`bg-cover bg-center rounded-[4px] group-hover:opacity-90 transition-all duration-200 bg-grey-light ${imgClassName}`}
               style={{
                 backgroundImage: `url(${content.backgroundImage})`,
               }}></div>
