@@ -311,12 +311,12 @@ p + p {
   }
 
   blockquote {
-    @apply w-3/4 mx-auto my-6 bg-teal p-6;
+    @apply lg:w-3/4 mx-auto my-6 bg-teal p-6;
     @apply text-2xl text-white;
   }
 
   code {
-    @apply block w-3/4 whitespace-normal bg-grey-light border-1 border-white;
+    @apply block lg:w-3/4 whitespace-normal bg-grey-light border-1 border-white;
     @apply mx-auto my-6 p-6;
     @apply text-black;
   }
