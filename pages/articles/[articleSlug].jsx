@@ -74,7 +74,7 @@ export default function Page({ data: article, categoryTitles }) {
               dangerouslySetInnerHTML={{ __html: article.content }}></article>
           </div>
           <div className="container">
-            {article.items && (
+            {article.items && article.items.length > 0 && (
               <div className="lg:divider-b">
                 <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
                   <div className="lg:w-1/4">
@@ -120,7 +120,7 @@ export default function Page({ data: article, categoryTitles }) {
                 </section>
               </div>
             )}
-            {article.resources && (
+            {article.resources && article.resources.length > 0 && (
               <div className="lg:divider-b">
                 <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
                   <div className="lg:w-1/4">
