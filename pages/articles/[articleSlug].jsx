@@ -12,7 +12,6 @@ import { useRouter } from 'next/router';
 export default function Page({ data: article, categoryTitles }) {
   const router = useRouter();
   const { width } = useWindowDimensions();
-  console.log(article.items, article.resources);
 
   return (
     <>

@@ -80,7 +80,6 @@ export default function Page({
       router.query.section &&
       categoryTitles.indexOf(router.query.section) > -1
     ) {
-      console.log(83, router.query.section);
       setSelected(router.query.section);
     }
   }, [router.query.section]);

@@ -1,7 +1,6 @@
 import qs from 'qs';
 
 export default function handler(req, res) {
-  console.log(4);
   async function load() {
     const ip = process.env.API_URL;
     const query = {
