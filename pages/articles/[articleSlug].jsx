@@ -74,27 +74,27 @@ export default function Page({ data: article, categoryTitles }) {
               dangerouslySetInnerHTML={{ __html: article.content }}></article>
           </div>
           <div className="container">
-            <div className="lg:divider-b">
-              <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
-                <div className="lg:w-1/4">
-                  <h5 className="text-left">
-                    <i className="far fa-question-circle pr-2" />
-                    Related Items
-                  </h5>
-                </div>
-                <div className="flex-1">
-                  <Carousel
-                    autoSlideSize={true}
-                    showNav={false}
-                    className="mt-2 mb-6 h-auto"
-                    sliderStyle={{
-                      width:
-                        width > 1080
-                          ? 250 * article.items.length
-                          : width * 0.5 * article.items.length,
-                    }}>
-                    {article.items &&
-                      article.items.map((item, key) => (
+            {article.items && (
+              <div className="lg:divider-b">
+                <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
+                  <div className="lg:w-1/4">
+                    <h5 className="text-left">
+                      <i className="far fa-question-circle pr-2" />
+                      Related Items
+                    </h5>
+                  </div>
+                  <div className="flex-1">
+                    <Carousel
+                      autoSlideSize={true}
+                      showNav={false}
+                      className="mt-2 mb-6 h-auto"
+                      sliderStyle={{
+                        width:
+                          width > 1080
+                            ? 250 * article.items.length
+                            : width * 0.5 * article.items.length,
+                      }}>
+                      {article.items.map((item, key) => (
                         <CarouselCard
                           key={key}
                           className="w-screen-1/2 lg:w-[250px] mt-4">
@@ -115,31 +115,32 @@ export default function Page({ data: article, categoryTitles }) {
                           />
                         </CarouselCard>
                       ))}
-                  </Carousel>
-                </div>
-              </section>
-            </div>
-            <div className="lg:divider-b">
-              <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
-                <div className="lg:w-1/4">
-                  <h5 className="text-left">
-                    <i className="far fa-info-circle pr-2" />
-                    Useful links
-                  </h5>
-                </div>
-                <div className="flex-1">
-                  <Carousel
-                    autoSlideSize={true}
-                    showNav={false}
-                    className="mt-2 mb-6 h-auto"
-                    sliderStyle={{
-                      width:
-                        width > 1080
-                          ? 250 * article.items.length
-                          : width * 0.5 * article.items.length,
-                    }}>
-                    {article.resources &&
-                      article.resources.map((item, key) => (
+                    </Carousel>
+                  </div>
+                </section>
+              </div>
+            )}
+            {article.resources && (
+              <div className="lg:divider-b">
+                <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
+                  <div className="lg:w-1/4">
+                    <h5 className="text-left">
+                      <i className="far fa-info-circle pr-2" />
+                      Useful links
+                    </h5>
+                  </div>
+                  <div className="flex-1">
+                    <Carousel
+                      autoSlideSize={true}
+                      showNav={false}
+                      className="mt-2 mb-6 h-auto"
+                      sliderStyle={{
+                        width:
+                          width > 1080
+                            ? 250 * article.items.length
+                            : width * 0.5 * article.items.length,
+                      }}>
+                      {article.resources.map((item, key) => (
                         <CarouselCard
                           key={key}
                           className="w-screen-1/2 lg:w-[250px] mt-4">
@@ -160,10 +161,11 @@ export default function Page({ data: article, categoryTitles }) {
                           />
                         </CarouselCard>
                       ))}
-                  </Carousel>
-                </div>
-              </section>
-            </div>
+                    </Carousel>
+                  </div>
+                </section>
+              </div>
+            )}
           </div>
         </Layout>
       )}
