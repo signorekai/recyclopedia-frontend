@@ -4,14 +4,17 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import qs from 'qs';
 
-import { useWindowDimensions } from '../lib/hooks';
+import {
+  ITEMS_PER_PAGE,
+  staticFetcher,
+  useWindowDimensions,
+} from '../lib/hooks';
 import { Carousel, CarouselCard } from '../components/Carousel';
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
 
-export default function Home({ items }) {
-  const [newsItems, setNewsItems] = useState([{}, {}, {}, {}, {}, {}, {}]);
+export default function Home({ items, newsItems }) {
   const { height, width } = useWindowDimensions();
 
   return (
@@ -143,9 +146,16 @@ export default function Home({ items }) {
             <CarouselCard key={key} className="w-screen-3/4 lg:w-screen-1/4">
               <Card
                 className="w-full"
-                uniqueKey={`news-${key}`}
-                key={`news-${key}`}
-                value={item.value}
+                imgClassName="h-[200px]"
+                uniqueKey={`news-${item.slug}`}
+                content={{
+                  backgroundImage: item.coverImage.formats.large
+                    ? item.coverImage.formats.large.url
+                    : item.coverImage.url,
+                  headerText: item.title,
+                  slug: item.slug,
+                  contentType: 'articles',
+                }}
               />
             </CarouselCard>
           ))}
@@ -157,20 +167,29 @@ export default function Home({ items }) {
 
 export async function getStaticProps() {
   const ip = process.env.API_URL;
-  const query = qs.stringify({
-    populate: ['images'],
-    pagination: {
-      page: 1,
-      pageSize: 8,
-    },
-  });
 
-  const res = await fetch(`${ip}/api/items?${query}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.API_KEY}`,
-    },
-  });
-  const items = await res.json();
+  const { data: items } = await staticFetcher(
+    `${ip}/api/items?${qs.stringify({
+      populate: ['images'],
+      pagination: {
+        page: 1,
+        pageSize: 8,
+      },
+    })}`,
+    process.env.API_KEY,
+  );
 
-  return { props: { items: items.data } };
+  const { data: newsItems } = await staticFetcher(
+    `${ip}/api/articles?${qs.stringify({
+      populate: ['coverImage', 'items', 'category'],
+      sort: ['updatedAt:desc'],
+      pagination: {
+        page: 1,
+        pageSize: 8,
+      },
+    })}`,
+    process.env.API_KEY,
+  );
+
+  return { props: { items, newsItems } };
 }
