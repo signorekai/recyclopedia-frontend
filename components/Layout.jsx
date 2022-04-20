@@ -148,7 +148,7 @@ export default function Layout({
         }}
         animate={headerControls}
         className="header">
-        <div className="overflow-hidden h-full flex-1 max-w-[1280px] mx-auto">
+        <div className="overflow-hidden h-full pl-4 lg:pl-0 flex-1 max-w-[1280px] mx-auto">
           <div
             className={`flex flex-col h-[200%] relative ease-in-out transition-transform duration-200 ${
               showSearchBar ? 'translate-y-0' : '-translate-y-full'
