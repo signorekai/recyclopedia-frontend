@@ -1,6 +1,9 @@
 import Head from 'next/head';
 import qs from 'qs';
 import Link from 'next/link';
+import { SWRConfig } from 'swr';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
@@ -18,7 +21,6 @@ import {
   AccordionHeader,
   AccordionProvider,
 } from '../components/Accordion';
-import { SWRConfig } from 'swr';
 
 const Card = ({ params = {} }) => {
   const {
@@ -34,9 +36,9 @@ const Card = ({ params = {} }) => {
           <Link key={key} href={`/articles/${article.slug}`}>
             <a>
               <div className="flex flex-row mb-8 gap-x-4 flex-wrap divider-b divider-b-taller">
-                <div className="w-1/3">
+                <div className="w-1/3 md:min-h-[150px]">
                   <NewImage
-                    className="aspect-[248/184] lg:rounded-md"
+                    className="aspect-[248/184] md:rounded-md"
                     sizes="750px"
                     src={article.coverImage.url}
                     formats={article.coverImage.formats}
@@ -46,7 +48,7 @@ const Card = ({ params = {} }) => {
                 <div className="flex-1 mb-4">
                   <h5 className="text-left pt-2">{article.category?.title}</h5>
                   <h3 className="text-black">{article.title}</h3>
-                  <p className="hidden lg:block text-black my-2 text-lg leading-tight">
+                  <p className="hidden md:block text-black my-2 text-lg leading-tight">
                     {article.excerpt && article.excerpt}
                   </p>
                 </div>
@@ -70,6 +72,18 @@ export default function Page({
   const { title, featuredArticles } = pageOptions;
   const x = useSearchBarTopValue();
   const { width } = useWindowDimensions();
+  const router = useRouter();
+  const [selected, setSelected] = useState();
+
+  useEffect(() => {
+    if (
+      router.query.section &&
+      categoryTitles.indexOf(router.query.section) > -1
+    ) {
+      console.log(83, router.query.section);
+      setSelected(router.query.section);
+    }
+  }, [router.query.section]);
 
   const articleTabs = {};
 
@@ -156,8 +170,15 @@ export default function Page({
         )}
       </div>
       <SWRConfig value={{ fallback }}>
-        <AccordionProvider headers={['All', ...categoryTitles]}>
+        <AccordionProvider
+          headers={['All', ...categoryTitles]}
+          startingItem={selected}>
           <AccordionHeader
+            onSelect={(header) => {
+              router.push(`/news-tips?section=${header}`, null, {
+                shallow: true,
+              });
+            }}
             className="mt-6 lg:mt-16"
             carouselClassName="scroll-px-4"
             sliderClassName="lg:max-w-[840px] mx-auto px-4"
@@ -197,7 +218,7 @@ export async function getStaticProps() {
 
   const fetchEachCategory = categoryTitles.map(async (title) => {
     const query = qs.stringify({
-      populate: ['coverImage', 'items', 'category'],
+      populate: ['coverImage', 'category'],
       sort: ['updatedAt:desc'],
       pagination: {
         page: 1,
@@ -213,7 +234,7 @@ export async function getStaticProps() {
 
     fallback[
       `/api/articles?${qs.stringify({
-        populate: ['coverImage', 'items', 'category'],
+        populate: ['coverImage', 'category'],
         page: 0,
         pageSize: ITEMS_PER_PAGE,
         category: title,
@@ -227,7 +248,7 @@ export async function getStaticProps() {
 
   const { data: allArticles } = await staticFetcher(
     `${process.env.API_URL}/api/articles?${qs.stringify({
-      populate: ['coverImage', 'items', 'category'],
+      populate: ['coverImage', 'category'],
       sort: ['updatedAt:desc'],
       pagination: {
         page: 1,
@@ -239,7 +260,7 @@ export async function getStaticProps() {
 
   fallback[
     `/api/articles?${qs.stringify({
-      populate: ['coverImage', 'items', 'category'],
+      populate: ['coverImage', 'category'],
       page: 0,
       pageSize: ITEMS_PER_PAGE,
       category: categoryTitles.join(','),
