@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, createContext, useContext } from 'react';
 import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
 import { v4 as uuidV4 } from 'uuid';
 import { Carousel, CarouselCard } from './Carousel';
+import { useWindowDimensions } from '../lib/hooks';
 
 const AccordionContext = createContext();
 
@@ -107,6 +108,11 @@ export const AccordionBody = ({ className = '', ...items }) => {
   useEffect(() => {
     setScroll(itemRefs.current[selected].offsetLeft);
   }, [selected]);
+
+  const { width } = useWindowDimensions();
+  useEffect(() => {
+    setScroll(itemRefs.current[selected].offsetLeft);
+  }, [width]);
 
   return (
     <div className={`${className}`}>
