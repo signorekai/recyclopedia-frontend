@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, createContext, useContext } from 'react';
+import { useRouter } from 'next/router';
 import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
 import { v4 as uuidV4 } from 'uuid';
 import { Carousel, CarouselCard } from './Carousel';
@@ -10,8 +11,10 @@ export const AccordionProvider = ({
   children,
   headers,
   startingItem = headers[0],
+  setURLQuery = true,
 }) => {
   const [selected, setSelected] = useState(startingItem);
+  const router = useRouter();
   // make sure the two search bars will animate to each other,
   // but not to other instances of this component
   const hash = useRef(uuidV4());
@@ -20,8 +23,19 @@ export const AccordionProvider = ({
     setSelected(startingItem);
   }, [startingItem]);
 
+  useEffect(() => {
+    if (
+      router.query.section &&
+      headers.indexOf(router.query.section) > -1 &&
+      setURLQuery
+    ) {
+      setSelected(router.query.section);
+    }
+  }, [headers, router.query.section, setURLQuery]);
+
   return (
-    <AccordionContext.Provider value={{ selected, setSelected, headers, hash }}>
+    <AccordionContext.Provider
+      value={{ selected, setSelected, headers, hash, setURLQuery }}>
       {children}
     </AccordionContext.Provider>
   );
@@ -39,8 +53,10 @@ export const AccordionHeader = ({
     setSelected,
     headers: items,
     hash,
+    setURLQuery,
   } = useContext(AccordionContext);
   const headerRefs = useRef({});
+  const router = useRouter();
   const [scroll, setScroll] = useState(0);
 
   useEffect(() => {
@@ -61,6 +77,11 @@ export const AccordionHeader = ({
               <button
                 className={`pt-5`}
                 onClick={() => {
+                  if (setURLQuery) {
+                    router.push(`?section=${header}`, null, {
+                      shallow: true,
+                    });
+                  }
                   onSelect(header);
                   setSelected(header);
                 }}>

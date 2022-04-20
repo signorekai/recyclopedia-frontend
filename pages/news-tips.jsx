@@ -2,8 +2,6 @@ import Head from 'next/head';
 import qs from 'qs';
 import Link from 'next/link';
 import { SWRConfig } from 'swr';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
@@ -72,17 +70,6 @@ export default function Page({
   const { title, featuredArticles } = pageOptions;
   const x = useSearchBarTopValue();
   const { width } = useWindowDimensions();
-  const router = useRouter();
-  const [selected, setSelected] = useState();
-
-  useEffect(() => {
-    if (
-      router.query.section &&
-      categoryTitles.indexOf(router.query.section) > -1
-    ) {
-      setSelected(router.query.section);
-    }
-  }, [router.query.section]);
 
   const articleTabs = {};
 
@@ -173,15 +160,8 @@ export default function Page({
         )}
       </div>
       <SWRConfig value={{ fallback }}>
-        <AccordionProvider
-          headers={['All', ...categoryTitles]}
-          startingItem={selected}>
+        <AccordionProvider headers={['All', ...categoryTitles]}>
           <AccordionHeader
-            onSelect={(header) => {
-              router.push(`/news-tips?section=${header}`, null, {
-                shallow: true,
-              });
-            }}
             className="mt-6 lg:mt-16"
             carouselClassName="scroll-px-4"
             sliderClassName="lg:max-w-[840px] mx-auto px-4"
