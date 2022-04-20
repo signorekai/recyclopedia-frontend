@@ -263,7 +263,7 @@ export async function getStaticPaths() {
   const queryParams = qs.stringify({
     pagination: {
       page: 1,
-      pagesize: 20,
+      pagesize: 50,
     },
   });
 
