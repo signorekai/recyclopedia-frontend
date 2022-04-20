@@ -73,7 +73,7 @@ export default function Page({ data: article, categoryTitles }) {
               className="article-body divider-b divider-b-taller"
               dangerouslySetInnerHTML={{ __html: article.content }}></article>
           </div>
-          <div className="container">
+          <div className="container container--mid">
             {article.items && article.items.length > 0 && (
               <div className="lg:divider-b">
                 <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
@@ -87,7 +87,7 @@ export default function Page({ data: article, categoryTitles }) {
                     <Carousel
                       autoSlideSize={true}
                       showNav={false}
-                      className="mt-2 mb-6 h-auto"
+                      className="mt-0 mb-6 h-auto"
                       sliderStyle={{
                         width:
                           width > 1080
@@ -97,7 +97,7 @@ export default function Page({ data: article, categoryTitles }) {
                       {article.items.map((item, key) => (
                         <CarouselCard
                           key={key}
-                          className="w-screen-1/2 lg:w-[250px] mt-4">
+                          className="w-screen-1/2 lg:w-[250px] mt-0">
                           <Card
                             className="w-full"
                             imgClassName="h-[200px]"
@@ -133,7 +133,7 @@ export default function Page({ data: article, categoryTitles }) {
                     <Carousel
                       autoSlideSize={true}
                       showNav={false}
-                      className="mt-2 mb-6 h-auto"
+                      className="mt-0 mb-6 h-auto"
                       sliderStyle={{
                         width:
                           width > 1080
@@ -143,7 +143,7 @@ export default function Page({ data: article, categoryTitles }) {
                       {article.resources.map((item, key) => (
                         <CarouselCard
                           key={key}
-                          className="w-screen-1/2 lg:w-[250px] mt-4">
+                          className="w-screen-1/2 lg:w-[250px] mt-0">
                           <Card
                             className="w-full"
                             imgClassName="h-[200px]"
