@@ -9,7 +9,12 @@ import Card from '../../components/Card';
 import { staticFetcher, useWindowDimensions } from '../../lib/hooks';
 import { useRouter } from 'next/router';
 
-export default function Page({ data: article, categoryTitles }) {
+export default function Page({
+  data: article,
+  categoryTitles,
+  previousPost,
+  nextPost,
+}) {
   const router = useRouter();
   const { width } = useWindowDimensions();
 
@@ -87,7 +92,7 @@ export default function Page({ data: article, categoryTitles }) {
                     <Carousel
                       autoSlideSize={true}
                       showNav={false}
-                      className="mt-0 mb-6 h-auto"
+                      className="mt-0 mb-2 h-auto"
                       sliderStyle={{
                         width:
                           width > 1080
@@ -133,7 +138,7 @@ export default function Page({ data: article, categoryTitles }) {
                     <Carousel
                       autoSlideSize={true}
                       showNav={false}
-                      className="mt-0 mb-6 h-auto"
+                      className="mt-0 mb-2 h-auto"
                       sliderStyle={{
                         width:
                           width > 1080
@@ -166,6 +171,33 @@ export default function Page({ data: article, categoryTitles }) {
                 </section>
               </div>
             )}
+            <div
+              className={`${
+                article.resources.length > 0 || article.items.length > 0
+                  ? 'lg:w-1/2 mx-auto'
+                  : 'lg:w-3/4'
+              } flex flex-row mt-10 lg:mt-16 mb-8 lg:mb-12`}>
+              {previousPost && previousPost.length > 0 ? (
+                <Link href={`/articles/${previousPost[0].slug}`}>
+                  <a className="block flex-1 h5-alt !text-grey-dark hover:!text-black hover:opacity-100">
+                    <span className="far fa-chevron-left text-xl align-middle pb-1 pr-3"></span>
+                    Previous Post
+                  </a>
+                </Link>
+              ) : (
+                <div className="flex-1"></div>
+              )}
+              {nextPost && nextPost.length > 0 ? (
+                <Link href={`/articles/${nextPost[0].slug}`}>
+                  <a className="block flex-1 h5-alt text-right !text-grey-dark hover:!text-black hover:opacity-100">
+                    Next Post
+                    <span className="far fa-chevron-right text-xl align-middle pb-1 pl-3"></span>
+                  </a>
+                </Link>
+              ) : (
+                <div className="flex-1"></div>
+              )}
+            </div>
           </div>
         </Layout>
       )}
@@ -220,7 +252,51 @@ export async function getStaticProps({ params }) {
     process.env.API_KEY,
   );
 
+  const { data: previousPost } = await staticFetcher(
+    `${process.env.API_URL}/api/articles`,
+    process.env.API_KEY,
+    {
+      filters: {
+        updatedAt: {
+          $lt: data[0].updatedAt,
+        },
+      },
+      sort: ['updatedAt:desc'],
+      fields: ['title', 'slug'],
+      pagination: {
+        start: 0,
+        limit: 1,
+      },
+    },
+  );
+
+  const { data: nextPost } = await staticFetcher(
+    `${process.env.API_URL}/api/articles`,
+    process.env.API_KEY,
+    {
+      filters: {
+        updatedAt: {
+          $gt: data[0].updatedAt,
+        },
+      },
+      sort: ['updatedAt'],
+      fields: ['title', 'slug'],
+      pagination: {
+        start: 0,
+        limit: 1,
+      },
+    },
+  );
+
   const categoryTitles = categoryData.map(({ title }) => title);
 
-  return { props: { data: data[0], categoryTitles }, revalidate: 3600 };
+  return {
+    props: {
+      data: data[0],
+      previousPost: previousPost,
+      nextPost: nextPost,
+      categoryTitles,
+    },
+    revalidate: 3600,
+  };
 }
