@@ -160,6 +160,10 @@ h5 {
   @apply lg:text-center;
 }
 
+.h5-alt {
+  @apply text-xs uppercase font-bold tracking-2 font-archivo text-grey-dark whitespace-nowrap;
+}
+
 h6.tag {
   @apply font-archivo tracking-widest text-grey-dark uppercase;
 }
