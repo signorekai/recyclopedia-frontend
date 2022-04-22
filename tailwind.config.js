@@ -30,6 +30,7 @@ module.exports = {
       },
       coral: { DEFAULT: '#FF6153', dark: 'rgb(219, 45, 30)' },
       teal: '#28C9AA',
+      red: '#D40606',
       bg: '#F1EDEA',
       grey: {
         dark: '#707075',
