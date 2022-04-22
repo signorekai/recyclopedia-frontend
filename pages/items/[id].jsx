@@ -10,6 +10,7 @@ import { useWindowDimensions } from '../../lib/hooks';
 import { Carousel, CarouselCard } from '../../components/Carousel';
 import Card from '../../components/Card';
 import NewImage from '../../components/Image';
+import { ReportBtn } from '../../components/Report';
 
 const RecommendationCard = ({ children, recommendation }) => (
   <div
@@ -355,6 +356,7 @@ function Page({ data }) {
               )}
             </span>
             <div className="divider-b mt-2"></div>
+            <ReportBtn record={`${data.title} (Items)`} />
           </div>
         </Layout>
       )}

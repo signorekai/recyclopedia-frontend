@@ -10,6 +10,7 @@ import { useWindowDimensions } from '../../lib/hooks';
 import { Carousel, CarouselCard } from '../../components/Carousel';
 import Card from '../../components/Card';
 import Image from '../../components/Image';
+import { ReportBtn } from '../../components/Report';
 
 const ResourceIcon = ({ tag }) => (
   <i
@@ -248,6 +249,7 @@ function Page({ data }) {
               )}
             </span>
             <div className="divider-b mt-2"></div>
+            <ReportBtn record={`${data.title} (Resources)`} />
           </div>
         </Layout>
       )}
