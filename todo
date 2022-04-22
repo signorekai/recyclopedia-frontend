@@ -1,10 +1,14 @@
 todos:
   ✔ stop overlay search bar on desktop @done(22-03-30 17:53)
   ✔ use strapi's responsive images instead of next's @done(22-04-02 00:01)
+  ✔ use getStaticProps instead of getServerSideProps for /index.jsx @done(22-04-22 20:07)
+  ✔ if user clicks on link that goes to current page, close menu @done(22-04-22 20:08)
+  ✔ resources instead of 'Recycle' on menu @done(22-04-22 20:08)
   [] add page transitions
-  [] use getStaticProps instead of getServerSideProps for /index.jsx
-  [] if user clicks on link that goes to current page, close menu
-  [] resources instead of 'Recycle' on menu
+  [] add desktop controls for <Carousel>
+  [] add RECAPTCHA to <ReportForm>
+  [] add /feedback page
+  [] add search functionality
   
 bugs:
-  [] icons at footer not showing up
+  ✔ icons at footer not showing up @done(22-04-22 20:08)
