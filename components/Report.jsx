@@ -26,7 +26,7 @@ const TextInput = ({ field, form: { touched, errors }, label, ...props }) => (
       )}
     </div>
     <div className="text-input-wrapper text-lg">
-      <input className="flex-1" {...field} {...props} />
+      <input tabIndex={0} className="flex-1" {...field} {...props} />
       {touched[field.name] && errors[field.name] && (
         <span className="fas fa-exclamation-triangle text-red" />
         // <div className="error">{errors[field.name]}</div>
@@ -50,7 +50,12 @@ export const FeedbackForm = ({ defaultRecord, handleModalClick }) => {
         )}
       </div>
       <div className="text-lg relative">
-        <textarea {...field} {...props} className="text-input-wrapper" rows={3}>
+        <textarea
+          tabIndex={0}
+          {...field}
+          {...props}
+          className="text-input-wrapper"
+          rows={3}>
           {field.value}
         </textarea>
         {touched[field.name] && errors[field.name] && (
@@ -90,73 +95,79 @@ export const FeedbackForm = ({ defaultRecord, handleModalClick }) => {
       onSubmit={_handleSubmit}
       validationSchema={FeedbackFormSchema}>
       {({ isSubmitting }) => (
-        <Form className="">
-          <Field type="text" name="name" label="Name" component={TextInput} />
-          <Field
-            type="email"
-            name="email"
-            label="Email"
-            component={TextInput}
-          />
-          <Field
-            name="topic"
-            options={[
-              { value: 'Make A Suggestion', label: 'Make A Suggestion' },
-              {
-                value: 'General Feedback / Enquiry',
-                label: 'General Feedback / Enquiry',
-              },
-              { value: 'Report An Error', label: 'Report An Error' },
-            ]}
-            component={({
-              field,
-              options,
-              form: { errors, setFieldValue },
-            }) => (
-              <div className="field-wrapper">
-                <div className="flex flex-row pb-1">
-                  <h5 className="text-left flex-1">Topic:</h5>
-                  {errors[field.name] && (
-                    <div className="text-sm text-red pb-1">
-                      {errors[field.name]}
-                    </div>
-                  )}
+        <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
+          <Form className="test">
+            <Field
+              name="topic"
+              options={[
+                { value: 'Make A Suggestion', label: 'Make A Suggestion' },
+                {
+                  value: 'General Feedback / Enquiry',
+                  label: 'General Feedback / Enquiry',
+                },
+                { value: 'Report An Error', label: 'Report An Error' },
+              ]}
+              component={({
+                field,
+                options,
+                form: { errors, setFieldValue },
+              }) => (
+                <div className="field-wrapper">
+                  <div className="flex flex-row pb-1">
+                    <h5 className="text-left flex-1">Topic:</h5>
+                    {errors[field.name] && (
+                      <div className="text-sm text-red pb-1">
+                        {errors[field.name]}
+                      </div>
+                    )}
+                  </div>
+                  <div className="text-lg">
+                    <Select
+                      openMenuOnFocus={true}
+                      tabSelectsValue={true}
+                      options={options}
+                      value={
+                        options
+                          ? options.find(
+                              (option) => option.value === field.value,
+                            )
+                          : ''
+                      }
+                      onChange={(option) =>
+                        setFieldValue(field.name, option.value)
+                      }
+                      onBlur={field.onBlur}
+                    />
+                  </div>
                 </div>
-                <div className="text-lg">
-                  <Select
-                    options={options}
-                    value={
-                      options
-                        ? options.find((option) => option.value === field.value)
-                        : ''
-                    }
-                    onChange={(option) =>
-                      setFieldValue(field.name, option.value)
-                    }
-                    onBlur={field.onBlur}
-                  />
-                </div>
-              </div>
-            )}
-          />
-          <Field
-            type="text"
-            name="record"
-            label="Record"
-            component={TextInput}
-          />
-          <Field name="message" label="Your Message" component={TextArea} />
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="form-submission-btn">
-            {isSubmitting ? (
-              <span className="far fa-spinner-third animate-spin" />
-            ) : (
-              'Submit'
-            )}
-          </button>
-        </Form>
+              )}
+            />
+            <Field
+              type="text"
+              name="record"
+              label="Record"
+              component={TextInput}
+            />
+            <Field type="text" name="name" label="Name" component={TextInput} />
+            <Field
+              type="email"
+              name="email"
+              label="Email"
+              component={TextInput}
+            />
+            <Field name="message" label="Your Message" component={TextArea} />
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="form-submission-btn">
+              {isSubmitting ? (
+                <span className="far fa-spinner-third animate-spin" />
+              ) : (
+                'Submit'
+              )}
+            </button>
+          </Form>
+        </FocusTrap>
       )}
     </Formik>
   );
@@ -184,22 +195,22 @@ export const ReportBtn = ({ record = '' }) => {
             animate="animate"
             exit="exit"
             className="modal-wrapper items-center !justify-center top-0 left-0 !z-50">
-            <FocusTrap>
-              <div className="mx-4 w-full max-w-xl my-14  bg-white py-7 px-3 rounded-lg relative overflow-hidden">
-                <button
-                  onClick={_handleClick}
-                  className="hover:opacity-80 transition-all duration-200">
-                  <span className="far fa-times absolute top-4 right-6 text-2xl text-grey" />
-                </button>
-                <h2 className="text-black inline-block px-4">Feedback</h2>
-                <div className="flex-1 lg:max-h-[60vh] overflow-y-scroll px-4 pb-4">
-                  <FeedbackForm
-                    defaultRecord={record}
-                    handleModalClick={_handleClick}
-                  />
-                </div>
+            <div className="mx-4 w-full max-w-xl my-14  bg-white py-7 px-3 rounded-lg relative overflow-hidden">
+              <button
+                onClick={() => {
+                  setModalOpen(false);
+                }}
+                className="hover:opacity-80 transition-all duration-200">
+                <span className="far fa-times absolute top-4 right-6 text-2xl text-grey" />
+              </button>
+              <h2 className="text-black inline-block px-4">Feedback</h2>
+              <div className="flex-1 lg:max-h-[60vh] overflow-y-auto px-4 pb-4">
+                <FeedbackForm
+                  defaultRecord={record}
+                  handleModalClick={_handleClick}
+                />
               </div>
-            </FocusTrap>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
