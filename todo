@@ -4,11 +4,11 @@ todos:
   ✔ use getStaticProps instead of getServerSideProps for /index.jsx @done(22-04-22 20:07)
   ✔ if user clicks on link that goes to current page, close menu @done(22-04-22 20:08)
   ✔ resources instead of 'Recycle' on menu @done(22-04-22 20:08)
+  ✔ add /feedback page @done(22-04-22 23:19)
   [] add page transitions
   [] add desktop controls for <Carousel>
   [] add RECAPTCHA to <ReportForm>
-  [] add /feedback page
   [] add search functionality
   
 bugs:
-  ✔ icons at footer not showing up @done(22-04-22 20:08)
+✔ icons at footer not showing up @done(22-04-22 20:08)
