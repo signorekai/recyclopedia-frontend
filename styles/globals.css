@@ -130,6 +130,22 @@
   .page-icon-wrapper {
     @apply rounded-full bg-white bg-opacity-60 h-9 w-9 text-center text-2xl flex justify-center items-center;
   }
+
+  .field-wrapper {
+    & + .field-wrapper {
+      @apply mt-6;
+    }
+  }
+
+  .text-input-wrapper {
+    @apply bg-white-pure px-4 py-2 text-black w-full;
+    @apply rounded-md border-1 border-grey;
+    @apply flex flex-row items-center;
+
+    input {
+      @apply focus:outline-none;
+    }
+  }
 }
 
 body {
@@ -324,4 +340,9 @@ p + p {
     @apply mx-auto my-6 p-6;
     @apply text-black;
   }
+}
+
+.form-submission-btn {
+  @apply bg-coral text-white px-5 py-2 mt-4 float-right rounded-md text-lg;
+  @apply disabled:bg-grey-light;
 }
