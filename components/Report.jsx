@@ -5,6 +5,18 @@ import { object, string, number, date, InferType } from 'yup';
 import FocusTrap from 'focus-trap-react';
 import Select from 'react-select';
 
+export const FeedbackFormSchema = object({
+  name: string().required('Name required'),
+  email: string().email('Email is invalid').required('Email required'),
+  topic: string()
+    .matches(
+      /^(Make A Suggestion|General Feedback \/ Enquiry|Report An Error)$/,
+      { message: 'Invalid topic' },
+    )
+    .required('Please choose a topic'),
+  message: string().required('Please type your message'),
+});
+
 const TextInput = ({ field, form: { touched, errors }, label, ...props }) => (
   <div className="field-wrapper">
     <div className="flex flex-row pb-1">
@@ -23,7 +35,7 @@ const TextInput = ({ field, form: { touched, errors }, label, ...props }) => (
   </div>
 );
 
-export const FeedbackForm = ({ defaultRecord }) => {
+export const FeedbackForm = ({ defaultRecord, handleModalClick }) => {
   const TextArea = ({
     field,
     options,
@@ -53,13 +65,17 @@ export const FeedbackForm = ({ defaultRecord }) => {
     let res = await fetch('/api/feedback', {
       method: 'POST',
       body: JSON.stringify({
+        token: '',
         formData: values,
       }),
     });
 
     let results = await res.json();
 
-    console.log(results);
+    if (res.status === 200) {
+      handleModalClick();
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -72,19 +88,7 @@ export const FeedbackForm = ({ defaultRecord }) => {
         record: defaultRecord,
       }}
       onSubmit={_handleSubmit}
-      validationSchema={() =>
-        object({
-          name: string().required('Name required'),
-          email: string().email('Email is invalid').required('Email required'),
-          topic: string()
-            .matches(
-              /^(Make A Suggestion|General Feedback \/ Enquiry|Report An Error)$/,
-              { message: 'Invalid topic' },
-            )
-            .required('Please choose a topic'),
-          message: string().required('Please type your message'),
-        })
-      }>
+      validationSchema={FeedbackFormSchema}>
       {({ isSubmitting }) => (
         <Form className="">
           <Field type="text" name="name" label="Name" component={TextInput} />
@@ -189,7 +193,10 @@ export const ReportBtn = ({ record = '' }) => {
                 </button>
                 <h2 className="text-black inline-block px-4">Feedback</h2>
                 <div className="flex-1 lg:max-h-[60vh] overflow-y-scroll px-4 pb-4">
-                  <FeedbackForm defaultRecord={record} />
+                  <FeedbackForm
+                    defaultRecord={record}
+                    handleModalClick={_handleClick}
+                  />
                 </div>
               </div>
             </FocusTrap>
