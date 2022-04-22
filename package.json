@@ -9,18 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "focus-trap-react": "^8.9.2",
+    "formik": "^2.2.9",
     "framer-motion": "^6.2.8",
     "lodash.orderby": "^4.6.0",
     "luxon": "^2.3.1",
     "next": "12.1.0",
+    "node-fetch": "^3.2.3",
     "pure-react-carousel": "^1.28.1",
     "qs": "^6.10.3",
     "react": "17.0.2",
     "react-content-loader": "^6.2.0",
     "react-dom": "17.0.2",
+    "react-select": "^5.3.0",
     "react-use-scroll-direction": "^0.1.0",
     "swr": "^1.2.2",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.4",
