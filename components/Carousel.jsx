@@ -44,13 +44,6 @@ export const Carousel = ({
       sliderStyle['width'] = `${children.length * 100}%`;
     } else {
       sliderStyle['width'] = `${children.length * slideWidth}px`;
-
-      // if (
-      //   carouselRef.current &&
-      //   carouselRef.current.offsetWidth < slideWidth * children.length
-      // ) {
-      //   setShowNextBtn(false);
-      // }
     }
   }
 
@@ -67,7 +60,7 @@ export const Carousel = ({
   const _handleScrollBtn = (direction = -1) => {
     _checkButtons();
     carouselRef.current.scrollBy({
-      left: scrollAmount * direction,
+      left: scrollAmount * direction * 2,
       behavior: 'smooth',
     });
   };
