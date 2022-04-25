@@ -66,7 +66,7 @@
   .basic-carousel {
     @apply max-w-full h-full;
     @apply overflow-x-scroll overflow-y-auto;
-    @apply hover:cursor-grab active:cursor-grabbing;
+    @apply relative;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
 
@@ -95,12 +95,26 @@
   .basic-carousel__slider {
     @apply md:px-0 h-full gap-x-2;
     @apply flex-1 items-start flex flex-row;
-    @apply max-w-none;
+    @apply max-w-none z-30;
     @apply hover:cursor-grab active:cursor-grabbing;
 
     &::-webkit-scrollbar {
       @apply hidden;
     }
+  }
+
+  .basic-carousel__control {
+    @apply h-full opacity-70 w-48 from-white-pure to-transparent absolute top-0 z-50;
+  }
+
+  .basic-carousel__control--prev {
+    @apply bg-gradient-to-r left-0;
+    @apply cursor-prev-btn;
+  }
+
+  .basic-carousel__control--next {
+    @apply bg-gradient-to-l right-0;
+    @apply cursor-next-btn;
   }
 
   .basic-carousel__card {

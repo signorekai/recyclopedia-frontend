@@ -63,6 +63,10 @@ module.exports = {
         sans: ['ibm-plex-sans', ...defaultTheme.fontFamily.sans],
         archivo: ['Archivo', ...defaultTheme.fontFamily.sans],
       },
+      cursor: {
+        'prev-btn': 'url(/img/previous-btn.png),pointer',
+        'next-btn': 'url(/img/next-btn.png),pointer',
+      },
       zIndex: {
         60: '60',
         70: '70',
