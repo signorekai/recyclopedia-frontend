@@ -1,5 +1,9 @@
 import { useRef, useEffect, useState } from 'react';
-import { useScrollDrag, useWindowDimensions } from '../lib/hooks';
+import {
+  useElementDimensions,
+  useScrollDrag,
+  useWindowDimensions,
+} from '../lib/hooks';
 import { motion, useElementScroll, useMotionValue } from 'framer-motion';
 
 export const CarouselCard = ({ children, className = '', style = {} }) => {
@@ -32,13 +36,41 @@ export const Carousel = ({
   const [showPreviousBtn, setShowPreviousBtn] = useState(false);
   const [showNextBtn, setShowNextBtn] = useState(true);
 
+  let scrollAmount =
+    slideWidth === 0 ? carouselRef.current?.offsetWidth : slideWidth;
+
   if (!autoSlideSize) {
     if (slideWidth === 0) {
       sliderStyle['width'] = `${children.length * 100}%`;
     } else {
       sliderStyle['width'] = `${children.length * slideWidth}px`;
+
+      // if (
+      //   carouselRef.current &&
+      //   carouselRef.current.offsetWidth < slideWidth * children.length
+      // ) {
+      //   setShowNextBtn(false);
+      // }
     }
   }
+
+  const _checkButtons = () => {
+    if (
+      carouselRef.current &&
+      carouselRef.current.offsetWidth < slideWidth * children.length
+    ) {
+      setShowNextBtn(false);
+      setShowPreviousBtn(false);
+    }
+  };
+
+  const _handleScrollBtn = (direction = -1) => {
+    _checkButtons();
+    carouselRef.current.scrollBy({
+      left: scrollAmount * direction,
+      behavior: 'smooth',
+    });
+  };
 
   useEffect(() => {
     if (disableScroll) {
@@ -71,26 +103,12 @@ export const Carousel = ({
       }
     });
 
+    _checkButtons();
+
     return () => {
       unsubscribeX();
     };
   }, [carouselRef, slidesContainerRef]);
-
-  useEffect(() => {
-    if (
-      carouselRef.current.offsetWidth >= slidesContainerRef.current.offsetWidth
-    ) {
-      setShowNextBtn(false);
-      setShowPreviousBtn(false);
-    }
-  }, []);
-
-  const _handleScrollBtn = (direction = -1) => {
-    carouselRef.current.scrollBy({
-      left: slideWidth * direction,
-      behavior: 'smooth',
-    });
-  };
 
   return (
     <div className="relative">

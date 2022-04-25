@@ -134,15 +134,10 @@ export default function Home({ items, newsItems }) {
         <h5>News & Tips</h5>
         <Carousel
           desktopControls={true}
-          autoSlideSize={true}
+          autoSlideSize={false}
+          slideWidth={width * (width > 1080 ? 0.25 : 0.75)}
           showNav={false}
-          className="mt-3"
-          sliderStyle={{
-            width:
-              width > 1080
-                ? width * 0.25 * newsItems.length
-                : width * 0.75 * newsItems.length,
-          }}>
+          className="mt-3">
           {newsItems.map((item, key) => (
             <CarouselCard key={key} className="w-screen-3/4 lg:w-screen-1/4">
               <Card

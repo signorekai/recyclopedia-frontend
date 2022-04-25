@@ -323,33 +323,36 @@ function Page({ data }) {
                   <h5 className="text-left lg:w-1/4">
                     <i className="far fa-question-circle"></i> Similar Items
                   </h5>
-                  <Carousel
-                    showNav={false}
-                    className="gap-x-2 flex-1 mt-3 lg:mt-0">
-                    {data.itemCategory.items.map((item, key) => {
-                      if (item.id !== data.id) {
-                        return (
-                          <CarouselCard
-                            key={key}
-                            className="w-36 lg:w-64 overflow-hidden relative">
-                            <Card
-                              className="w-full"
-                              uniqueKey={`card-${key}`}
-                              content={{
-                                backgroundImage:
-                                  item.images.length > 0
-                                    ? item.images[0].url
-                                    : '',
-                                headerText: item.title,
-                                contentType: 'items',
-                                slug: item.slug,
-                              }}
-                            />
-                          </CarouselCard>
-                        );
-                      }
-                    })}
-                  </Carousel>
+                  <div className="flex-1">
+                    <Carousel
+                      slideWidth={256}
+                      showNav={false}
+                      className="gap-x-2 flex-1 mt-3 lg:mt-0">
+                      {data.itemCategory.items.map((item, key) => {
+                        if (item.id !== data.id) {
+                          return (
+                            <CarouselCard
+                              key={key}
+                              className="w-36 lg:w-64 overflow-hidden relative">
+                              <Card
+                                className="w-full"
+                                uniqueKey={`card-${key}`}
+                                content={{
+                                  backgroundImage:
+                                    item.images.length > 0
+                                      ? item.images[0].url
+                                      : '',
+                                  headerText: item.title,
+                                  contentType: 'items',
+                                  slug: item.slug,
+                                }}
+                              />
+                            </CarouselCard>
+                          );
+                        }
+                      })}
+                    </Carousel>
+                  </div>
                 </section>
                 <div className="divider-b mt-4 mb-2"></div>
               </>
