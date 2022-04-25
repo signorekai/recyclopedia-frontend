@@ -191,7 +191,7 @@ function Page({ data }) {
                   viewport={{ once: true }}
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
-                  className="lg:divider-b">
+                  className="lg:divider-b lg:divider-b-taller">
                   <section
                     key={key}
                     className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
@@ -238,11 +238,14 @@ function Page({ data }) {
                     </div>
                   </section>
                   {width > 1080 ? (
-                    <div className="ml-[calc(25%+1rem)]">
+                    <div
+                      className={`ml-[calc(25%+1rem)] ${
+                        item.resources.length === 0 && 'hidden'
+                      }`}>
                       <Carousel
                         showNav={false}
                         slideWidth={256}
-                        className="gap-x-2 mt-6 mb-8">
+                        className="gap-x-2 mt-6">
                         {item.resources.map((resource, key) => (
                           <CarouselCard
                             key={key}
