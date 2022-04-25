@@ -133,6 +133,7 @@ export default function Home({ items, newsItems }) {
       <div className="container lg:container--fluid">
         <h5>News & Tips</h5>
         <Carousel
+          desktopControls={true}
           autoSlideSize={true}
           showNav={false}
           className="mt-3"

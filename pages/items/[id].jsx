@@ -238,31 +238,36 @@ function Page({ data }) {
                     </div>
                   </section>
                   {width > 1080 ? (
-                    <Carousel
-                      showNav={false}
-                      className="ml-[calc(25%+1rem)] gap-x-2 mt-6 mb-8">
-                      {item.resources.map((resource, key) => (
-                        <CarouselCard
-                          key={key}
-                          className="w-64 border-1 rounded-md border-grey-light overflow-hidden relative">
-                          <Link key={key} href={`/resources/${resource.slug}`}>
-                            <a>
-                              <NewImage
-                                layout="fixed"
-                                src={resource.images[0].url}
-                                format={resource.images[0].format}
-                                width={256}
-                                height={158}
-                                alt={resource.title}
-                              />
-                              <h4 className="py-2 px-3 text-blue text-lg">
-                                {resource.title}
-                              </h4>
-                            </a>
-                          </Link>
-                        </CarouselCard>
-                      ))}
-                    </Carousel>
+                    <div className="ml-[calc(25%+1rem)]">
+                      <Carousel
+                        showNav={false}
+                        slideWidth={256}
+                        className="gap-x-2 mt-6 mb-8">
+                        {item.resources.map((resource, key) => (
+                          <CarouselCard
+                            key={key}
+                            className="w-64 border-1 rounded-md border-grey-light overflow-hidden relative">
+                            <Link
+                              key={key}
+                              href={`/resources/${resource.slug}`}>
+                              <a>
+                                <NewImage
+                                  layout="fixed"
+                                  src={resource.images[0].url}
+                                  format={resource.images[0].format}
+                                  width={256}
+                                  height={158}
+                                  alt={resource.title}
+                                />
+                                <h4 className="py-2 px-3 text-blue text-lg">
+                                  {resource.title}
+                                </h4>
+                              </a>
+                            </Link>
+                          </CarouselCard>
+                        ))}
+                      </Carousel>
+                    </div>
                   ) : (
                     <section className="grid gap-y-2 my-4 divider-b after:mt-6">
                       {item.resources.map((resource, key) => (

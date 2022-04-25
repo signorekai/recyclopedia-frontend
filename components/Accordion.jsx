@@ -121,23 +121,24 @@ export const AccordionHeader = ({
   );
 };
 
-export const AccordionBody = ({ className = '', ...items }) => {
+export const AccordionBody = ({
+  className = '',
+  desktopControls = false,
+  ...items
+}) => {
   const { selected, setSelected, hash } = useContext(AccordionContext);
   const itemRefs = useRef({});
   const [scroll, setScroll] = useState(0);
-
-  useEffect(() => {
-    setScroll(itemRefs.current[selected].offsetLeft);
-  }, [selected]);
-
   const { width } = useWindowDimensions();
+
   useEffect(() => {
     setScroll(itemRefs.current[selected].offsetLeft);
-  }, [width]);
+  }, [width, selected]);
 
   return (
     <div className={`${className}`}>
       <Carousel
+        desktopControls={desktopControls}
         autoScroll={false}
         className="mt-5"
         scrollTo={scroll}
