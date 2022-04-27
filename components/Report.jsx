@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { object, string, number, date, InferType } from 'yup';
+import Link from 'next/link';
 import FocusTrap from 'focus-trap-react';
 import Select from 'react-select';
 
@@ -35,7 +36,12 @@ const TextInput = ({ field, form: { touched, errors }, label, ...props }) => (
   </div>
 );
 
-export const FeedbackForm = ({ defaultRecord, handleModalClick }) => {
+export const FeedbackForm = ({
+  defaultRecord,
+  handleModalClick = () => {},
+}) => {
+  const [showSuccess, setShowSuccess] = useState(false);
+
   const TextArea = ({
     field,
     options,
@@ -80,96 +86,132 @@ export const FeedbackForm = ({ defaultRecord, handleModalClick }) => {
     if (res.status === 200) {
       handleModalClick();
       setSubmitting(false);
+      setShowSuccess(true);
     }
   };
 
   return (
-    <Formik
-      initialValues={{
-        name: '',
-        email: '',
-        topic: '',
-        message: '',
-        record: defaultRecord,
-      }}
-      onSubmit={_handleSubmit}
-      validationSchema={FeedbackFormSchema}>
-      {({ isSubmitting }) => (
-        <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
-          <Form className="test">
-            <Field
-              name="topic"
-              options={[
-                { value: 'Make A Suggestion', label: 'Make A Suggestion' },
-                {
-                  value: 'General Feedback / Enquiry',
-                  label: 'General Feedback / Enquiry',
-                },
-                { value: 'Report An Error', label: 'Report An Error' },
-              ]}
-              component={({
-                field,
-                options,
-                form: { errors, setFieldValue },
-              }) => (
-                <div className="field-wrapper">
-                  <div className="flex flex-row pb-1">
-                    <h5 className="text-left flex-1">Topic:</h5>
-                    {errors[field.name] && (
-                      <div className="text-sm text-red pb-1">
-                        {errors[field.name]}
+    <>
+      <AnimatePresence>
+        {showSuccess ? (
+          <div className="h-full text-center">
+            <i className="far fa-check text-teal text-4xl"></i>
+            <h2>Your message has been received!</h2>
+            <p>
+              Thank you for your time. We’ll contact you regarding further
+              details if you requested for a response.
+            </p>
+            <div className="divider-b-wider my-8"></div>
+            <p className="text-center">
+              <Link href="/items">
+                <a className="!text-coral font-bold">
+                  Recycling Guide <i className="far fa-arrow-right"></i>
+                </a>
+              </Link>
+            </p>
+          </div>
+        ) : (
+          <Formik
+            initialValues={{
+              name: '',
+              email: '',
+              topic: '',
+              message: '',
+              record: defaultRecord,
+            }}
+            onSubmit={_handleSubmit}
+            validationSchema={FeedbackFormSchema}>
+            {({ isSubmitting }) => (
+              <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
+                <Form className="test">
+                  <Field
+                    name="topic"
+                    options={[
+                      {
+                        value: 'Make A Suggestion',
+                        label: 'Make A Suggestion',
+                      },
+                      {
+                        value: 'General Feedback / Enquiry',
+                        label: 'General Feedback / Enquiry',
+                      },
+                      { value: 'Report An Error', label: 'Report An Error' },
+                    ]}
+                    component={({
+                      field,
+                      options,
+                      form: { errors, setFieldValue },
+                    }) => (
+                      <div className="field-wrapper">
+                        <div className="flex flex-row pb-1">
+                          <h5 className="text-left flex-1">Topic:</h5>
+                          {errors[field.name] && (
+                            <div className="text-sm text-red pb-1">
+                              {errors[field.name]}
+                            </div>
+                          )}
+                        </div>
+                        <div className="text-lg">
+                          <Select
+                            openMenuOnFocus={true}
+                            tabSelectsValue={true}
+                            options={options}
+                            value={
+                              options
+                                ? options.find(
+                                    (option) => option.value === field.value,
+                                  )
+                                : ''
+                            }
+                            onChange={(option) =>
+                              setFieldValue(field.name, option.value)
+                            }
+                            onBlur={field.onBlur}
+                          />
+                        </div>
                       </div>
                     )}
-                  </div>
-                  <div className="text-lg">
-                    <Select
-                      openMenuOnFocus={true}
-                      tabSelectsValue={true}
-                      options={options}
-                      value={
-                        options
-                          ? options.find(
-                              (option) => option.value === field.value,
-                            )
-                          : ''
-                      }
-                      onChange={(option) =>
-                        setFieldValue(field.name, option.value)
-                      }
-                      onBlur={field.onBlur}
-                    />
-                  </div>
-                </div>
-              )}
-            />
-            <Field
-              type="text"
-              name="record"
-              label="Record"
-              component={TextInput}
-            />
-            <Field type="text" name="name" label="Name" component={TextInput} />
-            <Field
-              type="email"
-              name="email"
-              label="Email"
-              component={TextInput}
-            />
-            <Field name="message" label="Your Message" component={TextArea} />
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="form-submission-btn">
-              {isSubmitting ? (
-                <span className="far fa-spinner-third animate-spin" />
-              ) : (
-                'Submit'
-              )}
-            </button>
-          </Form>
-        </FocusTrap>
-      )}
-    </Formik>
+                  />
+                  <Field
+                    type="text"
+                    name="record"
+                    label="Record"
+                    component={TextInput}
+                  />
+                  <Field
+                    type="text"
+                    name="name"
+                    label="Name"
+                    component={TextInput}
+                  />
+                  <Field
+                    type="email"
+                    name="email"
+                    label="Email"
+                    component={TextInput}
+                  />
+                  <Field
+                    name="message"
+                    label="Your Message"
+                    component={TextArea}
+                  />
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="form-submission-btn">
+                    {isSubmitting ? (
+                      <span className="far fa-spinner-third animate-spin" />
+                    ) : (
+                      'Submit'
+                    )}
+                  </button>
+                </Form>
+              </FocusTrap>
+            )}
+          </Formik>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
