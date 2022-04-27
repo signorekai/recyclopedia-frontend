@@ -50,7 +50,7 @@ export const Carousel = ({
   const _checkButtons = () => {
     if (
       carouselRef.current &&
-      carouselRef.current.offsetWidth < slideWidth * children.length
+      carouselRef.current.offsetWidth < scrollAmount * children.length
     ) {
       setShowNextBtn(false);
       setShowPreviousBtn(false);
