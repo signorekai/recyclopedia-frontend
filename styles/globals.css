@@ -96,7 +96,6 @@
     @apply md:px-0 h-full gap-x-2;
     @apply flex-1 items-start flex flex-row;
     @apply max-w-none z-30;
-    @apply hover:cursor-grab active:cursor-grabbing;
 
     &::-webkit-scrollbar {
       @apply hidden;
