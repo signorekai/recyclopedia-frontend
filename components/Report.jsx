@@ -50,7 +50,7 @@ export const FeedbackForm = ({
   }) => (
     <div className="field-wrapper">
       <div className="flex flex-row pb-1">
-        <h5 className="text-left flex-1">Your Message:</h5>
+        <h5 className="text-left flex-1">{props.label}:</h5>
         {touched[field.name] && errors[field.name] && (
           <div className="text-sm text-red pb-1">{errors[field.name]}</div>
         )}
@@ -144,7 +144,7 @@ export const FeedbackForm = ({
                     }) => (
                       <div className="field-wrapper">
                         <div className="flex flex-row pb-1">
-                          <h5 className="text-left flex-1">Topic:</h5>
+                          <h5 className="text-left flex-1">Topic*:</h5>
                           {errors[field.name] && (
                             <div className="text-sm text-red pb-1">
                               {errors[field.name]}
@@ -181,20 +181,23 @@ export const FeedbackForm = ({
                   <Field
                     type="text"
                     name="name"
-                    label="Name"
+                    label="Name*"
                     component={TextInput}
                   />
                   <Field
                     type="email"
                     name="email"
-                    label="Email"
+                    label="Email*"
                     component={TextInput}
                   />
                   <Field
                     name="message"
-                    label="Your Message"
+                    label="Your Message*"
                     component={TextArea}
                   />
+                  <span className="text-sm text-grey-mid">
+                    * denotes compulsory.
+                  </span>
                   <button
                     type="submit"
                     disabled={isSubmitting}
