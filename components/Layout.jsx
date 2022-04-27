@@ -13,6 +13,7 @@ import { useSession } from 'next-auth/react';
 import { useScrollDirection } from 'react-use-scroll-direction';
 
 import { useWindowDimensions } from '../lib/hooks';
+import { capitalise } from '../lib/functions';
 
 const menu = [
   { label: 'Items', href: '/items' },
@@ -92,8 +93,6 @@ export default function Layout({
   const headerControls = useAnimation();
 
   const { data: session, status: authStatus } = useSession();
-
-  console.log(88, session, authStatus);
 
   const handleMenuBtn = () => {
     setShowSearchBar(false);
@@ -206,13 +205,9 @@ export default function Layout({
                   {menu.map((m) => {
                     if (m.href === router.route) {
                       return (
-                        <button
-                          onClick={() => {
-                            setShowMenu(false);
-                          }}
-                          className={`${m.className}`}>
+                        <span className={`font-bold ${m.className}`}>
                           {m.label}
-                        </button>
+                        </span>
                       );
                     } else {
                       return (
@@ -225,19 +220,13 @@ export default function Layout({
                 </div>
                 <div className="icon-wrapper">
                   {authStatus === 'authenticated' && (
-                    <button className="hidden lg:block" id="bookmark-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 20"
-                        className="w-4 h-5">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="fill-transparent"
-                          d="M15 19l-7-5-7 5V3a2 2 0 012-2h10a2 2 0 012 2v16z"
-                        />
-                      </svg>
-                    </button>
+                    <Link href="/account/bookmarks">
+                      <a
+                        className="hidden lg:block !text-white"
+                        id="bookmark-icon">
+                        <span className="far fa-bookmark text-xl"></span>
+                      </a>
+                    </Link>
                   )}
                   <Link href="/account">
                     <a
@@ -345,10 +334,7 @@ export default function Layout({
                 </BookmarkLink>
                 {authStatus === 'authenticated' ? (
                   <Link href="/account">
-                    <a className="-mt-4">
-                      {session.user.name.charAt(0).toUpperCase() +
-                        session.user.name.slice(1)}
-                    </a>
+                    <a className="-mt-4">{capitalise(session.user.name)}</a>
                   </Link>
                 ) : (
                   <Link href="/signin">
