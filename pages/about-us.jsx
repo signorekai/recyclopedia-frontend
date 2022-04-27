@@ -54,13 +54,13 @@ export default function Page({ pageOptions }) {
           </p>
         </div>
       </div>
-      <div className="container flex flex-col lg:flex-row mt-8 lg:mt-12 items-start">
-        <h3 className="text-black lg:w-1/4 lg:justify-start">
-          Proudly Supported by
-        </h3>
-        <div className="flex-1 mt-2 lg:mt-0 flex lg:grid items-center grid-cols-3 gap-x-4 gap-y-2">
-          {supporters &&
-            supporters.map((supporter) => (
+      {supporters && (
+        <div className="container flex flex-col lg:flex-row mt-8 lg:mt-12 items-start">
+          <h3 className="text-black lg:w-1/4 lg:justify-start">
+            Proudly Supported by
+          </h3>
+          <div className="flex-1 mt-2 lg:mt-0 flex lg:grid items-center grid-cols-3 gap-x-4 gap-y-2">
+            {supporters.map((supporter) => (
               <a
                 href={supporter.url}
                 target="_blank"
@@ -76,8 +76,9 @@ export default function Page({ pageOptions }) {
                 />
               </a>
             ))}
+          </div>
         </div>
-      </div>
+      )}
     </Layout>
   );
 }

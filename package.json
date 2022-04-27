@@ -15,6 +15,7 @@
     "lodash.orderby": "^4.6.0",
     "luxon": "^2.3.1",
     "next": "12.1.0",
+    "next-auth": "^4.3.3",
     "node-fetch": "^3.2.3",
     "pure-react-carousel": "^1.28.1",
     "qs": "^6.10.3",
