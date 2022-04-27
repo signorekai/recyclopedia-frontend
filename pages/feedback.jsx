@@ -8,7 +8,7 @@ export default function Page() {
       <Head>
         <title>Recyclopedia - Feedback</title>
       </Head>
-      <div className="container container--narrow pt-4 lg:pt-10">
+      <div className="container container--narrow h-full pt-4 lg:pt-10">
         <h1 className="text-black">Feedback</h1>
         <h3 className="mb-10">
           Spotted outdated information, or have suggestions for improvements?
