@@ -15,7 +15,7 @@ import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
 
 export default function Home({ items, newsItems }) {
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   return (
     <Layout showHeaderInitially={false} showHeaderOn="DOWN">
