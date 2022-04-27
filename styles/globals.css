@@ -126,8 +126,17 @@
     @apply after:mt-3 after:block;
   }
 
-  .divider-b-taller {
+  .divider-b-taller,
+  .divider-b-8 {
     @apply after:mt-8;
+  }
+
+  .divider-b-12 {
+    @apply after:mt-12;
+  }
+
+  .divider-b-16 {
+    @apply after:mt-16;
   }
 
   .divider-b-wider {
