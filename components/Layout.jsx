@@ -8,9 +8,11 @@ import {
   useAnimation,
   useViewportScroll,
 } from 'framer-motion';
-import { useScrollDirection } from 'react-use-scroll-direction';
-import { useWindowDimensions } from '../lib/hooks';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+import { useScrollDirection } from 'react-use-scroll-direction';
+
+import { useWindowDimensions } from '../lib/hooks';
 
 const menu = [
   { label: 'Items', href: '/items' },
@@ -61,6 +63,14 @@ const SearchIcon = ({
   );
 };
 
+const BookmarkLink = ({ authStatus, children }) => {
+  if (authStatus === 'authenticated') {
+    return <Link href="/bookmarks">{children}</Link>;
+  } else {
+    return children;
+  }
+};
+
 export default function Layout({
   children,
   showHeaderInitially = true,
@@ -80,6 +90,10 @@ export default function Layout({
 
   const searchBar = useRef();
   const headerControls = useAnimation();
+
+  const { data: session, status: authStatus } = useSession();
+
+  console.log(88, session, authStatus);
 
   const handleMenuBtn = () => {
     setShowSearchBar(false);
@@ -210,32 +224,39 @@ export default function Layout({
                   })}
                 </div>
                 <div className="icon-wrapper">
-                  <button className="hidden lg:block" id="bookmark-icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 20"
-                      className="w-4 h-5">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="fill-transparent"
-                        d="M15 19l-7-5-7 5V3a2 2 0 012-2h10a2 2 0 012 2v16z"
-                      />
-                    </svg>
-                  </button>
-                  <button className="hidden lg:block" id="person-icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="19"
-                      height="20"
-                      fill="none"
-                      viewBox="0 0 19 20">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9.489 10.665a4.832 4.832 0 100-9.665 4.832 4.832 0 000 9.665zM1 18.086c0-2.491 2.157-7.421 6.634-7.421h3.732c4.477 0 6.634 4.93 6.634 7.421H1z"></path>
-                    </svg>
-                  </button>
+                  {authStatus === 'authenticated' && (
+                    <button className="hidden lg:block" id="bookmark-icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 20"
+                        className="w-4 h-5">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="fill-transparent"
+                          d="M15 19l-7-5-7 5V3a2 2 0 012-2h10a2 2 0 012 2v16z"
+                        />
+                      </svg>
+                    </button>
+                  )}
+                  <Link href="/account">
+                    <a
+                      className="hidden !text-white lg:flex items-center"
+                      id="person-icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="20"
+                        fill="none"
+                        viewBox="0 0 19 20">
+                        <path
+                          className="stroke-current stroke-2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9.489 10.665a4.832 4.832 0 100-9.665 4.832 4.832 0 000 9.665zM1 18.086c0-2.491 2.157-7.421 6.634-7.421h3.732c4.477 0 6.634 4.93 6.634 7.421H1z"></path>
+                      </svg>
+                    </a>
+                  </Link>
                   <SearchIcon onClick={handleSearchBtn} />
                 </div>
               </div>
@@ -316,6 +337,26 @@ export default function Layout({
                     );
                   }
                 })}
+                <BookmarkLink authStatus={authStatus}>
+                  <a className="text-left !text-black">
+                    <span className="fas fa-bookmark mr-3" />
+                    Bookmarks
+                  </a>
+                </BookmarkLink>
+                {authStatus === 'authenticated' ? (
+                  <Link href="/account">
+                    <a className="-mt-4">
+                      {session.user.name.charAt(0).toUpperCase() +
+                        session.user.name.slice(1)}
+                    </a>
+                  </Link>
+                ) : (
+                  <Link href="/signin">
+                    <a className="-mt-4 text-sm !text-grey-mid">
+                      Login to access
+                    </a>
+                  </Link>
+                )}
               </motion.div>
             </motion.div>
           )}
