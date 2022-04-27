@@ -214,7 +214,7 @@ ul:not(.plain) {
 }
 
 a {
-  @apply hover:opacity-80;
+  @apply hover:opacity-70;
 }
 
 a:not(.motion-controlled) {
@@ -247,8 +247,8 @@ p + p {
   @apply pb-1;
 
   a {
-    @apply transition-colors duration-100;
-    @apply hover:text-teal;
+    @apply transition-all duration-100;
+    @apply hover:opacity-70;
   }
 }
 
@@ -272,10 +272,6 @@ p + p {
 
 .main {
   @apply flex-1;
-
-  a {
-    @apply text-blue;
-  }
 }
 
 .modal-wrapper {
@@ -342,6 +338,10 @@ p + p {
 
 .article-body {
   @apply lg:w-3/4;
+
+  a {
+    @apply text-blue;
+  }
 
   h1,
   h2,
