@@ -58,7 +58,7 @@ export default function Page({ pageOptions }) {
         <h3 className="text-black lg:w-1/4 lg:justify-start">
           Proudly Supported by
         </h3>
-        <div className="flex-1 grid items-center grid-cols-3 gap-x-4 gap-y-2">
+        <div className="flex-1 mt-2 lg:mt-0 flex lg:grid items-center grid-cols-3 gap-x-4 gap-y-2">
           {supporters &&
             supporters.map((supporter) => (
               <a
