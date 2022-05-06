@@ -49,7 +49,7 @@ const SearchIcon = ({
       {showIcon && (
         <button id="search-icon" className={className} onClick={onClick}>
           <svg
-            className="w-5 h-5 ml-2 stroke-current stroke-2"
+            className="w-5 h-5 stroke-current stroke-2"
             fill="none"
             viewBox="0 0 20 20">
             <path
@@ -246,7 +246,10 @@ export default function Layout({
                       </svg>
                     </a>
                   </Link>
-                  <SearchIcon onClick={handleSearchBtn} />
+                  <SearchIcon
+                    onClick={handleSearchBtn}
+                    className="!mr-[-0.1rem]"
+                  />
                 </div>
               </div>
             </div>
