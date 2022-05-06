@@ -7,6 +7,7 @@ export default async function handler(req, res) {
     const bookmarks = await fetch(
       `${process.env.API_URL}/api/bookmarks?${qs.stringify({
         populate: '*',
+        sort: ['updatedAt:desc'],
         filters: {
           user: {
             id: {

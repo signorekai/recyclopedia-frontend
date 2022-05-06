@@ -229,8 +229,8 @@ export const ReportBtn = ({ record = '' }) => {
     <>
       <div className="w-full text-center mt-10 mb-8">
         <button onClick={_handleClick} className="hover:opacity-80">
-          <span className="far fa-exclamation-triangle text-coral-dark"></span>
-          <h3 className="mt-2">Report Error / Provide Feedback</h3>
+          <span className="far fa-exclamation-triangle text-coral-dark text-lg"></span>
+          <h6 className="mt-2 text-sm">Report Error / Provide Feedback</h6>
         </button>
       </div>
       <AnimatePresence>
