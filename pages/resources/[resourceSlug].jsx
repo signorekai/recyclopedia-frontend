@@ -39,7 +39,7 @@ const ResourceBullet = ({ tag, className }) => (
         }[tag]
       } ${className}`}>
       <ResourceIcon tag={tag} />
-      <span className="pt-[2px]">{tag}</span>
+      <span className="pt-[2px] tracking-2">{tag}</span>
     </a>
   </Link>
 );
