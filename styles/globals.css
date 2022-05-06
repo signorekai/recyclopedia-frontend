@@ -119,6 +119,8 @@
   .basic-carousel__card {
     @apply snap-start h-full px-0 flex flex-col justify-between;
     @apply last:pr-4;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
   }
 
   .divider-b {
