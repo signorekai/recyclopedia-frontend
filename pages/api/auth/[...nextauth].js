@@ -25,7 +25,6 @@ const options = {
         });
         const user = await res.json();
 
-        console.log(28, user);
         // If no error and we have user data, return it
         if (res.ok && user) {
           return user;
