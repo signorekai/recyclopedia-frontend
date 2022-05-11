@@ -100,7 +100,7 @@ export async function getStaticProps() {
   };
 
   const pageResponse = await fetch(
-    `${ip}/api/items-page?${qs.stringify(pageQuery)}`,
+    `${ip}/items-page?${qs.stringify(pageQuery)}`,
     {
       headers: {
         Authorization: `Bearer ${process.env.API_KEY}`,
@@ -119,7 +119,7 @@ export async function getStaticProps() {
     },
   });
 
-  const res = await fetch(`${ip}/api/items?${query}`, {
+  const res = await fetch(`${ip}/items?${query}`, {
     headers: {
       Authorization: `Bearer ${process.env.API_KEY}`,
     },

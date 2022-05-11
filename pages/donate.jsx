@@ -177,7 +177,7 @@ export async function getStaticProps() {
   };
 
   const pageResponse = await fetch(
-    `${ip}/api/donate-page?${qs.stringify(pageQuery)}`,
+    `${ip}/donate-page?${qs.stringify(pageQuery)}`,
     {
       headers: {
         Authorization: `Bearer ${process.env.API_KEY}`,
@@ -203,7 +203,7 @@ export async function getStaticProps() {
       filters: { resourceTags: { title: { $eq: title } } },
     });
 
-    const response = await fetch(`${ip}/api/resources?${query}`, {
+    const response = await fetch(`${ip}/resources?${query}`, {
       headers: {
         Authorization: `Bearer ${process.env.API_KEY}`,
       },
@@ -227,7 +227,7 @@ export async function getStaticProps() {
     filters: { resourceTags: { title: { $in: titles } } },
   });
 
-  const response = await fetch(`${ip}/api/resources?${query}`, {
+  const response = await fetch(`${ip}/resources?${query}`, {
     headers: {
       Authorization: `Bearer ${process.env.API_KEY}`,
     },

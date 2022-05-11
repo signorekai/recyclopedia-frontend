@@ -89,7 +89,7 @@ export async function getStaticProps() {
     populate: ['section', 'section.item'],
   };
 
-  const pageResponse = await fetch(`${ip}/api/faq?${qs.stringify(pageQuery)}`, {
+  const pageResponse = await fetch(`${ip}/faq?${qs.stringify(pageQuery)}`, {
     headers: {
       Authorization: `Bearer ${process.env.API_KEY}`,
     },

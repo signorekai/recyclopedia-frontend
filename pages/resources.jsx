@@ -174,7 +174,7 @@ export async function getStaticProps() {
   const fallback = {};
 
   const { data: pageOptions } = await staticFetcher(
-    `${ip}/api/resource-page?${qs.stringify({
+    `${ip}/resource-page?${qs.stringify({
       populate: ['resourceTags'],
     })}`,
     process.env.API_KEY,
@@ -192,7 +192,7 @@ export async function getStaticProps() {
   // get data of every related resourceTag
   const promises = pageOptions.resourceTags.map(async ({ title }) => {
     const { data: result } = await staticFetcher(
-      `${ip}/api/resources?${qs.stringify({
+      `${ip}/resources?${qs.stringify({
         ...resourceQueryTemplate,
         filters: { resourceTags: { title: { $eq: title } } },
       })}`,
@@ -212,7 +212,7 @@ export async function getStaticProps() {
   const titles = pageOptions.resourceTags.map(({ title }) => title);
 
   const { data: result } = await staticFetcher(
-    `${ip}/api/resources?${qs.stringify({
+    `${ip}/resources?${qs.stringify({
       ...resourceQueryTemplate,
       filters: { resourceTags: { title: { $in: titles } } },
     })}`,

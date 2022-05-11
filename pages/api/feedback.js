@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   const validation = await FeedbackFormSchema.isValid(formData);
 
   if (validation) {
-    let response = await fetch(`${process.env.API_URL}/api/ezforms/submit`, {
+    let response = await fetch(`${process.env.API_URL}/ezforms/submit`, {
       method: 'POST',
       body,
       headers: { 'Content-Type': 'application/json' },

@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   const token = await getToken({ req });
   if (token) {
     const bookmarks = await fetch(
-      `${process.env.API_URL}/api/bookmarks?${qs.stringify({
+      `${process.env.API_URL}/bookmarks?${qs.stringify({
         populate: '*',
         sort: ['updatedAt:desc'],
         filters: {

@@ -272,7 +272,7 @@ export async function getStaticPaths() {
     },
   });
 
-  const res = await fetch(`${ip}/api/resources?${queryParams}`, {
+  const res = await fetch(`${ip}/resources?${queryParams}`, {
     headers: {
       Authorization: `Bearer ${process.env.API_KEY}`,
     },
@@ -302,7 +302,7 @@ export async function getStaticProps({ params }) {
     },
   });
 
-  const res = await fetch(`${ip}/api/resources?${queryParams}`, {
+  const res = await fetch(`${ip}/resources?${queryParams}`, {
     headers: {
       Authorization: `Bearer ${process.env.API_KEY}`,
     },

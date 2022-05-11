@@ -179,7 +179,7 @@ export async function getStaticProps() {
   const fallback = {};
 
   const { data: pageOptions } = await staticFetcher(
-    `${process.env.API_URL}/api/news-and-tips-page?${qs.stringify({
+    `${process.env.API_URL}/news-and-tips-page?${qs.stringify({
       populate: [
         'featuredArticles',
         'featuredArticles.article',
@@ -191,7 +191,7 @@ export async function getStaticProps() {
   );
 
   const { data: categoryData } = await staticFetcher(
-    `${process.env.API_URL}/api/article-categories?${qs.stringify({
+    `${process.env.API_URL}/article-categories?${qs.stringify({
       sort: ['title'],
     })}`,
     process.env.API_KEY,
@@ -211,7 +211,7 @@ export async function getStaticProps() {
     });
 
     const { data: results } = await staticFetcher(
-      `${process.env.API_URL}/api/articles?${query}`,
+      `${process.env.API_URL}/articles?${query}`,
       process.env.API_KEY,
     );
 
@@ -230,7 +230,7 @@ export async function getStaticProps() {
   await Promise.all(fetchEachCategory);
 
   const { data: allArticles } = await staticFetcher(
-    `${process.env.API_URL}/api/articles?${qs.stringify({
+    `${process.env.API_URL}/articles?${qs.stringify({
       populate: ['coverImage', 'category'],
       sort: ['updatedAt:desc'],
       pagination: {

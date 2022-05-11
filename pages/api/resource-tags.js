@@ -11,7 +11,7 @@ export default function handler(req, res) {
       },
     });
 
-    const result = await fetch(`${ip}/api/resources-tags?${query}`, {
+    const result = await fetch(`${ip}/resources-tags?${query}`, {
       headers: {
         Authorization: `Bearer ${process.env.API_KEY}`,
       },

@@ -208,7 +208,7 @@ export default function Page({
 export async function getStaticPaths() {
   const ip = process.env.API_URL;
   const { data: res } = await staticFetcher(
-    `${ip}/api/articles?${qs.stringify({
+    `${ip}/articles?${qs.stringify({
       sort: ['updatedAt:desc'],
       pagination: {
         page: 1,
@@ -241,19 +241,19 @@ export async function getStaticProps({ params }) {
   });
 
   const { data } = await staticFetcher(
-    `${ip}/api/articles?${query}`,
+    `${ip}/articles?${query}`,
     process.env.API_KEY,
   );
 
   const { data: categoryData } = await staticFetcher(
-    `${process.env.API_URL}/api/article-categories?${qs.stringify({
+    `${process.env.API_URL}/article-categories?${qs.stringify({
       sort: ['title'],
     })}`,
     process.env.API_KEY,
   );
 
   const { data: previousPost } = await staticFetcher(
-    `${process.env.API_URL}/api/articles`,
+    `${process.env.API_URL}/articles`,
     process.env.API_KEY,
     {
       filters: {
@@ -271,7 +271,7 @@ export async function getStaticProps({ params }) {
   );
 
   const { data: nextPost } = await staticFetcher(
-    `${process.env.API_URL}/api/articles`,
+    `${process.env.API_URL}/articles`,
     process.env.API_KEY,
     {
       filters: {

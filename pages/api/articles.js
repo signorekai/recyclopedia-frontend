@@ -22,7 +22,7 @@ export default function handler(req, res) {
       };
     }
 
-    const result = await fetch(`${ip}/api/articles?${qs.stringify(query)}`, {
+    const result = await fetch(`${ip}/articles?${qs.stringify(query)}`, {
       headers: {
         Authorization: `Bearer ${process.env.API_KEY}`,
       },

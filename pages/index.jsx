@@ -165,7 +165,7 @@ export async function getStaticProps() {
   const ip = process.env.API_URL;
 
   const { data: items } = await staticFetcher(
-    `${ip}/api/items?${qs.stringify({
+    `${ip}/items?${qs.stringify({
       populate: ['images'],
       pagination: {
         page: 1,
@@ -176,7 +176,7 @@ export async function getStaticProps() {
   );
 
   const { data: newsItems } = await staticFetcher(
-    `${ip}/api/articles?${qs.stringify({
+    `${ip}/articles?${qs.stringify({
       populate: ['coverImage', 'items', 'category'],
       sort: ['updatedAt:desc'],
       pagination: {
