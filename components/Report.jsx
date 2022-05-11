@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { object, string, number, date, InferType } from 'yup';
+import { Formik, Form, Field } from 'formik';
+import { object, string } from 'yup';
 import Link from 'next/link';
 import FocusTrap from 'focus-trap-react';
 import Select from 'react-select';
