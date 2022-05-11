@@ -18,7 +18,7 @@ const options = {
         // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
-        const res = await fetch(`${process.env.API_URL}/api/auth/local`, {
+        const res = await fetch(`${process.env.API_URL}/auth/local`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { 'Content-Type': 'application/json' },
