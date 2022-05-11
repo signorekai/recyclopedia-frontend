@@ -10,6 +10,7 @@ todos:
   [] add page transitions
   [] add RECAPTCHA to <ReportForm>
   [] add search functionality
+  [] add /bookmarks POST endpoint
   
 bugs:
 ✔ icons at footer not showing up @done(22-04-22 20:08)
