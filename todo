@@ -12,6 +12,7 @@ todos:
   [] add page transitions
   [] add RECAPTCHA to <ReportForm>
   [] add /bookmarks POST endpoint
+  [] add autofill for feedback if user is already logged in
   
 bugs:
   ✔ icons at footer not showing up @done(22-04-22 20:08)
