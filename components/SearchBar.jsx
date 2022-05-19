@@ -10,6 +10,7 @@ const Suggestion = ({
 }) => (
   <li className="search-suggestion">
     <button
+      type="button"
       className="hover:cursor-pointer w-full text-left"
       onClick={() => {
         selectSuggestion(text);
@@ -43,6 +44,7 @@ export default function SearchBar({
   wrapperClassName = 'max-w-screen-lg ',
   handleOnChange = () => {},
   showBottomSpacing = true,
+  searchType = ['items'],
 }) {
   const [isFocused, setIsFocused] = useState(false);
   const [formValue, setFormValue] = useState('');
@@ -57,25 +59,34 @@ export default function SearchBar({
   const dummySuggestions = ['Rags', 'Shampoo', 'USB', 'Broken Cup', 'Lego'];
 
   const handleFormUpdate = (e) => {
+    // console.log('onformupdate');
     setFormValue(e.target.value);
     handleOnChange(e.target.value);
   };
 
   const handleClose = () => {
-    setFormValue('');
+    // console.log('onclose');
+    // setFormValue('');
   };
 
   const handleOnFocus = () => {
+    // console.log('onfocus');
     setIsFocused(true);
   };
 
   const selectSuggestion = (suggestion) => {
+    // console.log('on suggestion select', suggestion);
     setFormValue(suggestion);
   };
 
   const handleOnBlur = (e) => {
+    // console.log('onblur');
     setIsFocused(false);
-    if (e.relatedTarget) e.relatedTarget.click();
+    // console.log('set focus false');
+    if (e.relatedTarget) {
+      // console.log(e.relatedTarget);
+      e.relatedTarget.click();
+    }
   };
 
   useEffect(() => {
@@ -84,8 +95,15 @@ export default function SearchBar({
     }
   }, [searchBarRef, isFocused]);
 
+  const _handleSubmit = (e) => {
+    if (formValue.length === 0) {
+      e.preventDefault();
+    }
+  };
+
   return (
-    <>
+    <form method="get" action="/search" onSubmit={_handleSubmit}>
+      <input type="hidden" name="contentType" value={searchType.join(',')} />
       <motion.div
         className={`w-full mx-auto px-4 ${className}`}
         style={{
@@ -97,19 +115,21 @@ export default function SearchBar({
           className={`search-bar-wrapper bg-white placeholder:text-grey-dark border-0 border-grey-dark relative ${wrapperClassName} ${
             isFocused && width > 1080 ? 'rounded-b-none rounded-t-3xl' : ''
           }`}>
-          <input
-            value={formValue}
-            onChange={handleFormUpdate}
-            onFocus={handleOnFocus}
-            onBlur={handleOnBlur}
-            ref={searchBarRef}
-            placeholder={placeholderText}
-            type="text"
-            name=""
-            id=""
-            className="search-bar bg-transparent peer text-black"
-          />
-          <button>
+          {(isFocused === false || width > 1080) && (
+            <input
+              value={formValue}
+              onChange={handleFormUpdate}
+              onFocus={handleOnFocus}
+              onBlur={handleOnBlur}
+              ref={searchBarRef}
+              placeholder={placeholderText}
+              type="text"
+              name="searchTerm"
+              id="searchTerm"
+              className="search-bar bg-transparent peer text-black"
+            />
+          )}
+          <button type="submit">
             <span className="far fa-search search-icon text-grey ease-in-out px-2"></span>
           </button>
           <button
@@ -171,14 +191,11 @@ export default function SearchBar({
                   ref={searchBarRef}
                   placeholder={placeholderText}
                   type="text"
-                  name=""
-                  id=""
+                  name="searchTerm"
+                  id="searchTerm"
                   className="search-bar bg-transparent peer text-black"
                 />
-                <button
-                  onClick={() => {
-                    console.log('submit!');
-                  }}>
+                <button type="submit">
                   <span className="far fa-search search-icon text-grey ease-in-out px-2"></span>
                 </button>
                 <button
@@ -218,6 +235,6 @@ export default function SearchBar({
           }}
         />
       )}
-    </>
+    </form>
   );
 }
