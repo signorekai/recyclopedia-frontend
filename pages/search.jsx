@@ -4,7 +4,11 @@ import { object, string, array } from 'yup';
 import Head from 'next/head';
 import { useMemo } from 'react';
 
-import { staticFetcher, useWindowDimensions } from '../lib/hooks';
+import {
+  staticFetcher,
+  useSearchBarTopValue,
+  useWindowDimensions,
+} from '../lib/hooks';
 import Layout from '../components/Layout';
 import Card from '../components/Card';
 import SearchBar from '../components/SearchBar';
@@ -22,45 +26,61 @@ const SingleSearchType = ({
   pageOptions,
   showHeader = true,
 }) => {
+  const x = useSearchBarTopValue();
   return (
     <>
       {showHeader && (
-        <section
-          className="py-4 lg:py-10 text-white"
-          style={{ backgroundColor: pageOptions.colour }}>
-          <div className="container container--narrow">
-            <h1 className="text-white">
-              <i
-                className={`${
-                  { Regular: 'far', Light: 'fal', Solid: 'fas' }[
-                    pageOptions.iconStyle
-                  ]
-                } fa-${pageOptions.icon} text-3xl mr-3 mt-1`}
-              />
-              {pageOptions.title}
-            </h1>
-            <p className="text-lg leading-tight ">
-              Search results for &quot;{query}&quot;
-            </p>
-          </div>
-        </section>
+        <>
+          <section
+            className={`py-4 lg:py-10 text-white`}
+            style={{ backgroundColor: pageOptions.colour }}>
+            <div className={`container ${items ? '' : 'container--narrow'}`}>
+              <h1 className="text-white">
+                <i
+                  className={`${
+                    { Regular: 'far', Light: 'fal', Solid: 'fas' }[
+                      pageOptions.iconStyle
+                    ]
+                  } fa-${pageOptions.icon} text-3xl mr-3 mt-1`}
+                />
+                {pageOptions.title}
+              </h1>
+              <p className="text-lg leading-tight ">
+                {items ? items.length : 0} search results for &quot;{query}
+                &quot;
+              </p>
+            </div>
+          </section>
+          {typeof items === 'undefined' && (
+            <SearchBar
+              top={x}
+              placeholderText="Try searching something else?"
+              className="pt-0 pb-2 sticky lg:relative transition-all duration-200"
+              searchType={[type]}
+              wrapperClassName="max-w-[800px]"
+              inactiveBackgroundColor={pageOptions.colour}
+              activeBackgroundColor={pageOptions.colour}
+            />
+          )}
+        </>
       )}
       <div className="container relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 ">
-          {items.map((item, key) => (
-            <Card
-              key={key}
-              className="w-full"
-              uniqueKey={`card-${key}`}
-              content={{
-                backgroundImage:
-                  item.images.length > 0 ? item.images[0].url : '',
-                headerText: item.title,
-                slug: item.slug,
-                contentType: type,
-              }}
-            />
-          ))}
+          {items &&
+            items.map((item, key) => (
+              <Card
+                key={key}
+                className="w-full"
+                uniqueKey={`card-${key}`}
+                content={{
+                  backgroundImage:
+                    item.images.length > 0 ? item.images[0].url : '',
+                  headerText: item.title,
+                  slug: item.slug,
+                  contentType: type,
+                }}
+              />
+            ))}
         </div>
       </div>
     </>
@@ -222,6 +242,16 @@ export async function getServerSideProps({ req, query }) {
           );
           break;
 
+        case 'donate':
+          pageOptions['donate'] = await staticFetcher(
+            `${ip}/donate-page`,
+            process.env.API_KEY,
+            {
+              populate: ['resourceTags'],
+            },
+          );
+          break;
+
         case 'articles':
           pageOptions['articles'] = await staticFetcher(
             `${ip}/news-and-tips-page`,
@@ -234,7 +264,7 @@ export async function getServerSideProps({ req, query }) {
     const Schema = object({
       type: array()
         .ensure()
-        .of(string().oneOf(['items', 'resources', 'articles']))
+        .of(string().oneOf(['items', 'resources', 'articles', 'donate']))
         .required('Content type required'),
       query: string().required('Search query required').min(1),
     });
@@ -244,6 +274,7 @@ export async function getServerSideProps({ req, query }) {
       const promises = search.type.map((type) => {
         const populateFields = [];
         const filters = {};
+        let contentType = type;
         switch (type) {
           case 'items':
             populateFields.push('images', 'itemCategory');
@@ -257,6 +288,8 @@ export async function getServerSideProps({ req, query }) {
             ];
             break;
 
+          case 'donate':
+            contentType = 'resources';
           case 'resources':
             populateFields.push('images', 'resourceTags');
             filters['$or'] = [
@@ -282,12 +315,16 @@ export async function getServerSideProps({ req, query }) {
             break;
         }
 
-        const queryString = `${process.env.API_URL}/${type}?${qs.stringify({
+        const queryString = `${
+          process.env.API_URL
+        }/${contentType}?${qs.stringify({
           populate: populateFields,
           sort: ['title'],
           pagination: 1000,
           filters,
         })}`;
+
+        console.log(queryString);
 
         return fetch(queryString, {
           headers: {

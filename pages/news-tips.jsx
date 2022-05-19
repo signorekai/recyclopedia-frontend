@@ -120,13 +120,14 @@ export default function Page({
       </section>
       <SearchBar
         top={x}
+        searchType={['articles']}
         placeholderText={`Search ${title}`}
         className="py-2 sticky lg:relative transition-all duration-200 z-20"
         wrapperClassName="max-w-[800px]"
         inactiveBackgroundColor={pageOptions.colour}
         activeBackgroundColor={pageOptions.colour}
       />
-      <div className="container md:pt-10">
+      <div className="container pt-4 md:pt-10">
         {featuredArticles && (
           <div className="grid md:grid-cols-2 gap-8">
             {featuredArticles.map(({ article }) => (
@@ -146,7 +147,7 @@ export default function Page({
                       formats={article.coverImage.formats}
                       layout="fixed"
                     />
-                    <div className="px-4 lg:px-0">
+                    <div className="px-2 lg:px-0">
                       <h5 className="text-left pt-2">
                         {article.category.title}
                       </h5>

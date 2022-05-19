@@ -158,6 +158,7 @@ export default function Page({ fallback, pageOptions, resourceTags }) {
         placeholderText={`Search ${pageOptions.title}`}
         className="py-2 sticky lg:relative transition-all duration-200 z-20"
         wrapperClassName="max-w-[800px]"
+        searchType={['donate']}
         inactiveBackgroundColor={pageOptions.colour}
         activeBackgroundColor={pageOptions.colour}
       />

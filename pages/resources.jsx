@@ -156,6 +156,7 @@ export default function Page({ fallback, pageOptions, resourceTags }) {
       </section>
       <SearchBar
         top={x}
+        searchType={['resources']}
         placeholderText={`Search ${pageOptions.title}`}
         className="py-2 sticky lg:relative transition-all duration-200 z-20"
         wrapperClassName="max-w-[800px]"
