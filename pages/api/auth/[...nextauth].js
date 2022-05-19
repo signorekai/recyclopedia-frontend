@@ -50,7 +50,6 @@ const options = {
       return Promise.resolve(session);
     },
     jwt: async ({ token, user, account }) => {
-      console.log(53, token, user, account);
       const isSignIn = user ? true : false;
       if (isSignIn) {
         if (!!account && !!account.provider) {
