@@ -27,6 +27,7 @@ const SingleSearchType = ({
   showHeader = true,
 }) => {
   const x = useSearchBarTopValue();
+
   return (
     <>
       {showHeader && (
@@ -45,7 +46,7 @@ const SingleSearchType = ({
                 />
                 {pageOptions.title}
               </h1>
-              <p className="text-lg leading-tight ">
+              <p className="text-lg leading-tight">
                 {items ? items.length : 0} search results for &quot;{query}
                 &quot;
               </p>
@@ -143,6 +144,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                         break;
 
                       case 'items':
+                      case 'articles':
                         backgroundImage = item.coverImage.formats.large
                           ? item.coverImage.formats.large.url
                           : item.coverImage.url;
