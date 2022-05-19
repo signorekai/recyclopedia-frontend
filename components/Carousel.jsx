@@ -78,6 +78,10 @@ export const Carousel = ({
   }, [disableScroll, scrollTo, carouselRef]);
 
   useEffect(() => {
+    _checkButtons();
+  }, [_checkButtons, carouselRef]);
+
+  useEffect(() => {
     const unsubscribeX = scrollXProgress.onChange((value) => {
       if (
         carouselRef.current.offsetWidth < slidesContainerRef.current.offsetWidth
