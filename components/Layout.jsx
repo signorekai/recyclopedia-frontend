@@ -377,13 +377,6 @@ export default function Layout({
               rel="noopener noreferrer">
               <i className="fab fa-facebook" />
             </a>
-            <a
-              href="https://instagram.com"
-              className="social-icon"
-              target="_blank"
-              rel="noopener noreferrer">
-              <i className="fab fa-instagram" />
-            </a>
           </div>
         </div>
       </footer>
