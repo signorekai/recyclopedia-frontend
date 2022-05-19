@@ -8,11 +8,12 @@ todos:
   ✔ add desktop controls for <Carousel> @done(22-04-25 16:14)
   ✔ add search functionality @done(22-05-19 17:42)
   ✔ link social icons to... what? @done(22-05-19 17:42)
+  ✔ add autofill for feedback if user is already logged in @done(22-05-20 01:41)
   [] tab sequence for feedback modal
   [] add page transitions
   [] add RECAPTCHA to <ReportForm>
   [] add /bookmarks POST endpoint
-  [] add autofill for feedback if user is already logged in
+  [] make our own content-type for forms so that we can create fields
   
 bugs:
   ✔ icons at footer not showing up @done(22-04-22 20:08)
