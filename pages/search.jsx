@@ -4,39 +4,49 @@ import { object, string, array } from 'yup';
 import Head from 'next/head';
 import { useMemo } from 'react';
 
-import { staticFetcher } from '../lib/hooks';
+import { staticFetcher, useWindowDimensions } from '../lib/hooks';
 import Layout from '../components/Layout';
 import Card from '../components/Card';
 import SearchBar from '../components/SearchBar';
-import { AccordionHeader, AccordionProvider } from '../components/Accordion';
+import {
+  AccordionHeader,
+  AccordionProvider,
+  AccordionBody,
+} from '../components/Accordion';
+import { Carousel, CarouselCard } from '../components/Carousel';
 
-const SingleSearchType = ({ type, query, data, pageOptions }) => {
-  const currentPageOpts = pageOptions[type[0]].data;
-  const items = data[type[0]];
-
+const SingleSearchType = ({
+  type,
+  query,
+  items,
+  pageOptions,
+  showHeader = true,
+}) => {
   return (
     <>
-      <section
-        className="py-4 lg:py-10 text-white"
-        style={{ backgroundColor: currentPageOpts.colour }}>
-        <div className="container container--narrow">
-          <h1 className="text-white">
-            <i
-              className={`${
-                { Regular: 'far', Light: 'fal', Solid: 'fas' }[
-                  currentPageOpts.iconStyle
-                ]
-              } fa-${currentPageOpts.icon} text-3xl mr-3 mt-1`}
-            />
-            {currentPageOpts.title}
-          </h1>
-          <p className="text-lg leading-tight ">
-            Search results for &quot;{query}&quot;
-          </p>
-        </div>
-      </section>
-      <div className="container container--narrow relative z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 lg:mt-12 ">
+      {showHeader && (
+        <section
+          className="py-4 lg:py-10 text-white"
+          style={{ backgroundColor: pageOptions.colour }}>
+          <div className="container container--narrow">
+            <h1 className="text-white">
+              <i
+                className={`${
+                  { Regular: 'far', Light: 'fal', Solid: 'fas' }[
+                    pageOptions.iconStyle
+                  ]
+                } fa-${pageOptions.icon} text-3xl mr-3 mt-1`}
+              />
+              {pageOptions.title}
+            </h1>
+            <p className="text-lg leading-tight ">
+              Search results for &quot;{query}&quot;
+            </p>
+          </div>
+        </section>
+      )}
+      <div className="container relative z-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 ">
           {items.map((item, key) => (
             <Card
               key={key}
@@ -47,7 +57,7 @@ const SingleSearchType = ({ type, query, data, pageOptions }) => {
                   item.images.length > 0 ? item.images[0].url : '',
                 headerText: item.title,
                 slug: item.slug,
-                contentType: 'items',
+                contentType: type,
               }}
             />
           ))}
@@ -58,15 +68,88 @@ const SingleSearchType = ({ type, query, data, pageOptions }) => {
 };
 
 const MultiSearchType = ({ type, query, data, pageOptions }) => {
+  const { width } = useWindowDimensions();
   const [headerTabs, contentTabs] = useMemo(() => {
     const headerTabs = [];
+
+    const contentTabs = {
+      All: (
+        <div className="container">
+          {Object.entries(data).map(([type, values], key) => {
+            return (
+              <div className="mt-6" key={key}>
+                <h2 className="text-black block">
+                  <i
+                    className={`${
+                      { Regular: 'far', Light: 'fal', Solid: 'fas' }[
+                        pageOptions[type].data.iconStyle
+                      ]
+                    } fa-${pageOptions[type].data.icon} text-3xl mr-3 mt-1`}
+                  />
+                  {pageOptions[type].data.title}
+                </h2>
+                <Carousel
+                  desktopControls={true}
+                  showNav={false}
+                  autoSlideSize={false}
+                  slideWidth={width * 0.2}>
+                  {values.map((item, itemKey) => {
+                    let backgroundImage;
+
+                    switch (type) {
+                      case 'items':
+                      case 'resources':
+                        backgroundImage = item.images[0]?.formats.large
+                          ? item.images[0]?.formats.large.url
+                          : item.images[0]?.url;
+                        break;
+
+                      case 'items':
+                        backgroundImage = item.coverImage.formats.large
+                          ? item.coverImage.formats.large.url
+                          : item.coverImage.url;
+                        break;
+                    }
+
+                    return (
+                      <CarouselCard key={itemKey} className="w-[20vw]">
+                        <Card
+                          className="w-full"
+                          imgClassName="h-[200px]"
+                          uniqueKey={`news-${item.slug}`}
+                          content={{
+                            backgroundImage,
+                            headerText: item.title,
+                            slug: item.slug,
+                            contentType: type,
+                          }}
+                        />
+                      </CarouselCard>
+                    );
+                  })}
+                </Carousel>
+              </div>
+            );
+          })}
+        </div>
+      ),
+    };
     for (const [key, value] of Object.entries(data)) {
       if (value.length > 0) {
         headerTabs.push(key);
+        contentTabs[key] = (
+          <SingleSearchType
+            showHeader={false}
+            type={key}
+            query={query}
+            items={data[key]}
+            pageOptions={pageOptions[key].data}
+          />
+        );
       }
     }
-    return [headerTabs, data];
-  }, [data]);
+    return [headerTabs, contentTabs];
+  }, [data, pageOptions, query]);
 
   return (
     <>
@@ -76,19 +159,19 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
           You searched for &quot;{query}&quot;
         </p>
       </div>
-      <AccordionProvider headers={headerTabs}>
+      <AccordionProvider headers={['All', ...headerTabs]}>
         <AccordionHeader
-          className="mt-6 lg:mt-16"
+          className="mt-6"
           carouselClassName="scroll-px-4"
-          sliderClassName="lg:max-w-screen-lg mx-auto px-4"
+          sliderClassName="lg:max-w-screen-lg mx-auto px-6"
         />
+        <AccordionBody {...contentTabs} />
       </AccordionProvider>
     </>
   );
 };
 
 export default function Page(props) {
-  console.log(props);
   return (
     <Layout showHeaderInitially={true} showHeaderOn="UP" hideHeaderOn="DOWN">
       <Head>
@@ -97,7 +180,12 @@ export default function Page(props) {
         </title>
       </Head>
       {props.success && props.type.length === 1 && (
-        <SingleSearchType {...props} />
+        <SingleSearchType
+          type={props.type[0]}
+          query={props.query}
+          pageOptions={props.pageOptions[props.type[0]].data}
+          items={props.data[props.type[0]]}
+        />
       )}
       {props.success && props.type.length > 1 && <MultiSearchType {...props} />}
     </Layout>
@@ -197,7 +285,7 @@ export async function getServerSideProps({ req, query }) {
         const queryString = `${process.env.API_URL}/${type}?${qs.stringify({
           populate: populateFields,
           sort: ['title'],
-          pagination: { pageSize: search.type.length > 1 ? 4 : 1000 },
+          pagination: 1000,
           filters,
         })}`;
 
@@ -211,7 +299,9 @@ export async function getServerSideProps({ req, query }) {
       const data = {};
       await Promise.all(promises).then((results) => {
         results.map((result, key) => {
-          data[search.type[key]] = result.data;
+          if (result.data.length > 0) {
+            data[search.type[key]] = result.data;
+          }
         });
       });
 
