@@ -170,20 +170,27 @@ export default function Layout({
               <div className="hidden lg:inline-block lg:flex-1">
                 <img src="/img/logo-mini.svg" width={42} height={19} alt="" />
               </div>
-              <div className="search-bar-wrapper border-grey-dark text-white">
-                <input
-                  ref={searchBar}
-                  placeholder="Search Entire Site"
-                  type="text"
-                  name=""
-                  id=""
-                  className="bg-transparent focus:outline-none flex-1"
-                />
-                <SearchIcon className="" />
-                <button onClick={handleSearchBtn}>
-                  <span className="fal fa-times text-xl border-l-1 border-grey-dark pl-2 mx-2 pt-1"></span>
-                </button>
-              </div>
+              <form method="get" action="/search" className="flex-1">
+                <div className="search-bar-wrapper border-grey-dark text-white">
+                  <input
+                    ref={searchBar}
+                    placeholder="Search Entire Site"
+                    type="text"
+                    name="searchTerm"
+                    id="searchTerm"
+                    className="bg-transparent focus:outline-none flex-1"
+                  />
+                  <SearchIcon className="" />
+                  <button type="submit" onClick={handleSearchBtn}>
+                    <span className="fal fa-times text-xl border-l-1 border-grey-dark pl-2 mx-2 pt-1"></span>
+                  </button>
+                  <input
+                    type="hidden"
+                    name="contentType"
+                    value={['items', 'resources', 'articles'].join(',')}
+                  />
+                </div>
+              </form>
               <div className="hidden lg:inline-block lg:flex-1" />
             </div>
             <div className="header-wrapper">
