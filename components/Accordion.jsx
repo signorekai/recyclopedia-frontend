@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
 import { v4 as uuidV4 } from 'uuid';
 import { Carousel, CarouselCard } from './Carousel';
 import { useWindowDimensions } from '../lib/hooks';
+import qs from 'querystring';
 
 const AccordionContext = createContext();
 
@@ -78,7 +79,9 @@ export const AccordionHeader = ({
                 className={`pt-5`}
                 onClick={() => {
                   if (setURLQuery) {
-                    router.push(`?section=${header}`, null, {
+                    const queryParams = router.query;
+                    queryParams['section'] = header;
+                    router.push(`?${qs.stringify(queryParams)}`, null, {
                       shallow: true,
                     });
                   }
