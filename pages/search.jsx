@@ -67,20 +67,38 @@ const SingleSearchType = ({
       <div className="container relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 ">
           {items &&
-            items.map((item, key) => (
-              <Card
-                key={key}
-                className="w-full"
-                uniqueKey={`card-${key}`}
-                content={{
-                  backgroundImage:
-                    item.images.length > 0 ? item.images[0].url : '',
-                  headerText: item.title,
-                  slug: item.slug,
-                  contentType: type,
-                }}
-              />
-            ))}
+            items.map((item, key) => {
+              let backgroundImage;
+
+              switch (type) {
+                case 'items':
+                case 'resources':
+                  backgroundImage = item.images[0]?.formats.large
+                    ? item.images[0]?.formats.large.url
+                    : item.images[0]?.url;
+                  break;
+
+                case 'items':
+                case 'articles':
+                  backgroundImage = item.coverImage.formats.large
+                    ? item.coverImage.formats.large.url
+                    : item.coverImage.url;
+                  break;
+              }
+              return (
+                <Card
+                  key={key}
+                  className="w-full"
+                  uniqueKey={`card-${key}`}
+                  content={{
+                    backgroundImage,
+                    headerText: item.title,
+                    slug: item.slug,
+                    contentType: type,
+                  }}
+                />
+              );
+            })}
         </div>
       </div>
     </>
