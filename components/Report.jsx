@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, useFormikContext } from 'formik';
 import { object, string } from 'yup';
 import Link from 'next/link';
 import FocusTrap from 'focus-trap-react';
 import Select from 'react-select';
+import { useSession } from 'next-auth/react';
 
 export const FeedbackFormSchema = object({
   name: string().required('Name required'),
@@ -18,29 +19,55 @@ export const FeedbackFormSchema = object({
   message: string().required('Please type your message'),
 });
 
-const TextInput = ({ field, form: { touched, errors }, label, ...props }) => (
-  <div className="field-wrapper">
-    <div className="flex flex-row pb-1">
-      <h5 className="text-left flex-1">{label}:</h5>
-      {touched[field.name] && errors[field.name] && (
-        <div className="text-sm text-red pb-1">{errors[field.name]}</div>
-      )}
+const TextInput = ({ field, form: { touched, errors }, label, ...props }) => {
+  return (
+    <div className="field-wrapper">
+      <div className="flex flex-row pb-1">
+        <h5 className="text-left flex-1">{label}:</h5>
+        {touched[field.name] && errors[field.name] && (
+          <div className="text-sm text-red pb-1">{errors[field.name]}</div>
+        )}
+      </div>
+      <div className="text-input-wrapper text-lg">
+        <input tabIndex={0} className="flex-1" {...field} {...props} />
+        {touched[field.name] && errors[field.name] && (
+          <span className="fas fa-exclamation-triangle text-red" />
+          // <div className="error">{errors[field.name]}</div>
+        )}
+      </div>
     </div>
-    <div className="text-input-wrapper text-lg">
-      <input tabIndex={0} className="flex-1" {...field} {...props} />
-      {touched[field.name] && errors[field.name] && (
-        <span className="fas fa-exclamation-triangle text-red" />
-        // <div className="error">{errors[field.name]}</div>
-      )}
-    </div>
-  </div>
-);
+  );
+};
+
+const CheckAuth = () => {
+  const { data: session, status: authStatus } = useSession();
+  const { setValues, values } = useFormikContext();
+
+  useEffect(() => {
+    if (authStatus === 'authenticated') {
+      const newValues = {};
+      console.log(values);
+      if (values.hasOwnProperty('name') && values.name.length === 0) {
+        newValues.name = session.user.name;
+      }
+      if (values.hasOwnProperty('email') && values.email.length === 0) {
+        newValues.email = session.user.email;
+      }
+
+      console.log(51, newValues);
+      setValues(newValues);
+    }
+  }, [session, authStatus]);
+
+  return <></>;
+};
 
 export const FeedbackForm = ({
   defaultRecord,
   handleModalClick = () => {},
 }) => {
   const [showSuccess, setShowSuccess] = useState(false);
+  const { data: session, status: authStatus } = useSession();
 
   const TextArea = ({
     field,
@@ -124,6 +151,7 @@ export const FeedbackForm = ({
             {({ isSubmitting }) => (
               <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
                 <Form className="test">
+                  <CheckAuth />
                   <Field
                     name="topic"
                     options={[
