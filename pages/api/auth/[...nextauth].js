@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import FacebookProvider from 'next-auth/providers/facebook';
 
 const options = {
   providers: [
@@ -33,6 +34,10 @@ const options = {
         return null;
       },
     }),
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    }),
   ],
   session: {
     jwt: true,
@@ -45,13 +50,27 @@ const options = {
       return Promise.resolve(session);
     },
     jwt: async ({ token, user, account }) => {
+      console.log(53, token, user, account);
       const isSignIn = user ? true : false;
       if (isSignIn) {
-        token.jwt = user.jwt;
-        token.sub = user.user.email;
-        token.id = user.user.id;
-        token.name = user.user.username;
-        token.email = user.user.email;
+        if (!!account && !!account.provider) {
+          console.log(account.provider);
+          const response = await fetch(
+            `${process.env.API_URL}/auth/${account.provider}/callback?access_token=${account?.access_token}`,
+          );
+          const data = await response.json();
+          token.jwt = data.jwt;
+          token.sub = data.user.email;
+          token.id = data.user.id;
+          token.email = data.user.email;
+          token.name = data.user.username;
+        } else {
+          token.jwt = user.jwt;
+          token.sub = user.user.email;
+          token.id = user.user.id;
+          token.name = user.user.username;
+          token.email = user.user.email;
+        }
       }
       return Promise.resolve(token);
     },
