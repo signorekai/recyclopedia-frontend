@@ -181,7 +181,7 @@ export default function Layout({
                     className="bg-transparent focus:outline-none flex-1"
                   />
                   <SearchIcon className="" />
-                  <button type="submit" onClick={handleSearchBtn}>
+                  <button type="button" onClick={handleSearchBtn}>
                     <span className="fal fa-times text-xl border-l-1 border-grey-dark pl-2 mx-2 pt-1"></span>
                   </button>
                   <input
@@ -347,7 +347,7 @@ export default function Layout({
                     <a className="-mt-4">{capitalise(session.user.name)}</a>
                   </Link>
                 ) : (
-                  <Link href="/signin">
+                  <Link href="/account">
                     <a className="-mt-4 text-sm !text-grey-mid">
                       Login to access
                     </a>

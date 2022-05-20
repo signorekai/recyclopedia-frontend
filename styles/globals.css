@@ -39,7 +39,7 @@
     @apply relative z-50;
 
     .fa-search {
-      @apply text-blue-dark mr-8;
+      @apply text-blue-dark;
     }
 
     .search-close-btn {
