@@ -9,6 +9,7 @@ export default function Image({
   sizes = '100vw',
   formats = [],
   className = '',
+  style = {},
 }) {
   let srcSet = '';
   const orderedFormats = orderBy(formats, 'width');
@@ -28,6 +29,7 @@ export default function Image({
     maxHeight: height,
     width: '100%',
     height: '100%',
+    aspectRatio: `${width} / ${height}`,
   };
 
   const fixedStyles = {
@@ -47,6 +49,7 @@ export default function Image({
         alt={alt}
         srcSet={srcSet}
         className={`object-cover object-center absolute w-0 h-0 min-w-full max-w-full min-h-full max-h-full ${className}`}
+        style={style}
       />
     </span>
   );
