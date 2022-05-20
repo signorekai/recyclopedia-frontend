@@ -2,18 +2,12 @@ import { useState, useRef, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import {
-  AnimatePresence,
-  motion,
-  useAnimation,
-  useViewportScroll,
-} from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import { useScrollDirection } from 'react-use-scroll-direction';
 
-import { useWindowDimensions } from '../lib/hooks';
 import { capitalise } from '../lib/functions';
+import Header from './Header';
 
 const menu = [
   { label: 'Items', href: '/items' },
@@ -75,74 +69,28 @@ const BookmarkLink = ({ authStatus, children }) => {
 export default function Layout({
   children,
   showHeaderInitially = true,
-  showHeaderOn = 'DOWN',
-  hideHeaderOn = '',
+  showHeaderOn = 'UP',
+  hideHeaderOn = 'DOWN',
+  headerContainerStyle = {},
   ...props
 }) {
   const [showMenu, setShowMenu] = useState(false);
-  const router = useRouter();
-
   const [showSearchBar, setShowSearchBar] = useState(false);
-  const scrolledHeaderVisible = useRef(false);
 
-  const { scrollY } = useViewportScroll();
-  const { scrollDirection } = useScrollDirection();
-  const { width } = useWindowDimensions();
-
+  const router = useRouter();
   const searchBar = useRef();
-  const headerControls = useAnimation();
 
   const { data: session, status: authStatus } = useSession();
 
-  const handleMenuBtn = () => {
+  const _handleMenuBtn = () => {
     setShowSearchBar(false);
     setShowMenu(!showMenu);
   };
 
-  const handleSearchBtn = () => {
+  const _handleSearchBtn = () => {
     setShowSearchBar(!showSearchBar);
     setShowMenu(false);
   };
-
-  useEffect(() => {
-    if (scrollY.get() > 0) {
-      if (scrollDirection === showHeaderOn) {
-        if (!scrolledHeaderVisible.current) {
-          headerControls.set({
-            y: '-110%',
-            position: 'sticky',
-            display: 'flex',
-          });
-        }
-        scrolledHeaderVisible.current = true;
-
-        headerControls.start({
-          y: 0,
-          maxHeight: 100,
-          transition: {
-            duration: 0.2,
-          },
-        });
-      } else if (
-        scrollDirection === hideHeaderOn &&
-        !showMenu &&
-        !showSearchBar &&
-        scrollY.get() > 50 &&
-        width < 1080
-      ) {
-        headerControls.start({
-          y: '-110%',
-          maxHeight: 0,
-          overflow: 'hidden',
-          transition: {
-            duration: 0.2,
-          },
-        });
-      }
-    }
-    // showHeaderInitially, showHeaderOn, hideHeaderOn will never change
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scrollDirection, headerControls, scrollY, showMenu, showSearchBar]);
 
   useEffect(() => {
     if (showSearchBar && searchBar) {
@@ -155,12 +103,11 @@ export default function Layout({
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <motion.header
-        style={{
-          display: showHeaderInitially ? 'flex' : 'none',
-        }}
-        animate={headerControls}
-        className="header">
+      <Header
+        containerStyle={headerContainerStyle}
+        showHeaderInitially={showHeaderInitially}
+        showHeaderOn={showHeaderOn}
+        hideHeaderOn={hideHeaderOn}>
         <div className="overflow-hidden h-full pl-4 lg:pl-0 flex-1 max-w-[1280px] mx-auto">
           <div
             className={`flex flex-col h-[200%] relative ease-in-out transition-transform duration-200 ${
@@ -181,7 +128,7 @@ export default function Layout({
                     className="bg-transparent focus:outline-none flex-1"
                   />
                   <SearchIcon className="" />
-                  <button type="button" onClick={handleSearchBtn}>
+                  <button type="button" onClick={_handleSearchBtn}>
                     <span className="fal fa-times text-xl border-l-1 border-grey-dark pl-2 mx-2 pt-1"></span>
                   </button>
                   <input
@@ -254,7 +201,7 @@ export default function Layout({
                     </a>
                   </Link>
                   <SearchIcon
-                    onClick={handleSearchBtn}
+                    onClick={_handleSearchBtn}
                     className="!mr-[-0.1rem]"
                   />
                 </div>
@@ -265,7 +212,7 @@ export default function Layout({
         <button
           className={`lg:hidden group px-2 mr-2 pt-4 pb-3`}
           id="menu-icon"
-          onClick={handleMenuBtn}>
+          onClick={_handleMenuBtn}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -284,7 +231,7 @@ export default function Layout({
             />
           </svg>
         </button>
-      </motion.header>
+      </Header>
       <main className="main">
         <AnimatePresence>
           {showMenu && (
@@ -299,7 +246,7 @@ export default function Layout({
                 exit: { opacity: 0, pointerEvents: 'none' },
               }}
               className="modal-wrapper top-[50px]">
-              <div className="flex-1" onClick={handleMenuBtn}></div>
+              <div className="flex-1" onClick={_handleMenuBtn}></div>
               <motion.div
                 transition={{
                   type: 'spring',

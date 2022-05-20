@@ -12,7 +12,7 @@ export default function Page({ pageOptions }) {
   const { supporters, title, introHeader, description } = pageOptions;
 
   return (
-    <Layout showHeaderInitially={true} showHeaderOn="UP" hideHeaderOn="DOWN">
+    <Layout>
       <Head>
         <title>Recyclopedia - {title}</title>
         <meta name="description" content={description} />

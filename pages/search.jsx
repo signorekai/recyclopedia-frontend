@@ -238,7 +238,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
 
 export default function Page(props) {
   return (
-    <Layout showHeaderInitially={true} showHeaderOn="UP" hideHeaderOn="DOWN">
+    <Layout>
       <Head>
         <title>
           Recyclopedia - Search Results for &quot;{props.query}&quot;

@@ -95,7 +95,7 @@ export default function Page({
   });
 
   return (
-    <Layout showHeaderInitially={true} showHeaderOn="UP" hideHeaderOn="DOWN">
+    <Layout headerContainerStyle={{ backgroundColor: pageOptions.colour }}>
       <Head>
         <title>Recyclopedia - {title}</title>
       </Head>

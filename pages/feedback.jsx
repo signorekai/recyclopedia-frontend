@@ -4,7 +4,7 @@ import { FeedbackForm } from '../components/Report';
 
 export default function Page() {
   return (
-    <Layout showHeaderInitially={true} showHeaderOn="UP" hideHeaderOn="DOWN">
+    <Layout>
       <Head>
         <title>Recyclopedia - Feedback</title>
       </Head>

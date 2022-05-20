@@ -228,7 +228,7 @@ p + p {
 }
 
 .header {
-  @apply bg-blue-dark relative w-full top-0;
+  @apply bg-blue-dark fixed w-full top-0;
   @apply flex flex-row items-center;
   @apply lg:p-4 z-40 lg:!translate-y-0;
   @apply lg:sticky;

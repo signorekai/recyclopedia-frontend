@@ -44,7 +44,7 @@ export default function Page({ pageOptions }) {
   const { section: sections } = pageOptions;
 
   return (
-    <Layout showHeaderInitially={true} showHeaderOn="UP" hideHeaderOn="DOWN">
+    <Layout>
       <Head>
         <title>Recyclopedia - {pageOptions.title}</title>
         <meta name="description" content={pageOptions.subtitle} />
