@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { DateTime } from 'luxon';
 import qs from 'qs';
+import { useState, useEffect, useRef } from 'react';
 
 import Layout from '../../components/Layout';
 import { useWindowDimensions } from '../../lib/hooks';
@@ -44,6 +45,32 @@ const RecommendationIcon = ({ recommendation }) => (
     }`}
   />
 );
+
+const AlternateTerms = ({ children }) => {
+  const [collapsed, setCollapsed] = useState(true);
+  const containerRef = useRef();
+  const { offsetWidth, scrollWidth } = containerRef.current
+    ? containerRef.current
+    : { offsetWidth: 0, scrollWidth: 0 };
+
+  const _handleClick = () => {
+    setCollapsed(!collapsed);
+  };
+
+  return (
+    <p
+      onClick={_handleClick}
+      ref={containerRef}
+      className={` text-sm lg:text-lg text-grey-dark ${
+        collapsed ? 'whitespace-nowrap' : 'whitespace-normal'
+      } md:whitespace-normal relative `}>
+      {children}
+      {scrollWidth > offsetWidth && (
+        <div className="absolute h-full w-9 -right-4 top-0 bg-gradient-to-r from-transparent via-white to-white" />
+      )}
+    </p>
+  );
+};
 
 function Page({ data }) {
   const { width, height } = useWindowDimensions();
@@ -176,12 +203,12 @@ function Page({ data }) {
                 {data.title}
               </h2>
               {data.alternateSearchTerms && (
-                <p className="text-sm lg:text-lg text-grey-dark">
+                <AlternateTerms>
                   {data.alternateSearchTerms
                     .split(', ')
                     .map((term) => term.charAt(0).toUpperCase() + term.slice(1))
                     .join(', ')}
-                </p>
+                </AlternateTerms>
               )}
             </section>
             {data.recommendations.map((item, key) => {
