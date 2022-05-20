@@ -26,7 +26,7 @@ export default function Home({ items, newsItems }) {
       </Head>
       <div className="bg-gradient-to-b from-coral to-purple h-72 lg:h-96 absolute top-0 w-full left-0 z-0"></div>
       <Link href="/">
-        <a className="flex justify-center mt-16 mb-4 lg:mt-28 z-10 relative">
+        <a className="flex justify-center mt-12 mb-4 lg:mt-28 z-10 relative">
           <img src="/img/logo.svg" alt="" width={172} height={28} />
         </a>
       </Link>
