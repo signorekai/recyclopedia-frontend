@@ -54,17 +54,19 @@ const SingleSearchType = ({
               </p>
             </div>
           </section>
-          {typeof items === 'undefined' && (
-            <SearchBar
-              top={x}
-              placeholderText="Try searching something else?"
-              className="pt-0 pb-2 sticky lg:relative transition-all duration-200"
-              searchType={[type]}
-              wrapperClassName="max-w-[800px]"
-              inactiveBackgroundColor={pageOptions.colour}
-              activeBackgroundColor={pageOptions.colour}
-            />
-          )}
+          <SearchBar
+            top={x}
+            placeholderText={
+              typeof items === 'undefined'
+                ? `Try searching something else?`
+                : 'Search for something else'
+            }
+            className="pt-0 pb-2 sticky lg:relative transition-all duration-200"
+            searchType={[type]}
+            wrapperClassName="max-w-[800px]"
+            inactiveBackgroundColor={pageOptions.colour}
+            activeBackgroundColor={pageOptions.colour}
+          />
         </>
       )}
       <div className={`container relative z-10 ${className}`}>
