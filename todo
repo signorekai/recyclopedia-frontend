@@ -17,5 +17,5 @@ todos:
   
 bugs:
   ✔ icons at footer not showing up @done(22-04-22 20:08)
-  [] fix issue with hover arrow buttons showing on things that cannot be scrolled
-  [] fix carousel sizing on search results
+  ✔ fix issue with hover arrow buttons showing on things that cannot be scrolled @done(22-05-20 22:54)
+  ✔ fix carousel sizing on search results @done(22-05-20 22:54)
