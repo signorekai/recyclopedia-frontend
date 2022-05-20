@@ -119,7 +119,7 @@ export default function Header({
       <motion.div
         ref={spacerRef}
         animate={spacerAnimControl}
-        style={{ height: 52 }}
+        style={{ height: width >= 1080 ? 82 : 52 }}
       />
       <motion.header
         ref={headerRef}
@@ -128,7 +128,10 @@ export default function Header({
           hide: { y: '-100%' },
           desktop: { position: 'fixed', top: 0 },
         }}
-        style={{ y: showHeaderInitially ? 0 : '-100%' }}
+        style={{
+          y: showHeaderInitially ? 0 : '-100%',
+          position: width < 1080 ? '' : 'fixed',
+        }}
         animate={headerAnimControl}
         className="header top-0">
         {children}
