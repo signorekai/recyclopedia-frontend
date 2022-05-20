@@ -59,7 +59,10 @@ export default function Header({
 
         if (scrollDirection === showHeaderOn || scrollYProgress.get() === 1) {
           headerAnimControl.start('show');
-        } else if (scrollDirection === hideHeaderOn) {
+        } else if (
+          scrollDirection === hideHeaderOn &&
+          scrollY.get() > containerRef.current?.offsetHeight
+        ) {
           headerAnimControl.start('hide');
         }
 
