@@ -51,13 +51,14 @@ export const Carousel = ({
 
   const _checkButtons = useCallback(() => {
     if (
-      carouselRef.current &&
-      carouselRef.current.offsetWidth < scrollAmount * childrenCount
+      carouselRef.current.offsetWidth >= slidesContainerRef.current.offsetWidth
     ) {
       setShowNextBtn(false);
       setShowPreviousBtn(false);
+    } else {
+      setShowNextBtn(true);
     }
-  }, [carouselRef, scrollAmount, childrenCount]);
+  }, [carouselRef, slidesContainerRef]);
 
   const _handleScrollBtn = (direction = -1) => {
     _checkButtons();
@@ -81,7 +82,7 @@ export const Carousel = ({
 
   useEffect(() => {
     _checkButtons();
-  }, [_checkButtons, carouselRef]);
+  }, [_checkButtons, carouselRef, slidesContainerRef, slideWidth]);
 
   useEffect(() => {
     const unsubscribeX = scrollXProgress.onChange((value) => {
