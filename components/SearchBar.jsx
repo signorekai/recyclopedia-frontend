@@ -147,18 +147,18 @@ export default function SearchBar({
           className={`search-bar-wrapper bg-white placeholder:text-grey-dark border-0 border-grey-dark relative ${wrapperClassName} ${
             isFocused && width > 1080 ? 'rounded-b-none rounded-t-3xl' : ''
           }`}>
-          {(isFocused === false || width > 1080) && (
-            <form
-              className="w-full"
-              ref={formRef}
-              method="get"
-              action="/search"
-              onSubmit={_handleSubmit}>
-              <input
-                type="hidden"
-                name="contentType"
-                value={searchType.join(',')}
-              />
+          <form
+            className="w-full flex"
+            ref={formRef}
+            method="get"
+            action="/search"
+            onSubmit={_handleSubmit}>
+            <input
+              type="hidden"
+              name="contentType"
+              value={searchType.join(',')}
+            />
+            {(isFocused === false || width > 1080) && (
               <input
                 value={formValue}
                 onChange={handleFormUpdate}
@@ -172,17 +172,17 @@ export default function SearchBar({
                 id="searchTerm"
                 className="search-bar bg-transparent peer text-black"
               />
-            </form>
-          )}
-          <button type="submit">
-            <span className="far fa-search search-icon text-grey ease-in-out px-2"></span>
-          </button>
-          <button
-            ref={closeBtnRef}
-            onClick={_handleClose}
-            className="search-close-btn absolute right-3 opacity-0 translate-y-2 pointer-events-none">
-            <span className="fal fa-times search-icon border-l-1 border-bg pl-2"></span>
-          </button>
+            )}
+            <button type="submit">
+              <span className="far fa-search search-icon text-grey ease-in-out px-2"></span>
+            </button>
+            <button
+              ref={closeBtnRef}
+              onClick={_handleClose}
+              className="search-close-btn absolute right-3 opacity-0 translate-y-2 pointer-events-none">
+              <span className="fal fa-times search-icon border-l-1 border-bg pl-2"></span>
+            </button>
+          </form>
           <AnimatePresence>
             {isFocused && width > 1080 && (
               <motion.div
