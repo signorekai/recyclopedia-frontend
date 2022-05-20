@@ -49,6 +49,7 @@ const RecommendationIcon = ({ recommendation }) => (
 const AlternateTerms = ({ children }) => {
   const [collapsed, setCollapsed] = useState(true);
   const containerRef = useRef();
+  const { width } = useWindowDimensions();
   const { offsetWidth, scrollWidth } = containerRef.current
     ? containerRef.current
     : { offsetWidth: 0, scrollWidth: 0 };
@@ -61,12 +62,12 @@ const AlternateTerms = ({ children }) => {
     <p
       onClick={_handleClick}
       ref={containerRef}
-      className={` text-sm lg:text-lg text-grey-dark ${
+      className={`cursor-pointer text-sm lg:text-lg text-grey-dark max-w-full overflow-hidden ${
         collapsed ? 'whitespace-nowrap' : 'whitespace-normal'
-      } md:whitespace-normal relative `}>
+      } relative `}>
       {children}
-      {scrollWidth > offsetWidth && (
-        <div className="absolute h-full w-9 -right-4 top-0 bg-gradient-to-r from-transparent via-white to-white" />
+      {collapsed && scrollWidth > offsetWidth && (
+        <div className="absolute h-full w-6 -right-2 top-0 lg:w-full lg:h-10 lg:top-auto lg:-bottom-4 lg:left-0 lg:right-auto bg-gradient-to-r lg:bg-gradient-to-b from-transparent to-white" />
       )}
     </p>
   );
@@ -90,10 +91,7 @@ function Page({ data }) {
   return (
     <>
       {data && (
-        <Layout
-          showHeaderInitially={true}
-          showHeaderOn="UP"
-          hideHeaderOn="DOWN">
+        <Layout>
           <Head>
             <title>Recyclopedia - {data && data.title}</title>
             <meta name="description" content="Recyclopedia" />
