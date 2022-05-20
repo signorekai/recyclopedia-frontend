@@ -52,6 +52,7 @@ export default function SearchBar({
   const searchBarRef = useRef();
   const closeBtnRef = useRef();
   const formRef = useRef();
+  const suggestions = useRef([]);
 
   // make sure the two search bars will animate to each other,
   // but not to other instances of this component
@@ -75,9 +76,9 @@ export default function SearchBar({
 
   const selectSuggestion = (suggestion) => {
     setFormValue(suggestion);
-    // setTimeout(() => {
-    //   formRef.current.submit();
-    // }, 400);
+    setTimeout(() => {
+      formRef.current.submit();
+    }, 100);
   };
 
   const handleOnBlur = (e) => {
@@ -90,21 +91,51 @@ export default function SearchBar({
     }
   };
 
+  const _cacheSearchTerm = (term) => {
+    if (localStorage) {
+      let cached = localStorage.getItem(searchType.join(','));
+      if (cached === null) {
+        cached = term;
+      } else {
+        let arrayOfCached = cached.split(',');
+        arrayOfCached.splice(arrayOfCached.indexOf(term), 1);
+
+        if (arrayOfCached.length >= 5) {
+          arrayOfCached = arrayOfCached.slice(0, 4);
+        }
+
+        arrayOfCached.unshift(term);
+        cached = arrayOfCached.join(',');
+      }
+
+      localStorage.setItem(searchType.join(','), cached);
+    }
+  };
+
   useEffect(() => {
     if (isFocused && searchBarRef.current) {
       searchBarRef.current.focus();
     }
   }, [searchBarRef, isFocused]);
 
+  useEffect(() => {
+    if (localStorage) {
+      const cached = localStorage.getItem(searchType.join(','));
+      if (cached !== null && cached.length > 0)
+        suggestions.current = cached.split(',');
+    }
+  }, [searchType]);
+
   const _handleSubmit = (e) => {
     if (formValue.length === 0) {
       e.preventDefault();
+    } else {
+      _cacheSearchTerm(formValue);
     }
   };
 
   return (
-    <form ref={formRef} method="get" action="/search" onSubmit={_handleSubmit}>
-      <input type="hidden" name="contentType" value={searchType.join(',')} />
+    <>
       <motion.div
         className={`w-full mx-auto px-4 ${className}`}
         style={{
@@ -117,19 +148,31 @@ export default function SearchBar({
             isFocused && width > 1080 ? 'rounded-b-none rounded-t-3xl' : ''
           }`}>
           {(isFocused === false || width > 1080) && (
-            <input
-              value={formValue}
-              onChange={handleFormUpdate}
-              onFocus={handleOnFocus}
-              onBlur={handleOnBlur}
-              ref={searchBarRef}
-              placeholder={placeholderText}
-              autoComplete="off"
-              type="text"
-              name="searchTerm"
-              id="searchTerm"
-              className="search-bar bg-transparent peer text-black"
-            />
+            <form
+              className="w-full"
+              ref={formRef}
+              method="get"
+              action="/search"
+              onSubmit={_handleSubmit}>
+              <input
+                type="hidden"
+                name="contentType"
+                value={searchType.join(',')}
+              />
+              <input
+                value={formValue}
+                onChange={handleFormUpdate}
+                onFocus={handleOnFocus}
+                onBlur={handleOnBlur}
+                ref={searchBarRef}
+                placeholder={placeholderText}
+                autoComplete="off"
+                type="text"
+                name="searchTerm"
+                id="searchTerm"
+                className="search-bar bg-transparent peer text-black"
+              />
+            </form>
           )}
           <button type="submit">
             <span className="far fa-search search-icon text-grey ease-in-out px-2"></span>
@@ -154,7 +197,7 @@ export default function SearchBar({
                 exit="exit"
                 className="search-suggestions absolute left-0 bottom-0 translate-y-[100%] lg:max-w-[800px]">
                 <ul className="plain">
-                  {dummySuggestions.map((suggestion, key) => (
+                  {suggestions.current.map((suggestion, key) => (
                     <Suggestion
                       key={key}
                       selectSuggestion={selectSuggestion}
@@ -185,27 +228,40 @@ export default function SearchBar({
               <motion.div
                 layoutId={`${uniq.current}-search-bar`}
                 className="search-bar-wrapper bg-white placeholder:text-grey-dark border-0 border-grey-dark relative search-bar-wrapper--active">
-                <input
-                  value={formValue}
-                  onChange={handleFormUpdate}
-                  onFocus={handleOnFocus}
-                  // onBlur={handleOnBlur}
-                  ref={searchBarRef}
-                  placeholder={placeholderText}
-                  type="text"
-                  name="searchTerm"
-                  id="searchTerm"
-                  className="search-bar bg-transparent peer text-black"
-                />
-                <button type="submit">
-                  <span className="far fa-search search-icon text-grey ease-in-out px-2"></span>
-                </button>
-                <button
-                  ref={closeBtnRef}
-                  onClick={_handleClose}
-                  className="search-close-btn pr-3 opacity-0 translate-y-2 pointer-events-none">
-                  <span className="fal fa-times search-icon border-l-1 border-bg pl-2"></span>
-                </button>
+                <form
+                  className="w-full flex"
+                  ref={formRef}
+                  method="get"
+                  action="/search"
+                  onSubmit={_handleSubmit}>
+                  <input
+                    type="hidden"
+                    name="contentType"
+                    value={searchType.join(',')}
+                  />
+                  <input
+                    value={formValue}
+                    onChange={handleFormUpdate}
+                    onFocus={handleOnFocus}
+                    onBlur={handleOnBlur}
+                    ref={searchBarRef}
+                    placeholder={placeholderText}
+                    autoComplete="off"
+                    type="text"
+                    name="searchTerm"
+                    id="searchTerm"
+                    className="search-bar bg-transparent peer text-black"
+                  />
+                  <button type="submit">
+                    <span className="far fa-search search-icon text-grey ease-in-out px-2"></span>
+                  </button>
+                  <button
+                    ref={closeBtnRef}
+                    onClick={_handleClose}
+                    className="search-close-btn pr-3 opacity-0 translate-y-2 pointer-events-none">
+                    <span className="fal fa-times search-icon border-l-1 border-bg pl-2"></span>
+                  </button>
+                </form>
               </motion.div>
             </div>
             <motion.div
@@ -217,7 +273,7 @@ export default function SearchBar({
               }}
               className="search-suggestions">
               <ul className="plain">
-                {dummySuggestions.map((suggestion, key) => (
+                {suggestions.current.map((suggestion, key) => (
                   <Suggestion
                     key={key}
                     selectSuggestion={selectSuggestion}
@@ -238,6 +294,6 @@ export default function SearchBar({
           }}
         />
       )}
-    </form>
+    </>
   );
 }
