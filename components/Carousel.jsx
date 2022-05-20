@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback, Children } from 'react';
 import {
   useElementDimensions,
   useScrollDrag,
@@ -39,23 +39,25 @@ export const Carousel = ({
   let scrollAmount =
     slideWidth === 0 ? carouselRef.current?.offsetWidth : slideWidth;
 
+  const childrenCount = Children.count(children);
+
   if (!autoSlideSize) {
     if (slideWidth === 0) {
-      sliderStyle['width'] = `${children.length * 100}%`;
+      sliderStyle['width'] = `${childrenCount * 100}%`;
     } else {
-      sliderStyle['width'] = `${children.length * slideWidth}px`;
+      sliderStyle['width'] = `${childrenCount * slideWidth}px`;
     }
   }
 
-  const _checkButtons = () => {
+  const _checkButtons = useCallback(() => {
     if (
       carouselRef.current &&
-      carouselRef.current.offsetWidth < scrollAmount * children.length
+      carouselRef.current.offsetWidth < scrollAmount * childrenCount
     ) {
       setShowNextBtn(false);
       setShowPreviousBtn(false);
     }
-  };
+  }, [carouselRef, scrollAmount, childrenCount]);
 
   const _handleScrollBtn = (direction = -1) => {
     _checkButtons();
