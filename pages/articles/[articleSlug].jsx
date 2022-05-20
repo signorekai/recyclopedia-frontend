@@ -75,18 +75,20 @@ export default function Page({
                 DateTime.DATE_MED,
               )}
             </h4>
-            <NewImage
-              width={article.coverImage.width}
-              height={article.coverImage.height}
-              sizes="100vw"
-              src={
-                article.coverImage.formats.large
-                  ? article.coverImage.formats.large.url
-                  : article.coverImage.url
-              }
-              formats={article.coverImage.formats}
-              layout="responsive"
-            />
+            <div className="lg:w-3/4">
+              <NewImage
+                width={article.coverImage.width}
+                height={article.coverImage.height}
+                sizes="100vw"
+                src={
+                  article.coverImage.formats.large
+                    ? article.coverImage.formats.large.url
+                    : article.coverImage.url
+                }
+                formats={article.coverImage.formats}
+                layout="responsive"
+              />
+            </div>
             <article
               className="article-body divider-b divider-b-taller mt-4"
               dangerouslySetInnerHTML={{ __html: article.content }}></article>
