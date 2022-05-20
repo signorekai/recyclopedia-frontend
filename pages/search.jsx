@@ -108,6 +108,7 @@ const SingleSearchType = ({
 
 const MultiSearchType = ({ type, query, data, pageOptions }) => {
   const { width } = useWindowDimensions();
+  const CardWidth = width > 1080 ? 24 : 70;
   const [headerTabs, contentTabs] = useMemo(() => {
     const headerTabs = [];
 
@@ -115,6 +116,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
       All: (
         <div className="container">
           {Object.entries(data).map(([type, values], key) => {
+            const truncatedResults = values.slice(0, 3);
             return (
               <div className="mt-6" key={key}>
                 <h2 className="text-black block">
@@ -131,8 +133,12 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                   desktopControls={true}
                   showNav={false}
                   autoSlideSize={false}
-                  slideWidth={width * 0.2}>
-                  {values.map((item, itemKey) => {
+                  slideWidth={
+                    width > 1080
+                      ? 1040 * (CardWidth / 100)
+                      : width * (CardWidth / 100)
+                  }>
+                  {truncatedResults.map((item, itemKey) => {
                     let backgroundImage;
 
                     switch (type) {
@@ -150,13 +156,19 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                           : item.coverImage.url;
                         break;
                     }
-
                     return (
-                      <CarouselCard key={itemKey} className="w-[20vw]">
+                      <CarouselCard
+                        key={itemKey}
+                        style={{
+                          width:
+                            width > 1080
+                              ? `${(CardWidth / 100) * 1040}px`
+                              : `${CardWidth}vw`,
+                        }}>
                         <Card
                           className="w-full"
                           imgClassName="h-[200px]"
-                          uniqueKey={`news-${item.slug}`}
+                          uniqueKey={`${type}-${item.slug}`}
                           content={{
                             backgroundImage,
                             headerText: item.title,
@@ -167,6 +179,19 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                       </CarouselCard>
                     );
                   })}
+                  <CarouselCard
+                    uniqueKey={`${type}-see-all`}
+                    className="h-[200px]"
+                    style={{
+                      width:
+                        width > 1080
+                          ? `${(CardWidth / 100) * 1040}px`
+                          : `${CardWidth}vw`,
+                    }}>
+                    <button className="w-full h-full bg-coral text-white rounded-[4px]">
+                      View All
+                    </button>
+                  </CarouselCard>
                 </Carousel>
               </div>
             );
@@ -189,7 +214,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
       }
     }
     return [headerTabs, contentTabs];
-  }, [data, pageOptions, query]);
+  }, [CardWidth, data, pageOptions, query, width]);
 
   return (
     <>
