@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import qs from 'qs';
+import Image from '../components/Image';
 
 import {
   ITEMS_PER_PAGE,
@@ -25,7 +26,7 @@ export default function Home({ items, newsItems }) {
       </Head>
       <div className="bg-gradient-to-b from-coral to-purple h-72 lg:h-96 absolute top-0 w-full left-0 z-0"></div>
       <Link href="/">
-        <a className="block text-center mt-16 lg:mt-28">
+        <a className="flex justify-center mt-16 mb-4 lg:mt-28 z-10 relative">
           <img src="/img/logo.svg" alt="" width={172} height={28} />
         </a>
       </Link>
