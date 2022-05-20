@@ -12,6 +12,7 @@ import { Carousel, CarouselCard } from '../../components/Carousel';
 import Card from '../../components/Card';
 import NewImage from '../../components/Image';
 import { ReportBtn } from '../../components/Report';
+import { useRouter } from 'next/router';
 
 const RecommendationCard = ({ children, recommendation }) => (
   <div
@@ -75,6 +76,7 @@ const AlternateTerms = ({ children }) => {
 
 function Page({ data }) {
   const { width, height } = useWindowDimensions();
+  const router = useRouter();
 
   const modifier = 0.5;
   const handleShare = () => {
@@ -96,6 +98,19 @@ function Page({ data }) {
             <title>Recyclopedia - {data && data.title}</title>
             <meta name="description" content="Recyclopedia" />
             <link rel="icon" href="/favicon.ico" />
+            <meta
+              property="og:url"
+              content={`${process.env.NEXT_PUBLIC_LOCATION}${router.asPath}`}
+            />
+            <meta
+              property="og:title"
+              content={`Recyclopedia - ${data.title}`}
+            />
+            <meta
+              property="og:description"
+              content={`Learn how to recycle ${data.title.toLowerCase()} here.`}
+            />
+            <meta property="og:image" content={data.images[0].formats.large} />
           </Head>
           {width > 1080 ? (
             <div className="container">
