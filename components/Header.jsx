@@ -57,8 +57,6 @@ export default function Header({
           containerAnimControl.set('relative');
         }
 
-        console.log(scrollDirection, showHeaderOn, containerRef.current);
-
         if (scrollDirection === showHeaderOn || scrollYProgress.get() === 1) {
           headerAnimControl.start('show');
         } else if (scrollDirection === hideHeaderOn) {
