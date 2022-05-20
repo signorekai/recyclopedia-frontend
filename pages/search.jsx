@@ -3,6 +3,7 @@ import qs from 'qs';
 import { object, string, array } from 'yup';
 import Head from 'next/head';
 import { useMemo } from 'react';
+import { useRouter } from 'next/router';
 
 import {
   staticFetcher,
@@ -25,6 +26,7 @@ const SingleSearchType = ({
   items,
   pageOptions,
   showHeader = true,
+  className = '',
 }) => {
   const x = useSearchBarTopValue();
 
@@ -65,7 +67,7 @@ const SingleSearchType = ({
           )}
         </>
       )}
-      <div className="container relative z-10">
+      <div className={`container relative z-10 ${className}`}>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 ">
           {items &&
             items.map((item, key) => {
@@ -109,6 +111,8 @@ const SingleSearchType = ({
 const MultiSearchType = ({ type, query, data, pageOptions }) => {
   const { width } = useWindowDimensions();
   const CardWidth = width > 1080 ? 24 : 70;
+  const router = useRouter();
+
   const [headerTabs, contentTabs] = useMemo(() => {
     const headerTabs = [];
 
@@ -118,7 +122,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
           {Object.entries(data).map(([type, values], key) => {
             const truncatedResults = values.slice(0, 3);
             return (
-              <div className="mt-6" key={key}>
+              <div className="mt-6 divider-b divider-b-8" key={key}>
                 <h2 className="text-black block">
                   <i
                     className={`${
@@ -188,7 +192,15 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                           ? `${(CardWidth / 100) * 1040}px`
                           : `${CardWidth}vw`,
                     }}>
-                    <button className="w-full h-full bg-coral text-white rounded-[4px]">
+                    <button
+                      onClick={() => {
+                        const queryParams = router.query;
+                        queryParams['section'] = type;
+                        router.push(`?${qs.stringify(queryParams)}`, null, {
+                          shallow: true,
+                        });
+                      }}
+                      className="w-full h-full bg-coral text-white rounded-[4px]">
                       View All
                     </button>
                   </CarouselCard>
