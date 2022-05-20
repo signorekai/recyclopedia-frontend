@@ -110,7 +110,10 @@ function Page({ data }) {
               property="og:description"
               content={`Learn how to recycle ${data.title.toLowerCase()} here.`}
             />
-            <meta property="og:image" content={data.images[0].formats.large} />
+            <meta
+              property="og:image"
+              content={data.images[0].formats.large.url}
+            />
           </Head>
           {width > 1080 ? (
             <div className="container">
