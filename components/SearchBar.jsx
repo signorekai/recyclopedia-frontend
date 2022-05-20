@@ -64,7 +64,8 @@ export default function SearchBar({
     handleOnChange(e.target.value);
   };
 
-  const handleClose = () => {
+  const _handleClose = () => {
+    setIsFocused(false);
     // setFormValue('');
   };
 
@@ -74,14 +75,15 @@ export default function SearchBar({
 
   const selectSuggestion = (suggestion) => {
     setFormValue(suggestion);
-    setTimeout(() => {
-      formRef.current.submit();
-    }, 100);
+    // setTimeout(() => {
+    //   formRef.current.submit();
+    // }, 400);
   };
 
   const handleOnBlur = (e) => {
     // console.log('onblur');
     setIsFocused(false);
+    console.log(e);
     // console.log('set focus false');
     if (e.relatedTarget) {
       // console.log(e.relatedTarget);
@@ -120,7 +122,7 @@ export default function SearchBar({
               value={formValue}
               onChange={handleFormUpdate}
               onFocus={handleOnFocus}
-              onBlur={handleOnBlur}
+              // onBlur={handleOnBlur}
               ref={searchBarRef}
               placeholder={placeholderText}
               autoComplete="off"
@@ -135,7 +137,7 @@ export default function SearchBar({
           </button>
           <button
             ref={closeBtnRef}
-            onClick={handleClose}
+            onClick={_handleClose}
             className="search-close-btn absolute right-3 opacity-0 translate-y-2 pointer-events-none">
             <span className="fal fa-times search-icon border-l-1 border-bg pl-2"></span>
           </button>
@@ -188,7 +190,7 @@ export default function SearchBar({
                   value={formValue}
                   onChange={handleFormUpdate}
                   onFocus={handleOnFocus}
-                  onBlur={handleOnBlur}
+                  // onBlur={handleOnBlur}
                   ref={searchBarRef}
                   placeholder={placeholderText}
                   type="text"
@@ -201,8 +203,8 @@ export default function SearchBar({
                 </button>
                 <button
                   ref={closeBtnRef}
-                  onClick={handleClose}
-                  className="search-close-btn absolute right-3 opacity-0 translate-y-2 pointer-events-none">
+                  onClick={_handleClose}
+                  className="search-close-btn pr-3 opacity-0 translate-y-2 pointer-events-none">
                   <span className="fal fa-times search-icon border-l-1 border-bg pl-2"></span>
                 </button>
               </motion.div>
@@ -225,6 +227,7 @@ export default function SearchBar({
                 ))}
               </ul>
             </motion.div>
+            <button className="flex-1" onClick={_handleClose}></button>
           </motion.div>
         )}
       </AnimatePresence>
