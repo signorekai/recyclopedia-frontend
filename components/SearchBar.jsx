@@ -51,6 +51,7 @@ export default function SearchBar({
   const { width } = useWindowDimensions();
   const searchBarRef = useRef();
   const closeBtnRef = useRef();
+  const formRef = useRef();
 
   // make sure the two search bars will animate to each other,
   // but not to other instances of this component
@@ -59,24 +60,23 @@ export default function SearchBar({
   const dummySuggestions = ['Rags', 'Shampoo', 'USB', 'Broken Cup', 'Lego'];
 
   const handleFormUpdate = (e) => {
-    // console.log('onformupdate');
     setFormValue(e.target.value);
     handleOnChange(e.target.value);
   };
 
   const handleClose = () => {
-    // console.log('onclose');
     // setFormValue('');
   };
 
   const handleOnFocus = () => {
-    // console.log('onfocus');
     setIsFocused(true);
   };
 
   const selectSuggestion = (suggestion) => {
-    // console.log('on suggestion select', suggestion);
     setFormValue(suggestion);
+    setTimeout(() => {
+      formRef.current.submit();
+    }, 100);
   };
 
   const handleOnBlur = (e) => {
@@ -102,7 +102,7 @@ export default function SearchBar({
   };
 
   return (
-    <form method="get" action="/search" onSubmit={_handleSubmit}>
+    <form ref={formRef} method="get" action="/search" onSubmit={_handleSubmit}>
       <input type="hidden" name="contentType" value={searchType.join(',')} />
       <motion.div
         className={`w-full mx-auto px-4 ${className}`}
@@ -123,6 +123,7 @@ export default function SearchBar({
               onBlur={handleOnBlur}
               ref={searchBarRef}
               placeholder={placeholderText}
+              autoComplete="off"
               type="text"
               name="searchTerm"
               id="searchTerm"
