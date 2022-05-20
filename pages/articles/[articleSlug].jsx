@@ -2,12 +2,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 import qs from 'qs';
 import { DateTime } from 'luxon';
+import { useRouter } from 'next/router';
 
 import Layout from '../../components/Layout';
 import { Carousel, CarouselCard } from '../../components/Carousel';
 import Card from '../../components/Card';
 import { staticFetcher, useWindowDimensions } from '../../lib/hooks';
-import { useRouter } from 'next/router';
+import NewImage from '../../components/Image';
 
 export default function Page({
   data: article,
@@ -68,14 +69,26 @@ export default function Page({
           </div>
           <div className="container container--mid mt-10">
             <h5 className="text-left">{article.category.title}</h5>
-            <h1 className="text-black pt-2">{article.title}</h1>
-            <h4>
+            <h1 className="text-black pt-2 mb-0">{article.title}</h1>
+            <h4 className="mb-4">
               {DateTime.fromISO(article.updatedAt).toLocaleString(
                 DateTime.DATE_MED,
               )}
             </h4>
+            <NewImage
+              width={article.coverImage.width}
+              height={article.coverImage.height}
+              sizes="100vw"
+              src={
+                article.coverImage.formats.large
+                  ? article.coverImage.formats.large.url
+                  : article.coverImage.url
+              }
+              formats={article.coverImage.formats}
+              layout="responsive"
+            />
             <article
-              className="article-body divider-b divider-b-taller"
+              className="article-body divider-b divider-b-taller mt-4"
               dangerouslySetInnerHTML={{ __html: article.content }}></article>
           </div>
           <div className="container container--mid">
@@ -88,7 +101,7 @@ export default function Page({
                       Related Items
                     </h5>
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 mt-4">
                     <Carousel
                       autoSlideSize={true}
                       showNav={false}
