@@ -82,8 +82,7 @@ export default function SearchBar({
 
   const handleOnBlur = (e) => {
     // console.log('onblur');
-    setIsFocused(false);
-    console.log(e);
+    if (width >= 1080) setIsFocused(false);
     // console.log('set focus false');
     if (e.relatedTarget) {
       // console.log(e.relatedTarget);
@@ -122,7 +121,7 @@ export default function SearchBar({
               value={formValue}
               onChange={handleFormUpdate}
               onFocus={handleOnFocus}
-              // onBlur={handleOnBlur}
+              onBlur={handleOnBlur}
               ref={searchBarRef}
               placeholder={placeholderText}
               autoComplete="off"
