@@ -320,6 +320,7 @@ export async function getServerSideProps({ req, query }) {
           );
           break;
       }
+      console.log(323, pageOptions);
     });
 
     const Schema = object({
@@ -400,8 +401,6 @@ export async function getServerSideProps({ req, query }) {
           }
         });
       });
-
-      console.log(pageOptions);
 
       return {
         props: {
