@@ -399,7 +399,7 @@ export async function getServerSideProps({ req, query }) {
         });
       });
 
-      console.log(pageO);
+      console.log(pageOptions);
 
       return {
         props: {
