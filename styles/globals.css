@@ -20,6 +20,10 @@
       @apply max-w-screen-mlg;
     }
 
+    &.container--lg {
+      @apply max-w-[80rem];
+    }
+
     &.container--wide {
       @apply max-w-[83rem];
     }

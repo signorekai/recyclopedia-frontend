@@ -383,8 +383,6 @@ export async function getServerSideProps({ req, query }) {
           filters,
         })}`;
 
-        console.log(queryString);
-
         return fetch(queryString, {
           headers: {
             Authorization: `Bearer ${process.env.API_KEY}`,
