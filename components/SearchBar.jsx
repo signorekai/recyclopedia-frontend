@@ -58,8 +58,6 @@ export default function SearchBar({
   // but not to other instances of this component
   const uniq = useRef(uuidV4());
 
-  const dummySuggestions = ['Rags', 'Shampoo', 'USB', 'Broken Cup', 'Lego'];
-
   const handleFormUpdate = (e) => {
     setFormValue(e.target.value);
     handleOnChange(e.target.value);
@@ -94,11 +92,14 @@ export default function SearchBar({
   const _cacheSearchTerm = (term) => {
     if (localStorage) {
       let cached = localStorage.getItem(searchType.join(','));
+      console.log(cached);
       if (cached === null) {
         cached = term;
       } else {
         let arrayOfCached = cached.split(',');
-        arrayOfCached.splice(arrayOfCached.indexOf(term), 1);
+        if (arrayOfCached.indexOf(term) > -1) {
+          arrayOfCached.splice(arrayOfCached.indexOf(term), 1);
+        }
 
         if (arrayOfCached.length >= 5) {
           arrayOfCached = arrayOfCached.slice(0, 4);
