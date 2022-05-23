@@ -282,46 +282,52 @@ export async function getServerSideProps({ req, query }) {
 
     const pageOptions = {};
 
-    search.type.map(async (type) => {
-      console.log(`searching for ${type}`);
+    await Promise.all(
+      search.type.map(async (type) => {
+        console.log(`searching for ${type}`);
 
-      switch (type) {
-        case 'items':
-          pageOptions['items'] = await staticFetcher(
-            `${ip}/items-page`,
-            process.env.API_KEY,
-          );
-          break;
+        switch (type) {
+          case 'items':
+            pageOptions['items'] = await staticFetcher(
+              `${ip}/items-page`,
+              process.env.API_KEY,
+            );
+            return true;
+            break;
 
-        case 'resources':
-          pageOptions['resources'] = await staticFetcher(
-            `${ip}/resource-page`,
-            process.env.API_KEY,
-            {
-              populate: ['resourceTags'],
-            },
-          );
-          break;
+          case 'resources':
+            pageOptions['resources'] = await staticFetcher(
+              `${ip}/resource-page`,
+              process.env.API_KEY,
+              {
+                populate: ['resourceTags'],
+              },
+            );
+            return true;
+            break;
 
-        case 'donate':
-          pageOptions['donate'] = await staticFetcher(
-            `${ip}/donate-page`,
-            process.env.API_KEY,
-            {
-              populate: ['resourceTags'],
-            },
-          );
-          break;
+          case 'donate':
+            pageOptions['donate'] = await staticFetcher(
+              `${ip}/donate-page`,
+              process.env.API_KEY,
+              {
+                populate: ['resourceTags'],
+              },
+            );
+            return true;
+            break;
 
-        case 'articles':
-          pageOptions['articles'] = await staticFetcher(
-            `${ip}/news-and-tips-page`,
-            process.env.API_KEY,
-          );
-          break;
-      }
-      console.log(323, pageOptions);
-    });
+          case 'articles':
+            pageOptions['articles'] = await staticFetcher(
+              `${ip}/news-and-tips-page`,
+              process.env.API_KEY,
+            );
+            return true;
+            break;
+        }
+        console.log(323, pageOptions);
+      }),
+    );
 
     const Schema = object({
       type: array()
