@@ -399,6 +399,8 @@ export async function getServerSideProps({ req, query }) {
         });
       });
 
+      console.log(pageO);
+
       return {
         props: {
           success: true,
