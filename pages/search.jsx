@@ -283,6 +283,8 @@ export async function getServerSideProps({ req, query }) {
     const pageOptions = {};
 
     search.type.map(async (type) => {
+      console.log(`searching for ${type}`);
+
       switch (type) {
         case 'items':
           pageOptions['items'] = await staticFetcher(
