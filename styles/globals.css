@@ -157,6 +157,7 @@
 
   .page-icon-wrapper {
     @apply rounded-full bg-white bg-opacity-60 h-9 w-9 text-center text-2xl flex justify-center items-center;
+    @apply shadow-md;
   }
 
   .field-wrapper {
