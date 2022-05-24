@@ -222,7 +222,7 @@ function Page({ data }) {
                 <BookmarkButton
                   contentType="items"
                   slug={data.slug}
-                  className="page-icon-wrapper shadow-none bg-grey-light ml-2 mt-1"
+                  className="page-icon-wrapper hidden lg:block shadow-none bg-grey-light ml-2 mt-1"
                 />
               </h2>
               {data.alternateSearchTerms && (
