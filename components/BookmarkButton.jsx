@@ -1,7 +1,11 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
-export const BookmarkButton = ({ contentType, slug }) => {
+export const BookmarkButton = ({
+  contentType,
+  slug,
+  className = 'page-icon-wrapper',
+}) => {
   const { data: session, status: authStatus } = useSession();
   const [bookmarked, setBookmarked] = useState(false);
 
@@ -40,7 +44,7 @@ export const BookmarkButton = ({ contentType, slug }) => {
       {authStatus === 'authenticated' && (
         <button
           onClick={_handleClick}
-          className="page-icon-wrapper text-base text-blue leading-none">
+          className={`${className} text-base text-blue leading-none`}>
           <i className={`${bookmarked ? 'fas' : 'far'} fa-bookmark`}></i>
         </button>
       )}
