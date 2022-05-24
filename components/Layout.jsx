@@ -60,7 +60,7 @@ const SearchIcon = ({
 
 const BookmarkLink = ({ authStatus, children }) => {
   if (authStatus === 'authenticated') {
-    return <Link href="/bookmarks">{children}</Link>;
+    return <Link href="/account/bookmarks">{children}</Link>;
   } else {
     return children;
   }
@@ -173,15 +173,13 @@ export default function Layout({
                   })}
                 </div>
                 <div className="icon-wrapper">
-                  {authStatus === 'authenticated' && (
-                    <Link href="/account/bookmarks">
-                      <a
-                        className="hidden lg:block !text-white"
-                        id="bookmark-icon">
-                        <span className="far fa-bookmark text-xl"></span>
-                      </a>
-                    </Link>
-                  )}
+                  <BookmarkLink authStatus={authStatus}>
+                    <a
+                      className="hidden lg:block !text-white"
+                      id="bookmark-icon">
+                      <span className="far fa-bookmark text-xl"></span>
+                    </a>
+                  </BookmarkLink>
                   <Link href="/account">
                     <a
                       className="hidden !text-white lg:flex items-center"
