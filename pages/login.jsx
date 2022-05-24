@@ -18,6 +18,11 @@ export const LoginSchema = object({
 export default function Page() {
   const router = useRouter();
   const callbackUrl = router.query.callbackUrl || '/account';
+  const error = router.query.error || '';
+
+  const errorMsgs = {
+    CredentialsSignin: `The information you provided is incorrect. Please try again.`,
+  };
 
   const _handleSubmit = async (values, { setSubmitting }) => {
     // setSubmitting(true);
@@ -56,6 +61,11 @@ export default function Page() {
           <div className="h-[1px] w-full lg:w-[1px] lg:h-full bg-grey-light"></div>
         </div>
         <div className="w-full lg:flex-1">
+          {error.length > 0 && (
+            <p className="bg-coral text-white rounded-md py-3 px-4 mb-4 text-sm">
+              {errorMsgs[error]}
+            </p>
+          )}
           <Formik
             onSubmit={_handleSubmit}
             initialValues={{ identifier: '', password: '' }}
