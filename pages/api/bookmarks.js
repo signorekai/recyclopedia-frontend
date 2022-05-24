@@ -1,12 +1,19 @@
 import { getToken } from 'next-auth/jwt';
 import qs from 'qs';
+import { checkHTTPMethod } from '../../lib/functions';
 
 export default async function handler(req, res) {
+  checkHTTPMethod(res, req.method);
   const token = await getToken({ req });
+
   if (token) {
     const bookmarks = await fetch(
       `${process.env.API_URL}/bookmarks?${qs.stringify({
-        populate: '*',
+        populate: {
+          item: { populate: ['images'] },
+          resource: { populate: ['coverImage'] },
+          article: { populate: ['coverImage'] },
+        },
         sort: ['updatedAt:desc'],
         filters: {
           user: {
@@ -25,6 +32,7 @@ export default async function handler(req, res) {
     const result = await bookmarks.json();
     res.status(200).json(result.data);
   } else {
-    res.status(403).end('Not Authorised');
+    res.status(401);
   }
+  res.end();
 }
