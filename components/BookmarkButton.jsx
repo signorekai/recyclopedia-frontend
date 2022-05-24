@@ -24,7 +24,6 @@ export const BookmarkButton = ({
     if (authStatus === 'authenticated') {
       const fetchStatus = async () => {
         const res = await fetch(`/api/bookmarks/${contentType}/${slug}`);
-        console.log(21, res);
         if (res.ok) {
           const result = await res.json();
           if (result.data && result.data.length > 0) {
