@@ -173,13 +173,15 @@ const Layout = ({
                   })}
                 </div>
                 <div className="icon-wrapper">
-                  <BookmarkLink authStatus={authStatus}>
-                    <a
-                      className="hidden lg:block !text-white"
-                      id="bookmark-icon">
-                      <span className="far fa-bookmark text-xl"></span>
-                    </a>
-                  </BookmarkLink>
+                  {authStatus === 'authenticated' && (
+                    <BookmarkLink authStatus={authStatus}>
+                      <a
+                        className="hidden lg:block !text-white"
+                        id="bookmark-icon">
+                        <span className="far fa-bookmark text-xl"></span>
+                      </a>
+                    </BookmarkLink>
+                  )}
                   <Link href="/account">
                     <a
                       className="hidden !text-white lg:flex items-center"
