@@ -25,6 +25,6 @@ export default async function handler(req, res) {
     const result = await bookmarks.json();
     res.status(200).json(result.data);
   } else {
-    res.status(400);
+    res.status(403).end('Not Authorised');
   }
 }
