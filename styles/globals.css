@@ -288,7 +288,7 @@ p + p {
 }
 
 .search-suggestions {
-  @apply rounded-b-lg bg-white w-full self-start;
+  @apply rounded-b-xl bg-white w-full self-start;
   @apply shadow-md z-20;
 }
 
