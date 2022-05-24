@@ -28,8 +28,6 @@ const SingleSearchType = ({
   showHeader = true,
   className = '',
 }) => {
-  const x = useSearchBarTopValue();
-
   return (
     <>
       {showHeader && (
@@ -37,7 +35,7 @@ const SingleSearchType = ({
           <section
             className={`py-4 lg:py-10 text-white`}
             style={{ backgroundColor: pageOptions.colour }}>
-            <div className={`container ${items ? '' : 'container--narrow'}`}>
+            <div className={`container container--narrow`}>
               <h1 className="text-white">
                 <i
                   className={`${
@@ -55,7 +53,6 @@ const SingleSearchType = ({
             </div>
           </section>
           <SearchBar
-            top={x}
             placeholderText={
               typeof items === 'undefined'
                 ? `Try searching something else?`
