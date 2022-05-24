@@ -1,5 +1,5 @@
 import { useSession, signOut, signIn } from 'next-auth/react';
-import Link from 'next/link';
+import Head from 'next/head';
 import { useEffect } from 'react';
 
 import Layout from '../../components/Layout';
@@ -15,6 +15,9 @@ export default function Page({ ...props }) {
 
   return (
     <Layout>
+      <Head>
+        <title>Recyclopedia - Your account</title>
+      </Head>
       <section className="bg-teal">
         <div className="container container--lg py-4 lg:py-12 flex flex-col md:flex-row justify-between">
           <h3 className="text-white">
