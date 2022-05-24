@@ -4,6 +4,9 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import FacebookProvider from 'next-auth/providers/facebook';
 
 const options = {
+  pages: {
+    signIn: '/login',
+  },
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
