@@ -6,6 +6,7 @@ import FacebookProvider from 'next-auth/providers/facebook';
 const options = {
   pages: {
     signIn: '/login',
+    newUser: '/account',
   },
   providers: [
     CredentialsProvider({
