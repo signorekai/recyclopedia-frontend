@@ -145,9 +145,9 @@ export default function SearchBar({
         }}>
         <motion.div
           layoutId={`${uniq.current}-search-bar`}
-          className={`search-bar-wrapper bg-white placeholder:text-grey-dark border-0 border-grey-dark relative ${wrapperClassName} ${
+          className={`search-bar-wrapper transition-[border-radius] bg-white placeholder:text-grey-dark border-0 border-grey-dark relative ${wrapperClassName} ${
             isFocused && width > 1080 && suggestions.current.length > 0
-              ? 'rounded-b-none rounded-t-3xl'
+              ? 'rounded-b-none rounded-t-xl'
               : ''
           }`}>
           <form
