@@ -19,7 +19,13 @@ export const FeedbackFormSchema = object({
   message: string().required('Please type your message'),
 });
 
-const TextInput = ({ field, form: { touched, errors }, label, ...props }) => {
+export const TextInput = ({
+  field,
+  form: { touched, errors },
+  label,
+  tooltip = '',
+  ...props
+}) => {
   return (
     <div className="field-wrapper">
       <div className="flex flex-row pb-1">
@@ -35,9 +41,42 @@ const TextInput = ({ field, form: { touched, errors }, label, ...props }) => {
           // <div className="error">{errors[field.name]}</div>
         )}
       </div>
+      {tooltip.length > 0 && (
+        <p className="text-sm text-grey-dark">{tooltip}</p>
+      )}
     </div>
   );
 };
+
+export const TextArea = ({
+  field,
+  options,
+  form: { touched, errors },
+  ...props
+}) => (
+  <div className="field-wrapper">
+    <div className="flex flex-row pb-1">
+      <h5 className="text-left flex-1">{props.label}:</h5>
+      {touched[field.name] && errors[field.name] && (
+        <div className="text-sm text-red pb-1">{errors[field.name]}</div>
+      )}
+    </div>
+    <div className="text-lg relative">
+      <textarea
+        tabIndex={0}
+        {...field}
+        {...props}
+        className="text-input-wrapper"
+        rows={3}>
+        {field.value}
+      </textarea>
+      {touched[field.name] && errors[field.name] && (
+        <span className="fas fa-exclamation-triangle text-red absolute top-2 right-4" />
+        // <div className="error">{errors[field.name]}</div>
+      )}
+    </div>
+  </div>
+);
 
 const CheckAuth = () => {
   const { data: session, status: authStatus } = useSession();
@@ -54,7 +93,6 @@ const CheckAuth = () => {
         newValues.email = session.user.email;
       }
 
-      console.log(51, newValues);
       setValues(newValues);
     }
   }, [session, authStatus]);
@@ -69,36 +107,6 @@ export const FeedbackForm = ({
   const [showSuccess, setShowSuccess] = useState(false);
   const { data: session, status: authStatus } = useSession();
 
-  const TextArea = ({
-    field,
-    options,
-    form: { touched, errors },
-    ...props
-  }) => (
-    <div className="field-wrapper">
-      <div className="flex flex-row pb-1">
-        <h5 className="text-left flex-1">{props.label}:</h5>
-        {touched[field.name] && errors[field.name] && (
-          <div className="text-sm text-red pb-1">{errors[field.name]}</div>
-        )}
-      </div>
-      <div className="text-lg relative">
-        <textarea
-          tabIndex={0}
-          {...field}
-          {...props}
-          className="text-input-wrapper"
-          rows={3}>
-          {field.value}
-        </textarea>
-        {touched[field.name] && errors[field.name] && (
-          <span className="fas fa-exclamation-triangle text-red absolute top-2 right-4" />
-          // <div className="error">{errors[field.name]}</div>
-        )}
-      </div>
-    </div>
-  );
-
   const _handleSubmit = async (values, { setSubmitting }) => {
     let res = await fetch('/api/feedback', {
       method: 'POST',
@@ -108,9 +116,7 @@ export const FeedbackForm = ({
       }),
     });
 
-    let results = await res.json();
-
-    if (res.status === 200) {
+    if (res.ok && res.status === 200) {
       handleModalClick();
       setSubmitting(false);
       setShowSuccess(true);
