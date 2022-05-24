@@ -218,7 +218,12 @@ function Page({ data }) {
           <div className="container">
             <section className="mt-3 lg:mt-5 divider-b">
               <h2 className="text-black mb-0 lg:text-3xl leading-tight justify-start">
-                {data.title}
+                {data.title}{' '}
+                <BookmarkButton
+                  contentType="items"
+                  slug={data.slug}
+                  className="page-icon-wrapper shadow-none bg-grey-light ml-2 mt-1"
+                />
               </h2>
               {data.alternateSearchTerms && (
                 <AlternateTerms>

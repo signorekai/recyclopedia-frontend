@@ -1,13 +1,15 @@
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 
 export const BookmarkButton = ({
   contentType,
   slug,
   className = 'page-icon-wrapper',
 }) => {
-  const { data: session, status: authStatus } = useSession();
+  const { status: authStatus } = useSession();
   const [bookmarked, setBookmarked] = useState(false);
+  const animControl = useAnimation();
 
   const _handleClick = async () => {
     if (authStatus === 'authenticated') {
@@ -36,15 +38,18 @@ export const BookmarkButton = ({
 
       fetchStatus().catch(console.error);
     }
-  }, [authStatus]);
+  }, [authStatus, contentType, slug]);
 
   return (
     <>
       {authStatus === 'authenticated' && (
         <button
           onClick={_handleClick}
-          className={`${className} text-base text-blue leading-none`}>
-          <i className={`${bookmarked ? 'fas' : 'far'} fa-bookmark`}></i>
+          className={`${className} group text-base text-blue leading-none`}>
+          <motion.i
+            animate={animControl}
+            className={`${bookmarked ? 'fas' : 'far'} fa-bookmark`}
+          />
         </button>
       )}
     </>
