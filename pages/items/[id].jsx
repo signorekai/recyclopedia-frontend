@@ -13,6 +13,7 @@ import Card from '../../components/Card';
 import NewImage from '../../components/Image';
 import { ReportBtn } from '../../components/Report';
 import { useRouter } from 'next/router';
+import { BookmarkButton } from '../../components/BookmarkButton';
 
 const RecommendationCard = ({ children, recommendation }) => (
   <div
@@ -182,12 +183,13 @@ function Page({ data }) {
                     <i className="far fa-angle-left text-blue"></i>
                   </a>
                 </Link>
-                <div>
+                <div className="flex flex-row gap-x-2">
                   <button
                     onClick={handleShare}
                     className="page-icon-wrapper text-base leading-none">
                     <i className="far fa-external-link text-blue"></i>
                   </button>
+                  <BookmarkButton contentType="items" slug={data.slug} />
                 </div>
               </div>
               {data.images && (
