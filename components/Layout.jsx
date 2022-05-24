@@ -66,14 +66,14 @@ const BookmarkLink = ({ authStatus, children }) => {
   }
 };
 
-export default function Layout({
+const Layout = ({
   children,
   showHeaderInitially = true,
   showHeaderOn = 'UP',
   hideHeaderOn = 'DOWN',
   headerContainerStyle = {},
   ...props
-}) {
+}) => {
   const [showMenu, setShowMenu] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
 
@@ -327,4 +327,6 @@ export default function Layout({
       </footer>
     </>
   );
-}
+};
+
+export default Layout;
