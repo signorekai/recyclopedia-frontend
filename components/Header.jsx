@@ -122,7 +122,7 @@ export default function Header({
       <motion.div
         ref={spacerRef}
         animate={spacerAnimControl}
-        style={{ height: width >= 1080 ? 82 : 52 }}
+        className="h-[52px] lg:h-[82px]"
       />
       <motion.header
         ref={headerRef}
