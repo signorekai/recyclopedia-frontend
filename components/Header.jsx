@@ -128,7 +128,7 @@ export default function Header({
         ref={headerRef}
         variants={{
           show: { y: '0%' },
-          hide: { y: '-100%' },
+          hide: { y: '-120%' },
           desktop: { position: 'fixed', top: 0 },
         }}
         style={{
