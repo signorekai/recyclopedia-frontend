@@ -67,7 +67,8 @@ const BookmarkLink = ({ authStatus, children }) => {
 };
 
 const Layout = ({
-  mainClassName = '',
+  mainStyle = {},
+  footerStyle = {},
   children,
   showHeaderInitially = true,
   showHeaderOn = 'UP',
@@ -233,7 +234,7 @@ const Layout = ({
           </svg>
         </button>
       </Header>
-      <main className="main">
+      <main className="main" style={mainStyle}>
         <AnimatePresence>
           {showMenu && (
             <motion.div
@@ -307,7 +308,7 @@ const Layout = ({
         </AnimatePresence>
         {children}
       </main>
-      <footer className="bg-blue-dark text-white mt-7">
+      <footer className="footer-wrapper" style={footerStyle}>
         <div className="container container--wide footer">
           <div className="lg:order-2 flex-1 flex flex-col lg:flex-row lg:justify-between lg:items-center lg:px-10">
             <span className="text-sm leading-tight">
