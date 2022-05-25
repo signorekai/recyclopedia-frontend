@@ -67,6 +67,7 @@ const BookmarkLink = ({ authStatus, children }) => {
 };
 
 const Layout = ({
+  mainClassName = '',
   children,
   showHeaderInitially = true,
   showHeaderOn = 'UP',
