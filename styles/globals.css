@@ -176,6 +176,10 @@
       @apply focus:outline-none;
     }
   }
+
+  .footer-wrapper {
+    @apply bg-blue-dark text-white mt-7;
+  }
 }
 
 body {
