@@ -33,10 +33,15 @@ const SingleSearchType = ({
       {showHeader && (
         <>
           <section
-            className={`py-4 lg:py-10 text-white`}
+            className={`py-4 lg:py-10 ${
+              type === 'articles' ? 'text-black' : 'text-white'
+            }`}
             style={{ backgroundColor: pageOptions.colour }}>
             <div className={`container container--narrow`}>
-              <h1 className="text-white">
+              <h1
+                className={`${
+                  type === 'articles' ? 'text-black' : 'text-white'
+                }`}>
                 <i
                   className={`${
                     { Regular: 'far', Light: 'fal', Solid: 'fas' }[
