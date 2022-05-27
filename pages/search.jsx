@@ -357,10 +357,24 @@ export async function getServerSideProps({ req, query }) {
             break;
 
           case 'donate':
+          case 'shops':
             contentType = 'resources';
           case 'resources':
+            // @todo add tag filtering
+            const contentTypeTags = pageOptions[type].data.resourceTags.map(
+              (tag) => ({
+                resourceTags: {
+                  id: {
+                    $eq: tag.id,
+                  },
+                },
+              }),
+            );
             populateFields.push('images', 'resourceTags');
-            filters['$or'] = [
+            filters.$and = [{}, {}];
+            filters.$and[0].$or = contentTypeTags;
+
+            filters.$and[1].$or = [
               {
                 title: { $containsi: search.query },
               },
