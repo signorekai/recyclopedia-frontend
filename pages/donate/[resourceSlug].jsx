@@ -2,13 +2,14 @@ import qs from 'qs';
 import ResourcePage from '../../components/ResourcePage';
 
 function Page({ data }) {
-  return <ResourcePage data={data} baseUrl="resources" />;
+  return <ResourcePage data={data} baseUrl="donate" />;
 }
+
 export async function getStaticPaths() {
   const ip = process.env.API_URL;
 
   const { data: pageOptions } = await staticFetcher(
-    `${ip}/shops-page`,
+    `${ip}/donate-page`,
     process.env.API_KEY,
     {
       populate: ['resourceTags'],
