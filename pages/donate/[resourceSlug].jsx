@@ -1,5 +1,6 @@
 import qs from 'qs';
 import ResourcePage from '../../components/ResourcePage';
+import { staticFetcher } from '../../lib/hooks';
 
 function Page({ data }) {
   return <ResourcePage data={data} baseUrl="donate" />;
