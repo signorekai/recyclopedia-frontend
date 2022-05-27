@@ -3,7 +3,7 @@ import ResourcePage from '../../components/ResourcePage';
 import { staticFetcher } from '../../lib/hooks';
 
 function Page({ data }) {
-  return <ResourcePage data={data} baseUrl="resources" />;
+  return <ResourcePage data={data} baseUrl="shops" />;
 }
 export async function getStaticPaths() {
   const ip = process.env.API_URL;

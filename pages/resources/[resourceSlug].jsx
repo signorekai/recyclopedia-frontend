@@ -5,6 +5,7 @@ import { staticFetcher } from '../../lib/hooks';
 function Page({ data }) {
   return <ResourcePage data={data} baseUrl="resources" />;
 }
+
 export async function getStaticPaths() {
   const ip = process.env.API_URL;
 
