@@ -3,6 +3,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { object, string } from 'yup';
 import { Field, Formik, Form } from 'formik';
+import Link from 'next/link';
 
 import Layout from '../components/Layout';
 import { TextInput } from '../components/Report';
@@ -101,6 +102,17 @@ export default function Page() {
       </div>
       <div className="container container--narrow my-8">
         <div className="divider-b"></div>
+      </div>
+      <div className="container container--narrow mt-12 mb-8">
+        <h3 className="text-center">Don&apos;t have an account yet?</h3>
+        <p className="text-center">
+          <Link passHref href="/register">
+            <a className="text-coral">
+              Register now
+              <i className="p-2 -rotate-45 far fa-arrow-right"></i>
+            </a>
+          </Link>
+        </p>
       </div>
     </Layout>
   );
