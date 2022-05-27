@@ -402,7 +402,7 @@ export async function getServerSideProps({ req, query }) {
       const data = {};
       await Promise.all(promises).then((results) => {
         results.map((result, key) => {
-          if (result.data.length > 0) {
+          if (result.data?.length > 0) {
             data[search.type[key]] = result.data;
           }
         });
