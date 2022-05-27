@@ -75,12 +75,13 @@ const SingleSearchType = ({
               switch (type) {
                 case 'items':
                 case 'resources':
+                case 'donate':
+                case 'shops':
                   backgroundImage = item.images[0]?.formats.large
                     ? item.images[0]?.formats.large.url
                     : item.images[0]?.url;
                   break;
 
-                case 'items':
                 case 'articles':
                   backgroundImage = item.coverImage.formats.large
                     ? item.coverImage.formats.large.url
@@ -146,13 +147,14 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
 
                     switch (type) {
                       case 'items':
+                      case 'donate':
+                      case 'shops':
                       case 'resources':
                         backgroundImage = item.images[0]?.formats.large
                           ? item.images[0]?.formats.large.url
                           : item.images[0]?.url;
                         break;
 
-                      case 'items':
                       case 'articles':
                         backgroundImage = item.coverImage.formats.large
                           ? item.coverImage.formats.large.url
@@ -200,7 +202,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                         });
                       }}
                       className="w-full h-full bg-coral text-white rounded-[4px]">
-                      View All
+                      View All Results
                     </button>
                   </CarouselCard>
                 </Carousel>

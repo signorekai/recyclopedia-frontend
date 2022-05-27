@@ -55,7 +55,7 @@ const ResourceTab = ({ tag, columnCount = 3 }) => {
                       : item.images[0].url
                     : '',
                 headerText: item.title,
-                contentType: 'donate',
+                contentType: 'shops',
                 slug: item.slug,
               }}
             />
@@ -100,7 +100,7 @@ const Cards = ({ tags, columnCount = 3 }) => {
                       : item.images[0].url
                     : '',
                 headerText: item.title,
-                contentType: 'donate',
+                contentType: 'shops',
                 slug: item.slug,
               }}
             />
@@ -158,7 +158,7 @@ export default function Page({ fallback, pageOptions, resourceTags }) {
         placeholderText={`Search ${pageOptions.title}`}
         className="py-2 sticky lg:relative transition-all duration-200 z-20"
         wrapperClassName="max-w-[800px]"
-        searchType={['donate']}
+        searchType={['shops']}
         inactiveBackgroundColor={pageOptions.colour}
         activeBackgroundColor={pageOptions.colour}
       />
@@ -178,7 +178,7 @@ export async function getStaticProps() {
   };
 
   const pageResponse = await fetch(
-    `${ip}/donate-page?${qs.stringify(pageQuery)}`,
+    `${ip}/shops-page?${qs.stringify(pageQuery)}`,
     {
       headers: {
         Authorization: `Bearer ${process.env.API_KEY}`,
