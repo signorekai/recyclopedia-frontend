@@ -136,7 +136,13 @@ const Layout = ({
                   <input
                     type="hidden"
                     name="contentType"
-                    value={['items', 'resources', 'articles'].join(',')}
+                    value={[
+                      'items',
+                      'resources',
+                      'articles',
+                      'donate',
+                      'shops',
+                    ].join(',')}
                   />
                 </div>
               </form>
