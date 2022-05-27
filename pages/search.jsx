@@ -317,6 +317,17 @@ export async function getServerSideProps({ req, query }) {
             return true;
             break;
 
+          case 'shops':
+            pageOptions['shops'] = await staticFetcher(
+              `${ip}/shops-page`,
+              process.env.API_KEY,
+              {
+                populate: ['resourceTags'],
+              },
+            );
+            return true;
+            break;
+
           case 'articles':
             pageOptions['articles'] = await staticFetcher(
               `${ip}/news-and-tips-page`,
@@ -332,7 +343,9 @@ export async function getServerSideProps({ req, query }) {
     const Schema = object({
       type: array()
         .ensure()
-        .of(string().oneOf(['items', 'resources', 'articles', 'donate']))
+        .of(
+          string().oneOf(['items', 'resources', 'articles', 'donate', 'shops']),
+        )
         .required('Content type required'),
       query: string().required('Search query required').min(1),
     });
