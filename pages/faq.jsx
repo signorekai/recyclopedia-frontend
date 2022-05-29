@@ -22,7 +22,9 @@ const FAQCard = ({ header, content, openByDefault = false }) => {
     <dl className={`px-4 divider-b ${expanded ? 'after:mt-4' : 'after:mt-0'}`}>
       <button onClick={handleClick} className="w-full">
         <dt className="flex flex-row items-center">
-          <h3 className="text-black flex-1 my-4 text-left">{header}</h3>
+          <h3 className="text-black flex-1 my-4 text-left font-semibold">
+            {header}
+          </h3>
           {expanded ? (
             <i className="far fa-chevron-up"></i>
           ) : (

@@ -26,7 +26,6 @@ export default function Page() {
   };
 
   const _handleSubmit = async (values, { setSubmitting }) => {
-    // setSubmitting(true);
     signIn('credentials', { ...values, callbackUrl });
   };
 
@@ -85,16 +84,18 @@ export default function Page() {
                   label="Password"
                   component={TextInput}
                 />
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="form-submission-btn">
-                  {isSubmitting ? (
-                    <span className="far fa-spinner-third animate-spin" />
-                  ) : (
-                    'Login'
-                  )}
-                </button>
+                <div className="text-right">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="form-submission-btn">
+                    {isSubmitting ? (
+                      <span className="far fa-spinner-third animate-spin" />
+                    ) : (
+                      'Login'
+                    )}
+                  </button>
+                </div>
               </Form>
             )}
           </Formik>
@@ -104,15 +105,16 @@ export default function Page() {
         <div className="divider-b"></div>
       </div>
       <div className="container container--narrow mt-12 mb-8">
-        <h3 className="text-center">Don&apos;t have an account yet?</h3>
-        <p className="text-center">
+        <h3 className="text-center">
+          Don&apos;t have an account yet?
+          <br />
           <Link passHref href="/register">
             <a className="text-coral">
               Register now
               <i className="p-2 -rotate-45 far fa-arrow-right"></i>
             </a>
           </Link>
-        </p>
+        </h3>
       </div>
     </Layout>
   );

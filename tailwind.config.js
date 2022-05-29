@@ -50,6 +50,8 @@ module.exports = {
       borderRadius: {
         smd: '4px',
         30: '30px',
+        22: '22px',
+        18: 'px',
       },
       width: {
         'screen-1/4': '25vw',

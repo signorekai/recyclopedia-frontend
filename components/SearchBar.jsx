@@ -147,7 +147,7 @@ export default function SearchBar({
           layoutId={`${uniq.current}-search-bar`}
           className={`search-bar-wrapper transition-[border-radius] bg-white placeholder:text-grey-dark border-0 border-grey-dark relative ${wrapperClassName} ${
             isFocused && width > 1080 && suggestions.current.length > 0
-              ? 'rounded-b-none rounded-t-xl'
+              ? 'rounded-b-none rounded-t-22'
               : ''
           }`}>
           <form
