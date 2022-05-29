@@ -234,16 +234,18 @@ export const FeedbackForm = ({
                   <span className="text-sm text-grey-mid">
                     * denotes compulsory.
                   </span>
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="form-submission-btn">
-                    {isSubmitting ? (
-                      <span className="far fa-spinner-third animate-spin" />
-                    ) : (
-                      'Submit'
-                    )}
-                  </button>
+                  <div className="text-right">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="form-submission-btn">
+                      {isSubmitting ? (
+                        <span className="far fa-spinner-third animate-spin" />
+                      ) : (
+                        'Submit'
+                      )}
+                    </button>
+                  </div>
                 </Form>
               </FocusTrap>
             )}
