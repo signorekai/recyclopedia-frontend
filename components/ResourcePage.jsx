@@ -12,7 +12,7 @@ import { ReportBtn } from './Report';
 
 const ResourceIcon = ({ tag }) => (
   <i
-    className={`far text-xl pr-2 ${
+    className={`far text-base lg:text-sm pr-2 ${
       {
         Recycling: 'fa-recycle',
         Repair: 'fa-wrench',
@@ -28,7 +28,7 @@ const ResourceIcon = ({ tag }) => (
 const ResourceBullet = ({ tag, className, baseUrl = 'resources' }) => (
   <Link href={`/${baseUrl}?section=${tag}`}>
     <a
-      className={`inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo !text-white rounded-md ${
+      className={`inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo !text-white rounded-md text-sm lg:text-xs ${
         {
           Recycling: 'bg-blue',
           Repair: 'bg-blue',
