@@ -78,12 +78,12 @@ export default function Home({ items, newsItems }) {
                   Options
                   <i className="fa fa-arrow-right font-light text-coral text-lg ml-3" />
                 </h2>
+                <h3>
+                  Don’t let it just go to the landfill – give your waste a
+                  second life at the proper recycling channels available.
+                </h3>
               </a>
             </Link>
-            <h3>
-              Don’t let it just go to the landfill – give your waste a second
-              life at the proper recycling channels available.
-            </h3>
           </motion.div>
           <motion.div
             initial="initial"
@@ -101,13 +101,13 @@ export default function Home({ items, newsItems }) {
                   Donate
                   <i className="fa fa-arrow-right font-light text-coral text-lg ml-3" />
                 </h2>
+                <h3>
+                  Have something in great condition that you don’t need anymore?
+                  Think about passing it on to someone else in need. You’ll
+                  reduce your impact and make their day.
+                </h3>
               </a>
             </Link>
-            <h3>
-              Have something in great condition that you don’t need anymore?
-              Think about passing it on to someone else in need. You’ll reduce
-              your impact and make their day.
-            </h3>
           </motion.div>
           <motion.div
             initial="initial"
@@ -118,16 +118,16 @@ export default function Home({ items, newsItems }) {
               visible: { opacity: 1, y: 0 },
             }}
             className="py-5 px-3 lg:flex-1 lg:text-center">
-            <Link href="/shop" passHref>
+            <Link href="/shops" passHref>
               <a>
                 <h2>
                   <i className="far fa-shopping-bag text-3xl mr-3 mt-1" /> Shop
                   Sustainably
                   <i className="fa fa-arrow-right font-light text-coral text-lg ml-3" />
                 </h2>
+                <h3>Make better choices, starting from how you consume.</h3>
               </a>
             </Link>
-            <h3>Make better choices, starting from how you consume.</h3>
           </motion.div>
         </div>
       </div>
