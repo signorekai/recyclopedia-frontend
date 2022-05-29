@@ -20,16 +20,16 @@ const FAQCard = ({ header, content, openByDefault = false }) => {
 
   return (
     <dl className={`px-4 divider-b ${expanded ? 'after:mt-4' : 'after:mt-0'}`}>
-      <dt className="flex flex-row items-center">
-        <button onClick={handleClick} className="flex-1">
-          <h3 className="text-black my-4 text-left">{header}</h3>
-        </button>
-        {expanded ? (
-          <i className="far fa-chevron-up"></i>
-        ) : (
-          <i className="far fa-chevron-down"></i>
-        )}
-      </dt>
+      <button onClick={handleClick} className="w-full">
+        <dt className="flex flex-row items-center">
+          <h3 className="text-black flex-1 my-4 text-left">{header}</h3>
+          {expanded ? (
+            <i className="far fa-chevron-up"></i>
+          ) : (
+            <i className="far fa-chevron-down"></i>
+          )}
+        </dt>
+      </button>
       <motion.dd
         style={{
           maxHeight,
