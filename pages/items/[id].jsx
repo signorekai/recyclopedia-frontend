@@ -299,12 +299,13 @@ function Page({ data }) {
                         {item.resources.map((resource, key) => (
                           <CarouselCard
                             key={key}
-                            className="w-64 border-1 rounded-md border-grey-light overflow-hidden relative">
+                            className="w-64 group border-1 rounded-md border-grey-light overflow-hidden relative">
                             <Link
                               key={key}
                               href={`/resources/${resource.slug}`}>
-                              <a>
+                              <a className="group-hover:opacity-100">
                                 <NewImage
+                                  className="group-hover:scale-110 transition-transform"
                                   layout="fixed"
                                   src={resource.images[0].url}
                                   format={resource.images[0].format}
@@ -312,7 +313,7 @@ function Page({ data }) {
                                   height={158}
                                   alt={resource.title}
                                 />
-                                <h4 className="py-2 px-3 text-blue text-lg">
+                                <h4 className="py-2 px-3 text-blue group-hover:text-blue-dark text-lg">
                                   {resource.title}
                                 </h4>
                               </a>
