@@ -154,7 +154,7 @@ export const FeedbackForm = ({
             }}
             onSubmit={_handleSubmit}
             validationSchema={FeedbackFormSchema}>
-            {({ isSubmitting }) => (
+            {({ isSubmitting, values }) => (
               <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
                 <Form className="test">
                   <CheckAuth />
@@ -206,12 +206,14 @@ export const FeedbackForm = ({
                       </div>
                     )}
                   />
-                  <Field
-                    type="text"
-                    name="record"
-                    label="Record"
-                    component={TextInput}
-                  />
+                  {values.topic === 'Report An Error' && (
+                    <Field
+                      type="text"
+                      name="record"
+                      label="Record"
+                      component={TextInput}
+                    />
+                  )}
                   <Field
                     type="text"
                     name="name"
