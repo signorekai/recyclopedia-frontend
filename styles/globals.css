@@ -382,6 +382,7 @@ p + p {
 }
 
 .form-submission-btn {
+  @apply w-full lg:w-auto;
   @apply bg-coral text-white px-5 py-2 mt-4 rounded-md text-lg;
   @apply disabled:bg-grey-light;
 }
