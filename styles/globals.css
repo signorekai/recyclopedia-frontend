@@ -12,6 +12,10 @@
   .container {
     @apply max-w-screen-lg px-4 lg:px-5 mx-auto;
 
+    &.container--sm {
+      @apply max-w-lg;
+    }
+
     &.container--narrow {
       @apply max-w-[840px];
     }
@@ -292,7 +296,7 @@ p + p {
 }
 
 .search-suggestions {
-  @apply rounded-b-xl bg-white w-full self-start;
+  @apply rounded-b-22 bg-white w-full self-start;
   @apply shadow-md z-20;
 }
 
@@ -342,7 +346,7 @@ p + p {
 }
 
 .faq-section {
-  @apply mt-7;
+  @apply my-8 pb-4 first:mt-16 last:pb-0;
 }
 
 .faq-header {
@@ -378,6 +382,6 @@ p + p {
 }
 
 .form-submission-btn {
-  @apply bg-coral text-white px-5 py-2 mt-4 float-right rounded-md text-lg;
+  @apply bg-coral text-white px-5 py-2 mt-4 rounded-md text-lg;
   @apply disabled:bg-grey-light;
 }
