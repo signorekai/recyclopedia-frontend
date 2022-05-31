@@ -1,29 +1,37 @@
+import { useState } from 'react';
 import Link from 'next/link';
-import { object, string } from 'yup';
 import { useRouter } from 'next/router';
 import { Formik, Form, Field } from 'formik';
+import { signIn } from 'next-auth/react';
+import Head from 'next/head';
 
 import Layout from '../components/Layout';
-import { LoginSchema } from './login';
 import { TextInput } from '../components/Report';
-import Head from 'next/head';
-import { signIn } from 'next-auth/react';
-
-const RegisterSchema = LoginSchema.clone().shape({
-  username: string().required('Name required'),
-});
+import { RegisterSchema } from './api/register';
 
 export default function Page() {
+  const [errorMsg, setErrorMsg] = useState('');
   const router = useRouter();
   const callbackUrl = router.query.callbackUrl || '/account';
-  const error = router.query.error || '';
-
-  const errorMsgs = {
-    CredentialsSignin: `The information you provided is incorrect. Please try again.`,
-  };
 
   const _handleSubmit = async (values, { setSubmitting }) => {
-    // signIn('credentials', { ...values, callbackUrl });
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      signIn('credentials', {
+        identifier: values.email,
+        password: values.password,
+        callbackUrl,
+      });
+    } else {
+      setErrorMsg(result.data.error);
+    }
   };
 
   return (
@@ -39,25 +47,30 @@ export default function Page() {
       </div>
       <div className="container container--sm">
         <div className="w-full lg:flex-1 mt-4 lg:mt-12 h-auto">
+          {errorMsg.length > 0 && (
+            <p className="bg-coral text-white rounded-md py-3 px-4 mb-4 text-sm">
+              {errorMsg}
+            </p>
+          )}
           <Formik
             onSubmit={_handleSubmit}
             initialValues={{
-              identifier: '',
+              email: '',
               password: '',
-              username: '',
+              name: '',
             }}
             validationSchema={RegisterSchema}>
             {({ isSubmitting }) => (
               <Form>
                 <Field
                   type="text"
-                  name="username"
+                  name="name"
                   label="Name"
                   component={TextInput}
                 />
                 <Field
                   type="email"
-                  name="identifier"
+                  name="email"
                   label="Email Address"
                   component={TextInput}
                 />
