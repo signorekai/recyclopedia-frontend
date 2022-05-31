@@ -43,7 +43,12 @@ export default async function handler(req, res) {
   } else {
     // @todo test invalid
     console.log(validation);
-    res.status(400).json(validation);
+    res.status(400).json({
+      success: false,
+      data: {
+        error: validation,
+      },
+    });
   }
   res.status(400).end();
 }
