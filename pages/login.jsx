@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { object, string } from 'yup';
 import { Field, Formik, Form } from 'formik';
 import Link from 'next/link';
+import { object, string } from 'yup';
 
 import Layout from '../components/Layout';
 import { TextInput } from '../components/Report';
