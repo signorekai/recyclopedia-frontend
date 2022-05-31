@@ -299,11 +299,11 @@ function Page({ data }) {
                         {item.resources.map((resource, key) => (
                           <CarouselCard
                             key={key}
-                            className="w-64 group border-1 rounded-md border-grey-light overflow-hidden relative">
+                            className="w-64 group border-1 rounded-md border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative">
                             <Link
                               key={key}
                               href={`/resources/${resource.slug}`}>
-                              <a className="group-hover:opacity-100">
+                              <a className="group-hover:opacity-100 group-active:opacity-100">
                                 <NewImage
                                   className="group-hover:scale-110 transition-transform"
                                   layout="fixed"
