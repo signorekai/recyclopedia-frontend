@@ -47,53 +47,52 @@ export default function Page({ ...props }) {
       article: 'articles',
     };
 
-    for (const [key, value] of Object.entries(labels)) {
-      if (bookmarks.hasOwnProperty(key)) {
+    for (const [type, value] of Object.entries(labels)) {
+      if (bookmarks.hasOwnProperty(type)) {
         headerTabs.push(value);
-      }
-    }
 
-    for (const [type, items] of Object.entries(bookmarks)) {
-      contentTabs[labels[type]] = (
-        <div className="container relative z-10">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 ">
-            {items &&
-              items.map((item, key) => {
-                let backgroundImage;
+        const items = bookmarks[type];
+        contentTabs[value] = (
+          <div className="container relative z-10">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 ">
+              {items &&
+                items.map((item, itemKey) => {
+                  let backgroundImage;
 
-                switch (type) {
-                  case 'item':
-                  case 'resources':
-                  case 'donate':
-                  case 'shops':
-                    backgroundImage = item.images[0]?.formats.large
-                      ? item.images[0]?.formats.large.url
-                      : item.images[0]?.url;
-                    break;
+                  switch (type) {
+                    case 'item':
+                    case 'resources':
+                    case 'donate':
+                    case 'shops':
+                      backgroundImage = item.images[0]?.formats.large
+                        ? item.images[0]?.formats.large.url
+                        : item.images[0]?.url;
+                      break;
 
-                  case 'article':
-                    backgroundImage = item.coverImage.formats.large
-                      ? item.coverImage.formats.large.url
-                      : item.coverImage.url;
-                    break;
-                }
-                return (
-                  <Card
-                    key={key}
-                    className="w-full"
-                    uniqueKey={`card-${key}`}
-                    content={{
-                      backgroundImage,
-                      headerText: item.title,
-                      slug: item.slug,
-                      contentType: slugs[type],
-                    }}
-                  />
-                );
-              })}
+                    case 'article':
+                      backgroundImage = item.coverImage.formats.large
+                        ? item.coverImage.formats.large.url
+                        : item.coverImage.url;
+                      break;
+                  }
+                  return (
+                    <Card
+                      key={itemKey}
+                      className="w-full"
+                      uniqueKey={`card-${itemKey}`}
+                      content={{
+                        backgroundImage,
+                        headerText: item.title,
+                        slug: item.slug,
+                        contentType: slugs[type],
+                      }}
+                    />
+                  );
+                })}
+            </div>
           </div>
-        </div>
-      );
+        );
+      }
     }
     return [headerTabs, contentTabs];
   }, [bookmarks]);
