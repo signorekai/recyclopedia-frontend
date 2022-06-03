@@ -2,7 +2,6 @@ import { signOut } from 'next-auth/react';
 import { capitalise } from '../lib/functions';
 
 export const AccountHeader = ({ session, authStatus }) => {
-  console.log(session);
   return (
     <>
       {authStatus === 'authenticated' && (
