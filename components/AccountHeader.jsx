@@ -6,7 +6,7 @@ export const AccountHeader = ({ session, authStatus }) => {
     <>
       {authStatus === 'authenticated' && (
         <section className="bg-teal">
-          <div className="container container--lg py-4 lg:py-12 flex flex-col md:flex-row justify-between">
+          <div className="container  py-4 lg:py-12 flex flex-col md:flex-row justify-between">
             <h3 className="text-white">
               Hi {session && capitalise(session.user.name)}
             </h3>
