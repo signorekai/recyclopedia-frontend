@@ -6,6 +6,7 @@ export const BookmarkButton = ({
   contentType,
   slug,
   contentId,
+  subCategory = '',
   className = 'page-icon-wrapper',
 }) => {
   const { status: authStatus } = useSession();
@@ -20,6 +21,7 @@ export const BookmarkButton = ({
         method: bookmarked ? 'DELETE' : 'POST',
         body: JSON.stringify({
           contentId,
+          subCategory,
         }),
       });
       if (res.ok) {
