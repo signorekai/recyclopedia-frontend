@@ -14,6 +14,10 @@ export default async function handler(req, res) {
           resource: { populate: ['coverImage'] },
           article: { populate: ['coverImage'] },
         },
+        pagination: {
+          page: 1,
+          pageSize: 10000,
+        },
         sort: ['updatedAt:desc'],
         filters: {
           user: {
@@ -30,6 +34,7 @@ export default async function handler(req, res) {
       },
     );
     const result = await bookmarks.json();
+    console.log(result);
     res.status(200).json(result.data);
   } else {
     res.status(401);
