@@ -70,7 +70,7 @@ function ResourcePage({ data, baseUrl }) {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <div className="page-icons lg:hidden">
-            <Link href="/items">
+            <Link href={`/${baseUrl}`}>
               <a className="page-icon-wrapper leading-none">
                 <i className="far fa-angle-left text-blue"></i>
               </a>
@@ -82,7 +82,8 @@ function ResourcePage({ data, baseUrl }) {
                 <i className="far fa-external-link text-blue"></i>
               </button>
               <BookmarkButton
-                contentType="items"
+                subCategory={baseUrl}
+                contentType="resources"
                 slug={data.slug}
                 contentId={data.id}
               />
