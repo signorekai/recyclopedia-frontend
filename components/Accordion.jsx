@@ -46,7 +46,7 @@ export const AccordionHeader = ({
   className = '',
   carouselClassName = '',
   sliderClassName = '',
-  cardClassName = '',
+  cardClassName = 'min-w-max',
   onSelect = () => {},
 }) => {
   const {
