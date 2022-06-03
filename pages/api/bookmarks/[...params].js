@@ -139,7 +139,7 @@ export default async function handler(req, res) {
               headers: {
                 Authorization: `Bearer ${process.env.API_KEY}`,
               },
-              method: 'DELETe',
+              method: 'DELETE',
             },
           );
           const postResult = await deleteResponse.json();
