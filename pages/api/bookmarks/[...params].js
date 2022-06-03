@@ -1,5 +1,5 @@
 import { getToken } from 'next-auth/jwt';
-import { object, string } from 'yup';
+import { object, string, number } from 'yup';
 import qs from 'qs';
 
 import { checkHTTPMethod } from '../../../lib/functions';
@@ -82,29 +82,36 @@ export default async function handler(req, res) {
         break;
 
       case 'POST':
-        const { contentId } = JSON.parse(req.body);
+        const { contentId, subCategory } = JSON.parse(req.body);
 
-        if (typeof contentId !== 'number') {
-          res.status(400).end(`Invalid ID`);
-        }
+        const BodySchema = object({
+          contentId: number().required('Invalid ID').positive('Invalid ID'),
+          subCategory: string()
+            .required('Invalid subcategory')
+            .oneOf(['donate', 'resources', 'shops'], 'Invalid subcategory'),
+        });
 
-        if (bookmarkResult.data.length > 0) {
+        const bodyValid = await BodySchema.isValid({ contentId, subCategory });
+
+        if (bodyValid !== true) {
+          res.status(400).end();
+        } else if (bookmarkResult.data.length > 0) {
           res.status(400).end(`Already Bookmarked`);
         } else {
-          const { id } = currentContent.data[0];
           const content = { user: token.id };
 
           switch (contentType) {
             case 'items':
-              content.item = id;
+              content.item = contentId;
               break;
 
             case 'resources':
-              content.resource = id;
+              content.resource = contentId;
+              content.subCategory = subCategory;
               break;
 
             case 'articles':
-              content.article = id;
+              content.article = contentId;
               break;
           }
 
