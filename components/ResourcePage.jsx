@@ -9,6 +9,7 @@ import { Carousel, CarouselCard } from './Carousel';
 import Card from './Card';
 import Image from './Image';
 import { ReportBtn } from './Report';
+import { BookmarkButton } from './BookmarkButton';
 
 const ResourceIcon = ({ tag }) => (
   <i
@@ -68,6 +69,25 @@ function ResourcePage({ data, baseUrl }) {
             <meta name="description" content="Recyclopedia" />
             <link rel="icon" href="/favicon.ico" />
           </Head>
+          <div className="page-icons lg:hidden">
+            <Link href="/items">
+              <a className="page-icon-wrapper leading-none">
+                <i className="far fa-angle-left text-blue"></i>
+              </a>
+            </Link>
+            <div className="flex flex-row gap-x-2">
+              <button
+                onClick={handleShare}
+                className="page-icon-wrapper text-base leading-none">
+                <i className="far fa-external-link text-blue"></i>
+              </button>
+              <BookmarkButton
+                contentType="items"
+                slug={data.slug}
+                contentId={data.id}
+              />
+            </div>
+          </div>
           <div className="bg-bg lg:pt-12 lg:pb-8">
             {width < 1080 && (
               <>
@@ -128,6 +148,13 @@ function ResourcePage({ data, baseUrl }) {
                   </div>
                   <h2 className="text-black inline-block pt-2 order-1 lg:order-2">
                     {data.title}
+                    <BookmarkButton
+                      contentType="resources"
+                      slug={data.slug}
+                      subCategory={baseUrl}
+                      contentId={data.id}
+                      className="page-icon-wrapper hidden lg:inline-block shadow-none bg-grey-light ml-2 mt-1"
+                    />
                   </h2>
                   <div className="h-[1px] w-full bg-white mt-2 order-2 lg:order-3"></div>
                   {data.description && (
