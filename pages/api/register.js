@@ -18,9 +18,10 @@ export default async function handler(req, res) {
     const response = await fetch(`${process.env.API_URL}/auth/local/register`, {
       method: 'POST',
       body: JSON.stringify({
-        username: body.name,
+        username: body.email,
         email: body.email,
         password: body.password,
+        name: body.name,
       }),
       headers: {
         'Content-Type': 'application/json',
