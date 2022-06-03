@@ -39,6 +39,14 @@ export default function Page({ ...props }) {
       article: 'News & Tips',
     };
 
+    const slugs = {
+      item: 'items',
+      resources: 'resources',
+      donate: 'donate',
+      shops: 'shops',
+      article: 'articles',
+    };
+
     for (const [key, value] of Object.entries(labels)) {
       if (bookmarks.hasOwnProperty(key)) {
         headerTabs.push(value);
@@ -78,7 +86,7 @@ export default function Page({ ...props }) {
                       backgroundImage,
                       headerText: item.title,
                       slug: item.slug,
-                      contentType: type,
+                      contentType: slugs[type],
                     }}
                   />
                 );
