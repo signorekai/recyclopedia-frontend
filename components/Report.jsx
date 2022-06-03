@@ -234,7 +234,7 @@ export const FeedbackForm = ({
                   <span className="text-sm text-grey-mid">
                     * denotes compulsory.
                   </span>
-                  <div className="text-right">
+                  <div className="">
                     <button
                       type="submit"
                       disabled={isSubmitting}

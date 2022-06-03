@@ -84,7 +84,7 @@ export default function Page() {
                   label="Password"
                   component={TextInput}
                 />
-                <div className="text-right">
+                <div className="">
                   <button
                     type="submit"
                     disabled={isSubmitting}

@@ -81,7 +81,7 @@ export default function Page() {
                   tooltip="Minimum of 8 alphanumeric characters with at least 1 digit"
                   component={TextInput}
                 />
-                <div className="text-right">
+                <div className="">
                   <button
                     type="submit"
                     disabled={isSubmitting}
