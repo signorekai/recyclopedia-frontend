@@ -16,7 +16,8 @@ todos:
   [] add RECAPTCHA to <ReportForm>
   [] make our own content-type for forms so that we can create fields
   [] add ability to feature certain resource / item 
-  [] write tests
+  [] add search history for all search
+  [] write tests for API endpoints
   
 bugs:
   ✔ icons at footer not showing up @done(22-04-22 20:08)
