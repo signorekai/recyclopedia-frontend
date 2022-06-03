@@ -69,6 +69,7 @@ const options = {
             token.email = data.user.email;
             token.name = data.user.username;
           } else {
+            console.log(user, account);
             token.jwt = user.jwt;
             token.sub = user.user.email;
             token.id = user.user.id;
