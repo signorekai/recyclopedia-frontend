@@ -5,6 +5,7 @@ import { motion, useAnimation } from 'framer-motion';
 export const BookmarkButton = ({
   contentType,
   slug,
+  contentId,
   className = 'page-icon-wrapper',
 }) => {
   const { status: authStatus } = useSession();
@@ -17,6 +18,9 @@ export const BookmarkButton = ({
       setLoading(true);
       const res = await fetch(`/api/bookmarks/${contentType}/${slug}`, {
         method: bookmarked ? 'DELETE' : 'POST',
+        body: JSON.stringify({
+          contentId,
+        }),
       });
       if (res.ok) {
         setLoading(false);

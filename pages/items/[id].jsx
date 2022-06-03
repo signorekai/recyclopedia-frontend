@@ -189,7 +189,11 @@ function Page({ data }) {
                     className="page-icon-wrapper text-base leading-none">
                     <i className="far fa-external-link text-blue"></i>
                   </button>
-                  <BookmarkButton contentType="items" slug={data.slug} />
+                  <BookmarkButton
+                    contentType="items"
+                    slug={data.slug}
+                    contentId={data.id}
+                  />
                 </div>
               </div>
               {data.images && (
@@ -222,6 +226,7 @@ function Page({ data }) {
                 <BookmarkButton
                   contentType="items"
                   slug={data.slug}
+                  contentId={data.id}
                   className="page-icon-wrapper hidden lg:block shadow-none bg-grey-light ml-2 mt-1"
                 />
               </h2>

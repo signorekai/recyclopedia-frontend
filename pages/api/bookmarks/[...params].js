@@ -82,18 +82,13 @@ export default async function handler(req, res) {
         break;
 
       case 'POST':
-        let currentContent = await staticFetcher(
-          `${process.env.API_URL}/${contentType}?${qs.stringify({
-            filters: {
-              slug: { $eq: slug },
-            },
-          })}`,
-          process.env.API_KEY,
-        );
+        const { contentId } = JSON.parse(req.body);
 
-        if (currentContent.data.length === 0) {
-          res.status(400).end(`No ${contentType} Found`);
-        } else if (bookmarkResult.data.length > 0) {
+        if (typeof contentId !== 'number') {
+          res.status(400).end(`Invalid ID`);
+        }
+
+        if (bookmarkResult.data.length > 0) {
           res.status(400).end(`Already Bookmarked`);
         } else {
           const { id } = currentContent.data[0];
