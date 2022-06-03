@@ -12,7 +12,7 @@ export default async function handler(req, res) {
       `${process.env.API_URL}/bookmarks?${qs.stringify({
         populate: {
           item: { populate: ['images', 'itemCategory'] },
-          resource: { populate: ['coverImage'] },
+          resource: { populate: ['images'] },
           article: { populate: ['coverImage'] },
         },
         pagination: {
