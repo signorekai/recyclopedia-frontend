@@ -1,5 +1,6 @@
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import Head from 'next/head';
 
 import AccountHeader from '../../components/AccountHeader';
 import Layout from '../../components/Layout';
@@ -11,16 +12,13 @@ export default function Page({ ...props }) {
 
   useEffect(() => {
     const fetchBookmarks = async () => {
-      console.log('FETCHING');
       const bookmarkResponse = await fetch(`/api/bookmarks`);
       const bookmarks = await bookmarkResponse.json();
-      if (bookmarks) {
-        console.log('GOT RESULTS', bookmarks);
-        separateBookmarks(bookmarks, {});
-        // setBookmarks(result);
-      }
+      setLoading(false);
+      setBookmarks(bookmarks);
     };
-    if (authStatus === 'authenticated') fetchBookmarks();
+    if (authStatus === 'authenticated' && Object.keys(bookmarks).length === 0)
+      fetchBookmarks();
   }, [authStatus, session]);
 
   // const [headerTabs, contentTabs] = useMemo(() => {
