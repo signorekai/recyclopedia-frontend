@@ -1,16 +1,17 @@
 import { getToken } from 'next-auth/jwt';
 import qs from 'qs';
 import { checkHTTPMethod } from '../../lib/functions';
+import { staticFetcher } from '../../lib/hooks';
 
 export default async function handler(req, res) {
   checkHTTPMethod(res, req.method);
   const token = await getToken({ req });
 
   if (token) {
-    const bookmarks = await fetch(
+    const bookmarkResponse = await fetch(
       `${process.env.API_URL}/bookmarks?${qs.stringify({
         populate: {
-          item: { populate: ['images'] },
+          item: { populate: ['images', 'itemCategory'] },
           resource: { populate: ['coverImage'] },
           article: { populate: ['coverImage'] },
         },
@@ -33,9 +34,27 @@ export default async function handler(req, res) {
         },
       },
     );
-    const result = await bookmarks.json();
-    console.log(result);
-    res.status(200).json(result.data);
+
+    const { data: bookmarks } = await bookmarkResponse.json();
+    const result = {};
+    bookmarks.forEach((bookmark) => {
+      ['article', 'item', 'resource'].forEach((type) => {
+        if (bookmark.hasOwnProperty(type)) {
+          if (type === 'resource') {
+            if (typeof result[bookmark.subCategory] === 'undefined') {
+              result[bookmark.subCategory] = [];
+            }
+            result[bookmark.subCategory].push(bookmark[type]);
+          } else {
+            if (typeof result[type] === 'undefined') {
+              result[type] = [];
+            }
+            result[type].push(bookmark[type]);
+          }
+        }
+      });
+    });
+    res.status(200).json(result);
   } else {
     res.status(401);
   }
