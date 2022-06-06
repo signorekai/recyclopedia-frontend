@@ -18,6 +18,7 @@ todos:
   [] add ability to feature certain resource / item 
   [] add search history for all search
   [] write tests for API endpoints
+  [] reset JWT secret
   
 bugs:
   ✔ icons at footer not showing up @done(22-04-22 20:08)
