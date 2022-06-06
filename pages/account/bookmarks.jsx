@@ -1,8 +1,10 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
+import useSWR from 'swr';
 
 import AccountHeader from '../../components/AccountHeader';
+import { SWRFetcher } from '../../lib/hooks';
 import Layout from '../../components/Layout';
 import Card from '../../components/Card';
 import {
@@ -13,19 +15,10 @@ import {
 
 export default function Page({ ...props }) {
   const { data: session, status: authStatus } = useSession();
-  const [bookmarks, setBookmarks] = useState({});
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchBookmarks = async () => {
-      const bookmarkResponse = await fetch(`/api/bookmarks`);
-      const bookmarks = await bookmarkResponse.json();
-      setLoading(false);
-      setBookmarks(bookmarks);
-    };
-    if (authStatus === 'authenticated' && Object.keys(bookmarks).length === 0)
-      fetchBookmarks();
-  }, [authStatus, session]);
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const { data: bookmarks, error } = useSWR('/api/bookmarks', fetcher);
+  const loading = !error && !bookmarks;
 
   const [headerTabs, contentTabs] = useMemo(() => {
     const headerTabs = [];
@@ -48,9 +41,8 @@ export default function Page({ ...props }) {
     };
 
     for (const [type, value] of Object.entries(labels)) {
-      if (bookmarks.hasOwnProperty(type)) {
+      if (bookmarks && bookmarks.hasOwnProperty(type)) {
         headerTabs.push(value);
-
         const items = bookmarks[type];
         contentTabs[value] = (
           <div className="container relative z-10">
@@ -58,7 +50,6 @@ export default function Page({ ...props }) {
               {items &&
                 items.map((item, itemKey) => {
                   let backgroundImage;
-
                   switch (type) {
                     case 'item':
                     case 'resources':
@@ -68,7 +59,6 @@ export default function Page({ ...props }) {
                         ? item.images[0]?.formats.large.url
                         : item.images[0]?.url;
                       break;
-
                     case 'article':
                       backgroundImage = item.coverImage.formats.large
                         ? item.coverImage.formats.large.url
