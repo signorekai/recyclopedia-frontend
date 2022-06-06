@@ -24,10 +24,11 @@ export const TextInput = ({
   form: { touched, errors },
   label,
   tooltip = '',
+  className,
   ...props
 }) => {
   return (
-    <div className="field-wrapper">
+    <div className={`field-wrapper ${className}`}>
       <div className="flex flex-row pb-1">
         <h5 className="text-left flex-1">{label}:</h5>
         {touched[field.name] && errors[field.name] && (
@@ -101,6 +102,7 @@ const CheckAuth = () => {
 };
 
 export const FeedbackForm = ({
+  defaultTopic = '',
   defaultRecord,
   handleModalClick = () => {},
 }) => {
@@ -148,7 +150,7 @@ export const FeedbackForm = ({
             initialValues={{
               name: '',
               email: '',
-              topic: '',
+              topic: defaultTopic,
               message: '',
               record: defaultRecord,
             }}
@@ -206,14 +208,16 @@ export const FeedbackForm = ({
                       </div>
                     )}
                   />
-                  {values.topic === 'Report An Error' && (
-                    <Field
-                      type="text"
-                      name="record"
-                      label="Record"
-                      component={TextInput}
-                    />
-                  )}
+                  <Field
+                    className={`${
+                      values.topic === 'Report An Error' ? '' : 'hidden'
+                    }`}
+                    type="text"
+                    name="record"
+                    label="Record"
+                    tooltip="What item / resource is it regarding?"
+                    component={TextInput}
+                  />
                   <Field
                     type="text"
                     name="name"
@@ -256,7 +260,7 @@ export const FeedbackForm = ({
   );
 };
 
-export const ReportBtn = ({ record = '' }) => {
+export const ReportBtn = ({ record = '', topic = '' }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const _handleClick = () => {
@@ -289,6 +293,7 @@ export const ReportBtn = ({ record = '' }) => {
               <h2 className="text-black inline-block px-4">Feedback</h2>
               <div className="flex-1 lg:max-h-[60vh] overflow-y-auto px-4 pb-4">
                 <FeedbackForm
+                  defaultTopic={topic}
                   defaultRecord={record}
                   handleModalClick={_handleClick}
                 />

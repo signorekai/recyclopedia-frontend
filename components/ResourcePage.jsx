@@ -283,7 +283,10 @@ function ResourcePage({ data, baseUrl }) {
               )}
             </span>
             <div className="divider-b mt-2"></div>
-            <ReportBtn record={`${data.title} (Donate Resources)`} />
+            <ReportBtn
+              topic="Report An Error"
+              record={`${data.title} (Donate Resources)`}
+            />
           </div>
         </Layout>
       )}
