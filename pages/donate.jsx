@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import qs from 'qs';
-import useSWR, { SWRConfig } from 'swr';
+import { SWRConfig } from 'swr';
 
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
