@@ -42,7 +42,8 @@ export default function Page() {
     }),
     newPassword2: string()
       .required('Please retype your new password')
-      .oneOf([ref('newPassword1')], `Your passwords don't match`),
+      .oneOf([ref('newPassword1')], `Your passwords don't match`)
+      .notOneOf([ref('oldPassword')], `Same password as your current password`),
   });
 
   const _handleNameChange = async (values, { setSubmitting }) => {
@@ -131,8 +132,7 @@ export default function Page() {
                       <Field
                         type="password"
                         name="oldPassword"
-                        tooltip="You will need to relogin after changing your name"
-                        label="Old Password"
+                        label="Current Password"
                         component={TextInput}
                       />
                       <Field
