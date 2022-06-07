@@ -62,13 +62,14 @@ const options = {
               `${process.env.API_URL}/auth/${account.provider}/callback?access_token=${account?.access_token}`,
             );
             const data = await response.json();
-
+            token.provider = account.provider;
             token.jwt = data.jwt;
             token.sub = data.user.email;
             token.id = data.user.id;
             token.email = data.user.email;
             token.name = data.user.username;
           } else {
+            token.provider = 'local';
             token.jwt = user.jwt;
             token.sub = user.user.email;
             token.id = user.user.id;
