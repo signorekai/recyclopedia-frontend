@@ -29,7 +29,7 @@ export const TextInput = ({
 }) => {
   return (
     <div className={`field-wrapper ${className}`}>
-      <div className="flex flex-row pb-1">
+      <div className="flex flex-col lg:flex-row pb-1">
         <h5 className="text-left flex-1">{label}:</h5>
         {touched[field.name] && errors[field.name] && (
           <div className="text-sm text-red pb-1">{errors[field.name]}</div>
