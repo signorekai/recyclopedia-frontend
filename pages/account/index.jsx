@@ -1,7 +1,7 @@
 import { Field, Form, Formik } from 'formik';
 import { useSession, signOut, signIn } from 'next-auth/react';
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { object, ref, string } from 'yup';
 import AccountHeader from '../../components/AccountHeader';
 
@@ -10,8 +10,7 @@ import { TextInput } from '../../components/Report';
 
 export default function Page() {
   const { data: session, status: authStatus } = useSession();
-
-  console.log(14, session);
+  const [passChangeError, setPassChangeError] = useState('');
 
   useEffect(() => {
     if (authStatus === 'unauthenticated') {
@@ -55,7 +54,10 @@ export default function Page() {
     const result = await response.json();
     setSubmitting(false);
     if (result.success) {
-      signIn();
+      setPassChangeError('');
+      signOut({ callbackUrl: '/login' });
+    } else {
+      setPassChangeError(result.data.error);
     }
   };
 
@@ -129,6 +131,11 @@ export default function Page() {
                   <Form className="flex flex-col lg:flex-row flex-wrap items-start mt-6 lg:mt-10">
                     <h3 className="lg:w-1/3 mb-8 lg:mb-0">Update Password</h3>
                     <div className="w-full lg:w-2/3">
+                      {passChangeError.length > 0 && (
+                        <p className="bg-coral text-white rounded-md py-3 px-4 mb-4 text-sm">
+                          {passChangeError}
+                        </p>
+                      )}
                       <Field
                         type="password"
                         name="oldPassword"
