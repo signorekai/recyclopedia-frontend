@@ -2,9 +2,9 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
 import useSWR from 'swr';
+import Link from 'next/link';
 
 import AccountHeader from '../../components/AccountHeader';
-import { SWRFetcher } from '../../lib/hooks';
 import Layout from '../../components/Layout';
 import Card from '../../components/Card';
 import {
@@ -97,7 +97,18 @@ export default function Page({ ...props }) {
       <Head>
         <title>Recyclopedia - Your bookmarks</title>
       </Head>
-      <AccountHeader session={session} authStatus={authStatus} />
+      <AccountHeader
+        session={session}
+        authStatus={authStatus}
+        extraLink={
+          <Link href="/account">
+            <a>
+              <i className="far fa-cog mr-1" />
+              Account Settings
+            </a>
+          </Link>
+        }
+      />
       {loading === true && (
         <section className="flex flex-1 justify-center items-center">
           <i className="fas fa-spinner text-5xl text-grey animate-spin"></i>
