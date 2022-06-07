@@ -43,7 +43,6 @@ export default async function handler(req, res) {
     }
   } else {
     // @todo test invalid
-    console.log(validation);
     res.status(400).json({
       success: false,
       data: {
@@ -51,5 +50,4 @@ export default async function handler(req, res) {
       },
     });
   }
-  res.status(400).end();
 }
