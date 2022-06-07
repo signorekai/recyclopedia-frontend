@@ -11,6 +11,7 @@ todos:
   ✔ add autofill for feedback if user is already logged in @done(22-05-20 01:41)
   ✔ add /bookmarks POST endpoint @done(22-05-29 16:57)
   ✔ add loading state for bookmarking @done(22-06-03 15:17)
+  ✔ check if user is local registered user, and show change password section @done(22-06-07 17:04)
   [] tab sequence for feedback modal
   [] add page transitions
   [] add RECAPTCHA to <ReportForm>
