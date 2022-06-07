@@ -92,7 +92,6 @@ export default function SearchBar({
   const _cacheSearchTerm = (term) => {
     if (localStorage) {
       let cached = localStorage.getItem(searchType.join(','));
-      console.log(cached);
       if (cached === null) {
         cached = term;
       } else {

@@ -30,7 +30,6 @@ export default async function handler(req, res) {
 
     const results = await response.json();
 
-    console.log(results);
     if (results.hasOwnProperty('error') === false) {
       res.status(200).json({ success: true, data: results.data });
     } else {

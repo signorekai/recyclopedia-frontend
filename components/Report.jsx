@@ -86,7 +86,7 @@ const CheckAuth = () => {
   useEffect(() => {
     if (authStatus === 'authenticated') {
       const newValues = {};
-      console.log(values);
+      // console.log(values);
       if (values.hasOwnProperty('name') && values.name.length === 0) {
         newValues.name = session.user.name;
       }
