@@ -3,7 +3,7 @@ import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { v4 as uuidV4 } from 'uuid';
 import { useWindowDimensions } from '../lib/hooks';
 
-const Suggestion = ({
+export const Suggestion = ({
   text = '',
   showIcon = true,
   selectSuggestion = () => {},
@@ -20,6 +20,29 @@ const Suggestion = ({
     </button>
   </li>
 );
+
+export const _cacheSearchTerm = (term, key) => {
+  if (localStorage) {
+    let cached = localStorage.getItem(key);
+    if (cached === null) {
+      cached = term;
+    } else {
+      let arrayOfCached = cached.split(',');
+      if (arrayOfCached.indexOf(term) > -1) {
+        arrayOfCached.splice(arrayOfCached.indexOf(term), 1);
+      }
+
+      if (arrayOfCached.length >= 5) {
+        arrayOfCached = arrayOfCached.slice(0, 4);
+      }
+
+      arrayOfCached.unshift(term);
+      cached = arrayOfCached.join(',');
+    }
+
+    localStorage.setItem(key, cached);
+  }
+};
 
 /**
  * @callback handleOnChange
@@ -89,29 +112,6 @@ export default function SearchBar({
     }
   };
 
-  const _cacheSearchTerm = (term) => {
-    if (localStorage) {
-      let cached = localStorage.getItem(searchType.join(','));
-      if (cached === null) {
-        cached = term;
-      } else {
-        let arrayOfCached = cached.split(',');
-        if (arrayOfCached.indexOf(term) > -1) {
-          arrayOfCached.splice(arrayOfCached.indexOf(term), 1);
-        }
-
-        if (arrayOfCached.length >= 5) {
-          arrayOfCached = arrayOfCached.slice(0, 4);
-        }
-
-        arrayOfCached.unshift(term);
-        cached = arrayOfCached.join(',');
-      }
-
-      localStorage.setItem(searchType.join(','), cached);
-    }
-  };
-
   useEffect(() => {
     if (isFocused && searchBarRef.current) {
       searchBarRef.current.focus();
@@ -130,7 +130,7 @@ export default function SearchBar({
     if (formValue.length === 0) {
       e.preventDefault();
     } else {
-      _cacheSearchTerm(formValue);
+      _cacheSearchTerm(formValue, searchType.join(','));
     }
   };
 

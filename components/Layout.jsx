@@ -8,6 +8,8 @@ import { useSession } from 'next-auth/react';
 
 import { capitalise } from '../lib/functions';
 import Header from './Header';
+import { useSearchBarTopValue, useWindowDimensions } from '../lib/hooks';
+import { _cacheSearchTerm, Suggestion } from './SearchBar';
 
 const menu = [
   { label: 'Items', href: '/items' },
@@ -78,11 +80,21 @@ const Layout = ({
 }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [formValue, setFormValue] = useState('');
 
+  const suggestions = useRef([]);
+
+  const { width } = useWindowDimensions();
   const router = useRouter();
   const searchBar = useRef();
+  const formRef = useRef();
 
   const { data: session, status: authStatus } = useSession();
+
+  const _handleFormUpdate = (e) => {
+    setFormValue(e.target.value);
+  };
 
   const _handleMenuBtn = () => {
     setShowSearchBar(false);
@@ -100,13 +112,48 @@ const Layout = ({
     }
   }, [showSearchBar, searchBar]);
 
+  useEffect(() => {
+    if (localStorage) {
+      const cached = localStorage.getItem('all');
+      if (cached !== null && cached.length > 0)
+        suggestions.current = cached.split(',');
+    }
+  }, []);
+
+  const _handleSubmit = (e) => {
+    if (formValue.length === 0) {
+      e.preventDefault();
+    } else {
+      _cacheSearchTerm(formValue, 'all');
+    }
+  };
+
+  const _handleOnBlur = (e) => {
+    if (width >= 1080) setIsFocused(false);
+    // console.log('set focus false');
+    if (e.relatedTarget) {
+      // console.log(e.relatedTarget);
+      e.relatedTarget.click();
+    }
+  };
+
+  const _selectSuggestion = (suggestion) => {
+    setFormValue(suggestion);
+    setTimeout(() => {
+      formRef.current.submit();
+    }, 100);
+  };
+
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Header
-        containerStyle={headerContainerStyle}
+        containerStyle={{
+          ...headerContainerStyle,
+          zIndex: isFocused ? 60 : 40,
+        }}
         showHeaderInitially={showHeaderInitially}
         showHeaderOn={showHeaderOn}
         hideHeaderOn={hideHeaderOn}>
@@ -119,10 +166,22 @@ const Layout = ({
               <div className="hidden lg:inline-block lg:flex-1">
                 <img src="/img/logo-mini.svg" width={42} height={19} alt="" />
               </div>
-              <form method="get" action="/search" className="flex-1">
+              <form
+                ref={formRef}
+                method="get"
+                onSubmit={_handleSubmit}
+                action="/search"
+                className="flex-1">
                 <div className="search-bar-wrapper border-grey-dark text-white">
                   <input
+                    autoComplete="off"
                     ref={searchBar}
+                    onFocus={() => {
+                      setIsFocused(true);
+                    }}
+                    onBlur={_handleOnBlur}
+                    onChange={_handleFormUpdate}
+                    value={formValue}
                     placeholder="Search Entire Site"
                     type="text"
                     name="searchTerm"
@@ -240,6 +299,47 @@ const Layout = ({
           </svg>
         </button>
       </Header>
+      <AnimatePresence>
+        {isFocused && (
+          <motion.div
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={{
+              initial: { opacity: 0, y: 100 },
+              animate: { opacity: 1, y: 0 },
+              exit: { opacity: 0, y: 100 },
+            }}
+            className="modal-wrapper !z-50 !flex-col top-0 left-0 !justify-start">
+            <motion.div
+              transition={{ duration: 0.2 }}
+              variants={{
+                // initial: { y: '-100%', opacity: 0 },
+                // animate: { y: 0, opacity: 1 },
+                exit: { y: 50, scale: 0.9 },
+              }}
+              style={{
+                marginTop: width > 1080 ? 82 : 52,
+              }}
+              className="search-suggestions lg:max-w-[33%] mx-auto">
+              <ul className="plain">
+                {suggestions.current.map((suggestion, key) => (
+                  <Suggestion
+                    key={key}
+                    selectSuggestion={_selectSuggestion}
+                    text={suggestion}
+                  />
+                ))}
+              </ul>
+            </motion.div>
+            <button
+              className="flex-1"
+              onClick={() => {
+                setIsFocused(false);
+              }}></button>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <main className="main" style={mainStyle}>
         <AnimatePresence>
           {showMenu && (
