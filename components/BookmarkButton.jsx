@@ -27,6 +27,8 @@ export const BookmarkButton = ({
       if (res.ok) {
         setLoading(false);
         setBookmarked(!bookmarked);
+      } else {
+        setLoading(false);
       }
     }
   };
