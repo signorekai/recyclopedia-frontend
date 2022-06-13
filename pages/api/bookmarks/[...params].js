@@ -54,49 +54,49 @@ export default async function handler(req, res) {
         break;
     }
 
-    let bookmarkResult = await staticFetcher(
-      `${process.env.API_URL}/bookmarks?${qs.stringify({
-        populate: {
-          item: { populate: ['images'] },
-          resource: { populate: ['coverImage'] },
-          article: { populate: ['coverImage'] },
-        },
-        sort: ['updatedAt:desc'],
-        filters: {
-          user: {
-            id: {
-              $eq: token.id,
-            },
-          },
-          ...filters,
-        },
-      })}`,
-      process.env.API_KEY,
-    );
-
     switch (req.method) {
-      case 'GET':
+      case 'GET': {
+        let bookmarkResult = await staticFetcher(
+          `${process.env.API_URL}/bookmarks?${qs.stringify({
+            populate: {
+              item: { populate: ['images'] },
+              resource: { populate: ['coverImage'] },
+              article: { populate: ['coverImage'] },
+            },
+            sort: ['updatedAt:desc'],
+            filters: {
+              user: {
+                id: {
+                  $eq: token.id,
+                },
+              },
+              ...filters,
+            },
+          })}`,
+          process.env.API_KEY,
+        );
+
         res.status(200).json({
           data: bookmarkResult.data,
         });
         break;
+      }
 
       case 'POST':
         const { contentId, subCategory } = JSON.parse(req.body);
 
         const BodySchema = object({
           contentId: number().required('Invalid ID').positive('Invalid ID'),
-          subCategory: string()
-            .required('Invalid subcategory')
-            .oneOf(['donate', 'resources', 'shops'], 'Invalid subcategory'),
+          subCategory: string().oneOf(
+            ['donate', 'resources', 'shops', ''],
+            'Invalid subcategory',
+          ),
         });
 
         const bodyValid = await BodySchema.isValid({ contentId, subCategory });
 
         if (bodyValid !== true) {
-          res.status(400).end();
-        } else if (bookmarkResult.data.length > 0) {
-          res.status(400).end(`Already Bookmarked`);
+          res.status(400).end(`Invalid body: ${bodyValid}`);
         } else {
           const content = { user: token.id };
 
@@ -115,40 +115,40 @@ export default async function handler(req, res) {
               break;
           }
 
-          const postResponse = await fetch(`${process.env.API_URL}/bookmarks`, {
+          const postResponse = await fetch(
+            `${process.env.API_URL}/bookmarks/${contentType}/${slug}`,
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${process.env.API_KEY}`,
+              },
+              method: 'POST',
+              body: JSON.stringify({
+                data: content,
+              }),
+            },
+          );
+
+          const postResult = await postResponse.json();
+          res.status(postResponse.status).json(postResult);
+        }
+        break;
+
+      case 'DELETE': {
+        const deleteResponse = await fetch(
+          `${process.env.API_URL}/bookmarks/${contentType}/${slug}?user=${token.id}`,
+          {
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${process.env.API_KEY}`,
             },
-            method: 'POST',
-            body: JSON.stringify({
-              data: content,
-            }),
-          });
-          const postResult = await postResponse.json();
+            method: 'DELETE',
+          },
+        );
 
-          res.status(201).json(postResult);
-        }
-        break;
-
-      case 'DELETE':
-        if (bookmarkResult.data.length === 0) {
-          res.status(404).end(`Already Bookmarked`);
-        } else {
-          const deleteResponse = await fetch(
-            `${process.env.API_URL}/bookmarks/${bookmarkResult.data[0].id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${process.env.API_KEY}`,
-              },
-              method: 'DELETE',
-            },
-          );
-          const postResult = await deleteResponse.json();
-
-          res.status(200).json(postResult);
-        }
-        break;
+        const deleteResult = await deleteResponse.json();
+        res.status(deleteResponse.status).json(deleteResult);
+      }
     }
   } else {
     res.status(400);
