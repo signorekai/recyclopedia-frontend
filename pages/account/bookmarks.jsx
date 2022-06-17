@@ -124,6 +124,16 @@ export default function Page({ ...props }) {
           <AccordionBody {...contentTabs} />
         </AccordionProvider>
       )}
+      {loading === false && Object.keys(bookmarks).length === 0 && (
+        <p className="text-lg text-center mt-8 lg:mt-16">
+          You do not have any bookmarks saved!
+          <br />
+          Learn how to create a bookmark at the{' '}
+          <Link href="/faq">
+            <a className="text-blue">FAQ</a>
+          </Link>
+        </p>
+      )}
     </Layout>
   );
 }
