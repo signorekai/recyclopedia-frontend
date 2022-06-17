@@ -417,7 +417,7 @@ const Layout = ({
                     </a>
                   </Link>
                 ) : (
-                  <Link href="/account">
+                  <Link href="/account/bookmarks">
                     <a className="-mt-4 text-sm !text-grey-mid">
                       Login to access
                     </a>
