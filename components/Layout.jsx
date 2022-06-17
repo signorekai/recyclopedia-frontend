@@ -399,7 +399,22 @@ const Layout = ({
                 </BookmarkLink>
                 {authStatus === 'authenticated' ? (
                   <Link href="/account">
-                    <a className="-mt-4">{capitalise(session.user.name)}</a>
+                    <a className="-mt-4">
+                      <svg
+                        className="inline-block mr-2"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="20"
+                        fill="none"
+                        viewBox="0 0 19 20">
+                        <path
+                          className="stroke-current stroke-2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9.489 10.665a4.832 4.832 0 100-9.665 4.832 4.832 0 000 9.665zM1 18.086c0-2.491 2.157-7.421 6.634-7.421h3.732c4.477 0 6.634 4.93 6.634 7.421H1z"></path>
+                      </svg>
+                      {capitalise(session.user.name)}
+                    </a>
                   </Link>
                 ) : (
                   <Link href="/account">
