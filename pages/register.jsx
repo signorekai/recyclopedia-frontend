@@ -89,7 +89,7 @@ export default function Page() {
                     {isSubmitting ? (
                       <span className="far fa-spinner-third animate-spin" />
                     ) : (
-                      'Login'
+                      'Register'
                     )}
                   </button>
                 </div>
