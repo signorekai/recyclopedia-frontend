@@ -5,10 +5,15 @@ import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
+import useSWR from 'swr';
 
 import { capitalise } from '../lib/functions';
 import Header from './Header';
-import { useSearchBarTopValue, useWindowDimensions } from '../lib/hooks';
+import {
+  SWRFetcher,
+  useSearchBarTopValue,
+  useWindowDimensions,
+} from '../lib/hooks';
 import { _cacheSearchTerm, Suggestion } from './SearchBar';
 
 const menu = [
@@ -91,6 +96,7 @@ const Layout = ({
   const formRef = useRef();
 
   const { data: session, status: authStatus } = useSession();
+  const { data: settings, error } = useSWR('/api/settings', SWRFetcher);
 
   const _handleFormUpdate = (e) => {
     setFormValue(e.target.value);
@@ -429,13 +435,21 @@ const Layout = ({
             </span>
           </div>
           <div className="order-2 lg:order-1">
-            <a
-              href="https://facebook.com"
-              className="social-icon"
-              target="_blank"
-              rel="noopener noreferrer">
-              <i className="fab fa-facebook" />
-            </a>
+            {settings && settings.footerSocialIcons && (
+              <>
+                {settings.footerSocialIcons.map((icon, key) => (
+                  <a
+                    key={key}
+                    href={icon.url}
+                    alt={icon.label}
+                    className="social-icon"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    <i className={`fab fa-${icon.icon}`} />
+                  </a>
+                ))}
+              </>
+            )}
           </div>
         </div>
       </footer>
