@@ -301,46 +301,62 @@ function Page({ data }) {
                         showNav={false}
                         slideWidth={256}
                         className="gap-x-2 mt-6">
-                        {item.resources.map((resource, key) => (
-                          <CarouselCard
-                            key={key}
-                            className="w-64 group border-1 rounded-md border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative">
-                            <Link
+                        {item.resources.map((resource, key) => {
+                          return (
+                            <CarouselCard
+                              featured={resource.featured === true}
                               key={key}
-                              href={`/resources/${resource.slug}`}>
-                              <a className="group-hover:opacity-100 group-active:opacity-100">
-                                <NewImage
-                                  className="group-hover:scale-110 transition-transform"
-                                  layout="fixed"
-                                  src={resource.images[0].url}
-                                  format={resource.images[0].format}
-                                  width={256}
-                                  height={158}
-                                  alt={resource.title}
-                                />
-                                <h4 className="py-2 px-3 text-blue group-hover:text-blue-dark text-lg">
-                                  {resource.title}
-                                </h4>
-                              </a>
-                            </Link>
-                          </CarouselCard>
-                        ))}
+                              className={`w-64 group border-1 rounded-md border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative ${
+                                resource.featured === true
+                                  ? 'basic-carousel__card--featured'
+                                  : ''
+                              }`}>
+                              <Link
+                                key={key}
+                                href={`/resources/${resource.slug}`}>
+                                <a className="group-hover:opacity-100 group-active:opacity-100">
+                                  <NewImage
+                                    className="group-hover:scale-110 transition-transform"
+                                    layout="fixed"
+                                    src={resource.images[0].url}
+                                    format={resource.images[0].format}
+                                    width={256}
+                                    height={158}
+                                    alt={resource.title}
+                                  />
+                                  <h4 className="py-2 px-3 text-blue group-hover:text-blue-dark text-lg">
+                                    {resource.title}
+                                  </h4>
+                                </a>
+                              </Link>
+                            </CarouselCard>
+                          );
+                        })}
                       </Carousel>
                     </div>
                   ) : (
                     <section className="grid gap-y-2 my-4 divider-b after:mt-6">
                       {item.resources.map((resource, key) => (
-                        <Link key={key} href={`/resources/${resource.slug}`}>
-                          <a>
-                            <motion.div
-                              initial={{
-                                y: 30,
-                                opacity: 0,
-                              }}
-                              whileInView={{ x: 0, y: 0, opacity: 1 }}
-                              viewport={{ once: true, margin: '50px' }}
-                              className="h-20 pl-4 bg-white-pure border-1 rounded-md border-grey-light flex flex-row justify-between items-center overflow-hidden">
-                              <h4 className="pr-4 text-blue-light">
+                        <Link key={key} href={`/resources/${resource.slug}`} passHref>
+                          <motion.a
+                            initial={{
+                              y: 30,
+                              opacity: 0,
+                            }}
+                            whileInView={{ x: 0, y: 0, opacity: 1 }}
+                            viewport={{ once: true, margin: '50px' }}
+                            className={`${
+                              resource.featured === true
+                                ? 'basic-carousel__card-wrapper'
+                                : ''
+                            }`}>
+                            <div
+                              className={`h-20 bg-white-pure border-1 rounded-md border-grey-light flex flex-row justify-between items-center overflow-hidden ${
+                                resource.featured === true
+                                  ? 'basic-carousel__card--featured'
+                                  : ''
+                              }`}>
+                              <h4 className="px-4 text-blue-light">
                                 {resource.title}
                               </h4>
                               {resource.images && resource.images.length > 0 ? (
@@ -354,8 +370,11 @@ function Page({ data }) {
                               ) : (
                                 <div className="w-20 h-20 bg-grey-light" />
                               )}
-                            </motion.div>
-                          </a>
+                            </div>
+                            {resource.featured === true && (
+                              <div className="basic-carousel__card-highlight" />
+                            )}
+                          </motion.a>
                         </Link>
                       ))}
                     </section>

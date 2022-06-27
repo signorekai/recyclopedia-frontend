@@ -6,12 +6,28 @@ import {
 } from '../lib/hooks';
 import { motion, useElementScroll, useMotionValue } from 'framer-motion';
 
-export const CarouselCard = ({ children, className = '', style = {} }) => {
-  return (
-    <article style={style} className={`basic-carousel__card ${className}`}>
-      {children}
-    </article>
-  );
+export const CarouselCard = ({
+  children,
+  className = '',
+  style = {},
+  featured,
+}) => {
+  if (featured) {
+    return (
+      <article className="basic-carousel__card-wrapper">
+        <div style={style} className={`basic-carousel__card ${className}`}>
+          {children}
+        </div>
+        <div className="basic-carousel__card-highlight"></div>
+      </article>
+    );
+  } else {
+    return (
+      <article style={style} className={`basic-carousel__card ${className}`}>
+        {children}
+      </article>
+    );
+  }
 };
 
 // https://codesandbox.io/s/z22v9qj5rx?file=%2Fsrc%2Findex.js%3A493-506
