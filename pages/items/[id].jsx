@@ -346,6 +346,7 @@ function Page({ data }) {
                               y: 30,
                               opacity: 0,
                             }}
+                            transition={{ duration: 0.4, ease: 'easeOut' }}
                             whileInView={{ x: 0, y: 0, opacity: 1 }}
                             viewport={{ once: true, margin: '50px' }}
                             className={`${
