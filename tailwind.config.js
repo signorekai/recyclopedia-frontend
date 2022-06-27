@@ -41,12 +41,12 @@ module.exports = {
     },
     extend: {
       animation: {
-        featured: 'animateFeatured 2s infinite linear',
+        featured: 'animateFeatured 7s 1 linear forwards',
       },
       keyframes: {
         animateFeatured: {
-          '0%': { 'background-position': '0 0' },
-          '100%': { 'background-position': '100% 0' },
+          '0%': { 'background-position': '0% 0%' },
+          '100%': { 'background-position': '100% 0%' },
         },
       },
       letterSpacing: {

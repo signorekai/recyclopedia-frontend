@@ -337,7 +337,10 @@ function Page({ data }) {
                   ) : (
                     <section className="grid gap-y-2 my-4 divider-b after:mt-6">
                       {item.resources.map((resource, key) => (
-                        <Link key={key} href={`/resources/${resource.slug}`} passHref>
+                        <Link
+                          key={key}
+                          href={`/resources/${resource.slug}`}
+                          passHref>
                           <motion.a
                             initial={{
                               y: 30,
@@ -372,7 +375,14 @@ function Page({ data }) {
                               )}
                             </div>
                             {resource.featured === true && (
-                              <div className="basic-carousel__card-highlight" />
+                              <motion.div
+                                viewport={{ once: true }}
+                                whileInView={{
+                                  animation:
+                                    'animateFeatured 7s 1 linear forwards',
+                                }}
+                                className="basic-carousel__card-highlight"
+                              />
                             )}
                           </motion.a>
                         </Link>

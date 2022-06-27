@@ -18,7 +18,7 @@ export const CarouselCard = ({
         <div style={style} className={`basic-carousel__card ${className}`}>
           {children}
         </div>
-        <div className="basic-carousel__card-highlight"></div>
+        <div className="basic-carousel__card-highlight animate-featured"></div>
       </article>
     );
   } else {

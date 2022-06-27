@@ -136,10 +136,14 @@
   }
 
   .basic-carousel__card-highlight {
-    @apply absolute w-[calc(100%_+_8px)] h-[calc(100%_+_8px)] lg:w-full lg:h-full -left-1 -top-1 lg:top-0 lg:left-0 z-10 rounded-md animate-featured;
-    background-size: 300% 100%;
+    @apply absolute w-[calc(100%_+_8px)] h-[calc(100%_+_8px)] lg:w-full lg:h-full -left-1 -top-1 lg:top-0 lg:left-0 z-10 rounded-md;
+    background-size: 800% 800%;
     background-image: linear-gradient(
-      -56deg,
+      56deg,
+      #ebe7e5,
+      #28c9aa,
+      #ebe7e5,
+      #28c9aa,
       #ebe7e5,
       #28c9aa,
       #ebe7e5,
