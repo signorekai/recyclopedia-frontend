@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   const { event, model, entry } = req.body;
 
-  console.log(req.headers.authorization, process.env.CONTENT_UPDATE_KEY);
+  console.log(model);
 
   if (
     req.headers.authorization !== `Bearer ${process.env.CONTENT_UPDATE_KEY}`
@@ -17,8 +17,17 @@ export default async function handler(req, res) {
 
   switch (model) {
     case 'article':
+      url.push('/news-tips');
+      url.push(`/${model}s/${entry.slug}`);
+      break;
+
     case 'item':
+      url.push(`/items`);
+      url.push(`/${model}s/${entry.slug}`);
+      break;
+
     case 'resource':
+      url.push('/donate', '/resources', '/shops');
       url.push(`/${model}s/${entry.slug}`);
       break;
 
