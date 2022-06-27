@@ -410,3 +410,11 @@ p + p {
   @apply bg-coral text-white px-5 py-2 mt-4 rounded-md text-lg font-semibold;
   @apply disabled:bg-grey-light;
 }
+
+#nprogress .spinner {
+  @apply !right-auto left-[calc(50vw-9px)] p-1 bg-white rounded-full animate-fade-in;
+
+  .spinner-icon {
+    @apply border-t-teal border-l-teal;
+  }
+}

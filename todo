@@ -13,9 +13,9 @@ todos:
   ✔ add loading state for bookmarking @done(22-06-03 15:17)
   ✔ check if user is local registered user, and show change password section @done(22-06-07 17:04)
   ✔ add search history for all search @done(22-06-16 18:07)
-  [] add ability to feature certain resource / item 
+  ✔ add ability to feature certain resource / item @done(22-06-27 18:02)
+  ✔ add page transitions @done(22-06-27 18:02)
   [] tab sequence for feedback modal
-  [] add page transitions
   [] add RECAPTCHA to <ReportForm>
   [] make our own content-type for forms so that we can create fields
   [] write tests for API endpoints

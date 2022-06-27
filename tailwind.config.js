@@ -42,11 +42,16 @@ module.exports = {
     extend: {
       animation: {
         featured: 'animateFeatured 7s 1 linear forwards',
+        'fade-in': 'fadeIn 0.3s 1 ease-in-out forwards',
       },
       keyframes: {
         animateFeatured: {
           '0%': { 'background-position': '0% 0%' },
           '100%': { 'background-position': '100% 0%' },
+        },
+        fadeIn: {
+          '0%': { opacity: 0, transform: 'translateY(-100%)' },
+          '100%': { opacity: 1, transform: 'translateY(0%)' },
         },
       },
       letterSpacing: {
