@@ -275,7 +275,7 @@ function Page({ data }) {
                               Recycle: 'Recycle',
                               eWasteRecycle: 'eWaste Recycle',
                               RecycleElsewhere: 'Recycle Elsewhere',
-                              GiveAway: 'Give Away / Sell',
+                              GiveAway: 'Donate / Give Away',
                               Repair: 'Repair',
                               Trash: 'Trash',
                               Others: 'Others',
@@ -326,7 +326,11 @@ function Page({ data }) {
                                   <NewImage
                                     className="group-hover:scale-110 transition-transform"
                                     layout="fixed"
-                                    src={resource.images[0].url}
+                                    src={
+                                      resource.images.length > 0
+                                        ? resource.images[0].url
+                                        : ''
+                                    }
                                     format={resource.images[0].format}
                                     width={256}
                                     height={158}
