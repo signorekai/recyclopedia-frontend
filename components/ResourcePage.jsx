@@ -14,43 +14,43 @@ import { BookmarkButton } from './BookmarkButton';
 const ResourceTagLiterals = {
   Recycling: {
     icon: 'fa-recycle',
-    label: 'bg-blue',
+    bgColor: 'bg-blue',
   },
   Repair: {
     icon: 'fa-wrench',
-    label: 'bg-blue',
+    bgColor: 'bg-blue',
   },
   Trash: {
     icon: 'fa-trash-alt',
-    label: 'bg-blue',
+    bgColor: 'bg-blue',
   },
   Charity: {
     icon: 'fa-box-heart',
-    label: 'bg-purple',
+    bgColor: 'bg-purple',
   },
   'NGO / Volunteers': {
     icon: 'fa-people-carry',
-    label: 'bg-purple',
+    bgColor: 'bg-purple',
   },
   'Social Enterprise / SME': {
     icon: 'fa-shopping-bag',
-    label: 'bg-teal',
+    bgColor: 'bg-teal',
   },
   Shops: {
     icon: 'fa-shopping-bag',
-    label: 'bg-teal',
+    bgColor: 'bg-teal',
   },
   'Online Community': {
     icon: 'fa-globe-asia',
-    label: 'bg-blue-light',
+    bgColor: 'bg-blue-light',
   },
   'App / Platform': {
     icon: 'fa-mobile-alt',
-    label: 'bg-mustard',
+    bgColor: 'bg-mustard',
   },
   'Animal Welfare': {
     icon: 'fa-cat',
-    label: 'bg-coral',
+    bgColor: 'bg-coral',
   },
 };
 
@@ -63,7 +63,7 @@ const ResourceIcon = ({ tag }) => (
 const ResourceBullet = ({ tag, className, baseUrl = 'resources' }) => (
   <Link href={`/${baseUrl}?section=${tag}`}>
     <a
-      className={`inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo !text-white rounded-md text-sm lg:text-xs ${ResourceTagLiterals[tag].label} ${className}`}>
+      className={`inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo !text-white rounded-md text-sm lg:text-xs ${ResourceTagLiterals[tag].bgColor} ${className}`}>
       <ResourceIcon tag={tag} />
       <span className="pt-[2px] tracking-2">{tag}</span>
     </a>
