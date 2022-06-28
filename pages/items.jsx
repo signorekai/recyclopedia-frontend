@@ -36,7 +36,7 @@ const Cards = ({ columnCount = 3 }) => {
                 uniqueKey={`card-${key}`}
                 content={{
                   backgroundImage:
-                    item.images.length > 0
+                    item.images && item.images.length > 0
                       ? getLargestPossibleImage(
                           item.images[0],
                           'large',
