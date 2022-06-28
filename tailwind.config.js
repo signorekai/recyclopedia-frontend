@@ -32,6 +32,7 @@ module.exports = {
       teal: '#28C9AA',
       red: '#D40606',
       bg: '#F1EDEA',
+      mustard: 'rgb(221, 186, 79)',
       grey: {
         dark: '#707075',
         mid: '#87878C',
