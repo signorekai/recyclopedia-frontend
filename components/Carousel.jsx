@@ -74,8 +74,7 @@ export const Carousel = ({
 
   const _checkButtons = useCallback(() => {
     if (
-      carouselRef.current.offsetWidth + 4 >=
-      slidesContainerRef.current.offsetWidth
+      carouselRef.current.offsetWidth >= slidesContainerRef.current.offsetWidth
     ) {
       setShowNextBtn(false);
       setShowPreviousBtn(false);
