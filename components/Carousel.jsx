@@ -68,7 +68,9 @@ export const Carousel = ({
     if (slideWidth === 0) {
       sliderStyle['width'] = `${childrenCount * 100}%`;
     } else {
-      sliderStyle['width'] = `${childrenCount * slideWidth}px`;
+      sliderStyle['width'] = `${
+        childrenCount * slideWidth + (childrenCount - 1) * 16
+      }px`;
     }
   }
 
