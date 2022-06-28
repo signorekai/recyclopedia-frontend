@@ -1,10 +1,13 @@
 import { useRef, useEffect, useState, useCallback, Children } from 'react';
+import { motion, useElementScroll, useMotionValue } from 'framer-motion';
+
 import {
   useElementDimensions,
   useScrollDrag,
   useWindowDimensions,
 } from '../lib/hooks';
-import { motion, useElementScroll, useMotionValue } from 'framer-motion';
+
+import { debounce } from '../lib/functions';
 
 export const CarouselCard = ({
   children,
@@ -47,7 +50,7 @@ export const Carousel = ({
   const transformX = useMotionValue(scrollTo);
   const carouselRef = useRef(null);
   const slidesContainerRef = useRef(null);
-  const { scrollXProgress } = useElementScroll(carouselRef);
+  const { scrollXProgress, scrollX } = useElementScroll(carouselRef);
   const { width } = useWindowDimensions();
   const [showPreviousBtn, setShowPreviousBtn] = useState(false);
   const [showNextBtn, setShowNextBtn] = useState(true);
@@ -67,7 +70,8 @@ export const Carousel = ({
 
   const _checkButtons = useCallback(() => {
     if (
-      carouselRef.current.offsetWidth >= slidesContainerRef.current.offsetWidth
+      carouselRef.current.offsetWidth + 4 >=
+      slidesContainerRef.current.offsetWidth
     ) {
       setShowNextBtn(false);
       setShowPreviousBtn(false);
@@ -101,25 +105,28 @@ export const Carousel = ({
   }, [_checkButtons, carouselRef, slidesContainerRef, slideWidth]);
 
   useEffect(() => {
-    const unsubscribeX = scrollXProgress.onChange((value) => {
-      if (
-        carouselRef.current.offsetWidth < slidesContainerRef.current.offsetWidth
-      ) {
-        if (value > 0 && value < 0.95) {
-          setShowPreviousBtn(true);
-          setShowNextBtn(true);
-        } else if (value >= 0.95) {
-          setShowNextBtn(false);
-        } else if (value === 0) {
-          setShowPreviousBtn(false);
-        }
-      } else {
+    const debouncedFunction = debounce((scroll) => {
+      const progress = scrollXProgress.get();
+      const carouselWidth = carouselRef.current.offsetWidth;
+
+      if (progress >= 0.95) {
         setShowNextBtn(false);
+      }
+
+      if (progress >= 0.95 && scroll > carouselWidth * 0.1) {
+        setShowPreviousBtn(true);
+      }
+
+      if (progress <= 0.05) {
+        setShowNextBtn(true);
+      }
+
+      if (progress <= 0.05 && scroll < carouselWidth * 0.01) {
         setShowPreviousBtn(false);
       }
-    });
+    }, 100);
 
-    _checkButtons();
+    const unsubscribeX = scrollX.onChange(debouncedFunction);
 
     return () => {
       unsubscribeX();
