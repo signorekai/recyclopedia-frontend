@@ -132,7 +132,7 @@
   }
 
   .basic-carousel__card-wrapper {
-    @apply relative p-1 lg:p-0;
+    @apply relative p-1 lg:p-0 lg:ml-1;
   }
 
   .basic-carousel__card-highlight {
