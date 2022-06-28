@@ -11,36 +11,51 @@ import Image from './Image';
 import { ReportBtn } from './Report';
 import { BookmarkButton } from './BookmarkButton';
 
+const ResourceTagLiterals = {
+  Recycling: {
+    icon: 'fa-recycle',
+    label: 'bg-blue',
+  },
+  Repair: {
+    icon: 'fa-wrench',
+    label: 'bg-blue',
+  },
+  Trash: {
+    icon: 'fa-trash-alt',
+    label: 'bg-blue',
+  },
+  Charity: {
+    icon: 'fa-box-heart',
+    label: 'bg-purple',
+  },
+  'NGO / Volunteers': {
+    icon: 'fa-box-heart',
+    label: 'bg-purple',
+  },
+  Shops: {
+    icon: 'fa-shopping-bag',
+    label: 'bg-teal',
+  },
+  'Online Community': {
+    icon: 'fa-globe-asia',
+    label: 'bg-blue-light',
+  },
+  'Animal Welfare': {
+    icon: 'fa-cat',
+    label: 'bg-coral',
+  },
+};
+
 const ResourceIcon = ({ tag }) => (
   <i
-    className={`far text-base lg:text-sm pr-2 ${
-      {
-        Recycling: 'fa-recycle',
-        Repair: 'fa-wrench',
-        Trash: 'fa-trash-alt',
-        Charity: 'fa-box-heart',
-        'NGO / Volunteers': 'fa-box-heart',
-        Shops: 'fa-shopping-bag',
-        'Animal Welfare': 'fa-cat',
-      }[tag]
-    }`}
+    className={`far text-base lg:text-sm pr-2 ${ResourceTagLiterals[tag].icon}`}
   />
 );
 
 const ResourceBullet = ({ tag, className, baseUrl = 'resources' }) => (
   <Link href={`/${baseUrl}?section=${tag}`}>
     <a
-      className={`inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo !text-white rounded-md text-sm lg:text-xs ${
-        {
-          Recycling: 'bg-blue',
-          Repair: 'bg-blue',
-          Trash: 'bg-blue',
-          Charity: 'bg-purple',
-          'NGO / Volunteers': 'bg-purple',
-          Shops: 'bg-teal',
-          'Animal Welfare': 'bg-coral',
-        }[tag]
-      } ${className}`}>
+      className={`inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo !text-white rounded-md text-sm lg:text-xs ${ResourceTagLiterals[tag].label} ${className}`}>
       <ResourceIcon tag={tag} />
       <span className="pt-[2px] tracking-2">{tag}</span>
     </a>
