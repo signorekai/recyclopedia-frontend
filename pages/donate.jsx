@@ -94,9 +94,7 @@ const Cards = ({ tags, columnCount = 3 }) => {
               content={{
                 backgroundImage:
                   !!item.images && item.images.length > 0
-                    ? item.images[0].formats.small
-                      ? item.images[0].formats.small.url
-                      : item.images[0].url
+                    ? getLargestPossibleImage(item.images[0], 'medium', 'small')
                     : '',
                 headerText: item.title,
                 contentType: 'donate',

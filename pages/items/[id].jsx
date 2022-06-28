@@ -421,10 +421,12 @@ function Page({ data }) {
             {data.itemCategory && data.itemCategory.items.length > 1 && (
               <>
                 <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
-                  <h5 className="text-left lg:w-1/4">
-                    <i className="far fa-question-circle"></i> Similar Items
-                  </h5>
-                  <div className="flex-1">
+                  <div className="lg:w-1/4">
+                    <h5 className="text-left">
+                      <i className="far fa-question-circle"></i> Similar Items
+                    </h5>
+                  </div>
+                  <div className="lg:w-3/4">
                     <Carousel
                       slideWidth={256}
                       showNav={false}
