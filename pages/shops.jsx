@@ -16,6 +16,7 @@ import {
   AccordionHeader,
   AccordionProvider,
 } from '../components/Accordion';
+import { getLargestPossibleImage } from '../lib/functions';
 
 const strapiAPIQueryTemplate = {
   populate: ['images'],
@@ -50,9 +51,7 @@ const ResourceTab = ({ tag, columnCount = 3 }) => {
               content={{
                 backgroundImage:
                   !!item.images && item.images.length > 0
-                    ? item.images[0].formats.small
-                      ? item.images[0].formats.small.url
-                      : item.images[0].url
+                    ? getLargestPossibleImage(item.images[0], 'small', 'small')
                     : '',
                 headerText: item.title,
                 contentType: 'shops',
@@ -95,9 +94,7 @@ const Cards = ({ tags, columnCount = 3 }) => {
               content={{
                 backgroundImage:
                   !!item.images && item.images.length > 0
-                    ? item.images[0].formats.small
-                      ? item.images[0].formats.small.url
-                      : item.images[0].url
+                    ? getLargestPossibleImage(item.images[0], 'small', 'small')
                     : '',
                 headerText: item.title,
                 contentType: 'shops',
