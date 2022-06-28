@@ -19,6 +19,7 @@ import {
   AccordionBody,
 } from '../components/Accordion';
 import { Carousel, CarouselCard } from '../components/Carousel';
+import { getLargestPossibleImage } from '../lib/functions';
 
 const SingleSearchType = ({
   type,
@@ -82,15 +83,24 @@ const SingleSearchType = ({
                 case 'resources':
                 case 'donate':
                 case 'shops':
-                  backgroundImage = item.images[0]?.formats.large
-                    ? item.images[0]?.formats.large.url
-                    : item.images[0]?.url;
+                  backgroundImage =
+                    item.images && item.images.length > 0
+                      ? getLargestPossibleImage(
+                          item.images[0],
+                          'large',
+                          'medium',
+                        )
+                      : '';
                   break;
 
                 case 'articles':
-                  backgroundImage = item.coverImage.formats.large
-                    ? item.coverImage.formats.large.url
-                    : item.coverImage.url;
+                  backgroundImage = item.coverImage
+                    ? getLargestPossibleImage(
+                        item.coverImage,
+                        'large',
+                        'medium',
+                      )
+                    : '';
                   break;
               }
               return (
@@ -155,15 +165,24 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                       case 'donate':
                       case 'shops':
                       case 'resources':
-                        backgroundImage = item.images[0]?.formats.large
-                          ? item.images[0]?.formats.large.url
-                          : item.images[0]?.url;
+                        backgroundImage =
+                          item.images && item.images.length > 0
+                            ? getLargestPossibleImage(
+                                item.images[0],
+                                'large',
+                                'medium',
+                              )
+                            : '';
                         break;
 
                       case 'articles':
-                        backgroundImage = item.coverImage.formats.large
-                          ? item.coverImage.formats.large.url
-                          : item.coverImage.url;
+                        backgroundImage = item.coverImage
+                          ? getLargestPossibleImage(
+                              item.coverImage,
+                              'large',
+                              'medium',
+                            )
+                          : '';
                         break;
                     }
                     return (
