@@ -12,6 +12,7 @@ import {
   ITEMS_PER_PAGE,
 } from '../lib/hooks';
 import InfiniteLoader from '../components/InfiniteLoader';
+import { getLargestPossibleImage } from '../lib/functions';
 
 const Cards = ({ columnCount = 3 }) => {
   const { data, loadNext, isFinished, error } = useFetchContent('items', {
@@ -36,9 +37,11 @@ const Cards = ({ columnCount = 3 }) => {
                 content={{
                   backgroundImage:
                     item.images.length > 0
-                      ? item.images[0].formats.small
-                        ? item.images[0].formats.small.url
-                        : items.images[0].url
+                      ? getLargestPossibleImage(
+                          item.images[0],
+                          'large',
+                          'small',
+                        )
                       : '',
                   headerText: item.title,
                   contentType: 'items',

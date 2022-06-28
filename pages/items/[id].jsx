@@ -8,6 +8,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import Layout from '../../components/Layout';
 import { useWindowDimensions } from '../../lib/hooks';
+import { getLargestPossibleImage } from '../../lib/functions';
 import { Carousel, CarouselCard } from '../../components/Carousel';
 import Card from '../../components/Card';
 import NewImage from '../../components/Image';
@@ -111,10 +112,16 @@ function Page({ data }) {
               property="og:description"
               content={`Learn how to recycle ${data.title.toLowerCase()} here.`}
             />
-            <meta
-              property="og:image"
-              content={data.images[0].formats.large.url}
-            />
+            {data.images.length > 0 && (
+              <meta
+                property="og:image"
+                content={getLargestPossibleImage(
+                  data.images[0],
+                  'large',
+                  'medium',
+                )}
+              />
+            )}
           </Head>
           {width > 1080 ? (
             <div className="container">
@@ -353,7 +360,7 @@ function Page({ data }) {
                               resource.featured === true
                                 ? 'basic-carousel__card-wrapper'
                                 : ''
-                            }`}>
+                            } motion-controlled`}>
                             <div
                               className={`h-20 bg-white-pure border-1 rounded-md border-grey-light flex flex-row justify-between items-center overflow-hidden ${
                                 resource.featured === true
