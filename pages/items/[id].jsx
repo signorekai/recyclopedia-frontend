@@ -16,36 +16,59 @@ import { ReportBtn } from '../../components/Report';
 import { useRouter } from 'next/router';
 import { BookmarkButton } from '../../components/BookmarkButton';
 
+const ItemTagLiterals = {
+  Recycle: {
+    bgColor: 'bg-blue-light',
+    icon: 'fa-recycle',
+    label: 'Recycle',
+  },
+  eWasteRecycle: {
+    bgColor: 'bg-blue-light',
+    icon: 'fa-bolt',
+    label: 'eWaste Recycle',
+  },
+  RecycleElsewhere: {
+    bgColor: 'bg-blue-light',
+    icon: 'fa-map-marker-exclamation',
+    label: 'Recycle Elsewhere',
+  },
+  GiveAway: {
+    bgColor: 'bg-coral',
+    icon: 'fa-box-heart',
+    label: 'Donate / Give Away',
+  },
+  Repair: {
+    bgColor: 'bg-blue-dark',
+    icon: 'fa-wrench',
+    label: 'Repair',
+  },
+  Trash: {
+    bgColor: 'bg-grey-mid',
+    icon: 'fa-trash-alt',
+    label: 'Trash',
+  },
+  Others: {
+    bgColor: 'bg-blue-dark',
+    icon: 'fa-leaf',
+    label: 'Others',
+  },
+  BuyOrSell: {
+    bgColor: 'bg-blue-dark',
+    icon: 'fa-store',
+    label: 'Buy or Sell',
+  },
+};
+
 const RecommendationCard = ({ children, recommendation }) => (
   <div
-    className={`p-4 pt-3 mt-3 lg:mt-0 rounded-md ${
-      {
-        Recycle: 'bg-blue-light',
-        eWasteRecycle: 'bg-blue-light',
-        RecycleElsewhere: 'bg-blue-light',
-        GiveAway: 'bg-coral',
-        Repair: 'bg-blue-dark',
-        Trash: 'bg-grey-mid',
-        Others: 'bg-blue-dark',
-      }[recommendation]
-    }`}>
+    className={`p-4 pt-3 mt-3 lg:mt-0 rounded-md ${ItemTagLiterals[recommendation].bgColor}`}>
     {children}
   </div>
 );
 
 const RecommendationIcon = ({ recommendation }) => (
   <i
-    className={`far text-3xl pr-3 pt-1 ${
-      {
-        Recycle: 'fa-recycle',
-        eWasteRecycle: 'fa-bolt',
-        RecycleElsewhere: 'fa-map-marker-exclamation',
-        GiveAway: 'fa-box-heart',
-        Repair: 'fa-wrench',
-        Trash: 'fa-trash-alt',
-        Others: 'fa-leaf',
-      }[recommendation]
-    }`}
+    className={`far text-3xl pr-3 pt-1 ${ItemTagLiterals[recommendation].icon}`}
   />
 );
 
@@ -270,17 +293,7 @@ function Page({ data }) {
                           <RecommendationIcon
                             recommendation={item.recommendation}
                           />
-                          {
-                            {
-                              Recycle: 'Recycle',
-                              eWasteRecycle: 'eWaste Recycle',
-                              RecycleElsewhere: 'Recycle Elsewhere',
-                              GiveAway: 'Donate / Give Away',
-                              Repair: 'Repair',
-                              Trash: 'Trash',
-                              Others: 'Others',
-                            }[item.recommendation]
-                          }
+                          {ItemTagLiterals[item.recommendation].label}
                         </h2>
                         <div
                           className="text-white text-lg"
