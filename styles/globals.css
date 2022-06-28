@@ -111,7 +111,7 @@
   }
 
   .basic-carousel__control {
-    @apply h-full opacity-70 w-48 from-white to-transparent absolute top-0 z-20;
+    @apply h-full opacity-70 w-32 from-white to-transparent absolute top-0 z-20;
   }
 
   .basic-carousel__control--prev {
