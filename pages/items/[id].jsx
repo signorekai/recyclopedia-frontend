@@ -305,6 +305,7 @@ function Page({ data }) {
                         item.resources.length === 0 && 'hidden'
                       }`}>
                       <Carousel
+                        key={item.id}
                         showNav={false}
                         slideWidth={256}
                         className={`gap-x-2 mt-6`}>
