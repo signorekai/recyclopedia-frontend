@@ -340,11 +340,17 @@ function Page({ data }) {
                                     className="group-hover:scale-110 transition-transform"
                                     layout="fixed"
                                     src={
+                                      resource.images &&
                                       resource.images.length > 0
                                         ? resource.images[0].url
                                         : ''
                                     }
-                                    format={resource.images[0].format}
+                                    format={
+                                      resource.images &&
+                                      resource.images.length > 0
+                                        ? resource.images[0].format
+                                        : {}
+                                    }
                                     width={256}
                                     height={158}
                                     alt={resource.title}
