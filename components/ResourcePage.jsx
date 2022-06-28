@@ -19,6 +19,7 @@ const ResourceIcon = ({ tag }) => (
         Repair: 'fa-wrench',
         Trash: 'fa-trash-alt',
         Charity: 'fa-box-heart',
+        'NGO / Volunteers': 'fa-box-heart',
         Shops: 'fa-shopping-bag',
         'Animal Welfare': 'fa-cat',
       }[tag]
@@ -35,6 +36,7 @@ const ResourceBullet = ({ tag, className, baseUrl = 'resources' }) => (
           Repair: 'bg-blue',
           Trash: 'bg-blue',
           Charity: 'bg-purple',
+          'NGO / Volunteers': 'bg-purple',
           Shops: 'bg-teal',
           'Animal Welfare': 'bg-coral',
         }[tag]
