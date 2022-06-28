@@ -255,6 +255,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
 };
 
 export default function Page(props) {
+  console.log(props);
   return (
     <Layout>
       <Head>
@@ -262,15 +263,19 @@ export default function Page(props) {
           Recyclopedia - Search Results for &quot;{props.query}&quot;
         </title>
       </Head>
-      {props.success && props.type.length === 1 && (
-        <SingleSearchType
-          type={props.type[0]}
-          query={props.query}
-          pageOptions={props.pageOptions[props.type[0]].data}
-          items={props.data[props.type[0]]}
-        />
-      )}
-      {props.success && props.type.length > 1 && <MultiSearchType {...props} />}
+      {props.success &&
+        Object.keys(props.data).length > 0 &&
+        props.type.length === 1 && (
+          <SingleSearchType
+            type={props.type[0]}
+            query={props.query}
+            pageOptions={props.pageOptions[props.type[0]].data}
+            items={props.data[props.type[0]]}
+          />
+        )}
+      {props.success &&
+        Object.keys(props.data).length > 0 &&
+        props.type.length > 1 && <MultiSearchType {...props} />}
     </Layout>
   );
 }
