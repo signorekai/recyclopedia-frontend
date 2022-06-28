@@ -50,7 +50,7 @@ const ItemTagLiterals = {
   Others: {
     bgColor: 'bg-blue-dark',
     icon: 'fa-leaf',
-    label: 'Others',
+    label: 'Other',
   },
   BuyOrSell: {
     bgColor: 'bg-blue-dark',
