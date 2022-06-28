@@ -29,8 +29,12 @@ const ResourceTagLiterals = {
     label: 'bg-purple',
   },
   'NGO / Volunteers': {
-    icon: 'fa-box-heart',
+    icon: 'fa-people-carry',
     label: 'bg-purple',
+  },
+  'Social Enterprise / SME': {
+    icon: 'fa-shopping-bag',
+    label: 'bg-teal',
   },
   Shops: {
     icon: 'fa-shopping-bag',
@@ -39,6 +43,10 @@ const ResourceTagLiterals = {
   'Online Community': {
     icon: 'fa-globe-asia',
     label: 'bg-blue-light',
+  },
+  'App / Platform': {
+    icon: 'fa-mobile-alt',
+    label: 'bg-mustard',
   },
   'Animal Welfare': {
     icon: 'fa-cat',
