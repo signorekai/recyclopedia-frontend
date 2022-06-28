@@ -11,13 +11,15 @@ import { debounce } from '../lib/functions';
 
 export const CarouselCard = ({
   children,
+  wrapperClassName = '',
   className = '',
   style = {},
   featured,
 }) => {
   if (featured) {
     return (
-      <article className="basic-carousel__card-wrapper">
+      <article
+        className={`basic-carousel__card-wrapper snap-start ${wrapperClassName}`}>
         <div style={style} className={`basic-carousel__card ${className}`}>
           {children}
         </div>
@@ -26,7 +28,9 @@ export const CarouselCard = ({
     );
   } else {
     return (
-      <article style={style} className={`basic-carousel__card ${className}`}>
+      <article
+        style={style}
+        className={`basic-carousel__card snap-start ${className}`}>
         {children}
       </article>
     );
@@ -56,7 +60,7 @@ export const Carousel = ({
   const [showNextBtn, setShowNextBtn] = useState(true);
 
   let scrollAmount =
-    slideWidth === 0 ? carouselRef.current?.offsetWidth : slideWidth;
+    slideWidth === 0 ? carouselRef.current?.offsetWidth : slideWidth + 8;
 
   const childrenCount = Children.count(children);
 
@@ -81,7 +85,6 @@ export const Carousel = ({
   }, [carouselRef, slidesContainerRef]);
 
   const _handleScrollBtn = (direction = -1) => {
-    _checkButtons();
     carouselRef.current.scrollBy({
       left: scrollAmount * direction * 2,
       behavior: 'smooth',
@@ -92,6 +95,7 @@ export const Carousel = ({
     if (disableScroll) {
       transformX.set(scrollTo * -1);
     } else {
+      console.log(scrollTo);
       carouselRef.current.scrollTo({
         left: scrollTo,
         behavior: 'smooth',
@@ -113,16 +117,14 @@ export const Carousel = ({
         setShowNextBtn(false);
       }
 
-      if (progress >= 0.95 && scroll > carouselWidth * 0.1) {
+      if (scroll > 20) {
         setShowPreviousBtn(true);
+      } else {
+        setShowPreviousBtn(false);
       }
 
       if (progress <= 0.05) {
         setShowNextBtn(true);
-      }
-
-      if (progress <= 0.05 && scroll < carouselWidth * 0.01) {
-        setShowPreviousBtn(false);
       }
     }, 100);
 

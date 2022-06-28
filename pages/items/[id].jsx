@@ -307,17 +307,17 @@ function Page({ data }) {
                       <Carousel
                         showNav={false}
                         slideWidth={256}
-                        className="gap-x-2 mt-6">
+                        className={`gap-x-2 mt-6`}>
                         {item.resources.map((resource, key) => {
                           return (
                             <CarouselCard
                               featured={resource.featured === true}
                               key={key}
-                              className={`w-64 group border-1 rounded-md border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative ${
+                              className={`m-1 w-64 group border-1 rounded-md border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative ${
                                 resource.featured === true
                                   ? 'basic-carousel__card--featured'
                                   : ''
-                              }`}>
+                              } `}>
                               <Link
                                 key={key}
                                 href={`/resources/${resource.slug}`}>
