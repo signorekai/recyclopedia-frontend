@@ -260,8 +260,8 @@ function Page({ data }) {
                     <div className="lg:w-1/4">
                       <h5 className="text-left">
                         <i className="fas fa-check" />
-                        {key === 0 && ' Recommendations'}
-                        {key !== 0 && ' Alternatives'}
+                        {key === 0 && ' Recommendated'}
+                        {key !== 0 && ' Alternative'}
                       </h5>
                     </div>
                     <div className="flex-1">
