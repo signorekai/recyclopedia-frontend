@@ -179,28 +179,7 @@ function Page({ data }) {
                             5: 'col-span-1',
                           }[data.images.length]
                     }`}>
-                    <NewImage
-                      src={image.url}
-                      width={
-                        data.images.length === 1
-                          ? 1040
-                          : key > 0
-                          ? 1040 * 0.33
-                          : 1040 * 0.67
-                      }
-                      height={
-                        key === 0
-                          ? height * modifier + 2 * 4
-                          : {
-                              2: height * modifier * 0.5,
-                              3: height * modifier * 0.5,
-                              4: height * modifier * 0.33,
-                              5: height * modifier * 0.25,
-                            }[data.images.length]
-                      }
-                      formats={image.formats}
-                      alt=""
-                    />
+                    <NewImage source={image} alt="" />
                   </div>
                 ))}
               </div>
@@ -236,8 +215,7 @@ function Page({ data }) {
                       <Slide key={key} index={key}>
                         <NewImage
                           alt={image.alternativeText}
-                          src={image.url}
-                          formats={image.formatS}
+                          source={image}
                           width={width}
                           height={width}
                         />
@@ -344,18 +322,7 @@ function Page({ data }) {
                                   <NewImage
                                     className="group-hover:scale-110 transition-transform"
                                     layout="fixed"
-                                    src={
-                                      resource.images &&
-                                      resource.images.length > 0
-                                        ? resource.images[0].url
-                                        : ''
-                                    }
-                                    formats={
-                                      resource.images &&
-                                      resource.images.length > 0
-                                        ? resource.images[0].formats
-                                        : {}
-                                    }
+                                    source={resource.images[0]}
                                     width={256}
                                     height={158}
                                     alt={resource.title}
@@ -401,8 +368,7 @@ function Page({ data }) {
                               </h4>
                               {resource.images && resource.images.length > 0 ? (
                                 <NewImage
-                                  src={resource.images[0].url}
-                                  formats={resource.images[0].formats}
+                                  source={resource.images[0]}
                                   width={80}
                                   height={80}
                                   alt={resource.title}
@@ -465,10 +431,7 @@ function Page({ data }) {
                                 className="w-full"
                                 uniqueKey={`card-${key}`}
                                 content={{
-                                  backgroundImage:
-                                    item.images.length > 0
-                                      ? item.images[0].url
-                                      : '',
+                                  image: item.images ? item.images[0] : {},
                                   headerText: item.title,
                                   contentType: 'items',
                                   slug: item.slug,

@@ -49,12 +49,7 @@ const ResourceTab = ({ tag, columnCount = 3 }) => {
               className="w-full"
               uniqueKey={`card-${key}`}
               content={{
-                backgroundImage:
-                  !!item.images && item.images.length > 0
-                    ? item.images[0].formats.small
-                      ? item.images[0].formats.small.url
-                      : item.images[0].url
-                    : '',
+                image: item.images ? item.images[0] : {},
                 headerText: item.title,
                 contentType: 'resources',
                 slug: item.slug,
@@ -94,12 +89,7 @@ const Cards = ({ tags, columnCount = 3 }) => {
               className="w-full"
               uniqueKey={`card-${key}`}
               content={{
-                backgroundImage:
-                  !!item.images && item.images.length > 0
-                    ? item.images[0].formats.small
-                      ? item.images[0].formats.small.url
-                      : item.images[0].url
-                    : '',
+                image: item.images ? item.images[0] : {},
                 headerText: item.title,
                 contentType: 'resources',
                 slug: item.slug,

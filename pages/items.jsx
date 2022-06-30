@@ -35,6 +35,7 @@ const Cards = ({ columnCount = 3 }) => {
                 className="w-full"
                 uniqueKey={`card-${key}`}
                 content={{
+                  image: item.images ? item.images[0] : {},
                   backgroundImage:
                     item.images && item.images.length > 0
                       ? getLargestPossibleImage(
@@ -84,7 +85,7 @@ export default function Page({ fallback, pageOptions }) {
       </section>
       <SearchBar
         top={x}
-        className="py-2 sticky lg:relative transition-all duration-200"
+        className="z-20 py-2 sticky lg:relative transition-all duration-200"
         wrapperClassName="max-w-[800px]"
         inactiveBackgroundColor={pageOptions.colour}
         activeBackgroundColor={pageOptions.colour}

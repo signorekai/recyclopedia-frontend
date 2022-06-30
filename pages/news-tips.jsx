@@ -38,8 +38,7 @@ const Card = ({ params = {} }) => {
                   <NewImage
                     className="aspect-[248/184] md:rounded-md"
                     sizes="270px"
-                    src={article.coverImage.formats.small.url}
-                    formats={article.coverImage.formats}
+                    source={article.coverImage || {}}
                     layout="responsive"
                   />
                 </div>
@@ -139,12 +138,7 @@ export default function Page({
                       sizes="600px"
                       width={'100%'}
                       height={width >= 1080 ? 374 : 278}
-                      src={
-                        article.coverImage.formats.large
-                          ? article.coverImage.formats.large.url
-                          : article.coverImage.url
-                      }
-                      formats={article.coverImage.formats}
+                      source={article.coverImage}
                       layout="fixed"
                     />
                     <div className="px-2 lg:px-0">

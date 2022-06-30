@@ -49,10 +49,7 @@ const ResourceTab = ({ tag, columnCount = 3 }) => {
               className="w-full"
               uniqueKey={`card-${key}`}
               content={{
-                backgroundImage:
-                  !!item.images && item.images.length > 0
-                    ? getLargestPossibleImage(item.images[0], 'medium')
-                    : '',
+                image: item.images ? item.images[0] : {},
                 headerText: item.title,
                 contentType: 'donate',
                 slug: item.slug,
@@ -92,10 +89,7 @@ const Cards = ({ tags, columnCount = 3 }) => {
               className="w-full"
               uniqueKey={`card-${key}`}
               content={{
-                backgroundImage:
-                  !!item.images && item.images.length > 0
-                    ? getLargestPossibleImage(item.images[0], 'medium', 'small')
-                    : '',
+                image: item.images ? item.images[0] : {},
                 headerText: item.title,
                 contentType: 'donate',
                 slug: item.slug,

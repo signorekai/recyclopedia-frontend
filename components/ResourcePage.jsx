@@ -123,8 +123,7 @@ function ResourcePage({ data, baseUrl }) {
                       layout={width > 1080 ? 'fixed' : 'responsive'}
                       width={768}
                       height={768}
-                      formats={data.images[0].formats}
-                      src={data.images[0].url}
+                      source={data.images[0] || {}}
                       alt=""
                     />
                   </div>
@@ -146,8 +145,7 @@ function ResourcePage({ data, baseUrl }) {
                           className="rounded-md"
                           width={480}
                           height={480}
-                          formats={data.images[0].formats}
-                          src={data.images[0].url}
+                          source={data.images[0] || {}}
                           alt=""
                         />
                       </div>

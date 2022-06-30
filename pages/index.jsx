@@ -47,8 +47,7 @@ export default function Home({ items, newsItems }) {
               className="w-full"
               uniqueKey={`card-${key}`}
               content={{
-                backgroundImage:
-                  item.images.length > 0 ? item.images[0].url : '',
+                image: item.images ? item.images[0] : {},
                 headerText: item.title,
                 slug: item.slug,
                 contentType: 'items',
@@ -146,9 +145,7 @@ export default function Home({ items, newsItems }) {
                 imgClassName="h-[200px]"
                 uniqueKey={`news-${item.slug}`}
                 content={{
-                  backgroundImage: item.coverImage.formats.large
-                    ? item.coverImage.formats.large.url
-                    : item.coverImage.url,
+                  image: item.coverImage || {},
                   headerText: item.title,
                   slug: item.slug,
                   contentType: 'articles',

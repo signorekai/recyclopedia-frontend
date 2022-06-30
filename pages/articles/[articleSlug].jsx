@@ -80,12 +80,7 @@ export default function Page({
                 width={article.coverImage.width}
                 height={article.coverImage.height}
                 sizes="100vw"
-                src={
-                  article.coverImage.formats.large
-                    ? article.coverImage.formats.large.url
-                    : article.coverImage.url
-                }
-                formats={article.coverImage.formats}
+                source={article.coverImage || {}}
                 layout="responsive"
               />
             </div>
