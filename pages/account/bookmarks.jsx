@@ -49,20 +49,16 @@ export default function Page({ ...props }) {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 ">
               {items &&
                 items.map((item, itemKey) => {
-                  let backgroundImage;
+                  let image;
                   switch (type) {
                     case 'item':
                     case 'resources':
                     case 'donate':
                     case 'shops':
-                      backgroundImage = item.images[0]?.formats.large
-                        ? item.images[0]?.formats.large.url
-                        : item.images[0]?.url;
+                      image = item.images ? item.images[0] : {};
                       break;
                     case 'article':
-                      backgroundImage = item.coverImage.formats.large
-                        ? item.coverImage.formats.large.url
-                        : item.coverImage.url;
+                      image = item.coverImage ? item.coverImage : {};
                       break;
                   }
                   return (
@@ -71,7 +67,7 @@ export default function Page({ ...props }) {
                       className="w-full"
                       uniqueKey={`card-${itemKey}`}
                       content={{
-                        backgroundImage,
+                        image,
                         headerText: item.title,
                         slug: item.slug,
                         contentType: slugs[type],
