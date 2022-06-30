@@ -3,6 +3,8 @@ import React from 'react';
 import Link from 'next/link';
 import ContentLoader from 'react-content-loader';
 
+import Image from './Image';
+
 const variants = {
   initial: {
     opacity: 0,
@@ -37,7 +39,7 @@ const Card = ({
   content = {},
   className = '',
   uniqueKey,
-  imgClassName = 'pb-[100%]',
+  imgClassName = 'aspect-square',
 }) => {
   return (
     <LinkWrapper content={content}>
@@ -49,11 +51,18 @@ const Card = ({
             animate="animate"
             exit="exit"
             className={`${className}`}>
-            <div
+            <div className={imgClassName}>
+              <Image
+                className="rounded-smd"
+                source={content.image}
+                alt={`Photo of ${content.headerText}`}
+              />
+            </div>
+            {/* <div
               className={`bg-cover bg-center rounded-[4px] group-hover:opacity-90 transition-all duration-200 bg-grey-light ${imgClassName}`}
               style={{
                 backgroundImage: `url(${content.backgroundImage})`,
-              }}></div>
+              }}></div> */}
             {content.hasOwnProperty('subHeaderText') && (
               <h6 className="tag">{content.subHeaderText}</h6>
             )}
