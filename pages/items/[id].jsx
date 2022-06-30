@@ -323,6 +323,11 @@ function Page({ data }) {
                         slideWidth={256}
                         className={`gap-x-2 mt-6`}>
                         {item.resources.map((resource, key) => {
+                          console.log(
+                            326,
+                            resource.images,
+                            resource.images.length > 0,
+                          );
                           return (
                             <CarouselCard
                               featured={resource.featured === true}
@@ -345,10 +350,10 @@ function Page({ data }) {
                                         ? resource.images[0].url
                                         : ''
                                     }
-                                    format={
+                                    formats={
                                       resource.images &&
                                       resource.images.length > 0
-                                        ? resource.images[0].format
+                                        ? resource.images[0].formats
                                         : {}
                                     }
                                     width={256}
@@ -397,7 +402,7 @@ function Page({ data }) {
                               {resource.images && resource.images.length > 0 ? (
                                 <NewImage
                                   src={resource.images[0].url}
-                                  format={resource.images[0].format}
+                                  formats={resource.images[0].formats}
                                   width={80}
                                   height={80}
                                   alt={resource.title}
