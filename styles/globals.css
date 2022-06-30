@@ -126,7 +126,7 @@
 
   .basic-carousel__card {
     @apply h-full px-0 flex flex-col justify-between;
-    @apply last:pr-4 bg-white;
+    @apply last:mr-4 bg-white;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-touch-callout: none;
   }
