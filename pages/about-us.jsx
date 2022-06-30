@@ -72,7 +72,7 @@ export default function Page({ pageOptions }) {
                   height={supporter.image.height}
                   layout="fixed"
                   placeholder={supporter.image.placeholder}
-                  src={supporter.image.url}
+                  source={supporter.image}
                 />
               </a>
             ))}
