@@ -1,28 +1,41 @@
+import { useRef, useEffect } from 'react';
 import orderBy from 'lodash.orderby';
+import { useElementSize } from '../lib/hooks';
 
 export default function Image({
   layout = 'responsive',
   width,
   height,
   alt,
-  src,
-  sizes = '100vw',
-  formats = [],
+  source = {},
   className = '',
   style = {},
 }) {
-  let srcSet = '';
+  const src = source.url || '';
+  const formats = source.formats || {};
+
   const orderedFormats = orderBy(formats, 'width');
+  const [ref, { width: elemWidth, height: elemHeight }] = useElementSize();
+
+  let actualSrc = '';
 
   const acceptedLayout = ['responsive', 'fixed'];
   if (acceptedLayout.indexOf(layout) === -1) {
     layout = 'responsive';
   }
 
-  Object.values(orderedFormats).map((entry) => {
-    srcSet += `${entry.url} ${entry.width}w, `;
-  });
-  srcSet += src;
+  if (elemWidth > 0) {
+    for (let x = 0; x < orderedFormats.length; x++) {
+      if (orderedFormats[x].width >= elemWidth) {
+        actualSrc = orderedFormats[x].url;
+        break;
+      }
+    }
+
+    if (actualSrc.length === 0) {
+      actualSrc = src;
+    }
+  }
 
   const responsiveStyles = {
     maxWidth: width,
@@ -39,15 +52,12 @@ export default function Image({
 
   return (
     <span
+      ref={ref}
       className="inline-flex justify-center items-center w-[initial] h-[initial] relative overflow-hidden inset-0"
       style={layout === 'responsive' ? responsiveStyles : fixedStyles}>
       <img
-        sizes={sizes}
-        width={width}
-        height={height}
-        src={src}
+        src={actualSrc}
         alt={alt}
-        srcSet={srcSet}
         className={`object-cover object-center absolute w-0 h-0 min-w-full max-w-full min-h-full max-h-full ${className}`}
         style={style}
       />
