@@ -9,11 +9,7 @@ import useSWR from 'swr';
 
 import { capitalise } from '../lib/functions';
 import Header from './Header';
-import {
-  SWRFetcher,
-  useSearchBarTopValue,
-  useWindowDimensions,
-} from '../lib/hooks';
+import { SWRFetcher, useWindowDimensions } from '../lib/hooks';
 import { _cacheSearchTerm, Suggestion } from './SearchBar';
 
 const menu = [
@@ -185,6 +181,7 @@ const Layout = ({
                     onFocus={() => {
                       setIsFocused(true);
                     }}
+                    disabled={showSearchBar === false}
                     onBlur={_handleOnBlur}
                     onChange={_handleFormUpdate}
                     value={formValue}
