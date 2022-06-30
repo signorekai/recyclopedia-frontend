@@ -76,31 +76,18 @@ const SingleSearchType = ({
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 ">
           {items &&
             items.map((item, key) => {
-              let backgroundImage;
+              let image;
 
               switch (type) {
                 case 'items':
                 case 'resources':
                 case 'donate':
                 case 'shops':
-                  backgroundImage =
-                    item.images && item.images.length > 0
-                      ? getLargestPossibleImage(
-                          item.images[0],
-                          'large',
-                          'medium',
-                        )
-                      : '';
+                  image = item.images ? item.images[0] : {};
                   break;
 
                 case 'articles':
-                  backgroundImage = item.coverImage
-                    ? getLargestPossibleImage(
-                        item.coverImage,
-                        'large',
-                        'medium',
-                      )
-                    : '';
+                  image = item.coverImage ? item.coverImage : {};
                   break;
               }
               return (
@@ -109,7 +96,7 @@ const SingleSearchType = ({
                   className="w-full"
                   uniqueKey={`card-${key}`}
                   content={{
-                    backgroundImage,
+                    image,
                     headerText: item.title,
                     slug: item.slug,
                     contentType: type,
@@ -158,31 +145,18 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                       : width * (CardWidth / 100)
                   }>
                   {truncatedResults.map((item, itemKey) => {
-                    let backgroundImage;
+                    let image;
 
                     switch (type) {
                       case 'items':
+                      case 'resources':
                       case 'donate':
                       case 'shops':
-                      case 'resources':
-                        backgroundImage =
-                          item.images && item.images.length > 0
-                            ? getLargestPossibleImage(
-                                item.images[0],
-                                'large',
-                                'medium',
-                              )
-                            : '';
+                        image = item.images ? item.images[0] : {};
                         break;
 
                       case 'articles':
-                        backgroundImage = item.coverImage
-                          ? getLargestPossibleImage(
-                              item.coverImage,
-                              'large',
-                              'medium',
-                            )
-                          : '';
+                        image = item.coverImage ? item.coverImage : {};
                         break;
                     }
                     return (
@@ -199,7 +173,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                           imgClassName="h-[200px]"
                           uniqueKey={`${type}-${item.slug}`}
                           content={{
-                            backgroundImage,
+                            image,
                             headerText: item.title,
                             slug: item.slug,
                             contentType: type,
