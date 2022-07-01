@@ -20,7 +20,7 @@ todos:
   [] make our own content-type for forms so that we can create fields
   [] write tests for API endpoints
   [] reset JWT secret
-  
+  [] figure out if we want to make Resource / Item tag icon & bg color strapi controllable
 
 bugs:
   ✔ icons at footer not showing up @done(22-04-22 20:08)
