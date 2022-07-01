@@ -58,21 +58,23 @@ const ResourceTagLiterals = {
   },
 };
 
-const ResourceIcon = ({ tag }) => (
-  <i
-    className={`far text-base lg:text-sm pr-2 ${ResourceTagLiterals[tag].icon}`}
-  />
-);
-
-const ResourceBullet = ({ tag, className, baseUrl = 'resources' }) => (
-  <Link href={`/${baseUrl}?section=${tag}`}>
-    <a
-      className={`inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo !text-white rounded-md text-sm lg:text-xs ${ResourceTagLiterals[tag].bgColor} ${className}`}>
-      <ResourceIcon tag={tag} />
-      <span className="pt-[2px] tracking-2">{tag}</span>
-    </a>
-  </Link>
-);
+const ResourceBullet = ({ tag, className, baseUrl = 'resources' }) => {
+  if (ResourceTagLiterals[tag]) {
+    return (
+      <Link href={`/${baseUrl}?section=${tag}`}>
+        <a
+          className={`inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo !text-white rounded-md text-sm lg:text-xs ${ResourceTagLiterals[tag].bgColor} ${className}`}>
+          <i
+            className={`far text-base lg:text-sm pr-2 ${ResourceTagLiterals[tag].icon}`}
+          />
+          <span className="pt-[2px] tracking-2">{tag}</span>
+        </a>
+      </Link>
+    );
+  } else {
+    return <></>;
+  }
+};
 
 function ResourcePage({ data, baseUrl }) {
   const { width } = useWindowDimensions();
