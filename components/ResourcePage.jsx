@@ -52,6 +52,10 @@ const ResourceTagLiterals = {
     icon: 'fa-cat',
     bgColor: 'bg-coral',
   },
+  'Public Waste Collectors': {
+    icon: 'fa-dumpster',
+    bgColor: 'bg-blue-light',
+  },
 };
 
 const ResourceIcon = ({ tag }) => (
