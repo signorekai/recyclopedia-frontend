@@ -257,15 +257,15 @@ function Page({ data }) {
                   className="lg:divider-b lg:divider-b-taller">
                   <section
                     key={key}
-                    className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
-                    <div className="lg:w-1/4">
+                    className="lg:grid grid-cols-4 lg:gap-x-4 mt-6">
+                    <div className="lg:col-span-1">
                       <h5 className="text-left">
                         <i className="fas fa-check" />
                         {key === 0 && ' Recommendated'}
                         {key !== 0 && ' Alternative'}
                       </h5>
                     </div>
-                    <div className="flex-1">
+                    <div className="lg:col-span-3">
                       <RecommendationCard recommendation={item.recommendation}>
                         <h2 className="text-white align-middle mb-1 lg:justify-start">
                           <RecommendationIcon
@@ -289,115 +289,116 @@ function Page({ data }) {
                         />
                       )}
                     </div>
-                  </section>
-                  {width > 1080 ? (
-                    <div
-                      className={`ml-[calc(25%+1rem)] ${
-                        item.resources.length === 0 && 'hidden'
-                      }`}>
-                      <Carousel
-                        key={item.id}
-                        showNav={false}
-                        slideWidth={256}
-                        className={`gap-x-2 mt-6`}>
-                        {item.resources.map((resource, key) => {
-                          console.log(
-                            326,
-                            resource.images,
-                            resource.images.length > 0,
-                          );
-                          return (
-                            <CarouselCard
-                              featured={resource.featured === true}
-                              key={key}
-                              className={`m-1 w-64 group border-1 rounded-md border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative ${
-                                resource.featured === true
-                                  ? 'basic-carousel__card--featured'
-                                  : ''
-                              } `}>
-                              <Link
+                    {width > 1080 ? (
+                      <div
+                        className={`col-start-2 col-span-3 ${
+                          item.resources.length === 0 && 'hidden'
+                        }`}>
+                        <Carousel
+                          key={item.id}
+                          showNav={false}
+                          slideWidth={256}
+                          className={`gap-x-2 mt-6`}>
+                          {item.resources.map((resource, key) => {
+                            console.log(
+                              326,
+                              resource.images,
+                              resource.images.length > 0,
+                            );
+                            return (
+                              <CarouselCard
+                                featured={resource.featured === true}
                                 key={key}
-                                href={`/resources/${resource.slug}`}>
-                                <a className="group-hover:opacity-100 group-active:opacity-100">
+                                className={`m-1 w-64 group border-1 rounded-md border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative ${
+                                  resource.featured === true
+                                    ? 'basic-carousel__card--featured'
+                                    : ''
+                                } `}>
+                                <Link
+                                  key={key}
+                                  href={`/resources/${resource.slug}`}>
+                                  <a className="group-hover:opacity-100 group-active:opacity-100">
+                                    <NewImage
+                                      className="group-hover:scale-110 transition-transform"
+                                      layout="fixed"
+                                      source={resource.images[0]}
+                                      width={256}
+                                      height={158}
+                                      alt={resource.title}
+                                    />
+                                    <h4 className="py-2 px-3 text-blue group-hover:text-blue-dark text-lg">
+                                      {resource.title}
+                                    </h4>
+                                  </a>
+                                </Link>
+                              </CarouselCard>
+                            );
+                          })}
+                        </Carousel>
+                      </div>
+                    ) : (
+                      <section className="grid gap-y-2 my-4 divider-b after:mt-6">
+                        {item.resources.map((resource, key) => (
+                          <Link
+                            key={key}
+                            href={`/resources/${resource.slug}`}
+                            passHref>
+                            <motion.a
+                              initial={{
+                                y: 30,
+                                opacity: 0,
+                              }}
+                              transition={{ duration: 0.4, ease: 'easeOut' }}
+                              whileInView={{ x: 0, y: 0, opacity: 1 }}
+                              viewport={{ once: true, margin: '50px' }}
+                              className={`${
+                                resource.featured === true
+                                  ? 'basic-carousel__card-wrapper'
+                                  : ''
+                              } motion-controlled`}>
+                              <div
+                                className={`h-20 bg-white-pure border-1 rounded-md border-grey-light flex flex-row justify-between items-center overflow-hidden ${
+                                  resource.featured === true
+                                    ? 'basic-carousel__card--featured'
+                                    : ''
+                                }`}>
+                                <h4 className="px-4 text-blue-light">
+                                  {resource.title}
+                                </h4>
+                                {resource.images &&
+                                resource.images.length > 0 ? (
                                   <NewImage
-                                    className="group-hover:scale-110 transition-transform"
-                                    layout="fixed"
                                     source={resource.images[0]}
-                                    width={256}
-                                    height={158}
+                                    width={80}
+                                    height={80}
                                     alt={resource.title}
                                   />
-                                  <h4 className="py-2 px-3 text-blue group-hover:text-blue-dark text-lg">
-                                    {resource.title}
-                                  </h4>
-                                </a>
-                              </Link>
-                            </CarouselCard>
-                          );
-                        })}
-                      </Carousel>
-                    </div>
-                  ) : (
-                    <section className="grid gap-y-2 my-4 divider-b after:mt-6">
-                      {item.resources.map((resource, key) => (
-                        <Link
-                          key={key}
-                          href={`/resources/${resource.slug}`}
-                          passHref>
-                          <motion.a
-                            initial={{
-                              y: 30,
-                              opacity: 0,
-                            }}
-                            transition={{ duration: 0.4, ease: 'easeOut' }}
-                            whileInView={{ x: 0, y: 0, opacity: 1 }}
-                            viewport={{ once: true, margin: '50px' }}
-                            className={`${
-                              resource.featured === true
-                                ? 'basic-carousel__card-wrapper'
-                                : ''
-                            } motion-controlled`}>
-                            <div
-                              className={`h-20 bg-white-pure border-1 rounded-md border-grey-light flex flex-row justify-between items-center overflow-hidden ${
-                                resource.featured === true
-                                  ? 'basic-carousel__card--featured'
-                                  : ''
-                              }`}>
-                              <h4 className="px-4 text-blue-light">
-                                {resource.title}
-                              </h4>
-                              {resource.images && resource.images.length > 0 ? (
-                                <NewImage
-                                  source={resource.images[0]}
-                                  width={80}
-                                  height={80}
-                                  alt={resource.title}
+                                ) : (
+                                  <div className="w-20 h-20 bg-grey-light" />
+                                )}
+                              </div>
+                              {resource.featured === true && (
+                                <motion.div
+                                  viewport={{ once: true }}
+                                  whileInView={{
+                                    animation:
+                                      'animateFeatured 7s 1 linear forwards',
+                                  }}
+                                  className="basic-carousel__card-highlight"
                                 />
-                              ) : (
-                                <div className="w-20 h-20 bg-grey-light" />
                               )}
-                            </div>
-                            {resource.featured === true && (
-                              <motion.div
-                                viewport={{ once: true }}
-                                whileInView={{
-                                  animation:
-                                    'animateFeatured 7s 1 linear forwards',
-                                }}
-                                className="basic-carousel__card-highlight"
-                              />
-                            )}
-                          </motion.a>
-                        </Link>
-                      ))}
-                    </section>
-                  )}
+                            </motion.a>
+                          </Link>
+                        ))}
+                      </section>
+                    )}
+                  </section>
                 </motion.div>
               );
             })}
             {data.otherInfo && (
               <>
-                <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
+                <section className="lg:flex-row lg:gap-x-4 mt-6">
                   <h5 className="text-left lg:w-1/4">
                     <i className="far fa-info-circle"></i> Info & Insights
                   </h5>
@@ -410,13 +411,13 @@ function Page({ data }) {
             )}
             {data.itemCategory && data.itemCategory.items.length > 1 && (
               <>
-                <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
-                  <div className="lg:w-1/4">
+                <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
+                  <div className="lg:col-span-1">
                     <h5 className="text-left">
                       <i className="far fa-question-circle"></i> Similar Items
                     </h5>
                   </div>
-                  <div className="lg:w-3/4">
+                  <div className="lg:col-span-3">
                     <Carousel
                       slideWidth={256}
                       showNav={false}
