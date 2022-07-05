@@ -26,7 +26,10 @@ export default function Image({
 
   if (elemWidth > 0) {
     for (let x = 0; x < orderedFormats.length; x++) {
-      if (orderedFormats[x].width >= elemWidth) {
+      if (
+        orderedFormats[x].width >= elemWidth &&
+        orderedFormats[x].height >= elemHeight
+      ) {
         actualSrc = orderedFormats[x].url;
         break;
       }
