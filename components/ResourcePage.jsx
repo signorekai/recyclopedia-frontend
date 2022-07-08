@@ -273,7 +273,7 @@ function ResourcePage({ data, baseUrl }) {
                     <Carousel
                       autoSlideSize={true}
                       showNav={false}
-                      className="mt-2 mb-6 h-auto"
+                      className="mb-6 h-auto"
                       sliderStyle={{
                         width:
                           width > 1080
@@ -284,7 +284,7 @@ function ResourcePage({ data, baseUrl }) {
                         data.relatedItems.map((item, key) => (
                           <CarouselCard
                             key={key}
-                            className="w-screen-1/2 lg:w-[250px] mt-4">
+                            className="w-36 lg:w-64 overflow-hidden relative">
                             <Card
                               className="w-full"
                               imgClassName="h-[200px]"
