@@ -254,15 +254,14 @@ function ResourcePage({ data, baseUrl }) {
           <div className="container">
             {(data.items || data.relatedItems.length > 0) && (
               <div className="lg:divider-b">
-                <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
-                  <div className="lg:w-1/4">
+                <section className="lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
+                  <div className="lg:col-span-1">
                     <h5 className="text-left">
                       <i className="fas fa-check" />
                       Accepted Items
                     </h5>
                   </div>
-                  <div className="flex-1">
-                    <div
+                  <div className="lg:col-span-3">
                       className="text-base lg:text-lg mt-2 lg:mt-0 px-2 !leading-snug"
                       dangerouslySetInnerHTML={{
                         __html: data.items,
