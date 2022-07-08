@@ -252,7 +252,7 @@ function ResourcePage({ data, baseUrl }) {
             </div>
           </div>
           <div className="container">
-            {data.items && (
+            {(data.items || data.relatedItems.length > 0) && (
               <div className="lg:divider-b">
                 <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
                   <div className="lg:w-1/4">
