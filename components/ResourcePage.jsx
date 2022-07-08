@@ -289,13 +289,10 @@ function ResourcePage({ data, baseUrl }) {
                               uniqueKey={`related-${key}`}
                               key={`related-${key}`}
                               content={{
+                                image: item.images ? item.images[0] : {},
                                 contentType: 'items',
                                 slug: item.slug,
                                 headerText: item.title,
-                                backgroundImage:
-                                  item.images.length > 0
-                                    ? item.images[0].formats.small.url
-                                    : '',
                               }}
                             />
                           </CarouselCard>
