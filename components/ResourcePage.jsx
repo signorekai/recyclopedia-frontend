@@ -262,11 +262,14 @@ function ResourcePage({ data, baseUrl }) {
                     </h5>
                   </div>
                   <div className="lg:col-span-3">
-                      className="text-base lg:text-lg mt-2 lg:mt-0 px-2 !leading-snug"
-                      dangerouslySetInnerHTML={{
-                        __html: data.items,
-                      }}
-                    />
+                    {data.items && (
+                      <div
+                        className="text-base lg:text-lg mt-2 lg:mt-0 mb-6 px-2 !leading-snug"
+                        dangerouslySetInnerHTML={{
+                          __html: data.items,
+                        }}
+                      />
+                    )}
                     <Carousel
                       autoSlideSize={true}
                       showNav={false}
