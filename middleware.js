@@ -1,0 +1,28 @@
+import { NextResponse, userAgent, NextRequest } from 'next/server';
+import { decode } from 'next-auth/jwt';
+
+export async function middleware(req) {
+  if (req.nextUrl.pathname.startsWith('/account')) {
+    const sessionToken =
+      req.headers.get('authorization') ||
+      req.cookies.get('next-auth.session-token');
+
+    const token = await decode({
+      token: sessionToken,
+      secret: process.env.NEXTAUTH_SECRET,
+    });
+
+    if (token !== null) {
+      return NextResponse.next();
+    } else {
+      const loginUrl = new URL('/login', req.url);
+      loginUrl.searchParams.set('redirect', req.nextUrl.pathname);
+
+      return NextResponse.redirect(loginUrl);
+    }
+  }
+}
+
+export const config = {
+  matcher: ['/items/:slug*', '/account/:slug*', '/account'],
+};
