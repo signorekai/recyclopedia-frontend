@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   if (token === null) res.status(401).end();
 
   if (params.length !== 2) {
-    res.status(400);
+    res.status(400).end();
   }
 
   const [contentType, slug] = params;
