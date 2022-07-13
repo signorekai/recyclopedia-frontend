@@ -248,7 +248,6 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
 };
 
 export default function Page(props) {
-  console.log(props);
   return (
     <Layout>
       <Head>
@@ -286,8 +285,6 @@ export async function getServerSideProps({ req, query }) {
 
     await Promise.all(
       search.type.map(async (type) => {
-        console.log(`searching for ${type}`);
-
         switch (type) {
           case 'items':
             pageOptions['items'] = await staticFetcher(
