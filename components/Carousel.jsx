@@ -96,7 +96,6 @@ export const Carousel = ({
     if (disableScroll) {
       transformX.set(scrollTo * -1);
     } else {
-      console.log(scrollTo);
       carouselRef.current.scrollTo({
         left: scrollTo,
         behavior: 'smooth',
