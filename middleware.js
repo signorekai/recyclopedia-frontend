@@ -34,6 +34,7 @@ export async function middleware(req) {
     req.nextUrl.pathname.startsWith('/') ||
     req.nextUrl.pathname.startsWith('/news-tips')
   ) {
+    console.log('logging', req.nextUrl.pathname);
     fetch(`${process.env.API_URL}/logs`, {
       method: 'POST',
       headers: {
