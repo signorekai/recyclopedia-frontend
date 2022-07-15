@@ -2,8 +2,14 @@ import { NextResponse, userAgent, NextRequest } from 'next/server';
 import { decode } from 'next-auth/jwt';
 
 export async function middleware(req) {
-  console.log('running middleware');
+  console.log('running middleware', req.nextUrl.pathname);
   const response = NextResponse.next();
+  const { isBot, browser, device, ua } = userAgent(req);
+
+  if (isBot) {
+    return response;
+  }
+
   let visitorId = req.cookies.get('v_id');
   let date = new Date();
   if (visitorId === undefined) {
@@ -18,8 +24,33 @@ export async function middleware(req) {
     sameSite: 'strict',
   });
 
-  if (req.nextUrl.pathname.startsWith('/items')) {
-    console.log(visitorId, 'visiting', req.nextUrl);
+  if (
+    req.nextUrl.pathname.startsWith('/items') ||
+    req.nextUrl.pathname.startsWith('/shops') ||
+    req.nextUrl.pathname.startsWith('/donate') ||
+    req.nextUrl.pathname.startsWith('/resources') ||
+    req.nextUrl.pathname.startsWith('/articles') ||
+    req.nextUrl.pathname.startsWith('/about-us') ||
+    req.nextUrl.pathname.startsWith('/') ||
+    req.nextUrl.pathname.startsWith('/news-tips')
+  ) {
+    fetch(`${process.env.API_URL}/logs`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.API_KEY}`,
+      },
+      body: JSON.stringify({
+        data: {
+          visitorId,
+          dateTime: new Date().toISOString(),
+          path: req.nextUrl.pathname,
+          device,
+          browser,
+          userAgent: ua,
+        },
+      }),
+    });
   }
 
   if (req.nextUrl.pathname.startsWith('/account')) {
@@ -45,5 +76,17 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: '/',
+  matcher: [
+    '/',
+    '/items/:slug*',
+    '/account/:path*',
+    '/resources/:path*',
+    '/donate/:path*',
+    '/shops/:path*',
+    '/news-tips',
+    '/articles/:path*',
+    '/faq',
+    '/about-us',
+    '/feedback',
+  ],
 };
