@@ -117,6 +117,7 @@ export async function getStaticProps() {
   const query = qs.stringify({
     populate: ['images'],
     fields: ['title', 'slug'],
+    sort: ['visits:desc', 'title'],
     pagination: {
       page: 0,
       pageSize: ITEMS_PER_PAGE,
@@ -132,6 +133,7 @@ export async function getStaticProps() {
 
   const cacheQuery = qs.stringify({
     populate: ['images'],
+    fields: ['title', 'slug'],
     page: 0,
     pageSize: ITEMS_PER_PAGE,
   });

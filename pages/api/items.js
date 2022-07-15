@@ -5,6 +5,7 @@ export default function handler(req, res) {
     const ip = process.env.API_URL;
     const query = qs.stringify({
       populate: ['images'],
+      fields: ['title', 'slug'],
       pagination: {
         page: parseInt(req.query.page) + 1,
         pageSize: req.query.pageSize,
