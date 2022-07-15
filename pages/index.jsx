@@ -164,6 +164,7 @@ export async function getStaticProps() {
 
   const { data: items } = await staticFetcher(
     `${ip}/items?${qs.stringify({
+      sort: ['visits:desc', 'title'],
       populate: ['images'],
       pagination: {
         page: 1,
