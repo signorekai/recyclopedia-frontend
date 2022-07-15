@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import useSWR from 'swr';
 
+import Link from './Link';
 import { capitalise } from '../lib/functions';
 import Header from './Header';
 import { SWRFetcher, useWindowDimensions } from '../lib/hooks';

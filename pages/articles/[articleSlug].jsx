@@ -1,9 +1,9 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import qs from 'qs';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 
+import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import { Carousel, CarouselCard } from '../../components/Carousel';
 import Card from '../../components/Card';

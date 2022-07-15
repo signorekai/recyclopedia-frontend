@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Formik, Form, Field, useFormikContext } from 'formik';
 import { object, string } from 'yup';
-import Link from 'next/link';
 import FocusTrap from 'focus-trap-react';
 import Select from 'react-select';
 import { useSession } from 'next-auth/react';
+
+import Link from './Link';
 
 export const FeedbackFormSchema = object({
   name: string().required('Name required'),

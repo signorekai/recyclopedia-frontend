@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import { motion } from 'framer-motion';
 import { DateTime } from 'luxon';
-import Link from 'next/link';
 
+import Link from './Link';
 import Layout from './Layout';
 import { useWindowDimensions } from '../lib/hooks';
 import { Carousel, CarouselCard } from './Carousel';

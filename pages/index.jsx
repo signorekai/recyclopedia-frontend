@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { useState } from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import qs from 'qs';
 import Image from '../components/Image';
@@ -14,6 +13,7 @@ import { Carousel, CarouselCard } from '../components/Carousel';
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
+import Link from '../components/Link';
 
 export default function Home({ items, newsItems }) {
   const { width } = useWindowDimensions();

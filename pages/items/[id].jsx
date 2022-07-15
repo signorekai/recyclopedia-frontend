@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import { CarouselProvider, Slider, Slide, DotGroup } from 'pure-react-carousel';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useState, useEffect, useRef } from 'react';
 
+import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import { useWindowDimensions } from '../../lib/hooks';
 import { getLargestPossibleImage } from '../../lib/functions';

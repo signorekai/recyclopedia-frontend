@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import qs from 'qs';
-import Link from 'next/link';
 import { SWRConfig } from 'swr';
 
+import Link from '../components/Link';
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 import NewImage from '../components/Image';

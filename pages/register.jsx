@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Formik, Form, Field } from 'formik';
 import { signIn } from 'next-auth/react';
 import Head from 'next/head';
 
+import Link from '../components/Link';
 import Layout from '../components/Layout';
 import { TextInput } from '../components/Report';
 import { RegisterSchema } from './api/register';

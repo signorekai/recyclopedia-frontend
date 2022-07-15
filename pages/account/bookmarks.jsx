@@ -2,8 +2,8 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
 import useSWR from 'swr';
-import Link from 'next/link';
 
+import Link from '../../components/Link';
 import AccountHeader from '../../components/AccountHeader';
 import Layout from '../../components/Layout';
 import Card from '../../components/Card';

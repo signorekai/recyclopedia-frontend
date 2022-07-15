@@ -1,8 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
-import Link from 'next/link';
 import ContentLoader from 'react-content-loader';
 
+import Link from './Link';
 import Image from './Image';
 
 const variants = {

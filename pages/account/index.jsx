@@ -1,11 +1,11 @@
 import { Field, Form, Formik } from 'formik';
 import { useSession, signOut, signIn } from 'next-auth/react';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { object, ref, string } from 'yup';
 import AccountHeader from '../../components/AccountHeader';
 
+import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import { TextInput } from '../../components/Report';
 
