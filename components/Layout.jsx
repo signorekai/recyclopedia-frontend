@@ -122,7 +122,11 @@ const Layout = ({
         suggestions.current = cached.split(',');
     }
 
-    logVisit();
+    router.events.on('routeChangeComplete', logVisit);
+
+    return () => {
+      router.events.off('routeChangeComplete', logVisit);
+    };
   }, []);
 
   const _handleSubmit = (e) => {
