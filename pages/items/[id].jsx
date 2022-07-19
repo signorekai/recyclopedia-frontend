@@ -470,6 +470,7 @@ export async function getStaticPaths() {
 
   const ip = process.env.API_URL;
   const queryParams = qs.stringify({
+    sort: ['visits:desc', 'title'],
     pagination: {
       page: 1,
       pagesize: 20,
