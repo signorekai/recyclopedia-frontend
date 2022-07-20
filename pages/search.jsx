@@ -461,7 +461,7 @@ export async function getServerSideProps({ req, query, res }) {
       }
 
       const visitorId = getOrSetVisitorToken(req, res);
-      fetch(`${process.env.API_URL}/searches`, {
+      await fetch(`${process.env.API_URL}/searches`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${process.env.API_KEY}`,
