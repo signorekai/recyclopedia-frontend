@@ -27,4 +27,4 @@ bugs:
   ✔ fix issue with hover arrow buttons showing on things that cannot be scrolled @done(22-05-20 22:54)
   ✔ fix carousel sizing on search results @done(22-05-20 22:54)
   ✔ search isn't filtering type of resources while searching donate, shops and resources @done(22-05-27 16:33)
-  [] "similar items" in item page somehow doesn't follow w-1/4 and w-3/4
+  ✔ "similar items" in item page somehow doesn't follow w-1/4 and w-3/4 @done(22-07-20 15:17)
