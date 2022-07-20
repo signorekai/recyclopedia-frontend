@@ -7,6 +7,8 @@ export async function middleware(req) {
       req.headers.get('authorization') ||
       req.cookies.get('next-auth.session-token');
 
+    console.log('cookies', req.cookies.entries());
+
     const token = await decode({
       token: sessionToken,
       secret: process.env.NEXTAUTH_SECRET,
