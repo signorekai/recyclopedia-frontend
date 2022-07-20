@@ -300,11 +300,6 @@ function Page({ data }) {
                           slideWidth={256}
                           className={`gap-x-2 mt-6`}>
                           {item.resources.map((resource, key) => {
-                            console.log(
-                              326,
-                              resource.images,
-                              resource.images.length > 0,
-                            );
                             return (
                               <CarouselCard
                                 featured={resource.featured === true}
