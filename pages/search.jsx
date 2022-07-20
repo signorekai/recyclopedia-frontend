@@ -437,6 +437,51 @@ export async function getServerSideProps({ req, query }) {
         });
       });
 
+      const items = [];
+      const resources = [];
+      const articles = [];
+      for (const [type, results] of Object.entries(data)) {
+        switch (type) {
+          case 'items':
+            results.map(({ id }) => {
+              items.push(id);
+            });
+            break;
+
+          case 'resources':
+          case 'donate':
+          case 'shop':
+            results.map(({ id }) => {
+              resources.push(id);
+            });
+            break;
+
+          case 'articles':
+            results.map(({ id }) => {
+              articles.push(id);
+            });
+            break;
+        }
+      }
+
+      fetch(`${process.env.API_URL}/searches`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${process.env.API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: {
+            dateTime: new Date().toISOString(),
+            query: search.query,
+            itemResults: items,
+            resourceResults: resources,
+            articleResults: articles,
+            type: query.contentType,
+          },
+        }),
+      });
+
       return {
         props: {
           success: true,
