@@ -12,11 +12,11 @@ export async function middleware(req) {
       secret: process.env.NEXTAUTH_SECRET,
     });
 
-    if (token !== null) {
-      return NextResponse.next();
-    } else {
+    console.log('middleware', process.env.NEXTAUTH_SECRET);
+
+    if (token === null) {
       const loginUrl = new URL('/login', req.url);
-      loginUrl.searchParams.set('redirect', req.nextUrl.pathname);
+      loginUrl.searchParams.set('callbackUrl', req.nextUrl.pathname);
       return NextResponse.redirect(loginUrl);
     }
   }
