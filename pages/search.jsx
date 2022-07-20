@@ -457,7 +457,7 @@ export async function getServerSideProps({ req, query }) {
     return {
       props: {
         success: false,
-        error: 'not POST',
+        error: 'not GET',
       },
     };
   }
