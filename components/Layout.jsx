@@ -11,7 +11,6 @@ import { capitalise } from '../lib/functions';
 import Header from './Header';
 import { SWRFetcher, useWindowDimensions } from '../lib/hooks';
 import { _cacheSearchTerm, Suggestion } from './SearchBar';
-import { logVisit } from '../lib/analytics';
 
 const menu = [
   { label: 'Items', href: '/items' },
@@ -121,12 +120,6 @@ const Layout = ({
       if (cached !== null && cached.length > 0)
         suggestions.current = cached.split(',');
     }
-
-    router.events.on('routeChangeComplete', logVisit);
-
-    return () => {
-      router.events.off('routeChangeComplete', logVisit);
-    };
   }, []);
 
   const _handleSubmit = (e) => {
