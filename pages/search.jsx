@@ -5,11 +5,7 @@ import Head from 'next/head';
 import { useMemo } from 'react';
 import { useRouter } from 'next/router';
 
-import {
-  staticFetcher,
-  useSearchBarTopValue,
-  useWindowDimensions,
-} from '../lib/hooks';
+import { staticFetcher, useWindowDimensions } from '../lib/hooks';
 import Layout from '../components/Layout';
 import Card from '../components/Card';
 import SearchBar from '../components/SearchBar';
@@ -19,7 +15,7 @@ import {
   AccordionBody,
 } from '../components/Accordion';
 import { Carousel, CarouselCard } from '../components/Carousel';
-import { getLargestPossibleImage } from '../lib/functions';
+import { getOrSetVisitorToken } from '../lib/analytics';
 
 const SingleSearchType = ({
   type,
@@ -272,7 +268,7 @@ export default function Page(props) {
   );
 }
 
-export async function getServerSideProps({ req, query }) {
+export async function getServerSideProps({ req, query, res }) {
   const ip = process.env.API_URL;
   if (req.method === 'GET') {
     // doing search
@@ -464,6 +460,7 @@ export async function getServerSideProps({ req, query }) {
         }
       }
 
+      const visitorId = getOrSetVisitorToken(req, res);
       fetch(`${process.env.API_URL}/searches`, {
         method: 'POST',
         headers: {
@@ -478,6 +475,7 @@ export async function getServerSideProps({ req, query }) {
             resourceResults: resources,
             articleResults: articles,
             type: query.contentType,
+            visitorId,
           },
         }),
       });
