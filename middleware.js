@@ -12,7 +12,7 @@ export async function middleware(req) {
       secret: process.env.NEXTAUTH_SECRET,
     });
 
-    console.log('middleware', process.env.NEXTAUTH_SECRET);
+    console.log('middleware', token);
 
     if (token === null) {
       const loginUrl = new URL('/login', req.url);
