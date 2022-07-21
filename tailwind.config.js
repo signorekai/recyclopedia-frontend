@@ -81,8 +81,8 @@ module.exports = {
         archivo: ['Archivo', ...defaultTheme.fontFamily.sans],
       },
       cursor: {
-        'prev-btn': 'url(/img/previous-btn.png),pointer',
-        'next-btn': 'url(/img/next-btn.png),pointer',
+        'prev-btn': 'url(/img/previous-btn.png) 32 32,pointer',
+        'next-btn': 'url(/img/next-btn.png) 32 32,pointer',
       },
       zIndex: {
         60: '60',
