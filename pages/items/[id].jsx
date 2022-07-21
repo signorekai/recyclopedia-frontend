@@ -261,7 +261,7 @@ function Page({ data }) {
                     <div className="lg:col-span-1">
                       <h5 className="text-left">
                         <i className="fas fa-check" />
-                        {key === 0 && ' Recommendated'}
+                        {key === 0 && ' Recommended'}
                         {key !== 0 && ' Alternative'}
                       </h5>
                     </div>
