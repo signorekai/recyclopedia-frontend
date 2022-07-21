@@ -229,14 +229,18 @@ const Layout = ({
                   {menu.map((m) => {
                     if (m.href === router.route) {
                       return (
-                        <span className={`font-bold ${m.className}`}>
-                          {m.label}
-                        </span>
+                        <span
+                          className={`font-bold ${m.className}`}
+                          dangerouslySetInnerHTML={{ __html: m.label }}
+                        />
                       );
                     } else {
                       return (
                         <Link key={m.href} href={m.href}>
-                          <a className={`${m.className}`}>{m.label}</a>
+                          <a
+                            className={`${m.className}`}
+                            dangerouslySetInnerHTML={{ __html: m.label }}
+                          />
                         </Link>
                       );
                     }
