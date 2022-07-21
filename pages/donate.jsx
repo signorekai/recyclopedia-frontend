@@ -16,7 +16,6 @@ import {
   AccordionHeader,
   AccordionProvider,
 } from '../components/Accordion';
-import { getLargestPossibleImage } from '../lib/functions';
 
 const strapiAPIQueryTemplate = {
   populate: ['images'],
