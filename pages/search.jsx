@@ -75,15 +75,12 @@ const SingleSearchType = ({
               let image;
 
               switch (type) {
-                case 'items':
-                case 'resources':
-                case 'donate':
-                case 'shops':
-                  image = item.images ? item.images[0] : {};
-                  break;
-
                 case 'articles':
                   image = item.coverImage ? item.coverImage : {};
+                  break;
+
+                default:
+                  image = item.images ? item.images[0] : {};
                   break;
               }
               return (
@@ -144,15 +141,12 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                     let image;
 
                     switch (type) {
-                      case 'items':
-                      case 'resources':
-                      case 'donate':
-                      case 'shops':
-                        image = item.images ? item.images[0] : {};
-                        break;
-
                       case 'articles':
                         image = item.coverImage ? item.coverImage : {};
+                        break;
+
+                      default:
+                        image = item.images ? item.images[0] : {};
                         break;
                     }
                     return (
