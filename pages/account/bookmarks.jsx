@@ -27,7 +27,7 @@ export default function Page({ ...props }) {
     const labels = {
       item: 'Items',
       resources: 'Resources',
-      donate: 'Donations & Charities',
+      donate: 'Charities',
       shops: 'Shops',
       article: 'News & Tips',
     };
