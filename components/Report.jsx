@@ -190,7 +190,6 @@ export const FeedbackForm = ({
                         </div>
                         <div className="text-lg">
                           <Select
-                            openMenuOnFocus={true}
                             tabSelectsValue={true}
                             options={options}
                             value={
