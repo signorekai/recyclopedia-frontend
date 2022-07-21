@@ -1,14 +1,8 @@
 import Head from 'next/head';
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import qs from 'qs';
-import Image from '../components/Image';
 
-import {
-  ITEMS_PER_PAGE,
-  staticFetcher,
-  useWindowDimensions,
-} from '../lib/hooks';
+import { staticFetcher, useWindowDimensions } from '../lib/hooks';
 import { Carousel, CarouselCard } from '../components/Carousel';
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
@@ -24,7 +18,7 @@ export default function Home({ items, newsItems }) {
         <title>Recyclopedia</title>
         <meta name="description" content="Recyclopedia" />
       </Head>
-      <div className="bg-gradient-to-b from-coral to-purple h-72 lg:h-96 absolute top-0 w-full left-0 z-0"></div>
+      <div className="bg-mobile-banner md:bg-banner bg-bottom bg-cover h-96 lg:mt-12 lg:h-[30vw] lg:max-h-[440px] absolute top-0 w-full left-0 z-0"></div>
       <Link href="/">
         <a className="flex justify-center mt-12 mb-4 lg:mt-28 z-10 relative">
           <svg
@@ -50,7 +44,7 @@ export default function Home({ items, newsItems }) {
           </svg>
         </a>
       </Link>
-      <h3 className="text-center mb-4 px-2 leading-none text-white z-10 relative">
+      <h3 className="text-center mb-4 px-2 leading-none text-black z-10 relative">
         All you need to know when you have something to throw
       </h3>
       <SearchBar
