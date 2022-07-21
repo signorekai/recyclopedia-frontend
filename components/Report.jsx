@@ -68,7 +68,7 @@ export const TextArea = ({
         tabIndex={0}
         {...field}
         {...props}
-        className="text-input-wrapper"
+        className="text-input-wrapper min-h-[3rem]"
         rows={3}>
         {field.value}
       </textarea>
