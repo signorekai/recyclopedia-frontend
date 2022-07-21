@@ -15,15 +15,15 @@ import { _cacheSearchTerm, Suggestion } from './SearchBar';
 const menu = [
   { label: 'Items', href: '/items' },
   { label: 'Resources', href: '/resources' },
-  { label: 'Donations & Charities', href: '/donate' },
+  { label: 'Freecycling', href: '/donate' },
   { label: 'Shops', href: '/shops' },
   {
-    label: 'News & Tips',
+    label: 'News&nbsp;&&nbsp;Tips',
     href: '/news-tips',
     className: 'divider-b-wider lg:after:hidden',
   },
   { label: 'FAQ', href: '/faq', className: 'lg:ml-2' },
-  { label: 'About Us', href: '/about-us' },
+  { label: 'About&nbsp;Us', href: '/about-us' },
   {
     label: 'Feedback',
     href: '/feedback',
