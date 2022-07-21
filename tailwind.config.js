@@ -41,6 +41,10 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        'mobile-banner': 'url("/img/mobile-banner.png")',
+        banner: 'url("/img/banner.svg")',
+      },
       animation: {
         featured: 'animateFeatured 7s 1 linear forwards',
         'fade-in': 'fadeIn 0.3s 1 ease-in-out forwards',
