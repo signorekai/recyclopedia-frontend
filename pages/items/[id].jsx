@@ -304,7 +304,7 @@ function Page({ data }) {
                               <CarouselCard
                                 featured={resource.featured === true}
                                 key={key}
-                                className={`m-1 w-64 group border-1 rounded-md border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative ${
+                                className={`m-1 w-64 group border-1 rounded-md bg-white-pure border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative ${
                                   resource.featured === true
                                     ? 'basic-carousel__card--featured'
                                     : ''
