@@ -33,7 +33,7 @@ const Card = ({ params = {} }) => {
         return articleFetch.map((article, key) => (
           <>
             {article && (
-              <Link key={key} href={`/articles/${article.slug}`}>
+              <Link key={article.slug} href={`/articles/${article.slug}`}>
                 <a>
                   <div className="flex flex-row mb-8 gap-x-4 flex-wrap divider-b divider-b-taller">
                     <div className="w-1/3 md:min-h-[150px]">
@@ -136,26 +136,30 @@ export default function Page({
         {featuredArticles && (
           <div className="grid md:grid-cols-2 gap-8">
             {featuredArticles.map(({ article }) => (
-              <div key={article.slug}>
-                <Link href={`/articles/${article.slug}`}>
-                  <a>
-                    <NewImage
-                      className="aspect-[503/374] lg:rounded-md"
-                      sizes="600px"
-                      width={'100%'}
-                      height={width >= 1080 ? 374 : 278}
-                      source={article.coverImage}
-                      layout="fixed"
-                    />
-                    <div className="px-2 lg:px-0">
-                      <h5 className="text-left pt-2">
-                        {article.category.title}
-                      </h5>
-                      <h3 className="text-black">{article.title}</h3>
-                    </div>
-                  </a>
-                </Link>
-              </div>
+              <>
+                {article && (
+                  <div key={article.slug}>
+                    <Link href={`/articles/${article.slug}`}>
+                      <a>
+                        <NewImage
+                          className="aspect-[503/374] lg:rounded-md"
+                          sizes="600px"
+                          width={'100%'}
+                          height={width >= 1080 ? 374 : 278}
+                          source={article.coverImage}
+                          layout="fixed"
+                        />
+                        <div className="px-2 lg:px-0">
+                          <h5 className="text-left pt-2">
+                            {article.category.title}
+                          </h5>
+                          <h3 className="text-black">{article.title}</h3>
+                        </div>
+                      </a>
+                    </Link>
+                  </div>
+                )}
+              </>
             ))}
           </div>
         )}
