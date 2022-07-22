@@ -129,7 +129,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                   {pageOptions[type].data.title}
                 </h2>
                 <Carousel
-                  desktopControls={true}
+                  desktopControls={false}
                   showNav={false}
                   autoSlideSize={false}
                   slideWidth={
