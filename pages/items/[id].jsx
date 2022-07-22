@@ -166,7 +166,7 @@ function Page({ data }) {
                     } ${
                       key === 0
                         ? {
-                            1: 'col-span-full',
+                            1: 'col-span-2',
                             2: 'col-span-2',
                             3: 'col-span-2',
                             4: 'col-span-2',
