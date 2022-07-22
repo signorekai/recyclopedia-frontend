@@ -132,7 +132,7 @@ const Layout = ({
 
   const _handleOnBlur = (e) => {
     if (width >= 1080) setIsFocused(false);
-    // console.log('set focus false');
+    setShowSearchBar(false);
     if (e.relatedTarget) {
       // console.log(e.relatedTarget);
       e.relatedTarget.click();
