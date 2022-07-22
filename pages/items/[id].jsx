@@ -321,7 +321,7 @@ function Page({ data }) {
                                       height={158}
                                       alt={resource.title}
                                     />
-                                    <h4 className="py-2 px-3 text-blue group-hover:text-blue-dark text-lg">
+                                    <h4 className="pb-2 px-3 text-blue group-hover:text-blue-dark text-lg">
                                       {resource.title}
                                     </h4>
                                   </a>
