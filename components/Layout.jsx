@@ -132,11 +132,14 @@ const Layout = ({
 
   const _handleOnBlur = (e) => {
     if (width >= 1080) setIsFocused(false);
-    setShowSearchBar(false);
     if (e.relatedTarget) {
       // console.log(e.relatedTarget);
       e.relatedTarget.click();
     }
+
+    setTimeout(() => {
+      setShowSearchBar(false);
+    }, 100);
   };
 
   const _selectSuggestion = (suggestion) => {
@@ -166,14 +169,20 @@ const Layout = ({
             }`}>
             <div className="flex-1 flex flex-row items-center">
               <div className="hidden lg:inline-block lg:flex-1">
-                <img src="/img/logo-mini.svg" width={42} height={19} alt="" />
+                <Image
+                  src="/img/logo.svg"
+                  className="h-6"
+                  alt=""
+                  width={172}
+                  height={28}
+                />
               </div>
               <form
                 ref={formRef}
                 method="get"
                 onSubmit={_handleSubmit}
                 action="/search"
-                className="flex-1">
+                className="flex-[2]">
                 <div className="search-bar-wrapper border-grey-dark text-white">
                   <input
                     autoComplete="off"
@@ -191,9 +200,9 @@ const Layout = ({
                     id="searchTerm"
                     className="bg-transparent focus:outline-none flex-1"
                   />
-                  <SearchIcon className="" />
+                  <SearchIcon className="pr-2" />
                   <button type="button" onClick={_handleSearchBtn}>
-                    <span className="fal fa-times text-xl border-l-1 border-grey-dark pl-2 mx-2 pt-1"></span>
+                    <span className="fal fa-times text-xl border-l-1 border-grey-dark pl-4 pr-2 mx-2 pt-1"></span>
                   </button>
                   <input
                     type="hidden"
@@ -326,9 +335,9 @@ const Layout = ({
                 exit: { y: 50, scale: 0.9 },
               }}
               style={{
-                marginTop: width > 1080 ? 82 : 52,
+                marginTop: width >= 1080 ? 82 : 52,
               }}
-              className="search-suggestions lg:max-w-[33%] mx-auto">
+              className="search-suggestions lg:max-w-[48%] mx-auto">
               <ul className="plain">
                 {suggestions.current.map((suggestion, key) => (
                   <Suggestion
