@@ -17,11 +17,13 @@ export default async function handler(req, res) {
 
   switch (model) {
     case 'article':
+      url.push('/');
       url.push('/news-tips');
       url.push(`/${model}s/${entry.slug}`);
       break;
 
     case 'item':
+      url.push('/');
       url.push(`/items`);
       url.push(`/${model}s/${entry.slug}`);
       break;
