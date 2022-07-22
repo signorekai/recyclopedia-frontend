@@ -190,6 +190,8 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                         });
                       }}
                       className="w-full h-full bg-coral text-white rounded-[4px]">
+                      <i className="fal fa-search" />
+                      <br />
                       View All Results
                     </button>
                   </CarouselCard>
