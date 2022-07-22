@@ -122,10 +122,7 @@ export default function Page({
                               contentType: 'items',
                               slug: item.slug,
                               headerText: item.title,
-                              backgroundImage:
-                                item.images.length > 0
-                                  ? item.images[0].formats.small.url
-                                  : '',
+                              image: item.images ? item.images[0] : {},
                             }}
                           />
                         </CarouselCard>
