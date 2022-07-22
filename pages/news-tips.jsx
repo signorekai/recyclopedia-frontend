@@ -30,34 +30,35 @@ const Card = ({ params = {} }) => {
   return (
     <div className="w-full mt-4 lg:mt-8">
       {articles.map((articleFetch) => {
-        return articleFetch.map((article, key) => {
-          console.log(article.slug);
-          return (
-            <Link key={key} href={`/articles/${article.slug}`}>
-              <a>
-                <div className="flex flex-row mb-8 gap-x-4 flex-wrap divider-b divider-b-taller">
-                  <div className="w-1/3 md:min-h-[150px]">
-                    <NewImage
-                      className="aspect-[248/184] md:rounded-md"
-                      sizes="270px"
-                      source={article.coverImage || {}}
-                      layout="responsive"
-                    />
+        return articleFetch.map((article, key) => (
+          <>
+            {article && (
+              <Link key={key} href={`/articles/${article.slug}`}>
+                <a>
+                  <div className="flex flex-row mb-8 gap-x-4 flex-wrap divider-b divider-b-taller">
+                    <div className="w-1/3 md:min-h-[150px]">
+                      <NewImage
+                        className="aspect-[248/184] md:rounded-md"
+                        sizes="270px"
+                        source={article.coverImage || {}}
+                        layout="responsive"
+                      />
+                    </div>
+                    <div className="flex-1 mb-4">
+                      <h5 className="text-left pt-2">
+                        {article.category?.title}
+                      </h5>
+                      <h3 className="text-black">{article.title}</h3>
+                      <p className="hidden md:block text-black my-2 text-lg leading-tight">
+                        {article.excerpt && article.excerpt}
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex-1 mb-4">
-                    <h5 className="text-left pt-2">
-                      {article.category?.title}
-                    </h5>
-                    <h3 className="text-black">{article.title}</h3>
-                    <p className="hidden md:block text-black my-2 text-lg leading-tight">
-                      {article.excerpt && article.excerpt}
-                    </p>
-                  </div>
-                </div>
-              </a>
-            </Link>
-          );
-        });
+                </a>
+              </Link>
+            )}
+          </>
+        ));
       })}
       {!isFinished && <InfiniteLoader handleEnter={loadNext} />}
     </div>
