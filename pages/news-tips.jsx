@@ -31,7 +31,7 @@ const Card = ({ params = {} }) => {
     <div className="w-full mt-4 lg:mt-8">
       {articles.map((articleFetch) => {
         return articleFetch.map((article, key) => {
-          console.log(article);
+          console.log(article.slug);
           return (
             <Link key={key} href={`/articles/${article.slug}`}>
               <a>
