@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   const { event, model, entry } = req.body;
 
-  console.log(model, entry);
+  console.log(model);
 
   if (
     req.headers.authorization !== `Bearer ${process.env.CONTENT_UPDATE_KEY}`
@@ -81,9 +81,12 @@ export default async function handler(req, res) {
       break;
   }
 
+  console.table(url);
+
   try {
     for (let index = 0; index < url.length; index++) {
-      await res.unstable_revalidate(url[index]);
+      console.log(`trying ${url[index]}`);
+      await res.revalidate(url[index]);
       console.log('success', url[index]);
     }
     return res.json({ revalidated: true });
