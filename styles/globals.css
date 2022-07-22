@@ -413,8 +413,9 @@ p + p {
 }
 
 #nprogress .spinner {
-  @apply !right-auto left-[calc(50vw-9px)] p-1 bg-white rounded-full animate-fade-in;
+  @apply left-[calc(50vw-9px)] p-1 bg-white rounded-full animate-fade-in;
   @apply shadow;
+  @apply !right-auto;
 
   .spinner-icon {
     @apply border-t-teal border-l-teal;
