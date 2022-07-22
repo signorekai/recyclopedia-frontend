@@ -105,7 +105,7 @@ const SingleSearchType = ({
 
 const MultiSearchType = ({ type, query, data, pageOptions }) => {
   const { width } = useWindowDimensions();
-  const CardWidth = width > 1080 ? 24 : 70;
+  const CardWidth = width > 1080 ? 24 : 40;
   const router = useRouter();
 
   const [headerTabs, contentTabs] = useMemo(() => {
@@ -160,7 +160,6 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                         }}>
                         <Card
                           className="w-full"
-                          imgClassName="h-[200px]"
                           uniqueKey={`${type}-${item.slug}`}
                           content={{
                             image,
@@ -174,7 +173,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                   })}
                   <CarouselCard
                     uniqueKey={`${type}-see-all`}
-                    className="h-[200px]"
+                    className="aspect-square"
                     style={{
                       width:
                         width > 1080
