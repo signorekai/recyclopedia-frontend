@@ -95,7 +95,7 @@ export const Carousel = ({
   useEffect(() => {
     if (disableScroll) {
       transformX.set(scrollTo * -1);
-    } else {
+    } else if (scrollTo > 0) {
       carouselRef.current.scrollTo({
         left: scrollTo,
         behavior: 'smooth',
