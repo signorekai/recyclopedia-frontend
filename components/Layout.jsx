@@ -391,18 +391,20 @@ const Layout = ({
                         onClick={() => {
                           setShowMenu(false);
                         }}
-                        className={`text-left ${m.className}`}>
-                        {m.label}
-                      </button>
+                        className={`text-left font-bold ${m.className}`}
+                        dangerouslySetInnerHTML={{
+                          __html: m.label,
+                        }}></button>
                     );
                   } else {
                     return (
                       <Link href={m.href} key={m.href} passHref>
                         <motion.a
                           className={`motion-controlled ${m.className}`}
-                          variants={menuLinkVariant}>
-                          {m.label}
-                        </motion.a>
+                          variants={menuLinkVariant}
+                          dangerouslySetInnerHTML={{
+                            __html: m.label,
+                          }}></motion.a>
                       </Link>
                     );
                   }
