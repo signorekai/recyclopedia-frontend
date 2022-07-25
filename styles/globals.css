@@ -381,6 +381,18 @@ p + p {
 .article-body {
   @apply lg:w-3/4;
 
+  .image {
+    @apply mx-auto my-4;
+
+    &.image_resized {
+      @apply max-w-full;
+    }
+
+    &.image-style-side {
+      @apply float-right m-2 mt-4;
+    }
+  }
+
   a {
     @apply text-blue;
   }
