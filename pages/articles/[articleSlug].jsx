@@ -89,7 +89,7 @@ export default function Page({
               )}
             </div>
             <article
-              className="article-body divider-b divider-b-taller mt-4"
+              className="article-body divider-b divider-b-taller mt-4 text-lg"
               dangerouslySetInnerHTML={{ __html: article.content }}></article>
           </div>
           <div className="container container--mid">
