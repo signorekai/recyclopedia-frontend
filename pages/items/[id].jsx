@@ -212,17 +212,17 @@ function Page({ data }) {
                   totalSlides={data.images.length}>
                   <Slider>
                     {data.images.map((image, key) => (
-                      <Slide key={key} index={key}>
+                      <Slide key={key} index={key} style={{ paddingBottom: 0 }}>
                         <NewImage
                           alt={image.alternativeText}
                           source={image}
-                          width={width}
-                          height={width}
+                          width={image.width}
+                          height={image.width}
                         />
                       </Slide>
                     ))}
                   </Slider>
-                  <DotGroup className="z-30" />
+                  {data.images.length > 1 && <DotGroup className="z-30" />}
                 </CarouselProvider>
               )}
             </>
