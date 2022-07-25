@@ -4,7 +4,7 @@ import { useElementSize } from '../lib/hooks';
 
 /**
  *
- * @param {"responsive"|"fixed"} [layout]
+ * @param {"responsive"|"fixed"} [layout="responsive"]
  * @returns
  */
 export default function Image({
