@@ -19,7 +19,7 @@ todos:
   ✔ cursor size to 32x32px @done(22-07-21 22:58)
   ✔ fix menu linebreak @done(22-07-21 22:58)
   ✔ extract banner from Figma @done(22-07-21 23:12)
-  [] tab sequence for feedback modal
+  ✘ tab sequence for feedback modal @cancelled(22-07-22 19:11)
   [] add RECAPTCHA to <ReportForm>
   [] make our own content-type for forms so that we can create fields
   [] write tests for API endpoints
@@ -32,3 +32,5 @@ bugs:
   ✔ fix carousel sizing on search results @done(22-05-20 22:54)
   ✔ search isn't filtering type of resources while searching donate, shops and resources @done(22-05-27 16:33)
   ✔ "similar items" in item page somehow doesn't follow w-1/4 and w-3/4 @done(22-07-20 15:17)
+  [] Safari is stupid as usual. <Image> doesn't show properly in Safari
+  [] Homepage - sometihng wrong with the carousel loading into the second card instead of the first
