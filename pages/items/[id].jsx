@@ -205,7 +205,7 @@ function Page({ data }) {
                   />
                 </div>
               </div>
-              {data.images && (
+              {data.images && data.images.length > 1 && (
                 <CarouselProvider
                   naturalSlideWidth={width}
                   naturalSlideHeight={width * 0.8}
@@ -222,8 +222,20 @@ function Page({ data }) {
                       </Slide>
                     ))}
                   </Slider>
+                  <DotGroup className="z-30" />
                   {data.images.length > 1 && <DotGroup className="z-30" />}
                 </CarouselProvider>
+              )}
+              {data.images && data.images.length === 1 && (
+                <div className="w-full h-[80vw]">
+                  <NewImage
+                    layout="responsive"
+                    alt={data.images[0].alternativeText}
+                    source={data.images[0]}
+                    width={data.images[0].width}
+                    height={data.images[0].height}
+                  />
+                </div>
               )}
             </>
           )}
