@@ -370,6 +370,14 @@ p + p {
   }
 }
 
+.carousel__slider-tray-wrapper {
+  @apply overflow-hidden;
+}
+
+.carousel__slider-tray--horizontal {
+  @apply flex;
+}
+
 .faq-section {
   @apply my-8 pb-4 first:mt-16 last:pb-0;
 }
