@@ -149,7 +149,7 @@ function Page({ data }) {
           {width > 1080 ? (
             <div className="container">
               <div
-                className="grid grid-cols-3 grid-rows-12 gap-2 mt-12"
+                className="grid grid-cols-8 grid-rows-12 gap-2 mt-12"
                 style={{ height: height * modifier }}>
                 {data.images.map((image, key) => (
                   <div
@@ -158,7 +158,7 @@ function Page({ data }) {
                       key === 0
                         ? 'row-span-full'
                         : {
-                            2: 'row-span-6',
+                            2: 'row-span-full',
                             3: 'row-span-6',
                             4: 'row-span-4',
                             5: 'row-span-3',
@@ -166,17 +166,17 @@ function Page({ data }) {
                     } ${
                       key === 0
                         ? {
-                            1: 'col-span-2',
-                            2: 'col-span-2',
-                            3: 'col-span-2',
-                            4: 'col-span-2',
-                            5: 'col-span-2',
+                            1: 'col-span-6',
+                            2: 'col-span-4',
+                            3: 'col-span-5',
+                            4: 'col-span-5',
+                            5: 'col-span-5',
                           }[data.images.length]
                         : {
-                            2: 'col-span-1',
-                            3: 'col-span-1',
-                            4: 'col-span-1',
-                            5: 'col-span-1',
+                            2: 'col-span-4',
+                            3: 'col-span-3',
+                            4: 'col-span-3',
+                            5: 'col-span-3',
                           }[data.images.length]
                     }`}>
                     <NewImage source={image} alt="" />
