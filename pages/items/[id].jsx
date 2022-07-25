@@ -133,7 +133,7 @@ function Page({ data }) {
             />
             <meta
               property="og:description"
-              content={`Learn how to recycle ${data.title.toLowerCase()} here.`}
+              content={`Learn what to do with ${data.title.toLowerCase()} here.`}
             />
             {data.images.length > 0 && (
               <meta
