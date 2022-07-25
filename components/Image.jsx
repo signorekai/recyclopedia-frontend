@@ -2,6 +2,11 @@ import { useRef, useEffect } from 'react';
 import orderBy from 'lodash.orderby';
 import { useElementSize } from '../lib/hooks';
 
+/**
+ *
+ * @param {"responsive"|"fixed"} [layout]
+ * @returns
+ */
 export default function Image({
   layout = 'responsive',
   width,
