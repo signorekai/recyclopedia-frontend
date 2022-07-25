@@ -382,10 +382,14 @@ p + p {
   @apply lg:w-3/4;
 
   .image {
-    @apply mx-auto my-4;
+    @apply my-4;
+
+    img {
+      @apply mx-auto;
+    }
 
     &.image_resized {
-      @apply max-w-full;
+      @apply max-w-full mx-auto;
     }
 
     &.image-style-side {
