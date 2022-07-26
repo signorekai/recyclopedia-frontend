@@ -35,7 +35,7 @@ const Cards = ({ columnCount = 3 }) => {
                 className="w-full"
                 uniqueKey={`card-${key}`}
                 content={{
-                  image: item.images ? item.images[0] : {},
+                  images: item.images,
                   headerText: item.title,
                   contentType: 'items',
                   slug: item.slug,
