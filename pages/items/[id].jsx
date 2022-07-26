@@ -328,7 +328,11 @@ function Page({ data }) {
                                     <NewImage
                                       className="group-hover:scale-110 transition-transform"
                                       layout="fixed"
-                                      source={resource.images[0]}
+                                      source={
+                                        resource.images
+                                          ? resource.images[0]
+                                          : {}
+                                      }
                                       width={256}
                                       height={158}
                                       alt={resource.title}
