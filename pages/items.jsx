@@ -36,14 +36,6 @@ const Cards = ({ columnCount = 3 }) => {
                 uniqueKey={`card-${key}`}
                 content={{
                   image: item.images ? item.images[0] : {},
-                  backgroundImage:
-                    item.images && item.images.length > 0
-                      ? getLargestPossibleImage(
-                          item.images[0],
-                          'large',
-                          'small',
-                        )
-                      : '',
                   headerText: item.title,
                   contentType: 'items',
                   slug: item.slug,
