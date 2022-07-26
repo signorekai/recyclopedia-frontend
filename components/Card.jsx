@@ -53,16 +53,11 @@ const Card = ({
             className={`${className}`}>
             <div className={imgClassName}>
               <Image
-                className="rounded-smd"
+                className="rounded-smd group-hover:scale-110 transition-transform"
                 source={content.image}
                 alt={`Photo of ${content.headerText}`}
               />
             </div>
-            {/* <div
-              className={`bg-cover bg-center rounded-[4px] group-hover:opacity-90 transition-all duration-200 bg-grey-light ${imgClassName}`}
-              style={{
-                backgroundImage: `url(${content.backgroundImage})`,
-              }}></div> */}
             {content.hasOwnProperty('subHeaderText') && (
               <h6 className="tag">{content.subHeaderText}</h6>
             )}
