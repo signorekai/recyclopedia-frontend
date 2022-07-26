@@ -222,7 +222,6 @@ function Page({ data }) {
                       </Slide>
                     ))}
                   </Slider>
-                  <DotGroup className="z-30" />
                   {data.images.length > 1 && <DotGroup className="z-30" />}
                 </CarouselProvider>
               )}
