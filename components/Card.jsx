@@ -61,7 +61,7 @@ const Card = ({
             {content.hasOwnProperty('subHeaderText') && (
               <h6 className="tag">{content.subHeaderText}</h6>
             )}
-            <h4 className="text-lg leading-tight mt-2 px-1">
+            <h4 className="text-lg text-blue group-hover:text-blue-light leading-tight mt-2 px-1">
               {content.headerText}
             </h4>
           </motion.div>
