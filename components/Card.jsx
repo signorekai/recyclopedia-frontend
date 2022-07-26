@@ -56,8 +56,8 @@ const Card = ({
               {content.images && content.images.length > 1 && (
                 <CarouselProvider
                   totalSlides={content.images.length}
-                  naturalSlideWidth={100}
-                  naturalSlideHeight={100}>
+                  naturalSlideWidth={240}
+                  naturalSlideHeight={240}>
                   <Slider classNameAnimation="transition-transform duration-200">
                     {content.images.map((image, key) => (
                       <Slide key={key} index={key} style={{ paddingBottom: 0 }}>
@@ -65,8 +65,16 @@ const Card = ({
                           className="rounded-md group-hover:scale-110 transition-transform"
                           alt={image.alternativeText}
                           source={image}
-                          width={image.width}
-                          height={image.width}
+                          width={
+                            image.width > image.height
+                              ? image.width
+                              : image.height
+                          }
+                          height={
+                            image.width > image.height
+                              ? image.width
+                              : image.height
+                          }
                         />
                       </Slide>
                     ))}
