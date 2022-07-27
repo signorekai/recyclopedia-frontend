@@ -390,7 +390,7 @@ p + p {
   @apply lg:w-3/4;
 
   .image {
-    @apply my-4;
+    @apply max-h-[600px] my-4;
 
     img {
       @apply mx-auto;
@@ -409,24 +409,49 @@ p + p {
     @apply text-blue;
   }
 
+  p + p {
+    @apply mt-6;
+  }
+
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply block text-left my-[1em];
+    @apply block text-left mb-7 mt-14;
+  }
+
+  h2 {
+    @apply text-3xl text-black;
+  }
+
+  h3 {
+    @apply text-2xl;
+  }
+
+  h4 {
+    @apply text-lg;
   }
 
   blockquote {
-    @apply lg:w-3/4 mx-auto my-6 bg-teal p-6;
+    @apply w-full mx-auto my-14 bg-teal p-6;
     @apply text-2xl text-white;
   }
 
   code {
-    @apply block lg:w-3/4 whitespace-normal bg-grey-light border-1 border-white;
-    @apply mx-auto my-6 p-6;
+    @apply block w-full my-14 whitespace-pre-wrap text-base bg-grey-light border-1 border-white;
+    @apply mx-auto p-6;
     @apply text-black;
+  }
+
+  ul,
+  ol {
+    @apply list-outside ml-5 my-6;
+
+    li + li {
+      @apply mt-4;
+    }
   }
 }
 

@@ -80,6 +80,9 @@ module.exports = {
       borderWidth: {
         1: '1px',
       },
+      fontSize: {
+        '3xl': ['1.75rem', '2.125rem'],
+      },
       fontFamily: {
         sans: ['ibm-plex-sans', ...defaultTheme.fontFamily.sans],
         archivo: ['Archivo', ...defaultTheme.fontFamily.sans],
