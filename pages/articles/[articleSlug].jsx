@@ -70,7 +70,9 @@ export default function Page({
             </Carousel>
           </div>
           <div className="container container--mid mt-10">
-            <h5 className="text-left">{article.category.title}</h5>
+            {article.category && (
+              <h5 className="text-left">{article.category.title}</h5>
+            )}
             <h1 className="text-black pt-2 mb-0">{article.title}</h1>
             <h4 className="mb-4">
               {DateTime.fromISO(article.updatedAt).toLocaleString(
