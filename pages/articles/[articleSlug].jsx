@@ -50,7 +50,7 @@ export default function Page({
               autoScroll={false}
               autoSlideSize={true}
               className="scroll-px-4 mt-4"
-              sliderClassName={`gap-x-8 relative px-4 lg:container lg:container--mid`}>
+              sliderClassName={`gap-x-8 relative px-4 container container--mid`}>
               <CarouselCard>
                 <Link href={`/news-tips`}>
                   <a className="text-xs uppercase font-bold tracking-2 font-archivo pb-2 !text-grey-dark whitespace-nowrap">
@@ -74,7 +74,7 @@ export default function Page({
               <h5 className="text-left">{article.category.title}</h5>
             )}
             <h1 className="text-black pt-2 mb-0">{article.title}</h1>
-            <h4 className="mb-4">
+            <h4 className="mb-4 mt-2">
               {DateTime.fromISO(article.updatedAt).toLocaleString(
                 DateTime.DATE_MED,
               )}
