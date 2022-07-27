@@ -32,5 +32,6 @@ bugs:
   ✔ fix carousel sizing on search results @done(22-05-20 22:54)
   ✔ search isn't filtering type of resources while searching donate, shops and resources @done(22-05-27 16:33)
   ✔ "similar items" in item page somehow doesn't follow w-1/4 and w-3/4 @done(22-07-20 15:17)
-  [] Safari is stupid as usual. <Image> doesn't show properly in Safari
-  [] Homepage - sometihng wrong with the carousel loading into the second card instead of the first
+  ✔ Safari is stupid as usual. <Image> doesn't show properly in Safari @done(22-07-27 16:19)
+  ✔ Homepage - sometihng wrong with the carousel loading into the second card instead of the first @done(22-07-27 16:19)
+  [] https://recyclopedia-frontend.vercel.app/articles/definitions not showing up in /news-tips
