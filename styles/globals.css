@@ -434,13 +434,18 @@ p + p {
     @apply text-lg;
   }
 
+  blockquote,
+  code {
+    @apply w-[90%] block my-14;
+  }
+
   blockquote {
-    @apply w-full mx-auto my-14 bg-teal p-6;
+    @apply mx-auto bg-teal p-6;
     @apply text-2xl text-white;
   }
 
   code {
-    @apply block w-full my-14 whitespace-pre-wrap text-base bg-grey-light border-1 border-white;
+    @apply whitespace-pre-wrap text-base bg-grey-light border-1 border-white;
     @apply mx-auto p-6;
     @apply text-black;
   }
