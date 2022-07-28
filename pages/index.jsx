@@ -2,7 +2,11 @@ import Head from 'next/head';
 import { motion } from 'framer-motion';
 import qs from 'qs';
 
-import { staticFetcher, useWindowDimensions } from '../lib/hooks';
+import {
+  ITEMS_PER_PAGE,
+  staticFetcher,
+  useWindowDimensions,
+} from '../lib/hooks';
 import { Carousel, CarouselCard } from '../components/Carousel';
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
@@ -182,7 +186,7 @@ export async function getStaticProps() {
       populate: ['images'],
       pagination: {
         page: 1,
-        pageSize: 8,
+        pageSize: ITEMS_PER_PAGE,
       },
     })}`,
     process.env.API_KEY,
@@ -194,7 +198,7 @@ export async function getStaticProps() {
       sort: ['updatedAt:desc'],
       pagination: {
         page: 1,
-        pageSize: 8,
+        pageSize: ITEMS_PER_PAGE,
       },
     })}`,
     process.env.API_KEY,
