@@ -82,7 +82,6 @@ export default function Page({
     <Card
       params={{
         populate: ['coverImage', 'category'],
-        category: categoryTitles.join(','),
       }}
     />
   );
@@ -251,7 +250,6 @@ export async function getStaticProps() {
       populate: ['coverImage', 'category'],
       page: 0,
       pageSize: ITEMS_PER_PAGE,
-      category: categoryTitles.join(','),
     })}`
   ] = [allArticles];
 
