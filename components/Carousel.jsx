@@ -109,6 +109,10 @@ export const Carousel = ({
   }, [_checkButtons, carouselRef, slidesContainerRef, slideWidth]);
 
   useEffect(() => {
+    _checkButtons();
+  }, []);
+
+  useEffect(() => {
     const debouncedFunction = debounce((scroll) => {
       const progress = scrollXProgress.get();
       const carouselWidth = carouselRef.current.offsetWidth;
