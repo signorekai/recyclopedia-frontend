@@ -50,30 +50,32 @@ export default function Page({ ...props }) {
               {items &&
                 items.map((item, itemKey) => {
                   let image;
-                  switch (type) {
-                    case 'item':
-                    case 'resources':
-                    case 'donate':
-                    case 'shops':
-                      image = item.images ? item.images[0] : {};
-                      break;
-                    case 'article':
-                      image = item.coverImage ? item.coverImage : {};
-                      break;
+                  if (item !== null) {
+                    switch (type) {
+                      case 'item':
+                      case 'resources':
+                      case 'donate':
+                      case 'shops':
+                        image = item.images ? item.images[0] : {};
+                        break;
+                      case 'article':
+                        image = item.coverImage ? item.coverImage : {};
+                        break;
+                    }
+                    return (
+                      <Card
+                        key={itemKey}
+                        className="w-full"
+                        uniqueKey={`card-${itemKey}`}
+                        content={{
+                          image,
+                          headerText: item.title,
+                          slug: item.slug,
+                          contentType: slugs[type],
+                        }}
+                      />
+                    );
                   }
-                  return (
-                    <Card
-                      key={itemKey}
-                      className="w-full"
-                      uniqueKey={`card-${itemKey}`}
-                      content={{
-                        image,
-                        headerText: item.title,
-                        slug: item.slug,
-                        contentType: slugs[type],
-                      }}
-                    />
-                  );
                 })}
             </div>
           </div>
