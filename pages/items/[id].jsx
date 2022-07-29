@@ -7,7 +7,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import Link from '../../components/Link';
 import Layout from '../../components/Layout';
-import { useWindowDimensions } from '../../lib/hooks';
+import { ITEMS_PER_PAGE, useWindowDimensions } from '../../lib/hooks';
 import { getLargestPossibleImage } from '../../lib/functions';
 import { Carousel, CarouselCard } from '../../components/Carousel';
 import Card from '../../components/Card';
@@ -316,10 +316,10 @@ function Page({ data }) {
                               <CarouselCard
                                 featured={resource.featured === true}
                                 key={key}
-                                className={`m-1 w-64 group border-1 rounded-md bg-white-pure border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative ${
+                                className={`w-64 group rounded-md bg-white-pure border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative ${
                                   resource.featured === true
-                                    ? 'basic-carousel__card--featured'
-                                    : ''
+                                    ? 'm-[2px] basic-carousel__card--featured border-0'
+                                    : ' border-1'
                                 } `}>
                                 <Link
                                   key={key}
@@ -532,13 +532,30 @@ export async function getStaticProps({ params }) {
       Authorization: `Bearer ${process.env.API_KEY}`,
     },
   });
-  const result = await res.json();
+  let results = await res.json();
 
-  if (result.data.length === 0) {
+  if (results.data.length === 0) {
     return { notFound: true };
   }
 
-  return { props: { data: result.data[0] }, revalidate: 3600 };
+  let relatedItems = [];
+  let relatedItemsIndex = [];
+  const unparsedRelatedItems = results.data[0].itemCategory.items;
+
+  while (
+    relatedItems.length < ITEMS_PER_PAGE &&
+    relatedItems.length < unparsedRelatedItems.length
+  ) {
+    const x = Math.floor(Math.random() * unparsedRelatedItems.length);
+    if (relatedItemsIndex.indexOf(x) === -1) {
+      relatedItems.push(unparsedRelatedItems[x]);
+      relatedItemsIndex.push(x);
+    }
+  }
+
+  results.data[0].itemCategory.items = relatedItems;
+
+  return { props: { data: results.data[0] }, revalidate: 3600 };
 }
 
 export default Page;
