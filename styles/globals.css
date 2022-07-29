@@ -360,7 +360,7 @@ p + p {
 .carousel__dot {
   @apply px-1 pb-2;
   span {
-    @apply w-[10px] h-[10px] inline-block bg-white bg-opacity-30 rounded-full;
+    @apply w-[10px] h-[10px] inline-block bg-white shadow-md drop-shadow-md bg-opacity-30 rounded-full;
   }
 
   &.carousel__dot--selected {

@@ -4,6 +4,7 @@ import ContentLoader from 'react-content-loader';
 
 import Link from './Link';
 import Image from './Image';
+import { CarouselProvider, Slider, Slide, DotGroup } from 'pure-react-carousel';
 
 const variants = {
   initial: {
@@ -52,21 +53,53 @@ const Card = ({
             exit="exit"
             className={`${className}`}>
             <div className={imgClassName}>
-              <Image
-                className="rounded-smd"
-                source={content.image}
-                alt={`Photo of ${content.headerText}`}
-              />
+              {content.images && content.images.length > 1 && (
+                <CarouselProvider
+                  totalSlides={content.images.length}
+                  naturalSlideWidth={240}
+                  naturalSlideHeight={240}>
+                  <Slider classNameAnimation="transition-transform duration-200">
+                    {content.images.map((image, key) => (
+                      <Slide key={key} index={key} style={{ paddingBottom: 0 }}>
+                        <Image
+                          className="rounded-md group-hover:scale-110 transition-transform"
+                          alt={image.alternativeText}
+                          source={image}
+                          width={
+                            image.width > image.height
+                              ? image.width
+                              : image.height
+                          }
+                          height={
+                            image.width > image.height
+                              ? image.width
+                              : image.height
+                          }
+                        />
+                      </Slide>
+                    ))}
+                  </Slider>
+                  <DotGroup className="z-30" />
+                </CarouselProvider>
+              )}
+              {((typeof content.images === 'undefined' &&
+                content.image.hasOwnProperty('url')) ||
+                (content.images && content.images.length === 1)) && (
+                <Image
+                  className="rounded-md group-hover:scale-110 transition-transform"
+                  source={content.images ? content.images[0] : content.image}
+                  alt={`Photo of ${content.headerText}`}
+                />
+              )}
+              {typeof content.images === 'undefined' &&
+                !content.image.hasOwnProperty('url') && (
+                  <div className="w-full h-full bg-grey-light rounded-md"></div>
+                )}
             </div>
-            {/* <div
-              className={`bg-cover bg-center rounded-[4px] group-hover:opacity-90 transition-all duration-200 bg-grey-light ${imgClassName}`}
-              style={{
-                backgroundImage: `url(${content.backgroundImage})`,
-              }}></div> */}
             {content.hasOwnProperty('subHeaderText') && (
               <h6 className="tag">{content.subHeaderText}</h6>
             )}
-            <h4 className="text-lg leading-tight mt-2 px-1">
+            <h4 className="text-lg text-blue group-hover:text-blue-light leading-tight mt-2 px-1">
               {content.headerText}
             </h4>
           </motion.div>

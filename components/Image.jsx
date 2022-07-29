@@ -61,7 +61,7 @@ export default function Image({
   return (
     <span
       ref={ref}
-      className="inline-flex justify-center items-center w-[initial] h-[initial] relative overflow-hidden inset-0 bg-grey"
+      className="inline-flex justify-center items-center w-[initial] h-[initial] relative overflow-hidden inset-0"
       style={layout === 'responsive' ? responsiveStyles : fixedStyles}>
       <img
         src={actualSrc}

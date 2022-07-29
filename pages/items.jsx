@@ -35,15 +35,7 @@ const Cards = ({ columnCount = 3 }) => {
                 className="w-full"
                 uniqueKey={`card-${key}`}
                 content={{
-                  image: item.images ? item.images[0] : {},
-                  backgroundImage:
-                    item.images && item.images.length > 0
-                      ? getLargestPossibleImage(
-                          item.images[0],
-                          'large',
-                          'small',
-                        )
-                      : '',
+                  images: item.images,
                   headerText: item.title,
                   contentType: 'items',
                   slug: item.slug,
