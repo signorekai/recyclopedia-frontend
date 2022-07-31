@@ -14,39 +14,39 @@ import { BookmarkButton } from './BookmarkButton';
 const ResourceTagLiterals = {
   Recycling: {
     icon: 'fa-recycle',
-    bgColor: 'bg-blue',
+    bgColor: 'bg-blue-light',
   },
   Repair: {
     icon: 'fa-wrench',
-    bgColor: 'bg-blue',
+    bgColor: 'bg-blue-light',
   },
   Trash: {
     icon: 'fa-trash-alt',
-    bgColor: 'bg-blue',
+    bgColor: 'bg-blue-light',
   },
   Charity: {
     icon: 'fa-box-heart',
-    bgColor: 'bg-purple',
+    bgColor: 'bg-coral',
   },
   'NGO / Volunteers': {
     icon: 'fa-people-carry',
-    bgColor: 'bg-purple',
+    bgColor: 'bg-coral',
   },
   'Social Enterprise / SME': {
     icon: 'fa-shopping-bag',
-    bgColor: 'bg-teal',
+    bgColor: 'bg-coral',
   },
   Shops: {
     icon: 'fa-shopping-bag',
-    bgColor: 'bg-teal',
+    bgColor: 'bg-blue',
   },
   'Online Community': {
     icon: 'fa-globe-asia',
-    bgColor: 'bg-blue-light',
+    bgColor: 'bg-coral',
   },
   'App / Platform': {
     icon: 'fa-mobile-alt',
-    bgColor: 'bg-mustard',
+    bgColor: 'bg-coral',
   },
   'Animal Welfare': {
     icon: 'fa-cat',
