@@ -130,7 +130,7 @@ export default function Page({ fallback, pageOptions, resourceTags }) {
       <section
         className="py-4 lg:pt-10 text-white"
         style={{ backgroundColor: pageOptions.colour }}>
-        <div className="container container--narrow">
+        <div className="container">
           <h1 className="text-white">
             <i
               className={`${
@@ -149,7 +149,8 @@ export default function Page({ fallback, pageOptions, resourceTags }) {
         searchType={['resources']}
         placeholderText={`Search ${pageOptions.title}`}
         className="py-2 sticky lg:relative transition-all duration-200 z-20"
-        wrapperClassName="max-w-[800px]"
+        wrapperClassName="max-w-[1040px]"
+        searchSuggestionsClassName=""
         inactiveBackgroundColor={pageOptions.colour}
         activeBackgroundColor={pageOptions.colour}
       />
