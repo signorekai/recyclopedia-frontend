@@ -58,6 +58,7 @@ export const _cacheSearchTerm = (term, key) => {
  * @param {number} top CSS value `top` for wrapper to allow for dynamic animation
  * @param {text} className classes for container
  * @param {text} wrapperClassName classes for form wrapper
+ * @param {text} searchSuggestionsClassName classes for search suggestions wrapper
  * @param {handleOnChange} handleOnChange callback when text input is updated
  */
 export default function SearchBar({
@@ -67,6 +68,7 @@ export default function SearchBar({
   top = 0,
   className = '',
   wrapperClassName = 'max-w-screen-lg ',
+  searchSuggestionsClassName = '',
   handleOnChange = () => {},
   showBottomSpacing = true,
   searchType = ['items'],
@@ -222,7 +224,7 @@ export default function SearchBar({
                   initial="initial"
                   animate="animate"
                   exit="exit"
-                  className="search-suggestions absolute left-0 bottom-0 translate-y-[100%] lg:max-w-[800px]">
+                  className={`search-suggestions absolute left-0 bottom-0 translate-y-[100%] ${searchSuggestionsClassName}`}>
                   <ul className="plain">
                     {suggestions.current.map((suggestion, key) => (
                       <Suggestion
