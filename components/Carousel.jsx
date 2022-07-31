@@ -95,14 +95,14 @@ export const Carousel = ({
   useEffect(() => {
     if (disableScroll) {
       transformX.set(scrollTo * -1);
-    } else if (scrollTo > 0) {
+    } else {
       carouselRef.current.scrollTo({
         left: scrollTo,
         behavior: 'smooth',
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [disableScroll, scrollTo, carouselRef]);
+  }, [disableScroll, scrollTo, carouselRef, children]);
 
   useEffect(() => {
     _checkButtons();
