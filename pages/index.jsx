@@ -16,8 +16,6 @@ import Link from '../components/Link';
 export default function Home({ items, newsItems }) {
   const { width } = useWindowDimensions();
 
-  console.log(newsItems);
-
   return (
     <Layout showHeaderInitially={false} showHeaderOn="DOWN" hideHeaderOn="">
       <Head>
