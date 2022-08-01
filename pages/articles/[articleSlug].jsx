@@ -80,12 +80,14 @@ export default function Page({
                 DateTime.DATE_MED,
               )}
             </h4>
-            <h6 className="mb-4 text-sm text-grey-mid">
-              Last updated on{' '}
-              {DateTime.fromISO(article.updatedAt).toLocaleString(
-                DateTime.DATE_MED,
-              )}
-            </h6>
+            {article.updatedAt !== article.createdAt && (
+              <h6 className="mb-4 text-sm text-grey-mid">
+                Last updated on{' '}
+                {DateTime.fromISO(article.updatedAt).toLocaleString(
+                  DateTime.DATE_MED,
+                )}
+              </h6>
+            )}
             <div className="lg:w-3/4">
               {article.coverImage && (
                 <NewImage
