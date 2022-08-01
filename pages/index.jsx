@@ -194,8 +194,8 @@ export async function getStaticProps() {
 
   const { data: newsItems } = await staticFetcher(
     `${ip}/articles?${qs.stringify({
+      sort: ['createdAt:desc'],
       populate: ['coverImage', 'category'],
-      sort: ['updatedAt:desc'],
       pagination: {
         page: 1,
         pageSize: ITEMS_PER_PAGE,
