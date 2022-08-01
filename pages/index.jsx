@@ -193,9 +193,8 @@ export async function getStaticProps() {
     process.env.API_KEY,
   );
 
-  let newsItems = articles.homePageFeaturedArticles.map(
-    (article) => article.article,
-  );
+  let newsItems =
+    articles.homePageFeaturedArticles.map((article) => article.article) || [];
 
   const { data: items } = await staticFetcher(
     `${ip}/items?${qs.stringify({
