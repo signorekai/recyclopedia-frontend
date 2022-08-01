@@ -77,11 +77,11 @@ const Cards = ({ tags, columnCount = 3 }) => {
   items['All'] = (
     <>
       <div
-        className={`grid grid-cols-2 md:grid-cols-3 ${
+        className={`cards ${
           { 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4', 5: 'lg:grid-cols-5' }[
             columnCount
           ]
-        } gap-x-2 gap-y-4 lg:gap-x-7 lg:gap-y-6 lg:mt-6`}>
+        }`}>
         {resources.map((items) => {
           return items.map((item, key) => (
             <Card
