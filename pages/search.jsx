@@ -30,11 +30,11 @@ const SingleSearchType = ({
       {showHeader && (
         <>
           <section
-            className={`py-4 lg:py-10 ${
+            className={`pt-4 pb-1 lg:pt-10 ${
               type === 'articles' ? 'text-black' : 'text-white'
             }`}
             style={{ backgroundColor: pageOptions.colour }}>
-            <div className={`container container--narrow`}>
+            <div className={`container `}>
               <h1
                 className={`${
                   type === 'articles' ? 'text-black' : 'text-white'
@@ -48,10 +48,12 @@ const SingleSearchType = ({
                 />
                 {pageOptions.title}
               </h1>
-              <p className="text-lg leading-tight">
-                {items ? items.length : 0} search results for &quot;{query}
-                &quot;
-              </p>
+              {items && items.length > 0 && (
+                <p className="text-lg my-3 leading-tight">
+                  {items.length} search results for &quot;{query}
+                  &quot;
+                </p>
+              )}
             </div>
           </section>
           <SearchBar
@@ -62,16 +64,16 @@ const SingleSearchType = ({
             }
             className="pt-0 pb-2 sticky lg:relative transition-all duration-200"
             searchType={[type]}
-            wrapperClassName="max-w-[800px]"
+            wrapperClassName="max-w-[1040px]"
             inactiveBackgroundColor={pageOptions.colour}
             activeBackgroundColor={pageOptions.colour}
           />
         </>
       )}
       <div className={`container relative z-10 ${className}`}>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 ">
-          {items &&
-            items.map((item, key) => {
+        {items && items.length > 0 && (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 ">
+            {items.map((item, key) => {
               let image;
 
               switch (type) {
@@ -97,7 +99,13 @@ const SingleSearchType = ({
                 />
               );
             })}
-        </div>
+          </div>
+        )}
+        {items && items.length === 0 && (
+          <>
+            <h2 className="text-black block mt-4 lg:mt-10">0 results found</h2>
+          </>
+        )}
       </div>
     </>
   );
@@ -239,6 +247,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
 };
 
 export default function Page(props) {
+  console.log(props);
   return (
     <Layout>
       <Head>
@@ -246,16 +255,14 @@ export default function Page(props) {
           Recyclopedia - Search Results for &quot;{props.query}&quot;
         </title>
       </Head>
-      {props.success &&
-        Object.keys(props.data).length > 0 &&
-        props.type.length === 1 && (
-          <SingleSearchType
-            type={props.type[0]}
-            query={props.query}
-            pageOptions={props.pageOptions[props.type[0]].data}
-            items={props.data[props.type[0]]}
-          />
-        )}
+      {props.success && props.type.length === 1 && (
+        <SingleSearchType
+          type={props.type[0]}
+          query={props.query}
+          pageOptions={props.pageOptions[props.type[0]].data}
+          items={props.data[props.type[0]] || []}
+        />
+      )}
       {props.success &&
         Object.keys(props.data).length > 0 &&
         props.type.length > 1 && <MultiSearchType {...props} />}
