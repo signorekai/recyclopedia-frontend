@@ -74,11 +74,18 @@ export default function Page({
               <h5 className="text-left">{article.category.title}</h5>
             )}
             <h1 className="text-black pt-2 mb-0">{article.title}</h1>
-            <h4 className="mb-4 mt-2">
-              {DateTime.fromISO(article.updatedAt).toLocaleString(
+            <h4 className="mt-2">
+              Published on{' '}
+              {DateTime.fromISO(article.createdAt).toLocaleString(
                 DateTime.DATE_MED,
               )}
             </h4>
+            <h6 className="mb-4 text-sm text-grey-mid">
+              Last updated on{' '}
+              {DateTime.fromISO(article.updatedAt).toLocaleString(
+                DateTime.DATE_MED,
+              )}
+            </h6>
             <div className="lg:w-3/4">
               {article.coverImage && (
                 <NewImage
