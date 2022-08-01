@@ -189,7 +189,7 @@ function ResourcePage({ data, baseUrl }) {
                   <div className="h-[1px] w-full bg-white mt-2 order-2 lg:order-3"></div>
                   {data.description && (
                     <motion.div
-                      className="order-4"
+                      className="order-4 break-all"
                       viewport={{ once: true }}
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}>
@@ -232,7 +232,7 @@ function ResourcePage({ data, baseUrl }) {
                   )}
                   {data.locations && (
                     <motion.div
-                      className="order-6 mt-2"
+                      className="order-6 mt-2 break-all"
                       viewport={{ once: true }}
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}>
