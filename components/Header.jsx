@@ -125,7 +125,7 @@ export default function Header({
       <motion.header
         ref={headerRef}
         variants={{
-          show: { y: '0%' },
+          show: { y: '0' },
           hide: { y: '-120%' },
           desktop: { position: 'fixed', top: 0 },
         }}
