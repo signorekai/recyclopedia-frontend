@@ -207,7 +207,7 @@ export async function getStaticProps() {
   const fetchEachCategory = categoryTitles.map(async (title) => {
     const query = qs.stringify({
       populate: ['coverImage', 'category'],
-      sort: ['updatedAt:desc'],
+      sort: ['title:desc'],
       pagination: {
         page: 1,
         pageSize: ITEMS_PER_PAGE,
@@ -237,7 +237,7 @@ export async function getStaticProps() {
   const { data: allArticles } = await staticFetcher(
     `${process.env.API_URL}/articles?${qs.stringify({
       populate: ['coverImage', 'category'],
-      sort: ['updatedAt:desc'],
+      sort: ['createdAt:desc'],
       pagination: {
         page: 1,
         pageSize: ITEMS_PER_PAGE,
