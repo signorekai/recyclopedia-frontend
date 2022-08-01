@@ -6,6 +6,7 @@ export default function handler(req, res) {
     const query = qs.stringify({
       populate: ['images'],
       sort: ['visits:desc', 'title'],
+      publicationState: 'live',
       fields: ['title', 'slug'],
       pagination: {
         page: parseInt(req.query.page) + 1,

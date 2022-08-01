@@ -5,7 +5,8 @@ export default function handler(req, res) {
     const ip = process.env.API_URL;
     const query = {
       populate: ['coverImage', 'items', 'category'],
-      sort: ['createdAt:desc'],
+      publicationState: 'live',
+      sort: ['updatedAt:desc'],
       pagination: {
         page: parseInt(req.query.page) + 1,
         pageSize: req.query.pageSize,

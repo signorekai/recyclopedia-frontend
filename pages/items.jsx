@@ -110,6 +110,7 @@ export async function getStaticProps() {
   const query = qs.stringify({
     populate: ['images'],
     fields: ['title', 'slug'],
+    publicationState: 'live',
     sort: ['visits:desc', 'title'],
     pagination: {
       page: 0,

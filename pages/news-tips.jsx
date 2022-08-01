@@ -237,7 +237,8 @@ export async function getStaticProps() {
   const { data: allArticles } = await staticFetcher(
     `${process.env.API_URL}/articles?${qs.stringify({
       populate: ['coverImage', 'category'],
-      sort: ['createdAt:desc'],
+      publicationState: 'live',
+      sort: ['updatedAt:desc'],
       pagination: {
         page: 1,
         pageSize: ITEMS_PER_PAGE,
