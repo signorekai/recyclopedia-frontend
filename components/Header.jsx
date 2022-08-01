@@ -89,9 +89,7 @@ export default function Header({
         passive: true,
       });
       return () => {
-        window.removeEventListener('scroll', debouncedScrollHandler, {
-          passive: true,
-        });
+        window.removeEventListener('scroll', debouncedScrollHandler);
       };
     }
   }, [
