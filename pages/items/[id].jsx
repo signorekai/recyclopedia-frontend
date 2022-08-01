@@ -539,20 +539,21 @@ export async function getStaticProps({ params }) {
 
   let relatedItems = [];
   let relatedItemsIndex = [];
-  const unparsedRelatedItems = results.data[0].itemCategory.items;
+  if (!!results.data[0].itemCategory) {
+    const unparsedRelatedItems = results.data[0].itemCategory.items;
 
-  while (
-    relatedItems.length < ITEMS_PER_PAGE &&
-    relatedItems.length < unparsedRelatedItems.length
-  ) {
-    const x = Math.floor(Math.random() * unparsedRelatedItems.length);
-    if (relatedItemsIndex.indexOf(x) === -1) {
-      relatedItems.push(unparsedRelatedItems[x]);
-      relatedItemsIndex.push(x);
+    while (
+      relatedItems.length < ITEMS_PER_PAGE &&
+      relatedItems.length < unparsedRelatedItems.length
+    ) {
+      const x = Math.floor(Math.random() * unparsedRelatedItems.length);
+      if (relatedItemsIndex.indexOf(x) === -1) {
+        relatedItems.push(unparsedRelatedItems[x]);
+        relatedItemsIndex.push(x);
+      }
     }
+    results.data[0].itemCategory.items = relatedItems;
   }
-
-  results.data[0].itemCategory.items = relatedItems;
 
   return { props: { data: results.data[0] }, revalidate: 3600 };
 }
