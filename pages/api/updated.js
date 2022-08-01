@@ -16,6 +16,10 @@ export default async function handler(req, res) {
   let url = [];
 
   switch (model) {
+    case 'general-setting':
+      url.push('/');
+      break;
+
     case 'article':
       url.push('/');
       url.push('/news-tips');
