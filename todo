@@ -36,3 +36,4 @@ bugs:
   ✔ Homepage - sometihng wrong with the carousel loading into the second card instead of the first @done(22-07-27 16:19)
   ✔ https://recyclopedia-frontend.vercel.app/articles/definitions not showing up in /news-tips @done(22-07-28 13:43)
   [] back button to use window.history.goBack()
+  [] accordion should check for empty tabs
