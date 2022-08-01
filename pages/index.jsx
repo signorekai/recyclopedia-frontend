@@ -16,6 +16,8 @@ import Link from '../components/Link';
 export default function Home({ items, newsItems }) {
   const { width } = useWindowDimensions();
 
+  console.log(newsItems);
+
   return (
     <Layout showHeaderInitially={false} showHeaderOn="DOWN" hideHeaderOn="">
       <Head>
@@ -180,22 +182,25 @@ export default function Home({ items, newsItems }) {
 export async function getStaticProps() {
   const ip = process.env.API_URL;
 
-  const { data: items } = await staticFetcher(
-    `${ip}/items?${qs.stringify({
-      sort: ['visits:desc', 'title'],
-      populate: ['images'],
-      pagination: {
-        page: 1,
-        pageSize: ITEMS_PER_PAGE,
-      },
+  const { data: articles } = await staticFetcher(
+    `${ip}/general-setting?${qs.stringify({
+      populate: [
+        'homePageFeaturedArticles',
+        'homePageFeaturedArticles.article.coverImage',
+        'homePageFeaturedArticles.article.category',
+      ],
     })}`,
     process.env.API_KEY,
   );
 
-  const { data: newsItems } = await staticFetcher(
-    `${ip}/articles?${qs.stringify({
-      sort: ['createdAt:desc'],
-      populate: ['coverImage', 'category'],
+  let newsItems = articles.homePageFeaturedArticles.map(
+    (article) => article.article,
+  );
+
+  const { data: items } = await staticFetcher(
+    `${ip}/items?${qs.stringify({
+      sort: ['visits:desc', 'title'],
+      populate: ['images'],
       pagination: {
         page: 1,
         pageSize: ITEMS_PER_PAGE,
