@@ -6,7 +6,7 @@ export default function handler(req, res) {
     const query = {
       populate: ['coverImage', 'items', 'category'],
       publicationState: 'live',
-      sort: ['updatedAt:desc'],
+      sort: ['order:desc', 'updatedAt:desc'],
       pagination: {
         page: parseInt(req.query.page) + 1,
         pageSize: req.query.pageSize,

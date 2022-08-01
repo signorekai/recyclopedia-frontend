@@ -238,7 +238,7 @@ export async function getStaticProps() {
     `${process.env.API_URL}/articles?${qs.stringify({
       populate: ['coverImage', 'category'],
       publicationState: 'live',
-      sort: ['updatedAt:desc'],
+      sort: ['order:desc', 'updatedAt:desc'],
       pagination: {
         page: 1,
         pageSize: ITEMS_PER_PAGE,
