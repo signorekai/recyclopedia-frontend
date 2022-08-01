@@ -95,7 +95,7 @@ export default function SearchBar({
     // setFormValue('');
   };
 
-  const handleOnFocus = () => {
+  const _handleOnFocus = () => {
     setIsFocused(true);
   };
 
@@ -104,16 +104,6 @@ export default function SearchBar({
     setTimeout(() => {
       formRef.current.submit();
     }, 100);
-  };
-
-  const handleOnBlur = (e) => {
-    // console.log('onblur');
-    if (width >= 1080) setIsFocused(false);
-    // console.log('set focus false');
-    if (e && e.relatedTarget) {
-      // console.log(e.relatedTarget);
-      e.relatedTarget.click();
-    }
   };
 
   useEffect(() => {
@@ -180,7 +170,7 @@ export default function SearchBar({
           <form
             className="w-full flex"
             ref={formRef}
-            onFocus={handleOnFocus}
+            onFocus={_handleOnFocus}
             method="get"
             action="/search"
             onSubmit={_handleSubmit}>
@@ -256,7 +246,7 @@ export default function SearchBar({
               className=""
               ref={formRef}
               method="get"
-              onFocus={handleOnFocus}
+              onFocus={_handleOnFocus}
               action="/search"
               onSubmit={_handleSubmit}>
               <div
