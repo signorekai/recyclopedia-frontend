@@ -52,14 +52,17 @@ export const _cacheSearchTerm = (term, key) => {
  */
 /**
  *
- * @param {text} placeholderText Placeholder text for search bar
- * @param {text} activeBackgroundColor HTML accepted color for container bg color when text input is focused
- * @param {text} inactiveBackgroundColor HTML accepted color for container bg color when text input is not focused
- * @param {number} top CSS value `top` for wrapper to allow for dynamic animation
- * @param {text} className classes for container
- * @param {text} wrapperClassName classes for form wrapper
- * @param {text} searchSuggestionsClassName classes for search suggestions wrapper
- * @param {handleOnChange} handleOnChange callback when text input is updated
+ * @param {Object} props
+ * @param {text} props.placeholderText Placeholder text for search bar
+ * @param {text} props.activeBackgroundColor HTML accepted color for container bg color when text input is focused
+ * @param {text} props.inactiveBackgroundColor HTML accepted color for container bg color when text input is not focused
+ * @param {number} props.top CSS value `top` for wrapper to allow for dynamic animation
+ * @param {text} props.className class for container
+ * @param {text} props.wrapperClassName class for form wrapper
+ * @param {text} props.searchSuggestionsClassName class for search suggestions wrapper
+ * @param {text} props.modalSearchBarWrapperClassName class for search bar modal wrapper
+ * @param {handleOnChange} props.handleOnChange callback when text input is updated
+ * @param {boolean} props.showSuggestions show or hide suggestions
  */
 export default function SearchBar({
   placeholderText = 'Search Items',
