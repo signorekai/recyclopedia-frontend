@@ -266,11 +266,55 @@ export const FeedbackForm = ({
   );
 };
 
+/**
+ *
+ * @param {Object} props
+ * @param {"Make A Suggestion"|"General Feedback / Enquiry"|"Report An Error"} [props.topic]
+ * @param {boolean} [props.openModal=false]
+ * @returns
+ */
+export const FeedbackModal = ({
+  openModal = false,
+  record = '',
+  topic = '',
+  handleClick = () => {},
+}) => (
+  <AnimatePresence>
+    {openModal && (
+      <motion.div
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="modal-wrapper items-center !justify-center top-0 left-0 !z-50">
+        <div
+          className="w-full h-full absolute top-0 left-0"
+          onClick={handleClick}
+        />
+        <div className="mx-4 w-full max-w-xl my-14  bg-white py-7 px-3 rounded-lg relative overflow-hidden">
+          <button
+            onClick={handleClick}
+            className="hover:opacity-80 transition-all duration-200">
+            <span className="far fa-times absolute top-4 right-6 text-2xl text-grey" />
+          </button>
+          <h2 className="text-black inline-block px-4">Feedback</h2>
+          <div className="flex-1 lg:max-h-[60vh] overflow-y-auto px-4 pb-4">
+            <FeedbackForm
+              defaultTopic={topic}
+              defaultRecord={record}
+              handleModalClick={handleClick}
+            />
+          </div>
+        </div>
+      </motion.div>
+    )}
+  </AnimatePresence>
+);
+
 export const ReportBtn = ({ record = '', topic = '' }) => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const _handleClick = () => {
-    setModalOpen(!modalOpen);
+    setOpenModal(!openModal);
   };
 
   return (
@@ -281,33 +325,12 @@ export const ReportBtn = ({ record = '', topic = '' }) => {
           <h6 className="mt-2 text-sm">Report Error / Provide Feedback</h6>
         </button>
       </div>
-      <AnimatePresence>
-        {modalOpen && (
-          <motion.div
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="modal-wrapper items-center !justify-center top-0 left-0 !z-50">
-            <div className="mx-4 w-full max-w-xl my-14  bg-white py-7 px-3 rounded-lg relative overflow-hidden">
-              <button
-                onClick={() => {
-                  setModalOpen(false);
-                }}
-                className="hover:opacity-80 transition-all duration-200">
-                <span className="far fa-times absolute top-4 right-6 text-2xl text-grey" />
-              </button>
-              <h2 className="text-black inline-block px-4">Feedback</h2>
-              <div className="flex-1 lg:max-h-[60vh] overflow-y-auto px-4 pb-4">
-                <FeedbackForm
-                  defaultTopic={topic}
-                  defaultRecord={record}
-                  handleModalClick={_handleClick}
-                />
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <FeedbackModal
+        openModal={openModal}
+        record={record}
+        topic={topic}
+        handleClick={_handleClick}
+      />
     </>
   );
 };
