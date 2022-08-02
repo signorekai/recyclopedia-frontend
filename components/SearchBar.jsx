@@ -72,6 +72,7 @@ export default function SearchBar({
   className = '',
   wrapperClassName = 'max-w-screen-lg ',
   searchSuggestionsClassName = '',
+  modalSearchBarWrapperClassName = '',
   handleOnChange = () => {},
   showBottomSpacing = true,
   searchType = ['items'],
@@ -253,7 +254,7 @@ export default function SearchBar({
               action="/search"
               onSubmit={_handleSubmit}>
               <div
-                className="px-4 py-3"
+                className={`px-4 py-3 ${modalSearchBarWrapperClassName}`}
                 style={{ backgroundColor: activeBackgroundColor }}>
                 <motion.div
                   layoutId={`${uniq.current}-search-bar`}
@@ -294,7 +295,7 @@ export default function SearchBar({
                   // animate: { y: 0, opacity: 1 },
                   exit: { y: 50, scale: 0.9 },
                 }}
-                className="search-suggestions">
+                className={`search-suggestions ${searchSuggestionsClassName}`}>
                 <ul className="plain">
                   {suggestions.current.map((suggestion, key) => (
                     <Suggestion
