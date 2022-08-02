@@ -102,6 +102,12 @@ const CheckAuth = () => {
   return <></>;
 };
 
+/**
+ *
+ * @param {Object} props
+ * @param {"Make A Suggestion"|"General Feedback / Enquiry"|"Report An Error"} props.defaultTopic
+ * @returns
+ */
 export const FeedbackForm = ({
   defaultTopic = '',
   defaultRecord,
