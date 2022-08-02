@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import qs from 'qs';
 import { object, string, array } from 'yup';
 import Head from 'next/head';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { staticFetcher, useWindowDimensions } from '../lib/hooks';
@@ -16,6 +16,7 @@ import {
 } from '../components/Accordion';
 import { Carousel, CarouselCard } from '../components/Carousel';
 import { getOrSetVisitorToken } from '../lib/analytics';
+import { FeedbackModal } from '../components/Report';
 
 const SingleSearchType = ({
   type,
@@ -25,6 +26,11 @@ const SingleSearchType = ({
   showHeader = true,
   className = '',
 }) => {
+  const [openModal, setOpenModal] = useState(false);
+  const _handleClick = () => {
+    setOpenModal(!openModal);
+  };
+
   return (
     <>
       {showHeader && (
@@ -34,7 +40,10 @@ const SingleSearchType = ({
               type === 'articles' ? 'text-black' : 'text-white'
             }`}
             style={{ backgroundColor: pageOptions.colour }}>
-            <div className={`container `}>
+            <div
+              className={`container ${
+                items && items.length === 0 && `container--narrow`
+              }`}>
               <h1
                 className={`${
                   type === 'articles' ? 'text-black' : 'text-white'
@@ -64,14 +73,16 @@ const SingleSearchType = ({
             }
             className="pt-0 pb-2 sticky lg:relative transition-all duration-200"
             searchType={[type]}
-            wrapperClassName="max-w-[1040px]"
+            wrapperClassName={
+              items && items.length > 0 ? `max-w-[1040px]` : `max-w-[800px]`
+            }
             inactiveBackgroundColor={pageOptions.colour}
             activeBackgroundColor={pageOptions.colour}
           />
         </>
       )}
-      <div className={`container relative z-10 ${className}`}>
-        {items && items.length > 0 && (
+      {items && items.length > 0 && (
+        <div className={`container relative z-10 ${className}`}>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 ">
             {items.map((item, key) => {
               let image;
@@ -100,13 +111,32 @@ const SingleSearchType = ({
               );
             })}
           </div>
-        )}
-        {items && items.length === 0 && (
-          <>
-            <h2 className="text-black block mt-4 lg:mt-10">0 results found</h2>
-          </>
-        )}
-      </div>
+        </div>
+      )}
+      {items && items.length === 0 && (
+        <div
+          className={`container relative container--narrow z-10 ${className}`}>
+          <h2 className="text-black block mt-4 lg:mt-10">0 results found</h2>
+          <p className="mt-4 text-sm md:text-base">
+            Double check your search, or try a different term.
+          </p>
+          <p className="mt-8 lg:mt-12 lg:text-lg">
+            Have something in mind you can’t find here? You can help us build up
+            our database which in turn helps the community.{' '}
+          </p>
+          <button
+            onClick={_handleClick}
+            className="mt-4 hover:opacity-80 text-lg text-coral">
+            Make a suggestion
+            <i className="p-2 far fa-arrow-right" />
+          </button>
+          <FeedbackModal
+            openModal={openModal}
+            topic="Make A Suggestion"
+            handleClick={_handleClick}
+          />
+        </div>
+      )}
     </>
   );
 };
