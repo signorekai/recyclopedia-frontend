@@ -393,7 +393,7 @@ p + p {
     @apply max-h-[600px] my-4;
 
     img {
-      @apply mx-auto;
+      @apply mx-auto max-h-[600px];
     }
 
     &.image_resized {
