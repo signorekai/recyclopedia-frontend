@@ -76,6 +76,7 @@ export default function SearchBar({
   handleOnChange = () => {},
   showBottomSpacing = true,
   searchType = ['items'],
+  showSuggestions = true,
 }) {
   const [isFocused, setIsFocused] = useState(false);
   const [formValue, setFormValue] = useState('');
@@ -117,12 +118,12 @@ export default function SearchBar({
   }, [searchBarRef, isFocused]);
 
   useEffect(() => {
-    if (localStorage) {
+    if (localStorage && showSuggestions) {
       const cached = localStorage.getItem(searchType.join(','));
       if (cached !== null && cached.length > 0)
         suggestions.current = cached.split(',');
     }
-  }, [searchType]);
+  }, [searchType, showSuggestions]);
 
   useEffect(() => {
     const handleFocusIn = (e) => {
@@ -167,7 +168,10 @@ export default function SearchBar({
         <motion.div
           layoutId={`${uniq.current}-search-bar`}
           className={`search-bar-wrapper transition-[border-radius] bg-white placeholder:text-grey-dark border-0 border-grey-dark relative ${wrapperClassName} ${
-            isFocused && width > 1080 && suggestions.current.length > 0
+            isFocused &&
+            width > 1080 &&
+            suggestions.current.length > 0 &&
+            showSuggestions
               ? 'rounded-b-none rounded-t-22'
               : ''
           }`}>
@@ -207,7 +211,7 @@ export default function SearchBar({
               <span className="fal fa-times search-icon border-l-1 border-bg pl-2"></span>
             </button>
             <AnimatePresence>
-              {isFocused && width > 1080 && (
+              {isFocused && width > 1080 && showSuggestions && (
                 <motion.div
                   transition={{ bounce: 0, duration: 0.1 }}
                   variants={{

@@ -72,6 +72,7 @@ const SingleSearchType = ({
                 : 'Search for something else'
             }
             className="pt-0 pb-2 sticky lg:relative transition-all duration-200"
+            showSuggestions={false}
             searchType={[type]}
             wrapperClassName={
               items && items.length > 0 ? `max-w-[1040px]` : `max-w-[800px]`
@@ -146,7 +147,13 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
   const CardWidth = width > 1080 ? 24 : 40;
   const router = useRouter();
 
-  const [headerTabs, contentTabs] = useMemo(() => {
+  const [openModal, setOpenModal] = useState(false);
+  const _handleClick = () => {
+    setOpenModal(!openModal);
+  };
+
+  const [headerTabs, contentTabs, totalItemsCount] = useMemo(() => {
+    let totalItemsCount = 0;
     const headerTabs = [];
 
     const contentTabs = {
@@ -252,32 +259,72 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
           />
         );
       }
+      totalItemsCount += value.length;
     }
-    return [headerTabs, contentTabs];
+    return [headerTabs, contentTabs, totalItemsCount];
   }, [CardWidth, data, pageOptions, query, width]);
 
   return (
     <>
-      <div className="container relative z-10 pt-4 lg:pt-10">
+      <div
+        className={`container relative z-10 pt-4 lg:pt-10 ${
+          totalItemsCount === 0 && 'container--narrow'
+        }`}>
         <h1 className="text-black">Search Results</h1>
-        <p className="text-lg leading-tight">
-          You searched for &quot;{query}&quot;
-        </p>
       </div>
-      <AccordionProvider headers={['All', ...headerTabs]}>
-        <AccordionHeader
-          className="mt-6"
-          carouselClassName="scroll-px-4"
-          sliderClassName="lg:max-w-screen-lg mx-auto px-6"
-        />
-        <AccordionBody {...contentTabs} />
-      </AccordionProvider>
+      <SearchBar
+        placeholderText={
+          totalItemsCount > 0 ? query : 'Search for something else'
+        }
+        searchType={type}
+        showBottomSpacing={false}
+        showSuggestions={false}
+        className="mt-4"
+        searchSuggestionsClassName="!bg-grey-white border-x-1 border-b-1 border-black"
+        modalSearchBarWrapperClassName="!bg-blue-dark"
+        wrapperClassName={`border-1
+          ${totalItemsCount > 0 ? `max-w-[1040px]` : `max-w-[800px]`}
+        `}
+      />
+      {totalItemsCount > 0 && (
+        <AccordionProvider headers={['All', ...headerTabs]}>
+          <AccordionHeader
+            className="mt-10"
+            carouselClassName="scroll-px-4"
+            sliderClassName="lg:max-w-screen-lg mx-auto px-6"
+          />
+          <AccordionBody {...contentTabs} />
+        </AccordionProvider>
+      )}
+      <div className="border-b-1 mt-4 mb-6 lg:my-10 block w-full border-grey"></div>
+      {totalItemsCount === 0 && (
+        <div className={`container relative container--narrow z-10`}>
+          <h2 className="text-black block mt-4 lg:mt-10">0 results found</h2>
+          <p className="mt-4 text-sm md:text-base">
+            Double check your search, or try a different term.
+          </p>
+          <p className="mt-8 lg:mt-12 lg:text-lg">
+            Have something in mind you can’t find here? You can help us build up
+            our database which in turn helps the community.{' '}
+          </p>
+          <button
+            onClick={_handleClick}
+            className="mt-4 hover:opacity-80 text-lg text-coral">
+            Make a suggestion
+            <i className="p-2 far fa-arrow-right" />
+          </button>
+          <FeedbackModal
+            openModal={openModal}
+            topic="Make A Suggestion"
+            handleClick={_handleClick}
+          />
+        </div>
+      )}
     </>
   );
 };
 
 export default function Page(props) {
-  console.log(props);
   return (
     <Layout>
       <Head>
@@ -293,9 +340,7 @@ export default function Page(props) {
           items={props.data[props.type[0]] || []}
         />
       )}
-      {props.success &&
-        Object.keys(props.data).length > 0 &&
-        props.type.length > 1 && <MultiSearchType {...props} />}
+      {props.success && props.type.length > 1 && <MultiSearchType {...props} />}
     </Layout>
   );
 }
