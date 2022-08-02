@@ -86,7 +86,7 @@ export default function Page({
                   <h4 className="mt-2">{publicationDate}</h4>
                   {updatedDate !== publicationDate && (
                     <h6 className="text-sm text-grey-mid">
-                      Updated on {updatedDate}
+                      Last Updated: {updatedDate}
                     </h6>
                   )}
                 </span>
