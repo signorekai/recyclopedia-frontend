@@ -157,7 +157,7 @@ export default function Page({
                   <div className="lg:w-1/4">
                     <h5 className="text-left">
                       <i className="far fa-info-circle pr-2" />
-                      Useful links
+                      Related Resources
                     </h5>
                   </div>
                   <div className="flex-1">
