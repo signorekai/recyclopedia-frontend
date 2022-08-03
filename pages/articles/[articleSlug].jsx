@@ -75,9 +75,13 @@ export default function Page({
             )}
             <h1 className="text-black pt-2 mb-0">{article.title}</h1>
             {(function () {
-              const publicationDate = DateTime.fromISO(
-                article.createdAt,
-              ).toLocaleString(DateTime.DATE_MED);
+              const publicationDate = article.publicationDate
+                ? DateTime.fromISO(article.publicationDate).toLocaleString(
+                    DateTime.DATE_MED,
+                  )
+                : DateTime.fromISO(article.createdAt).toLocaleString(
+                    DateTime.DATE_MED,
+                  );
               const updatedDate = DateTime.fromISO(
                 article.updatedAt,
               ).toLocaleString(DateTime.DATE_MED);
