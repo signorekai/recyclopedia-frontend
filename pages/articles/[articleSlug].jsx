@@ -116,10 +116,7 @@ export default function Page({
               <div className="lg:divider-b">
                 <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
                   <div className="lg:w-1/4">
-                    <h5 className="text-left">
-                      <i className="far fa-question-circle pr-2" />
-                      Related Items
-                    </h5>
+                    <h5 className="text-left">Related Items</h5>
                   </div>
                   <div className="flex-1 mt-4">
                     <Carousel
@@ -159,10 +156,7 @@ export default function Page({
               <div className="lg:divider-b">
                 <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
                   <div className="lg:w-1/4">
-                    <h5 className="text-left">
-                      <i className="far fa-info-circle pr-2" />
-                      Related Resources
-                    </h5>
+                    <h5 className="text-left">Related Resources</h5>
                   </div>
                   <div className="flex-1">
                     <Carousel
