@@ -9,6 +9,7 @@ import { Carousel, CarouselCard } from '../../components/Carousel';
 import Card from '../../components/Card';
 import { staticFetcher, useWindowDimensions } from '../../lib/hooks';
 import NewImage from '../../components/Image';
+import BookmarkButton from '../../components/BookmarkButton';
 
 export default function Page({
   article,
@@ -73,7 +74,15 @@ export default function Page({
             {article.category && (
               <h5 className="text-left">{article.category.title}</h5>
             )}
-            <h1 className="text-black pt-2 mb-0">{article.title}</h1>
+            <h1 className="text-black pt-2 mb-0">
+              {article.title}{' '}
+              <BookmarkButton
+                className="ml-2 mt-1 page-icon-wrapper shadow-none bg-grey-light"
+                contentType="articles"
+                slug={article.slug}
+                contentId={article.id}
+              />
+            </h1>
             {(function () {
               const publicationDate = article.publicationDate
                 ? DateTime.fromISO(article.publicationDate).toLocaleString(
