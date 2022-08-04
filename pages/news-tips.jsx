@@ -36,9 +36,9 @@ const Card = ({ params = {} }) => {
               <Link key={article.slug} href={`/articles/${article.slug}`}>
                 <a>
                   <div className="flex flex-row mb-8 gap-x-4 flex-wrap divider-b divider-b-taller">
-                    <div className="w-1/3 md:min-h-[150px]">
+                    <div className="w-1/3 md:min-h-[200px]">
                       <NewImage
-                        className="aspect-[248/184] md:rounded-md"
+                        className="aspect-[248/200] md:rounded-md"
                         sizes="270px"
                         source={article.coverImage || {}}
                         layout="responsive"
@@ -72,9 +72,8 @@ export default function Page({
   fallback,
   categoryTitles,
 }) {
-  const { title, featuredArticles } = pageOptions;
+  const { title } = pageOptions;
   const x = useSearchBarTopValue();
-  const { width } = useWindowDimensions();
 
   const articleTabs = {};
 
@@ -132,46 +131,14 @@ export default function Page({
         inactiveBackgroundColor={pageOptions.colour}
         activeBackgroundColor={pageOptions.colour}
       />
-      <div className="container pt-4 md:pt-10">
-        {featuredArticles && (
-          <div className="grid md:grid-cols-2 gap-8">
-            {featuredArticles.map(({ article }) => (
-              <>
-                {article && (
-                  <div key={article.slug}>
-                    <Link href={`/articles/${article.slug}`}>
-                      <a>
-                        <NewImage
-                          className="aspect-[503/374] lg:rounded-md"
-                          sizes="600px"
-                          width={'100%'}
-                          height={width >= 1080 ? 374 : 278}
-                          source={article.coverImage}
-                          layout="fixed"
-                        />
-                        <div className="px-2 lg:px-0">
-                          <h5 className="text-left pt-2">
-                            {article.category.title}
-                          </h5>
-                          <h3 className="text-black">{article.title}</h3>
-                        </div>
-                      </a>
-                    </Link>
-                  </div>
-                )}
-              </>
-            ))}
-          </div>
-        )}
-      </div>
       <SWRConfig value={{ fallback }}>
         <AccordionProvider headers={['All', ...categoryTitles]}>
-          <AccordionHeader
-            className="mt-6 lg:mt-16"
-            carouselClassName="scroll-px-4"
-            sliderClassName="lg:max-w-[840px] mx-auto px-4"
-          />
-          <div className="container container--narrow">
+          <div className="container ">
+            <AccordionHeader
+              className=""
+              carouselClassName="scroll-px-4"
+              sliderClassName="mx-auto "
+            />
             <AccordionBody {...articleTabs} />
           </div>
         </AccordionProvider>
@@ -184,14 +151,7 @@ export async function getStaticProps() {
   const fallback = {};
 
   const { data: pageOptions } = await staticFetcher(
-    `${process.env.API_URL}/news-and-tips-page?${qs.stringify({
-      populate: [
-        'featuredArticles',
-        'featuredArticles.article',
-        'featuredArticles.article.coverImage',
-        'featuredArticles.article.category',
-      ],
-    })}`,
+    `${process.env.API_URL}/news-and-tips-page`,
     process.env.API_KEY,
   );
 
