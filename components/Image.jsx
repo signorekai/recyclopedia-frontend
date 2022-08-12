@@ -4,7 +4,10 @@ import { useElementSize } from '../lib/hooks';
 
 /**
  *
- * @param {"responsive"|"fixed"} [layout="responsive"]
+ * @param {Object} props
+ * @param {"responsive"|"fixed"} [props.layout="responsive"]
+ * @param {string} [props.wrapperClassName]
+ * @param {string} [props.className]
  * @returns
  */
 export default function Image({
@@ -14,6 +17,7 @@ export default function Image({
   alt,
   source = {},
   className = '',
+  wrapperClassName = '',
   style = {},
 }) {
   const src = source.url || '';
@@ -61,7 +65,7 @@ export default function Image({
   return (
     <span
       ref={ref}
-      className="inline-flex justify-center items-center w-[initial] h-[initial] relative overflow-hidden inset-0"
+      className={`inline-flex justify-center items-center w-[initial] h-[initial] relative overflow-hidden inset-0 ${wrapperClassName}`}
       style={layout === 'responsive' ? responsiveStyles : fixedStyles}>
       <img
         src={actualSrc}
