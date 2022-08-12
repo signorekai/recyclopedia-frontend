@@ -86,7 +86,8 @@ const Card = ({
                 content.image.hasOwnProperty('url')) ||
                 (content.images && content.images.length === 1)) && (
                 <Image
-                  className="rounded-md group-hover:scale-110 transition-transform"
+                  wrapperClassName="rounded-md"
+                  className="group-hover:scale-110 transition-transform"
                   source={content.images ? content.images[0] : content.image}
                   alt={`Photo of ${content.headerText}`}
                 />
