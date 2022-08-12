@@ -287,7 +287,7 @@ function ResourcePage({ data, baseUrl }) {
                             className="w-36 lg:w-64 overflow-hidden relative">
                             <Card
                               className="w-full"
-                              imgClassName="h-[200px]"
+                              imagesWrapperClassName="h-[200px]"
                               uniqueKey={`related-${key}`}
                               key={`related-${key}`}
                               content={{

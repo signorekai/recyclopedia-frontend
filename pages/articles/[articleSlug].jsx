@@ -144,7 +144,7 @@ export default function Page({
                           className="w-screen-1/2 lg:w-[250px] mt-0">
                           <Card
                             className="w-full"
-                            imgClassName="h-[200px]"
+                            imagesWrapperClassName="h-[200px]"
                             uniqueKey={`related-${key}`}
                             key={`related-${key}`}
                             content={{
@@ -184,7 +184,7 @@ export default function Page({
                           className="w-screen-1/2 lg:w-[250px] mt-0">
                           <Card
                             className="w-full"
-                            imgClassName="h-[200px]"
+                            imagesWrapperClassName="h-[200px]"
                             uniqueKey={`related-${key}`}
                             key={`related-${key}`}
                             content={{

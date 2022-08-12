@@ -160,7 +160,8 @@ export default function Home({ items, newsItems }) {
             <CarouselCard key={key} className="w-screen-3/4 lg:w-screen-1/4">
               <Card
                 className="w-full"
-                imgClassName="h-[200px]"
+                imagesWrapperClassName="h-[200px]"
+                imgClassName=""
                 uniqueKey={`news-${item.slug}`}
                 content={{
                   image: item.coverImage || {},

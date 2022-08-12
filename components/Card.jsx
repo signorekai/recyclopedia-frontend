@@ -40,7 +40,8 @@ const Card = ({
   content = {},
   className = '',
   uniqueKey,
-  imgClassName = 'aspect-square',
+  imagesWrapperClassName = 'aspect-square',
+  imgClassName = '',
 }) => {
   return (
     <LinkWrapper content={content}>
@@ -52,7 +53,7 @@ const Card = ({
             animate="animate"
             exit="exit"
             className={`${className}`}>
-            <div className={imgClassName}>
+            <div className={imagesWrapperClassName}>
               {content.images && content.images.length > 1 && (
                 <CarouselProvider
                   totalSlides={content.images.length}
@@ -62,7 +63,7 @@ const Card = ({
                     {content.images.map((image, key) => (
                       <Slide key={key} index={key} style={{ paddingBottom: 0 }}>
                         <Image
-                          className="rounded-md group-hover:scale-110 transition-transform"
+                          className={`rounded-md group-hover:scale-110 transition-transform ${imgClassName}`}
                           alt={image.alternativeText}
                           source={image}
                           width={
