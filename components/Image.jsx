@@ -68,6 +68,7 @@ export default function Image({
       className={`inline-flex justify-center items-center w-[initial] h-[initial] relative overflow-hidden inset-0 ${wrapperClassName}`}
       style={layout === 'responsive' ? responsiveStyles : fixedStyles}>
       <img
+        nopin="nopin"
         src={actualSrc}
         alt=""
         className={`object-cover object-center absolute w-0 h-0 min-w-full max-w-full min-h-full max-h-full ${className}`}
