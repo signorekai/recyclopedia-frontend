@@ -153,11 +153,11 @@ export default function Home({ items, newsItems }) {
         <Carousel
           desktopControls={true}
           autoSlideSize={false}
-          slideWidth={width * (width > 1080 ? 0.25 : 0.75)}
+          slideWidth={width > 1080 ? 347 : width * 0.75}
           showNav={false}
           className="mt-3">
           {newsItems.map((item, key) => (
-            <CarouselCard key={key} className="w-screen-3/4 lg:w-screen-1/4">
+            <CarouselCard key={key} className="w-screen-3/4 lg:w-[347px]">
               <Card
                 className="w-full"
                 imagesWrapperClassName="h-[200px]"
