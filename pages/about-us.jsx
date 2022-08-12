@@ -54,7 +54,7 @@ export default function Page({ pageOptions }) {
           </p>
         </div>
       </div>
-      {supporters && (
+      {supporters && supporters.length > 1 && (
         <div className="container flex flex-col lg:flex-row mt-8 lg:mt-12 items-start">
           <h3 className="text-black lg:w-1/4 lg:justify-start">
             Proudly Supported by
