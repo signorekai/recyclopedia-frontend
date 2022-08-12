@@ -255,7 +255,7 @@ ul:not(.plain) {
 }
 
 a {
-  @apply hover:opacity-70;
+  @apply text-blue hover:text-blue-light;
 }
 
 a:not(.motion-controlled) {
@@ -271,6 +271,10 @@ p + p {
   @apply flex flex-row items-center;
   @apply lg:p-4 z-40 lg:!translate-y-0;
   @apply lg:sticky;
+
+  a {
+    @apply text-white hover:text-grey-light;
+  }
 
   .header-wrapper {
     @apply pt-1;
