@@ -290,6 +290,7 @@ function ResourcePage({ data, baseUrl }) {
                               imagesWrapperClassName="h-[200px]"
                               uniqueKey={`related-${key}`}
                               key={`related-${key}`}
+                              prefixIcon={item.resourceIcon || ''}
                               content={{
                                 image: item.images ? item.images[0] : {},
                                 headerText: item.title,

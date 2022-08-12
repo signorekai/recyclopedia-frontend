@@ -48,6 +48,7 @@ const ResourceTab = ({ tag, columnCount = 3 }) => {
               key={key}
               className="w-full"
               uniqueKey={`card-${key}`}
+              prefixIcon={item.resourceIcon || ''}
               content={{
                 image: item.images ? item.images[0] : {},
                 headerText: item.title,
@@ -88,6 +89,7 @@ const Cards = ({ tags, columnCount = 3 }) => {
               key={key}
               className="w-full"
               uniqueKey={`card-${key}`}
+              prefixIcon={item.resourceIcon || ''}
               content={{
                 image: item.images ? item.images[0] : {},
                 headerText: item.title,

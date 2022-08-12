@@ -34,6 +34,7 @@ const Cards = ({ columnCount = 3 }) => {
                 key={key}
                 className="w-full"
                 uniqueKey={`card-${key}`}
+                prefixIcon={item.resourceIcon || ''}
                 content={{
                   images: item.images,
                   headerText: item.title,

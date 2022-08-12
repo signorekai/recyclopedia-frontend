@@ -62,6 +62,7 @@ const LinkWrapper = ({ children, content }) => {
  * @param {string} [props.className=""]
  * @param {string} [props.imagesWrapperClassName="aspect-square"]
  * @param {string} [props.imgClassName=""]
+ * @param {'telegram'|'facebook'|''} [props.prefixIcon]
  * @returns
  */
 const Card = ({
@@ -70,6 +71,7 @@ const Card = ({
   uniqueKey,
   imagesWrapperClassName = 'aspect-square',
   imgClassName = '',
+  prefixIcon = '',
 }) => {
   return (
     <LinkWrapper content={content}>
@@ -77,11 +79,18 @@ const Card = ({
         {content.hasOwnProperty('headerText') ? (
           <motion.div
             variants={variants}
-            initial="intial"
+            initial="initial"
             animate="animate"
             exit="exit"
             className={`${className}`}>
             <div className={`${imagesWrapperClassName} relative`}>
+              {prefixIcon && prefixIcon.length > 0 && (
+                <img
+                  alt=""
+                  className="absolute top-2 left-2 z-40 h-4 md:h-10"
+                  src={`/img/${prefixIcon.toLowerCase()}.svg`}
+                />
+              )}
               {content.images && content.images.length > 1 && (
                 <CarouselProvider
                   totalSlides={content.images.length}

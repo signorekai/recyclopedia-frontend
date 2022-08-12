@@ -323,7 +323,15 @@ function Page({ data }) {
                                 <Link
                                   key={key}
                                   href={`/resources/${resource.slug}`}>
-                                  <a className="group-hover:opacity-100 group-active:opacity-100">
+                                  <a className="group-hover:opacity-100 group-active:opacity-100 relative">
+                                    {resource.resourceIcon &&
+                                      resource.resourceIcon.length > 0 && (
+                                        <img
+                                          alt=""
+                                          className="absolute top-2 left-2 z-40 h-4 md:h-10"
+                                          src={`/img/${resource.resourceIcon.toLowerCase()}.svg`}
+                                        />
+                                      )}
                                     <NewImage
                                       className="group-hover:scale-110 transition-transform"
                                       layout="fixed"
@@ -367,7 +375,7 @@ function Page({ data }) {
                                   : ''
                               } motion-controlled`}>
                               <div
-                                className={`h-20 bg-white-pure border-1 rounded-md border-grey-light flex flex-row justify-between items-center overflow-hidden ${
+                                className={`h-20 bg-white-pure border-1 rounded-md border-grey-light flex flex-row justify-between items-center relative overflow-hidden ${
                                   resource.featured === true
                                     ? 'basic-carousel__card--featured'
                                     : ''
@@ -386,6 +394,14 @@ function Page({ data }) {
                                 ) : (
                                   <div className="w-20 h-20 bg-grey-light" />
                                 )}
+                                {resource.resourceIcon &&
+                                  resource.resourceIcon.length > 0 && (
+                                    <img
+                                      alt=""
+                                      className="absolute top-2 right-14 z-40 h-4 md:h-10"
+                                      src={`/img/${resource.resourceIcon.toLowerCase()}.svg`}
+                                    />
+                                  )}
                               </div>
                               {resource.featured === true && (
                                 <motion.div
@@ -441,6 +457,7 @@ function Page({ data }) {
                               <Card
                                 className="w-full"
                                 uniqueKey={`card-${key}`}
+                                prefixIcon={item.resourceIcon || ''}
                                 content={{
                                   image: item.images ? item.images[0] : {},
                                   headerText: item.title,
