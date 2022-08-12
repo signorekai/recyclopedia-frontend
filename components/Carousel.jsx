@@ -1,4 +1,10 @@
-import { useRef, useEffect, useState, useCallback, Children } from 'react';
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useCallback,
+  Children,
+} from 'react';
 import { motion, useElementScroll, useMotionValue } from 'framer-motion';
 
 import {
@@ -39,6 +45,19 @@ export const CarouselCard = ({
 
 // https://codesandbox.io/s/z22v9qj5rx?file=%2Fsrc%2Findex.js%3A493-506
 
+/**
+ *  Carousel component
+ * @param {Object} props
+ * @param {string} [props.className]
+ * @param {string} [props.sliderClassName]
+ * @param {number} [props.slideWidth=0]
+ * @param {number} [props.scrollTo=0]
+ * @param {boolean} [props.snapToChild=true]
+ * @param {boolean} [props.desktopControls=true]
+ * @param {boolean} [props.autoSlideSize=false]
+ * @param {boolean} [props.disableScroll=false]
+ * @returns {React.ElementType}
+ */
 export const Carousel = ({
   children,
   className = '',
@@ -106,11 +125,7 @@ export const Carousel = ({
 
   useEffect(() => {
     _checkButtons();
-  }, [_checkButtons, carouselRef, slidesContainerRef, slideWidth]);
-
-  useEffect(() => {
-    _checkButtons();
-  }, []);
+  }, [_checkButtons, carouselRef, slidesContainerRef, slideWidth, children]);
 
   useEffect(() => {
     const debouncedFunction = debounce((scroll) => {
