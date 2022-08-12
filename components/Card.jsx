@@ -36,6 +36,34 @@ const LinkWrapper = ({ children, content }) => {
   );
 };
 
+/**
+ * @typedef {Object} CardContentProp
+ * @property {string} headerText
+ * @property {'articles'|'resources'|'items'|'donate'|'shops'} contentType
+ * @property {string} slug
+ */
+
+/**
+ * @typedef {Object} MultiImgCardContentProp
+ * @property {Object[]} images
+ * @augments CardContentProp
+ */
+
+/**
+ * @typedef {Object} SingleImgCardContentProp
+ * @property {Object} image
+ * @augments CardContentProp
+ */
+
+/**
+ * Card for items / resources
+ * @param {Object} props
+ * @param {MultiImgCardContentProp|SingleImgCardContentProp} props.content
+ * @param {string} [props.className=""]
+ * @param {string} [props.imagesWrapperClassName="aspect-square"]
+ * @param {string} [props.imgClassName=""]
+ * @returns
+ */
 const Card = ({
   content = {},
   className = '',
@@ -53,7 +81,7 @@ const Card = ({
             animate="animate"
             exit="exit"
             className={`${className}`}>
-            <div className={imagesWrapperClassName}>
+            <div className={`${imagesWrapperClassName} relative`}>
               {content.images && content.images.length > 1 && (
                 <CarouselProvider
                   totalSlides={content.images.length}
