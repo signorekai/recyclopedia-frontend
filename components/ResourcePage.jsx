@@ -189,7 +189,7 @@ function ResourcePage({ data, baseUrl }) {
                   <div className="h-[1px] w-full bg-white mt-2 order-2 lg:order-3"></div>
                   {data.description && (
                     <motion.div
-                      className="order-4 break-all"
+                      className="order-4 "
                       viewport={{ once: true }}
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}>
