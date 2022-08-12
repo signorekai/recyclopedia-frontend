@@ -75,7 +75,7 @@ export default function Page() {
         authStatus={authStatus}
         extraLink={
           <Link href="/account/bookmarks">
-            <a className="text-white">
+            <a className="text-white hover:text-white hover:opacity-70">
               <i className="far fa-bookmark mr-1" />
               Bookmarks
             </a>
