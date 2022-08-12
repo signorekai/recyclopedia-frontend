@@ -20,11 +20,11 @@ todos:
   ✔ fix menu linebreak @done(22-07-21 22:58)
   ✔ extract banner from Figma @done(22-07-21 23:12)
   ✘ tab sequence for feedback modal @cancelled(22-07-22 19:11)
+  ✘ figure out if we want to make Resource / Item tag icon & bg color strapi controllable @cancelled(22-08-12 14:33)
   [] add RECAPTCHA to <ReportForm>
   [] make our own content-type for forms so that we can create fields
   [] write tests for API endpoints
   [] reset JWT secret
-  [] figure out if we want to make Resource / Item tag icon & bg color strapi controllable
 
 bugs:
   ✔ icons at footer not showing up @done(22-04-22 20:08)

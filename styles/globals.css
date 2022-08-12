@@ -35,11 +35,16 @@
       @apply max-w-none;
     }
   }
+
   .search-bar-wrapper {
     @apply flex-1 rounded-30 border-1 pl-3 pr-1 py-[3px] lg:py-2 lg:pl-5;
     @apply mx-auto;
     @apply flex flex-row items-center;
     @apply placeholder:text-grey;
+  }
+
+  .search-bar-wrapper--transparent {
+    @apply transition-[border-radius] bg-white placeholder:text-grey-dark border-0 border-grey-dark relative;
   }
 
   .search-bar-wrapper--active {

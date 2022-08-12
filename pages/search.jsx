@@ -282,7 +282,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
         className="mt-4"
         searchSuggestionsClassName="!bg-grey-white border-x-1 border-b-1 border-black"
         modalSearchBarWrapperClassName="!bg-blue-dark"
-        wrapperClassName={`border-1
+        wrapperClassName={`!border-1
           ${totalItemsCount > 0 ? `max-w-[1040px]` : `max-w-[800px]`}
         `}
       />
