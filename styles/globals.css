@@ -350,7 +350,7 @@ p + p {
 }
 
 .social-icon {
-  @apply p-2 text-2xl;
+  @apply p-2 text-2xl text-white;
 }
 
 .carousel {
