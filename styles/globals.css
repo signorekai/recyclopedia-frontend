@@ -493,9 +493,17 @@ p + p {
 
 .bg-blue,
 .bg-blue-dark,
-.bg-blue-light {
+.bg-blue-light,
+.bg-purple,
+.bg-coral,
+.bg-red,
+.bg-teal,
+.bg-mustard,
+.bg-grey,
+.bg-grey-mid,
+.bg-grey-light {
   a {
     @apply text-white hover:text-white hover:opacity-70;
-    @apply underline;
+    @apply underline underline-offset-4 hover:no-underline;
   }
 }
