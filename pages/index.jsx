@@ -95,7 +95,7 @@ export default function Home({ items, newsItems }) {
                   Options
                   <i className="fa fa-arrow-right font-light text-coral text-lg ml-3" />
                 </h2>
-                <h3>
+                <h3 className="text-black">
                   Don’t let it just go to the landfill – give your waste a
                   second life at the proper recycling channels available.
                 </h3>
@@ -118,7 +118,7 @@ export default function Home({ items, newsItems }) {
                   Donate
                   <i className="fa fa-arrow-right font-light text-coral text-lg ml-3" />
                 </h2>
-                <h3>
+                <h3 className="text-black">
                   Have something in great condition that you don’t need anymore?
                   Think about passing it on to someone else in need. You’ll
                   reduce your impact and make their day.
@@ -142,13 +142,15 @@ export default function Home({ items, newsItems }) {
                   Sustainably
                   <i className="fa fa-arrow-right font-light text-coral text-lg ml-3" />
                 </h2>
-                <h3>Make better choices, starting from how you consume.</h3>
+                <h3 className="text-black">
+                  Make better choices, starting from how you consume.
+                </h3>
               </a>
             </Link>
           </motion.div>
         </div>
       </div>
-      <div className="container lg:container--fluid">
+      <div className="container lg:container--wide">
         <h5>News & Tips</h5>
         <Carousel
           desktopControls={true}
