@@ -36,9 +36,9 @@ const Card = ({ params = {} }) => {
               <Link key={article.slug} href={`/articles/${article.slug}`}>
                 <a>
                   <div className="flex flex-row mb-8 gap-x-4 flex-wrap divider-b divider-b-taller">
-                    <div className="w-1/3 md:min-h-[200px]">
+                    <div className="w-1/4 md:aspect-[4/3]">
                       <NewImage
-                        className="aspect-[248/200] md:rounded-md"
+                        className="aspect-[4/3] md:rounded-md"
                         sizes="270px"
                         source={article.coverImage || {}}
                         layout="responsive"

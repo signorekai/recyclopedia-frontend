@@ -341,7 +341,7 @@ function Page({ data }) {
                                           : {}
                                       }
                                       width={256}
-                                      height={158}
+                                      height={192}
                                       alt={resource.title}
                                     />
                                     <h4 className="pb-2 px-3 text-blue group-hover:text-blue-dark text-lg">

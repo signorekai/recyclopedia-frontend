@@ -159,10 +159,10 @@ export default function Home({ items, newsItems }) {
           showNav={false}
           className="mt-3">
           {newsItems.map((item, key) => (
-            <CarouselCard key={key} className="w-screen-3/4 lg:w-[347px]">
+            <CarouselCard key={key} className="w-screen-3/4 lg:w-[320px]">
               <Card
                 className="w-full"
-                imagesWrapperClassName="h-[200px]"
+                imagesWrapperClassName="h-[240px]"
                 imgClassName=""
                 uniqueKey={`news-${item.slug}`}
                 content={{
