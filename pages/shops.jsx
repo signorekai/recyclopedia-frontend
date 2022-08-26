@@ -110,12 +110,13 @@ const Cards = ({ tags, columnCount = 3 }) => {
 
   return (
     <div className="container">
-      {tags && (
+      {tags && tags.length > 1 && (
         <AccordionProvider headers={['All', ...tags.map((title) => title)]}>
           <AccordionHeader />
           <AccordionBody {...items} />
         </AccordionProvider>
       )}
+      {tags && tags.length === 1 && <>{items['All']}</>}
     </div>
   );
 };
