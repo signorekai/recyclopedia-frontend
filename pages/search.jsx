@@ -4,6 +4,7 @@ import { object, string, array } from 'yup';
 import Head from 'next/head';
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 import { staticFetcher, useWindowDimensions } from '../lib/hooks';
 import Layout from '../components/Layout';
@@ -119,18 +120,36 @@ const SingleSearchType = ({
           className={`container relative container--narrow z-10 ${className}`}>
           <h2 className="text-black block mt-4 lg:mt-10">0 results found</h2>
           <p className="mt-4 text-sm md:text-base">
-            Double check your search, or try a different term.
+            Try a different term, or expand your search.
           </p>
-          <p className="mt-8 lg:mt-12 lg:text-lg">
+          <h3 className="mt-2">
+            <Link
+              href={`/search?${qs.stringify({
+                contentType: [
+                  'items',
+                  'resources',
+                  'articles',
+                  'donate',
+                  'shops',
+                ].join(','),
+                searchTerm: query,
+              })}`}>
+              <a className="text-coral hover:text-coral hover:opacity-80">
+                Search the entire site{' '}
+                <i className="p-2 far fa-arrow-right"></i>
+              </a>
+            </Link>
+          </h3>
+          <div className="divider-b mt-16"></div>
+          <p className="mt-2 lg:text-base">
             Have something in mind you can’t find here? You can help us build up
             our database which in turn helps the community.{' '}
+            <button
+              onClick={_handleClick}
+              className="inline lg:text-base hover:opacity-80 text-blue">
+              Make a suggestion.
+            </button>
           </p>
-          <button
-            onClick={_handleClick}
-            className="mt-4 hover:opacity-80 text-lg text-coral">
-            Make a suggestion
-            <i className="p-2 far fa-arrow-right" />
-          </button>
           <FeedbackModal
             openModal={openModal}
             topic="Make A Suggestion"
@@ -216,29 +235,31 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                       </CarouselCard>
                     );
                   })}
-                  <CarouselCard
-                    uniqueKey={`${type}-see-all`}
-                    className="aspect-square"
-                    style={{
-                      width:
-                        width > 1080
-                          ? `${(CardWidth / 100) * 1040}px`
-                          : `${CardWidth}vw`,
-                    }}>
-                    <button
-                      onClick={() => {
-                        const queryParams = router.query;
-                        queryParams['section'] = type;
-                        router.push(`?${qs.stringify(queryParams)}`, null, {
-                          shallow: true,
-                        });
-                      }}
-                      className="w-full h-full bg-coral text-white rounded-[4px]">
-                      <i className="fal fa-search" />
-                      <br />
-                      View All Results
-                    </button>
-                  </CarouselCard>
+                  {values.length > 3 && (
+                    <CarouselCard
+                      uniqueKey={`${type}-see-all`}
+                      className="aspect-square"
+                      style={{
+                        width:
+                          width > 1080
+                            ? `${(CardWidth / 100) * 1040}px`
+                            : `${CardWidth}vw`,
+                      }}>
+                      <button
+                        onClick={() => {
+                          const queryParams = router.query;
+                          queryParams['section'] = type;
+                          router.push(`?${qs.stringify(queryParams)}`, null, {
+                            shallow: true,
+                          });
+                        }}
+                        className="w-full h-full bg-coral text-white rounded-[4px]">
+                        <i className="fal fa-search" />
+                        <br />
+                        View All Results
+                      </button>
+                    </CarouselCard>
+                  )}
                 </Carousel>
               </div>
             );
@@ -299,20 +320,22 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
       <div className="border-b-1 mt-4 mb-6 lg:my-10 block w-full border-grey"></div>
       {totalItemsCount === 0 && (
         <div className={`container relative container--narrow z-10`}>
-          <h2 className="text-black block mt-4 lg:mt-10">0 results found</h2>
+          <h2 className="text-black block mt-4 lg:mt-10">
+            0 results found for <span className="opacity-70">{query}</span>.
+          </h2>
           <p className="mt-4 text-sm md:text-base">
             Double check your search, or try a different term.
           </p>
-          <p className="mt-8 lg:mt-12 lg:text-lg">
+          <div className="divider-b mt-16"></div>
+          <p className="mt-2 lg:text-base">
             Have something in mind you can’t find here? You can help us build up
             our database which in turn helps the community.{' '}
+            <button
+              onClick={_handleClick}
+              className="inline lg:text-base hover:opacity-80 text-blue">
+              Make a suggestion.
+            </button>
           </p>
-          <button
-            onClick={_handleClick}
-            className="mt-4 hover:opacity-80 text-lg text-coral">
-            Make a suggestion
-            <i className="p-2 far fa-arrow-right" />
-          </button>
           <FeedbackModal
             openModal={openModal}
             topic="Make A Suggestion"
