@@ -57,6 +57,11 @@ const ItemTagLiterals = {
     icon: 'fa-store',
     label: 'Buy or Sell',
   },
+  TipsAndSuggestions: {
+    bgColor: 'bg-teal',
+    icon: 'fa-lightbulb',
+    label: 'Tips & Suggestions',
+  },
 };
 
 const RecommendationCard = ({ children, recommendation }) => (
