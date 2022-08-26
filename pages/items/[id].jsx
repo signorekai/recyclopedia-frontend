@@ -19,8 +19,8 @@ import { BookmarkButton } from '../../components/BookmarkButton';
 const ItemTagLiterals = {
   Recycle: {
     bgColor: 'bg-blue-light',
-    icon: 'fa-recycle',
-    label: 'Recycle',
+    icon: 'fa-dumpster',
+    label: 'Recycling Bins & Chutes',
   },
   eWasteRecycle: {
     bgColor: 'bg-blue-light',
