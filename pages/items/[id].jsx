@@ -424,7 +424,7 @@ function Page({ data }) {
             })}
             {data.otherInfo && (
               <>
-                <section className="lg:flex-row lg:gap-x-4 mt-6">
+                <section className="lg:flex lg:flex-row lg:gap-x-4 mt-6">
                   <h5 className="text-left lg:w-1/4">
                     <i className="far fa-info-circle"></i> Info & Insights
                   </h5>
