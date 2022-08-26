@@ -120,6 +120,16 @@ const Layout = ({
       if (cached !== null && cached.length > 0)
         suggestions.current = cached.split(',');
     }
+
+    [...document.querySelectorAll('a')].map((link) => {
+      const href = link.getAttribute('href');
+      if (href.startsWith('http')) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.open(href, '_blank');
+        });
+      }
+    });
   }, []);
 
   const _handleSubmit = (e) => {
