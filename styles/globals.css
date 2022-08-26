@@ -512,6 +512,12 @@ p + p {
   }
 }
 
-.resource__box .raw-html-embed {
-  @apply -mx-2;
+.resource__box {
+  .raw-html-embed {
+    @apply -mx-2;
+  }
+
+  a {
+    @apply underline hover:no-underline;
+  }
 }
