@@ -189,7 +189,7 @@ function ResourcePage({ data, baseUrl }) {
                   <div className="h-[1px] w-full bg-white mt-2 order-2 lg:order-3"></div>
                   {data.description && (
                     <motion.div
-                      className="order-4 "
+                      className="order-4 resource__box"
                       viewport={{ once: true }}
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}>
@@ -222,7 +222,7 @@ function ResourcePage({ data, baseUrl }) {
                       viewport={{ once: true }}
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
-                      className="btn order-5 mt-2"
+                      className="btn order-5 mt-2 resource__box"
                       href={`https://www.google.com.sg/maps?hl=en&q=${data.address}`}
                       target="_blank"
                       rel="noopener noreferrer">
@@ -232,7 +232,7 @@ function ResourcePage({ data, baseUrl }) {
                   )}
                   {data.locations && (
                     <motion.div
-                      className="order-6 mt-2 break-all"
+                      className="order-6 mt-2 break-all resource__box"
                       viewport={{ once: true }}
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}>

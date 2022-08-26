@@ -510,3 +510,7 @@ p + p {
     }
   }
 }
+
+.resource__box .raw-html-embed {
+  @apply -mx-2;
+}
