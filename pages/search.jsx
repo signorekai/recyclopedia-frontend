@@ -118,7 +118,10 @@ const SingleSearchType = ({
       {items && items.length === 0 && (
         <div
           className={`container relative container--narrow z-10 ${className}`}>
-          <h2 className="text-black block mt-4 lg:mt-10">0 results found</h2>
+          <h2 className="text-black block mt-4 lg:mt-10">
+            0 results found for{' '}
+            <span className="opacity-70">&quot;{query}&quot;</span>.
+          </h2>
           <p className="mt-4 text-sm md:text-base">
             Try a different term, or expand your search.
           </p>
@@ -321,7 +324,8 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
       {totalItemsCount === 0 && (
         <div className={`container relative container--narrow z-10`}>
           <h2 className="text-black block mt-4 lg:mt-10">
-            0 results found for <span className="opacity-70">{query}</span>.
+            0 results found for{' '}
+            <span className="opacity-70">&quot;{query}&quot;</span>.
           </h2>
           <p className="mt-4 text-sm md:text-base">
             Double check your search, or try a different term.
