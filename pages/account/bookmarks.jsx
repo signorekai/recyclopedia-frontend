@@ -100,7 +100,7 @@ export default function Page({ ...props }) {
         authStatus={authStatus}
         extraLink={
           <Link href="/account">
-            <a className="text-white hover:text-white hover:opacity-70">
+            <a className="text-white hover:text-white !no-underline hover:opacity-70">
               <i className="far fa-cog mr-1" />
               Account Settings
             </a>
