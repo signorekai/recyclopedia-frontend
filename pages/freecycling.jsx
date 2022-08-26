@@ -51,7 +51,7 @@ const ResourceTab = ({ tag, columnCount = 3 }) => {
               content={{
                 image: item.images ? item.images[0] : {},
                 headerText: item.title,
-                contentType: 'donate',
+                contentType: 'freecycling',
                 slug: item.slug,
               }}
             />
@@ -92,7 +92,7 @@ const Cards = ({ tags, columnCount = 3 }) => {
               content={{
                 image: item.images ? item.images[0] : {},
                 headerText: item.title,
-                contentType: 'donate',
+                contentType: 'freecycling',
                 slug: item.slug,
               }}
             />
@@ -151,7 +151,7 @@ export default function Page({ fallback, pageOptions, resourceTags }) {
         className="py-2 sticky lg:relative transition-all duration-200 z-20"
         wrapperClassName="max-w-[1040px]"
         searchSuggestionsClassName=""
-        searchType={['donate']}
+        searchType={['freecycling']}
         inactiveBackgroundColor={pageOptions.colour}
         activeBackgroundColor={pageOptions.colour}
       />

@@ -132,7 +132,7 @@ const SingleSearchType = ({
                   'items',
                   'resources',
                   'articles',
-                  'donate',
+                  'freecycling',
                   'shops',
                 ].join(','),
                 searchTerm: query,
@@ -407,8 +407,8 @@ export async function getServerSideProps({ req, query, res }) {
             return true;
             break;
 
-          case 'donate':
-            pageOptions['donate'] = await staticFetcher(
+          case 'freecycling':
+            pageOptions['freecycling'] = await staticFetcher(
               `${ip}/donate-page`,
               process.env.API_KEY,
               {
@@ -446,7 +446,13 @@ export async function getServerSideProps({ req, query, res }) {
       type: array()
         .ensure()
         .of(
-          string().oneOf(['items', 'resources', 'articles', 'donate', 'shops']),
+          string().oneOf([
+            'items',
+            'resources',
+            'articles',
+            'freecycling',
+            'shops',
+          ]),
         )
         .required('Content type required'),
       query: string().required('Search query required').min(1),
@@ -471,7 +477,7 @@ export async function getServerSideProps({ req, query, res }) {
             ];
             break;
 
-          case 'donate':
+          case 'freecycling':
           case 'shops':
             contentType = 'resources';
           case 'resources':
@@ -549,7 +555,7 @@ export async function getServerSideProps({ req, query, res }) {
             break;
 
           case 'resources':
-          case 'donate':
+          case 'freecycling':
           case 'shop':
             results.map(({ id }) => {
               resources.push(id);

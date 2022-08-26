@@ -88,7 +88,7 @@ export default async function handler(req, res) {
         const BodySchema = object({
           contentId: number().required('Invalid ID').positive('Invalid ID'),
           subCategory: string().oneOf(
-            ['donate', 'resources', 'shops', ''],
+            ['freecycling', 'resources', 'shops', ''],
             'Invalid subcategory',
           ),
         });

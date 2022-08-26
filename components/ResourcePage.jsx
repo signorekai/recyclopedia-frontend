@@ -314,7 +314,7 @@ function ResourcePage({ data, baseUrl }) {
             <div className="divider-b mt-2"></div>
             <ReportBtn
               topic="Report An Error"
-              record={`${data.title} (Donate Resources)`}
+              record={`${data.title} (Freecycling Resources)`}
             />
           </div>
         </Layout>

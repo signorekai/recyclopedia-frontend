@@ -15,7 +15,7 @@ import { _cacheSearchTerm, Suggestion } from './SearchBar';
 const menu = [
   { label: 'Items', href: '/items' },
   { label: 'Resources', href: '/resources' },
-  { label: 'Freecycling', href: '/donate' },
+  { label: 'Freecycling', href: '/freecycling' },
   { label: 'Shops', href: '/shops' },
   {
     label: 'News&nbsp;&&nbsp;Tips',
@@ -221,7 +221,7 @@ const Layout = ({
                       'items',
                       'resources',
                       'articles',
-                      'donate',
+                      'freecycling',
                       'shops',
                     ].join(',')}
                   />

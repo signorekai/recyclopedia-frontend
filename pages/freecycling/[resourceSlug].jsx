@@ -3,7 +3,7 @@ import ResourcePage from '../../components/ResourcePage';
 import { staticFetcher } from '../../lib/hooks';
 
 function Page({ data }) {
-  return <ResourcePage data={data} baseUrl="donate" />;
+  return <ResourcePage data={data} baseUrl="freecycling" />;
 }
 
 export async function getStaticPaths() {

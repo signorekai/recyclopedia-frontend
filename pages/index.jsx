@@ -111,7 +111,7 @@ export default function Home({ items, newsItems }) {
               visible: { opacity: 1, y: 0 },
             }}
             className="py-5 px-3 lg:px-6 lg:flex-1 lg:text-center">
-            <Link href="/donate" passHref>
+            <Link href="/freecycling" passHref>
               <a>
                 <h2>
                   <i className="far fa-box-heart text-3xl mr-3 mt-1" /> Where to

@@ -33,7 +33,7 @@ export default async function handler(req, res) {
       break;
 
     case 'resource':
-      url.push('/donate', '/resources', '/shops');
+      url.push('/freecycling', '/resources', '/shops');
       url.push(`/${model}s/${entry.slug}`);
       break;
 
@@ -50,7 +50,7 @@ export default async function handler(req, res) {
       break;
 
     case 'resource-tag':
-      url.push('/donate', '/resources', '/shops');
+      url.push('/freecycling', '/resources', '/shops');
 
       var items = entry.resources.map(
         (resource) => `/resources/${resource.slug}`,
@@ -63,7 +63,7 @@ export default async function handler(req, res) {
       break;
 
     case 'donate-page':
-      url.push('/donate');
+      url.push('/freecycling');
       break;
 
     case 'faq':

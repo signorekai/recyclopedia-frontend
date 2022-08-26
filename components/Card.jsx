@@ -39,7 +39,7 @@ const LinkWrapper = ({ children, content }) => {
 /**
  * @typedef {Object} CardContentProp
  * @property {string} headerText
- * @property {'articles'|'resources'|'items'|'donate'|'shops'} contentType
+ * @property {'articles'|'resources'|'items'|'freecycling'|'shops'} contentType
  * @property {string} slug
  */
 

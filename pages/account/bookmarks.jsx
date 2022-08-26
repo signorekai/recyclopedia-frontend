@@ -27,7 +27,8 @@ export default function Page({ ...props }) {
     const labels = {
       item: 'Items',
       resources: 'Resources',
-      donate: 'Charities',
+      freecycling: 'Freecycling',
+      donate: 'Freecycling',
       shops: 'Shops',
       article: 'News & Tips',
     };
@@ -35,14 +36,17 @@ export default function Page({ ...props }) {
     const slugs = {
       item: 'items',
       resources: 'resources',
-      donate: 'donate',
+      freecycling: 'freecycling',
+      donate: 'freecycling',
       shops: 'shops',
       article: 'articles',
     };
 
     for (const [type, value] of Object.entries(labels)) {
       if (bookmarks && bookmarks.hasOwnProperty(type)) {
-        headerTabs.push(value);
+        if (headerTabs.indexOf(value) === -1) {
+          headerTabs.push(value);
+        }
         const items = bookmarks[type];
         contentTabs[value] = (
           <div className="container relative z-10">
@@ -54,6 +58,7 @@ export default function Page({ ...props }) {
                     switch (type) {
                       case 'item':
                       case 'resources':
+                      case 'freecycling':
                       case 'donate':
                       case 'shops':
                         image = item.images ? item.images[0] : {};
