@@ -204,49 +204,51 @@ function ResourcePage({ data, baseUrl }) {
                       />
                     </motion.div>
                   )}
-                  {data.url && (
-                    <motion.a
-                      viewport={{ once: true }}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      className="btn order-5 mb-2"
-                      href={data.url}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      Website{' '}
-                      <i className="text-xs ml-2 far fa-external-link-alt"></i>
-                    </motion.a>
-                  )}
-                  {data.address && (
-                    <motion.a
-                      viewport={{ once: true }}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      className="btn order-5 mt-2 resource__box"
-                      href={`https://www.google.com.sg/maps?hl=en&q=${data.address}`}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      View on Google Maps{' '}
-                      <i className="text-xs ml-2 far fa-external-link-alt"></i>
-                    </motion.a>
-                  )}
-                  {data.externalLinks.map((externalLink, key) => (
-                    <motion.a
-                      key={key}
-                      viewport={{ once: true }}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      className={`btn order-5 mt-0 mb-2`}
-                      href={data.url}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      {externalLink.title}
-                      <i className="text-xs ml-2 far fa-external-link-alt"></i>
-                    </motion.a>
-                  ))}
+                  <div className="grid grid-cols-1 gap-y-2 mt-4 mb-2 order-5">
+                    {data.url && (
+                      <motion.a
+                        viewport={{ once: true }}
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        className="btn m-0"
+                        href={data.url}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Website{' '}
+                        <i className="text-xs ml-2 far fa-external-link-alt"></i>
+                      </motion.a>
+                    )}
+                    {data.address && (
+                      <motion.a
+                        viewport={{ once: true }}
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        className="btn m-0"
+                        href={`https://www.google.com.sg/maps?hl=en&q=${data.address}`}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        View on Google Maps{' '}
+                        <i className="text-xs ml-2 far fa-external-link-alt"></i>
+                      </motion.a>
+                    )}
+                    {data.externalLinks.map((externalLink, key) => (
+                      <motion.a
+                        key={key}
+                        viewport={{ once: true }}
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        className={`btn m-0`}
+                        href={data.url}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        {externalLink.title}
+                        <i className="text-xs ml-2 far fa-external-link-alt"></i>
+                      </motion.a>
+                    ))}
+                  </div>
                   {data.locations && (
                     <motion.div
-                      className="order-6 mt-2 break-all resource__box"
+                      className="order-6 mt-2 resource__box"
                       viewport={{ once: true }}
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}>
