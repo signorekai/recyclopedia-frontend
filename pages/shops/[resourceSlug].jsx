@@ -56,7 +56,13 @@ export async function getStaticProps({ params }) {
   const { resourceSlug } = params;
   const ip = process.env.API_URL;
   const queryParams = qs.stringify({
-    populate: ['images', 'resourceTags', 'relatedItems', 'relatedItems.images'],
+    populate: [
+      'images',
+      'resourceTags',
+      'relatedItems',
+      'relatedItems.images',
+      'externalLinks',
+    ],
     filters: {
       slug: {
         $eq: resourceSlug,

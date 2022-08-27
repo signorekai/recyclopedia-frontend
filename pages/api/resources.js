@@ -4,7 +4,13 @@ export default function handler(req, res) {
   async function load() {
     const ip = process.env.API_URL;
     const query = {
-      populate: ['images'],
+      populate: [
+        'images',
+        'resourceTags',
+        'relatedItems',
+        'relatedItems.images',
+        'externalLinks',
+      ],
       publicationState: 'live',
       pagination: {
         page: parseInt(req.query.page) + 1,

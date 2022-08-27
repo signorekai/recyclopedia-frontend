@@ -230,6 +230,20 @@ function ResourcePage({ data, baseUrl }) {
                       <i className="text-xs ml-2 far fa-external-link-alt"></i>
                     </motion.a>
                   )}
+                  {data.externalLinks.map((externalLink, key) => (
+                    <motion.a
+                      key={key}
+                      viewport={{ once: true }}
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      className={`btn order-5 mt-0 mb-2`}
+                      href={data.url}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      {externalLink.title}
+                      <i className="text-xs ml-2 far fa-external-link-alt"></i>
+                    </motion.a>
+                  ))}
                   {data.locations && (
                     <motion.div
                       className="order-6 mt-2 break-all resource__box"
