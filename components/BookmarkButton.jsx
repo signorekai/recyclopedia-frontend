@@ -6,7 +6,7 @@ import { motion, useAnimation } from 'framer-motion';
  *
  * @param {Object} props
  * @param {"items"|"resources"|"articles"} props.contentType
- * @param {'donate'|'resources'|'shops'|''} props.subCategory
+ * @param {'freecycling'|'resources'|'shops'|''} props.subCategory
  * @param {number} props.contentId
  * @param {string} props.className
  * @returns
