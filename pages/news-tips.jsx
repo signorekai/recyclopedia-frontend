@@ -49,11 +49,11 @@ const Card = ({ params = {} }) => {
                       <h5 className="text-left pt-2">
                         {article.category?.title}
                       </h5>
-                      <h3 className="text-black block">
+                      <h3 className="text-blue-dark group-hover:text-blue block">
                         {article.title}
                         <i className="fa fa-arrow-right ml-2 text-xs font-normal translate-y-[-2px] translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all"></i>
                       </h3>
-                      <p className="hidden md:block text-black my-2 text-lg leading-tight group-hover:opacity-80">
+                      <p className="hidden md:block text-black my-2 text-base leading-tight group-hover:opacity-60">
                         {article.excerpt && article.excerpt}
                       </p>
                     </div>
