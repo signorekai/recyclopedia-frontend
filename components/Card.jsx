@@ -72,6 +72,7 @@ const Card = ({
   imagesWrapperClassName = 'aspect-square',
   imgClassName = '',
   prefixIcon = '',
+  bookmarkBtn = <></>,
 }) => {
   return (
     <LinkWrapper content={content}>
@@ -84,6 +85,7 @@ const Card = ({
             exit="exit"
             className={`${className}`}>
             <div className={`${imagesWrapperClassName} relative`}>
+              {bookmarkBtn}
               {prefixIcon && prefixIcon.length > 0 && (
                 <img
                   alt=""
