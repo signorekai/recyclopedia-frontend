@@ -401,7 +401,7 @@ const Layout = ({
                         onClick={() => {
                           setShowMenu(false);
                         }}
-                        className={`text-left font-bold ${m.className}`}
+                        className={`text-left font-bold text-blue ${m.className}`}
                         dangerouslySetInnerHTML={{
                           __html: m.label,
                         }}></button>
