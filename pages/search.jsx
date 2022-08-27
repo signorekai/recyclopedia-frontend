@@ -502,6 +502,10 @@ export async function getServerSideProps({ req, query, res }) {
               {
                 description: { $containsi: search.query },
               },
+
+              {
+                items: { $containsi: search.query },
+              },
             ];
             break;
 
