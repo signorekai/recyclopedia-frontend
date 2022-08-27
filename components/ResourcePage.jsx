@@ -238,7 +238,7 @@ function ResourcePage({ data, baseUrl }) {
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         className={`btn m-0`}
-                        href={data.url}
+                        href={externalLink.url}
                         target="_blank"
                         rel="noopener noreferrer">
                         {externalLink.title}
