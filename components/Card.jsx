@@ -63,6 +63,7 @@ const LinkWrapper = ({ children, content }) => {
  * @param {string} [props.imagesWrapperClassName="aspect-square"]
  * @param {string} [props.imgClassName=""]
  * @param {'telegram'|'facebook'|''} [props.prefixIcon]
+ * @param {JSX} [props.bookmarkBtn]
  * @returns
  */
 const Card = ({
@@ -75,75 +76,80 @@ const Card = ({
   bookmarkBtn = <></>,
 }) => {
   return (
-    <LinkWrapper content={content}>
+    <div className="relative">
       <AnimatePresence>
+        {bookmarkBtn}
         {content.hasOwnProperty('headerText') ? (
-          <motion.div
-            variants={variants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className={`${className}`}>
-            <div className={`${imagesWrapperClassName} relative`}>
-              {bookmarkBtn}
-              {prefixIcon && prefixIcon.length > 0 && (
-                <img
-                  alt=""
-                  className="absolute top-2 left-2 z-40 h-4 md:h-10"
-                  src={`/img/${prefixIcon.toLowerCase()}.svg`}
-                />
-              )}
-              {content.images && content.images.length > 1 && (
-                <CarouselProvider
-                  totalSlides={content.images.length}
-                  naturalSlideWidth={240}
-                  naturalSlideHeight={240}>
-                  <Slider classNameAnimation="transition-transform duration-200">
-                    {content.images.map((image, key) => (
-                      <Slide key={key} index={key} style={{ paddingBottom: 0 }}>
-                        <Image
-                          className={`rounded-md group-hover:scale-110 transition-transform ${imgClassName}`}
-                          alt={image.alternativeText}
-                          source={image}
-                          width={
-                            image.width > image.height
-                              ? image.width
-                              : image.height
-                          }
-                          height={
-                            image.width > image.height
-                              ? image.width
-                              : image.height
-                          }
-                        />
-                      </Slide>
-                    ))}
-                  </Slider>
-                  <DotGroup className="z-30" />
-                </CarouselProvider>
-              )}
-              {((typeof content.images === 'undefined' &&
-                content.image.hasOwnProperty('url')) ||
-                (content.images && content.images.length === 1)) && (
-                <Image
-                  wrapperClassName="rounded-md"
-                  className="group-hover:scale-110 transition-transform"
-                  source={content.images ? content.images[0] : content.image}
-                  alt={`Photo of ${content.headerText}`}
-                />
-              )}
-              {typeof content.images === 'undefined' &&
-                !content.image.hasOwnProperty('url') && (
-                  <div className="w-full h-full bg-grey-light rounded-md"></div>
+          <LinkWrapper content={content}>
+            <motion.div
+              variants={variants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className={`${className}`}>
+              <div className={`${imagesWrapperClassName}`}>
+                {prefixIcon && prefixIcon.length > 0 && (
+                  <img
+                    alt=""
+                    className="absolute top-2 left-2 z-40 h-4 md:h-10"
+                    src={`/img/${prefixIcon.toLowerCase()}.svg`}
+                  />
                 )}
-            </div>
-            {content.hasOwnProperty('subHeaderText') && (
-              <h6 className="tag">{content.subHeaderText}</h6>
-            )}
-            <h4 className="text-lg text-blue group-hover:text-blue-light leading-tight mt-1 mb-4 px-1">
-              {content.headerText}
-            </h4>
-          </motion.div>
+                {content.images && content.images.length > 1 && (
+                  <CarouselProvider
+                    totalSlides={content.images.length}
+                    naturalSlideWidth={240}
+                    naturalSlideHeight={240}>
+                    <Slider classNameAnimation="transition-transform duration-200">
+                      {content.images.map((image, key) => (
+                        <Slide
+                          key={key}
+                          index={key}
+                          style={{ paddingBottom: 0 }}>
+                          <Image
+                            className={`rounded-md group-hover:scale-110 transition-transform ${imgClassName}`}
+                            alt={image.alternativeText}
+                            source={image}
+                            width={
+                              image.width > image.height
+                                ? image.width
+                                : image.height
+                            }
+                            height={
+                              image.width > image.height
+                                ? image.width
+                                : image.height
+                            }
+                          />
+                        </Slide>
+                      ))}
+                    </Slider>
+                    <DotGroup className="z-30" />
+                  </CarouselProvider>
+                )}
+                {((typeof content.images === 'undefined' &&
+                  content.image.hasOwnProperty('url')) ||
+                  (content.images && content.images.length === 1)) && (
+                  <Image
+                    wrapperClassName="rounded-md"
+                    className="group-hover:scale-110 transition-transform"
+                    source={content.images ? content.images[0] : content.image}
+                    alt={`Photo of ${content.headerText}`}
+                  />
+                )}
+                {typeof content.images === 'undefined' &&
+                  !content.image.hasOwnProperty('url') && (
+                    <div className="w-full h-full bg-grey-light rounded-md"></div>
+                  )}
+              </div>
+              {content.hasOwnProperty('subHeaderText') && (
+                <h6 className="tag">{content.subHeaderText}</h6>
+              )}
+              <h4 className="text-lg text-blue group-hover:text-blue-light leading-tight mt-1 mb-4 px-1">
+                {content.headerText}
+              </h4>
+            </motion.div>
+          </LinkWrapper>
         ) : (
           <motion.div
             variants={variants}
@@ -165,7 +171,7 @@ const Card = ({
           </motion.div>
         )}
       </AnimatePresence>
-    </LinkWrapper>
+    </div>
   );
 };
 

@@ -61,7 +61,9 @@ export const AccordionHeader = ({
   const [scroll, setScroll] = useState(0);
 
   useEffect(() => {
-    setScroll(headerRefs.current[selected].offsetLeft);
+    if (headerRefs.current[selected]) {
+      setScroll(headerRefs.current[selected].offsetLeft);
+    }
   }, [selected, headerRefs]);
 
   return (
@@ -135,8 +137,10 @@ export const AccordionBody = ({
   const { width } = useWindowDimensions();
 
   useEffect(() => {
-    setScroll(itemRefs.current[selected].offsetLeft);
-  }, [width, selected]);
+    if (itemRefs.current[selected]) {
+      setScroll(itemRefs.current[selected].offsetLeft);
+    }
+  }, [width, selected, itemRefs]);
 
   return (
     <div className={`${className}`}>

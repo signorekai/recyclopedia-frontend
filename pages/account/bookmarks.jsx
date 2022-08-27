@@ -12,6 +12,7 @@ import {
   AccordionProvider,
   AccordionBody,
 } from '../../components/Accordion';
+import BookmarkButton from '../../components/BookmarkButton';
 
 export default function Page({ ...props }) {
   const { data: session, status: authStatus } = useSession();
@@ -44,47 +45,68 @@ export default function Page({ ...props }) {
 
     for (const [type, value] of Object.entries(labels)) {
       if (bookmarks && bookmarks.hasOwnProperty(type)) {
-        if (headerTabs.indexOf(value) === -1) {
-          headerTabs.push(value);
-        }
         const items = bookmarks[type];
-        contentTabs[value] = (
-          <div className="container relative z-10">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 ">
-              {items &&
-                items.map((item, itemKey) => {
-                  let image;
-                  if (item !== null) {
-                    switch (type) {
-                      case 'item':
-                      case 'resources':
-                      case 'freecycling':
-                      case 'donate':
-                      case 'shops':
-                        image = item.images ? item.images[0] : {};
-                        break;
-                      case 'article':
-                        image = item.coverImage ? item.coverImage : {};
-                        break;
+
+        console.log(type);
+
+        if (items.length > 0 && items[0] !== null) {
+          if (headerTabs.indexOf(value) === -1) {
+            headerTabs.push(value);
+          }
+          contentTabs[value] = (
+            <div className="container relative z-10">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 ">
+                {items &&
+                  items.map((item, itemKey) => {
+                    let image, bookmarkContentType, bookmarkSubCategory;
+                    if (item !== null) {
+                      switch (type) {
+                        case 'item':
+                        case 'resources':
+                        case 'freecycling':
+                        case 'donate':
+                        case 'shops':
+                          bookmarkContentType = `resources`;
+                          image = item.images ? item.images[0] : {};
+                          break;
+                        case 'article':
+                          image = item.coverImage ? item.coverImage : {};
+                          break;
+                      }
+                      if (type === 'item' || type === 'article') {
+                        bookmarkContentType = `${type}s`;
+                      } else if (type === 'freecycling' || type === 'shops') {
+                        bookmarkSubCategory = type;
+                      }
+
+                      return (
+                        <Card
+                          key={itemKey}
+                          className="w-full"
+                          uniqueKey={`card-${itemKey}`}
+                          bookmarkBtn={
+                            <BookmarkButton
+                              className="page-icon-wrapper absolute top-4 right-4 z-30"
+                              contentType={bookmarkContentType}
+                              subCategory={bookmarkSubCategory}
+                              contentId={item.id}
+                              slug={item.slug}
+                            />
+                          }
+                          content={{
+                            image,
+                            headerText: item.title,
+                            slug: item.slug,
+                            contentType: slugs[type],
+                          }}
+                        />
+                      );
                     }
-                    return (
-                      <Card
-                        key={itemKey}
-                        className="w-full"
-                        uniqueKey={`card-${itemKey}`}
-                        content={{
-                          image,
-                          headerText: item.title,
-                          slug: item.slug,
-                          contentType: slugs[type],
-                        }}
-                      />
-                    );
-                  }
-                })}
+                  })}
+              </div>
             </div>
-          </div>
-        );
+          );
+        }
       }
     }
     return [headerTabs, contentTabs];
@@ -112,6 +134,9 @@ export default function Page({ ...props }) {
           </Link>
         }
       />
+      <div className="container mt-8">
+        <h1 className="text-black">Bookmarks</h1>
+      </div>
       {loading === true && (
         <section className="flex flex-1 justify-center items-center">
           <i className="fas fa-spinner text-5xl text-grey animate-spin"></i>
@@ -128,14 +153,16 @@ export default function Page({ ...props }) {
         </AccordionProvider>
       )}
       {loading === false && Object.keys(bookmarks).length === 0 && (
-        <p className="text-lg text-center mt-8 lg:mt-16">
+        <section className="mt-20 mx-auto max-w-md text-center text-lg">
+          <img src="/img/404.svg" alt="" className="mx-auto block mb-8" />
           You do not have any bookmarks saved!
           <br />
           Learn how to create a bookmark at the{' '}
           <Link href="/faq">
-            <a className="text-blue">FAQ</a>
+            <a className="text-blue inline">FAQ</a>
           </Link>
-        </p>
+          .
+        </section>
       )}
     </Layout>
   );
