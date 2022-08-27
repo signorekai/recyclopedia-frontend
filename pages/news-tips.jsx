@@ -34,11 +34,12 @@ const Card = ({ params = {} }) => {
           <>
             {article && (
               <Link key={article.slug} href={`/articles/${article.slug}`}>
-                <a>
+                <a className="group">
                   <div className="flex flex-row mb-8 gap-x-4 flex-wrap divider-b divider-b-taller">
                     <div className="w-1/4 md:aspect-[4/3]">
                       <NewImage
-                        className="aspect-[4/3] md:rounded-md"
+                        wrapperClassName="md:rounded-md"
+                        className="aspect-[4/3] group-hover:scale-110 transition-transform"
                         sizes="270px"
                         source={article.coverImage || {}}
                         layout="responsive"
@@ -48,8 +49,11 @@ const Card = ({ params = {} }) => {
                       <h5 className="text-left pt-2">
                         {article.category?.title}
                       </h5>
-                      <h3 className="text-black">{article.title}</h3>
-                      <p className="hidden md:block text-black my-2 text-lg leading-tight">
+                      <h3 className="text-black block">
+                        {article.title}
+                        <i className="fa fa-arrow-right ml-2 text-xs font-normal translate-y-[-2px] translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all"></i>
+                      </h3>
+                      <p className="hidden md:block text-black my-2 text-lg leading-tight group-hover:opacity-80">
                         {article.excerpt && article.excerpt}
                       </p>
                     </div>
