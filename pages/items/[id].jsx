@@ -298,7 +298,7 @@ function Page({ data }) {
                       </RecommendationCard>
                       {item.otherText && (
                         <div
-                          className="text-base lg:text-lg mt-2 lg:mt-4 px-2"
+                          className="text-base lg:text-lg mt-2 lg:mt-4 px-2 inline-link"
                           dangerouslySetInnerHTML={{
                             __html: item.otherText,
                           }}
@@ -434,7 +434,7 @@ function Page({ data }) {
                     <i className="far fa-info-circle"></i> Info & Insights
                   </h5>
                   <div
-                    className="text-base lg:text-lg mt-2 lg:mt-0  flex-1"
+                    className="text-base lg:text-lg mt-2 lg:mt-0 flex-1 inline-link"
                     dangerouslySetInnerHTML={{ __html: data.otherInfo }}></div>
                 </section>
                 <div className="divider-b mt-8"></div>
