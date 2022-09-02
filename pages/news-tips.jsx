@@ -98,7 +98,6 @@ export default function Page({
       ),
     };
 
-    console.log(categoryTitles);
     categoryTitles.map((categoryTitle, key) => {
       const params = {
         populate: ['coverImage', 'category'],
