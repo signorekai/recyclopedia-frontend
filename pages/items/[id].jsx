@@ -30,7 +30,7 @@ const ItemTagLiterals = {
   RecycleElsewhere: {
     bgColor: 'bg-blue-light',
     icon: 'fa-map-marker-exclamation',
-    label: 'Recycle Elsewhere',
+    label: 'Specialised Recycling',
   },
   GiveAway: {
     bgColor: 'bg-coral',
