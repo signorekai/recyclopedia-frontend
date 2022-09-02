@@ -51,7 +51,7 @@ export default function Page({
               autoScroll={false}
               autoSlideSize={true}
               className="scroll-px-4 mt-4"
-              sliderClassName={`gap-x-8 relative px-4 container container--mid`}>
+              sliderClassName={`gap-x-8 relative px-4 container !max-w-screen-lg`}>
               <CarouselCard>
                 <Link href={`/news-tips`}>
                   <a className="text-xs uppercase font-bold tracking-2 font-archivo pb-2 !text-grey-dark whitespace-nowrap">
@@ -70,7 +70,7 @@ export default function Page({
               ))}
             </Carousel>
           </div>
-          <div className="container container--mid mt-10">
+          <div className="container mt-10">
             {article.category && (
               <h5 className="text-left">{article.category.title}</h5>
             )}

@@ -172,7 +172,7 @@ const Layout = ({
         showHeaderInitially={showHeaderInitially}
         showHeaderOn={showHeaderOn}
         hideHeaderOn={hideHeaderOn}>
-        <div className="overflow-hidden h-full pl-4 lg:pl-0 flex-1 max-w-[1280px] mx-auto">
+        <div className="overflow-hidden h-full pl-4 lg:pl-0 flex-1 container mx-auto">
           <div
             className={`flex flex-col h-[200%] relative ease-in-out transition-transform duration-200 ${
               showSearchBar ? 'translate-y-0' : '-translate-y-full'
@@ -447,7 +447,7 @@ const Layout = ({
         {children}
       </main>
       <footer className="footer-wrapper" style={footerStyle}>
-        <div className="container container--wide footer">
+        <div className="container footer">
           <div className="lg:order-2 flex-1 flex flex-col lg:flex-row lg:justify-between lg:items-center lg:px-10">
             <span className="text-sm leading-tight">
               A community driven, non-profit initiative
