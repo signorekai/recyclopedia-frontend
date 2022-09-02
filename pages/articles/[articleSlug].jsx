@@ -169,22 +169,16 @@ export default function Page({
                   </div>
                   <div className="flex-1">
                     <Carousel
-                      autoSlideSize={true}
+                      slideWidth={256}
                       showNav={false}
-                      className="mt-0 mb-2 h-auto"
-                      sliderStyle={{
-                        width:
-                          width > 1080
-                            ? 250 * article.items.length
-                            : width * 0.5 * article.items.length,
-                      }}>
+                      className="mt-0 mb-2 h-auto">
                       {article.resources.map((item, key) => (
                         <CarouselCard
                           key={key}
-                          className="w-screen-1/2 lg:w-[250px] mt-0">
+                          className="w-screen-1/2 lg:w-64 mt-0">
                           <Card
                             className="w-full"
-                            imagesWrapperClassName="h-[200px]"
+                            imagesWrapperClassName="h-64"
                             uniqueKey={`related-${key}`}
                             key={`related-${key}`}
                             content={{
