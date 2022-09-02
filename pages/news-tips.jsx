@@ -19,18 +19,25 @@ import {
   AccordionHeader,
   AccordionProvider,
 } from '../components/Accordion';
+import { useMemo } from 'react';
+
+const articlesParams = {
+  populate: ['coverImage', 'category'],
+  publicationState: 'live',
+  sort: ['order:desc', 'updatedAt:desc'],
+  pagination: {
+    page: 1,
+    pageSize: ITEMS_PER_PAGE,
+  },
+};
 
 const Card = ({ params = {} }) => {
-  const {
-    data: articles,
-    loadNext,
-    isFinished,
-  } = useFetchContent('articles', params);
+  const { data, loadNext, isFinished } = useFetchContent('articles', params);
 
   return (
     <div className="w-full mt-4 lg:mt-8">
-      {articles.map((articleFetch) => {
-        return articleFetch.map((article, key) => (
+      {data.map((articles) => {
+        return articles.map((article, key) => (
           <>
             {article && (
               <Link key={article.slug} href={`/articles/${article.slug}`}>
@@ -79,27 +86,42 @@ export default function Page({
   const { title } = pageOptions;
   const x = useSearchBarTopValue();
 
-  const articleTabs = {};
+  const [articleHeaders, articleTabs] = useMemo(() => {
+    const accordionHeaders = [];
+    const articleTabs = {
+      All: (
+        <Card
+          params={{
+            populate: ['coverImage', 'category'],
+          }}
+        />
+      ),
+    };
 
-  articleTabs['All'] = (
-    <Card
-      params={{
+    console.log(categoryTitles);
+    categoryTitles.map((categoryTitle, key) => {
+      const params = {
         populate: ['coverImage', 'category'],
-      }}
-    />
-  );
+        category: categoryTitle,
+      };
 
-  categoryTitles.map((categoryTitle, key) => {
-    articleTabs[categoryTitle] = (
-      <Card
-        key={key}
-        params={{
-          populate: ['coverImage', 'category'],
-          category: categoryTitle,
-        }}
-      />
-    );
-  });
+      const data =
+        fallback[
+          `/api/articles?${qs.stringify({
+            populate: [],
+            page: 0,
+            pageSize: ITEMS_PER_PAGE,
+            ...params,
+          })}`
+        ];
+
+      if (data[0].length > 0) {
+        articleTabs[categoryTitle] = <Card key={key} params={params} />;
+        accordionHeaders.push(categoryTitle);
+      }
+    });
+    return [accordionHeaders, articleTabs];
+  }, [categoryTitles, fallback]);
 
   return (
     <Layout headerContainerStyle={{ backgroundColor: pageOptions.colour }}>
@@ -136,7 +158,7 @@ export default function Page({
         activeBackgroundColor={pageOptions.colour}
       />
       <SWRConfig value={{ fallback }}>
-        <AccordionProvider headers={['All', ...categoryTitles]}>
+        <AccordionProvider headers={['All', ...articleHeaders]}>
           <div className="container ">
             <AccordionHeader
               className=""
@@ -170,12 +192,7 @@ export async function getStaticProps() {
 
   const fetchEachCategory = categoryTitles.map(async (title) => {
     const query = qs.stringify({
-      populate: ['coverImage', 'category'],
-      sort: ['title:desc'],
-      pagination: {
-        page: 1,
-        pageSize: ITEMS_PER_PAGE,
-      },
+      ...articlesParams,
       filters: { category: { title: { $eq: title } } },
     });
 
@@ -199,15 +216,7 @@ export async function getStaticProps() {
   await Promise.all(fetchEachCategory);
 
   const { data: allArticles } = await staticFetcher(
-    `${process.env.API_URL}/articles?${qs.stringify({
-      populate: ['coverImage', 'category'],
-      publicationState: 'live',
-      sort: ['order:desc', 'updatedAt:desc'],
-      pagination: {
-        page: 1,
-        pageSize: ITEMS_PER_PAGE,
-      },
-    })}`,
+    `${process.env.API_URL}/articles?${qs.stringify(articlesParams)}`,
     process.env.API_KEY,
   );
 
