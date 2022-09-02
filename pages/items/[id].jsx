@@ -221,8 +221,8 @@ function Page({ data }) {
                         <NewImage
                           alt={image.alternativeText}
                           source={image}
-                          width={image.width}
-                          height={image.width}
+                          width={image.width > width ? image.width : width}
+                          height={image.width > width ? image.width : width}
                         />
                       </Slide>
                     ))}
