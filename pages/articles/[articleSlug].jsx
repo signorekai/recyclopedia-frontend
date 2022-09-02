@@ -11,14 +11,11 @@ import { staticFetcher, useWindowDimensions } from '../../lib/hooks';
 import NewImage from '../../components/Image';
 import BookmarkButton from '../../components/BookmarkButton';
 
-export default function Page({
-  article,
-  categoryTitles,
-  previousPost,
-  nextPost,
-}) {
+export default function Page({ article, categoryTitles, nextPost }) {
   const router = useRouter();
   const { width } = useWindowDimensions();
+
+  console.log(nextPost);
 
   return (
     <>
@@ -70,7 +67,7 @@ export default function Page({
               ))}
             </Carousel>
           </div>
-          <div className="container mt-10">
+          <div className="container mt-10 divider-b divider-b-8">
             {article.category && (
               <h5 className="text-left">{article.category.title}</h5>
             )}
@@ -117,10 +114,10 @@ export default function Page({
               )}
             </div>
             <article
-              className="article-body divider-b divider-b-taller mt-4 text-lg"
+              className="article-body mt-4 text-lg"
               dangerouslySetInnerHTML={{ __html: article.content }}></article>
           </div>
-          <div className="container container--mid">
+          <div className="container ">
             {article.items && article.items.length > 0 && (
               <div className="lg:divider-b">
                 <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
@@ -195,33 +192,46 @@ export default function Page({
                 </section>
               </div>
             )}
-            <div
-              className={`${
-                article.resources.length > 0 || article.items.length > 0
-                  ? 'lg:w-1/2 mx-auto'
-                  : 'lg:w-3/4'
-              } flex flex-row mt-10 lg:mt-16 mb-8 lg:mb-12`}>
-              {previousPost && previousPost.length > 0 ? (
-                <Link href={`/articles/${previousPost[0].slug}`}>
-                  <a className="block flex-1 h5-alt !text-grey-dark hover:!text-black hover:opacity-100">
-                    <span className="far fa-chevron-left text-xl align-middle pb-1 pr-3"></span>
-                    Previous Post
-                  </a>
-                </Link>
-              ) : (
-                <div className="flex-1"></div>
-              )}
-              {nextPost && nextPost.length > 0 ? (
-                <Link href={`/articles/${nextPost[0].slug}`}>
-                  <a className="block flex-1 h5-alt text-right !text-grey-dark hover:!text-black hover:opacity-100">
-                    Next Post
-                    <span className="far fa-chevron-right text-xl align-middle pb-1 pl-3"></span>
-                  </a>
-                </Link>
-              ) : (
-                <div className="flex-1"></div>
-              )}
-            </div>
+            {nextPost && nextPost.length > 0 && (
+              <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
+                <div className="lg:w-1/4">
+                  <h5 className="text-left">Read next</h5>
+                </div>
+                <div className={`flex-1 flex flex-row mb-8 lg:mb-12`}>
+                  <div className="w-full">
+                    <Link
+                      key={nextPost[0].slug}
+                      href={`/articles/${nextPost[0].slug}`}>
+                      <a className="group">
+                        <div className="flex flex-row mb-8 gap-x-4 flex-wrap ">
+                          <div className="w-1/4 md:aspect-[4/3]">
+                            <NewImage
+                              wrapperClassName="md:rounded-md"
+                              className="aspect-[4/3] group-hover:scale-110 transition-transform"
+                              sizes="270px"
+                              source={nextPost[0].coverImage || {}}
+                              layout="responsive"
+                            />
+                          </div>
+                          <div className="flex-1 mb-4">
+                            <h5 className="text-left pt-2">
+                              {nextPost[0].category?.title}
+                            </h5>
+                            <h3 className="text-blue-dark group-hover:text-blue block">
+                              {nextPost[0].title}
+                              <i className="fa fa-arrow-right ml-2 text-xs font-normal translate-y-[-2px] translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all"></i>
+                            </h3>
+                            <p className="hidden md:block text-black my-2 text-base leading-tight group-hover:opacity-60">
+                              {nextPost[0].excerpt && nextPost[0].excerpt}
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                    </Link>
+                  </div>
+                </div>
+              </section>
+            )}
           </div>
         </Layout>
       )}
@@ -276,35 +286,21 @@ export async function getStaticProps({ params }) {
     process.env.API_KEY,
   );
 
-  const { data: previousPost } = await staticFetcher(
-    `${process.env.API_URL}/articles`,
-    process.env.API_KEY,
-    {
-      filters: {
-        updatedAt: {
-          $lt: articles[0].updatedAt,
-        },
-      },
-      sort: ['updatedAt:desc'],
-      fields: ['title', 'slug'],
-      pagination: {
-        start: 0,
-        limit: 1,
-      },
-    },
-  );
-
   const { data: nextPost } = await staticFetcher(
     `${process.env.API_URL}/articles`,
     process.env.API_KEY,
     {
       filters: {
+        id: {
+          $ne: articles[0].id,
+        },
         updatedAt: {
-          $gt: articles[0].updatedAt,
+          $lt: articles[0].updatedAt,
         },
       },
-      sort: ['updatedAt'],
-      fields: ['title', 'slug'],
+      sort: ['updatedAt:desc'],
+      fields: ['title', 'slug', 'excerpt'],
+      populate: ['category', 'coverImage'],
       pagination: {
         start: 0,
         limit: 1,
@@ -317,8 +313,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       article: articles[0],
-      previousPost: previousPost,
-      nextPost: nextPost,
+      nextPost,
       categoryTitles,
     },
     revalidate: 3600,
