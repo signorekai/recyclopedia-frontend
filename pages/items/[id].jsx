@@ -458,7 +458,7 @@ function Page({ data }) {
                           return (
                             <CarouselCard
                               key={key}
-                              className="w-36 lg:w-64 overflow-hidden relative">
+                              className="w-36 lg:w-48 overflow-hidden relative">
                               <Card
                                 className="w-full"
                                 uniqueKey={`card-${key}`}
