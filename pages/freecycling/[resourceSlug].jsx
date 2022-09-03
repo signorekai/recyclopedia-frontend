@@ -82,7 +82,7 @@ export async function getStaticProps({ params }) {
     return { notFound: true };
   }
 
-  return { props: { data: result.data[0] }, revalidate: 3600 };
+  return { props: { data: result.data[0] } };
 }
 
 export default Page;
