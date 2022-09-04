@@ -299,7 +299,7 @@ ol:not(.plain) {
 }
 
 a {
-  @apply text-blue hover:text-blue-light;
+  @apply text-blue hover:text-blue-light underline;
 }
 
 a:not(.motion-controlled) {

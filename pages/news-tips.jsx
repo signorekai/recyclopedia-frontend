@@ -41,7 +41,7 @@ const Card = ({ params = {} }) => {
           <>
             {article && (
               <Link key={article.slug} href={`/articles/${article.slug}`}>
-                <a className="group">
+                <a className="group no-underline">
                   <div className="flex flex-row mb-8 gap-x-4 flex-wrap divider-b divider-b-taller">
                     <div className="w-1/4 md:aspect-[4/3]">
                       <NewImage

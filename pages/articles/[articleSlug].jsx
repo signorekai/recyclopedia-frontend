@@ -51,7 +51,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
               sliderClassName={`gap-x-8 relative px-4 container !max-w-screen-lg`}>
               <CarouselCard>
                 <Link href={`/news-tips`}>
-                  <a className="text-xs uppercase font-bold tracking-2 font-archivo pb-2 !text-grey-dark whitespace-nowrap">
+                  <a className="no-underline text-xs uppercase font-bold tracking-2 font-archivo pb-2 !text-grey-dark whitespace-nowrap">
                     All Articles
                   </a>
                 </Link>
@@ -59,7 +59,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
               {categoryTitles.map((title) => (
                 <CarouselCard key={title}>
                   <Link href={`/news-tips?section=${title}`}>
-                    <a className="text-xs uppercase font-bold tracking-2 font-archivo pb-2 !text-grey-dark">
+                    <a className="no-underline text-xs uppercase font-bold tracking-2 font-archivo pb-2 !text-grey-dark">
                       {title}
                     </a>
                   </Link>

@@ -25,7 +25,7 @@ const LinkWrapper = ({ children, content }) => {
       {content.hasOwnProperty('slug') &&
       content.hasOwnProperty('contentType') ? (
         <Link href={`/${content.contentType}/${content.slug}`} passHref>
-          <a className="origin-center duration-200 transition-all hover:opacity-100 group">
+          <a className="origin-center duration-200 transition-all hover:opacity-100 group no-underline">
             {children}
           </a>
         </Link>
@@ -80,13 +80,13 @@ const Card = ({
       <AnimatePresence>
         {bookmarkBtn}
         {content.hasOwnProperty('headerText') ? (
-          <LinkWrapper content={content}>
+          <LinkWrapper passHref content={content}>
             <motion.div
               variants={variants}
               initial="initial"
               animate="animate"
               exit="exit"
-              className={`${className}`}>
+              className={`no-underline ${className}`}>
               <div className={`${imagesWrapperClassName}`}>
                 {prefixIcon && prefixIcon.length > 0 && (
                   <img

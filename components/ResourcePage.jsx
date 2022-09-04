@@ -63,7 +63,7 @@ const ResourceBullet = ({ tag, className, baseUrl = 'resources' }) => {
     return (
       <Link href={`/${baseUrl}?section=${tag}`}>
         <a
-          className={`inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo !text-white rounded-md text-sm lg:text-xs ${ResourceTagLiterals[tag].bgColor} ${className}`}>
+          className={`no-underline inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo !text-white rounded-md text-sm lg:text-xs ${ResourceTagLiterals[tag].bgColor} ${className}`}>
           <i
             className={`far text-base lg:text-sm pr-2 ${ResourceTagLiterals[tag].icon}`}
           />

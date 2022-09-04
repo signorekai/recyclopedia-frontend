@@ -328,7 +328,7 @@ function Page({ data }) {
                                 <Link
                                   key={key}
                                   href={`/resources/${resource.slug}`}>
-                                  <a className="group-hover:opacity-100 group-active:opacity-100 relative">
+                                  <a className="no-underline group-hover:opacity-100 group-active:opacity-100 relative">
                                     {resource.resourceIcon &&
                                       resource.resourceIcon.length > 0 && (
                                         <img
@@ -374,7 +374,7 @@ function Page({ data }) {
                               transition={{ duration: 0.4, ease: 'easeOut' }}
                               whileInView={{ x: 0, y: 0, opacity: 1 }}
                               viewport={{ once: true, margin: '50px' }}
-                              className={`${
+                              className={`no-underline ${
                                 resource.featured === true
                                   ? 'basic-carousel__card-wrapper'
                                   : ''
