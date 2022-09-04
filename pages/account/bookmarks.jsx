@@ -47,8 +47,6 @@ export default function Page({ ...props }) {
       if (bookmarks && bookmarks.hasOwnProperty(type)) {
         const items = bookmarks[type];
 
-        console.log(type);
-
         if (items.length > 0 && items[0] !== null) {
           if (headerTabs.indexOf(value) === -1) {
             headerTabs.push(value);

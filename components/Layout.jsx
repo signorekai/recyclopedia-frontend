@@ -275,7 +275,10 @@ const Layout = ({
                       </a>
                     </BookmarkLink>
                   )}
-                  <Link href="/account">
+                  <Link
+                    href={
+                      authStatus === 'authenticated' ? '/account' : '/login'
+                    }>
                     <a
                       className="hidden !text-white lg:flex items-center"
                       id="person-icon">
@@ -433,7 +436,7 @@ const Layout = ({
                     </a>
                   </Link>
                 ) : (
-                  <Link href="/account/bookmarks">
+                  <Link href="/login">
                     <a className="-mt-4 text-sm !text-grey-mid">
                       <i className="far fa-sign-in mr-4" />
                       Login to access
