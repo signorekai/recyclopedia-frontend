@@ -53,7 +53,10 @@ export default function Page({ pageOptions }) {
       </Head>
       <div className="container relative z-10 pt-4 lg:pt-10">
         <h1 className="text-black">{pageOptions.title}</h1>
-        <p className="text-lg leading-tight">{pageOptions.subtitle}</p>
+        <p
+          className="text-lg leading-tight"
+          dangerouslySetInnerHTML={{ __html: pageOptions.subtitle }}
+        />
       </div>
       <div className="lg:container">
         {sections.map((section) => (
