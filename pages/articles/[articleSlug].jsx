@@ -202,7 +202,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
                     <Link
                       key={nextPost[0].slug}
                       href={`/articles/${nextPost[0].slug}`}>
-                      <a className="group">
+                      <a className="group no-underline">
                         <div className="flex flex-row mb-8 gap-x-4 flex-wrap ">
                           <div className="w-1/4 md:aspect-[4/3]">
                             <NewImage
