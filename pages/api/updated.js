@@ -34,7 +34,9 @@ export default async function handler(req, res) {
 
     case 'resource':
       url.push('/freecycling', '/resources', '/shops');
-      url.push(`/${model}s/${entry.slug}`);
+      url.push(`/freecycling/${entry.slug}`);
+      url.push(`/resources/${entry.slug}`);
+      url.push(`/shops/${entry.slug}`);
       break;
 
     case 'article-category':
