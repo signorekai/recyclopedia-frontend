@@ -15,8 +15,6 @@ export default function Page({ article, categoryTitles, nextPost }) {
   const router = useRouter();
   const { width } = useWindowDimensions();
 
-  console.log(nextPost);
-
   return (
     <>
       {article && (
