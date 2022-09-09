@@ -197,7 +197,7 @@ function ResourcePage({ data, baseUrl }) {
                         <i className="far fa-info-circle" /> Info
                       </h5>
                       <div
-                        className="text-base lg:text-lg mt-2 lg:mt-1 px-2 !leading-snug"
+                        className="text-base lg:text-lg mt-2 lg:mt-1 !leading-snug"
                         dangerouslySetInnerHTML={{
                           __html: data.description,
                         }}
@@ -280,7 +280,7 @@ function ResourcePage({ data, baseUrl }) {
                   <div className="lg:col-span-3">
                     {data.items && (
                       <div
-                        className="text-base lg:text-lg mt-2 lg:mt-0 mb-6 px-2 !leading-snug"
+                        className="text-base lg:text-lg mt-2 lg:mt-0 mb-6 !leading-snug"
                         dangerouslySetInnerHTML={{
                           __html: data.items,
                         }}
