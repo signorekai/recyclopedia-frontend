@@ -450,7 +450,7 @@ function Page({ data }) {
                   </div>
                   <div className="lg:col-span-3">
                     <Carousel
-                      slideWidth={256}
+                      slideWidth={144}
                       showNav={false}
                       className="gap-x-2 flex-1 mt-3 lg:mt-0">
                       {data.itemCategory.items.map((item, key) => {
