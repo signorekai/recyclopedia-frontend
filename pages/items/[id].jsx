@@ -445,7 +445,7 @@ function Page({ data }) {
                 <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
                   <div className="lg:col-span-1">
                     <h5 className="text-left">
-                      <i className="far fa-question-circle"></i> Similar Items
+                      <i className="far fa-clone"></i> Similar Items
                     </h5>
                   </div>
                   <div className="lg:col-span-3">
