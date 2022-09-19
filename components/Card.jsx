@@ -91,7 +91,7 @@ const Card = ({
                 {prefixIcon && prefixIcon.length > 0 && (
                   <img
                     alt=""
-                    className="absolute top-2 left-2 z-40 h-4 md:h-10"
+                    className="absolute top-2 left-2 z-40 h-8 md:h-10"
                     src={`/img/${prefixIcon.toLowerCase()}.svg`}
                   />
                 )}
