@@ -215,9 +215,6 @@ export const FeedbackForm = ({
                     )}
                   />
                   <Field
-                    className={`${
-                      values.topic === 'Report An Error' ? '' : 'hidden'
-                    }`}
                     type="text"
                     name="record"
                     label="Record"
