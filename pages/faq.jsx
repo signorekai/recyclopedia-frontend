@@ -10,7 +10,7 @@ const FAQCard = ({ header, content, openByDefault = false }) => {
   const maxHeight = useMotionValue(0);
 
   useEffect(() => {
-    maxHeight.set(expanded ? '50vh' : 0);
+    maxHeight.set(expanded ? '100000px' : 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [expanded]);
 
