@@ -124,7 +124,14 @@ function ResourcePage({ data, baseUrl }) {
             {width < 1080 && (
               <>
                 {data.images && data.images.length > 0 ? (
-                  <div className="aspect-[1_/_1] w-full lg:w-1/2 lg:pr-12">
+                  <div className="aspect-[1_/_1] w-full lg:w-1/2 lg:pr-12 relative">
+                    {data.resourceIcon && data.resourceIcon.length > 0 && (
+                      <img
+                        alt=""
+                        className="absolute bottom-4 left-4 z-40 h-8"
+                        src={`/img/${data.resourceIcon.toLowerCase()}.svg`}
+                      />
+                    )}
                     <Image
                       layout={width > 1080 ? 'fixed' : 'responsive'}
                       width={768}
@@ -145,7 +152,14 @@ function ResourcePage({ data, baseUrl }) {
                 {width > 1080 && (
                   <>
                     {data.images && data.images.length > 0 ? (
-                      <div className="aspect-[1_/_1] w-full lg:w-1/2 lg:pr-12">
+                      <div className="aspect-[1_/_1] w-full lg:w-1/2 lg:pr-12 relative">
+                        {data.resourceIcon && data.resourceIcon.length > 0 && (
+                          <img
+                            alt=""
+                            className="absolute top-4 left-4 z-40 h-4 md:h-10"
+                            src={`/img/${data.resourceIcon.toLowerCase()}.svg`}
+                          />
+                        )}
                         <Image
                           layout={width > 1080 ? 'fixed' : 'responsive'}
                           className="rounded-md"

@@ -103,6 +103,7 @@ const SingleSearchType = ({
                   key={key}
                   className="w-full"
                   uniqueKey={`card-${key}`}
+                  prefixIcon={item.resourceIcon || ''}
                   content={{
                     image,
                     headerText: item.title,
