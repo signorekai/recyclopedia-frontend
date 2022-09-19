@@ -32,6 +32,11 @@ const ItemTagLiterals = {
     icon: 'fa-map-marker-exclamation',
     label: 'Specialised Recycling',
   },
+  RecycleAsPaper: {
+    bgColor: 'bg-blue-light',
+    icon: 'fa-tree',
+    label: 'Recycle as Paper',
+  },
   GiveAway: {
     bgColor: 'bg-coral',
     icon: 'fa-box-heart',
