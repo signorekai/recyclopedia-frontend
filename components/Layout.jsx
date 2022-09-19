@@ -425,14 +425,14 @@ const Layout = ({
                   }
                 })}
                 <BookmarkLink authStatus={authStatus}>
-                  <a className="text-left !text-black">
+                  <a className="text-left no-underline !text-black">
                     <span className="fas fa-bookmark mr-3" />
                     Bookmarks
                   </a>
                 </BookmarkLink>
                 {authStatus === 'authenticated' ? (
                   <Link href="/account">
-                    <a className="-mt-4">
+                    <a className="-mt-4 no-underline">
                       <i className="far fa-user mr-3"></i>
                       {capitalise(session.user.name)}
                     </a>
