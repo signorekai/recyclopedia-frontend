@@ -413,7 +413,7 @@ const Layout = ({
                     return (
                       <Link href={m.href} key={m.href} passHref>
                         <motion.a
-                          className={`motion-controlled ${m.className}`}
+                          className={`motion-controlled no-underline ${m.className}`}
                           variants={menuLinkVariant}
                           dangerouslySetInnerHTML={{
                             __html: m.label,
