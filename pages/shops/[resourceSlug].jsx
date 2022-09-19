@@ -55,7 +55,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const { resourceSlug } = params;
   const ip = process.env.API_URL;
-  const queryParams = qs.stringify({
+  let queryParams = qs.stringify({
     populate: [
       'images',
       'resourceTags',
@@ -81,7 +81,13 @@ export async function getStaticProps({ params }) {
     return { notFound: true };
   }
 
-  return { props: { data: result.data[0] } };
+  const data = result.data[0];
+
+  // queryParams = qs.stringify({
+  //   filters:
+  // })
+
+  return { props: { data } };
 }
 
 export default Page;
