@@ -19,6 +19,27 @@ const variants = {
   },
 };
 
+const PrefixIcon = ({ type }) => {
+  const icon = type.toLowerCase();
+
+  return (
+    <>
+      {icon && icon.length > 0 && icon !== 'sponsored' && (
+        <img
+          alt=""
+          className="absolute top-2 left-2 z-40 h-8 md:h-10"
+          src={`/img/${icon + '.svg'}`}
+        />
+      )}
+      {icon && icon.length > 0 && icon === 'sponsored' && (
+        <div className="z-10 py-1 px-2 rounded-md tracking-2 absolute top-2 left-2 bg-grey-dark bg-opacity-70 text-white font-archivo font-bold text-xs uppercase">
+          SPONSORED
+        </div>
+      )}
+    </>
+  );
+};
+
 const LinkWrapper = ({ children, content }) => {
   return (
     <>
@@ -62,7 +83,7 @@ const LinkWrapper = ({ children, content }) => {
  * @param {string} [props.className=""]
  * @param {string} [props.imagesWrapperClassName="aspect-square"]
  * @param {string} [props.imgClassName=""]
- * @param {'telegram'|'facebook'|''} [props.prefixIcon]
+ * @param {'telegram'|'facebook'|'sponsored'|''} [props.prefixIcon]
  * @param {JSX} [props.bookmarkBtn]
  * @returns
  */
@@ -88,13 +109,7 @@ const Card = ({
               exit="exit"
               className={`no-underline ${className}`}>
               <div className={`${imagesWrapperClassName}`}>
-                {prefixIcon && prefixIcon.length > 0 && (
-                  <img
-                    alt=""
-                    className="absolute top-2 left-2 z-40 h-8 md:h-10"
-                    src={`/img/${prefixIcon.toLowerCase()}.svg`}
-                  />
-                )}
+                <PrefixIcon type={prefixIcon} />
                 {content.images && content.images.length > 1 && (
                   <CarouselProvider
                     totalSlides={content.images.length}
