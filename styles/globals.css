@@ -129,11 +129,14 @@
   }
 
   .basic-carousel__card {
-    @apply h-full px-0 flex flex-col justify-between;
+    @apply h-full px-0 flex flex-col justify-between bg-white;
     @apply last:!snap-end;
-    @apply last:mr-4 bg-white;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-touch-callout: none;
+  }
+
+  .basic-carousel__card + .basic-carousel__card:last-child {
+    @apply mr-4;
   }
 
   .basic-carousel__card-wrapper {
