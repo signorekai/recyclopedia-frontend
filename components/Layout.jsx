@@ -116,7 +116,9 @@ const Layout = ({
 
   useEffect(() => {
     if (localStorage) {
-      const cached = localStorage.getItem('all');
+      const cached = localStorage.getItem(
+        ['items', 'resources', 'articles', 'freecycling', 'shops'].join(','),
+      );
       if (cached !== null && cached.length > 0)
         suggestions.current = cached.split(',');
     }
@@ -350,7 +352,7 @@ const Layout = ({
               style={{
                 marginTop: width >= 1080 ? 82 : 52,
               }}
-              className="search-suggestions lg:max-w-[48%] mx-auto">
+              className="search-suggestions lg:max-w-[510px] lg:-translate-x-2 mx-auto">
               <ul className="plain">
                 {suggestions.current.map((suggestion, key) => (
                   <Suggestion

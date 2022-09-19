@@ -52,6 +52,8 @@ export default function Home({ items, newsItems }) {
         All you need to know when you have something to throw
       </h3>
       <SearchBar
+        placeholderText={'Search the site'}
+        searchType={['items', 'resources', 'articles', 'freecycling', 'shops']}
         activeBackgroundColor="#F1EDEA"
         className="lg:w-[720px]"
         wrapperClassName="z-20"
