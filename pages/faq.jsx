@@ -5,24 +5,40 @@ import { motion, useMotionValue } from 'framer-motion';
 
 import Layout from '../components/Layout';
 
-const FAQCard = ({ header, content, openByDefault = false }) => {
+const FAQCard = ({ slug, header, content, openByDefault = false }) => {
+  const max = '10000000px';
   const [expanded, setExpanded] = useState(openByDefault);
   const maxHeight = useMotionValue(0);
 
   useEffect(() => {
-    maxHeight.set(expanded ? '100000px' : 0);
+    if (!expanded && openByDefault) {
+      setExpanded(!expanded);
+    }
+  }, [openByDefault]);
+
+  useEffect(() => {
+    maxHeight.set(expanded ? max : 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [expanded]);
 
   const handleClick = () => {
+    if (location) {
+      if (expanded) {
+        location.hash = '';
+      } else if (expanded === false && slug.length > 0) {
+        location.hash = slug;
+      } else if (expanded === false && slug.length === 0) {
+        location.hash = '';
+      }
+    }
     setExpanded(!expanded);
   };
 
   return (
-    <dl className={`px-4 divider-b ${expanded ? 'after:mt-4' : 'after:mt-0'}`}>
-      <button onClick={handleClick} className="w-full">
+    <dl className={`px-4 divider-b after:mt-2 `}>
+      <button className="w-full mt-4" onClick={handleClick}>
         <dt className="flex flex-row items-center">
-          <h3 className="text-black flex-1 my-4 text-left font-semibold">
+          <h3 className="text-black my-0 flex-1 text-left font-semibold">
             {header}
           </h3>
           {expanded ? (
@@ -36,14 +52,23 @@ const FAQCard = ({ header, content, openByDefault = false }) => {
         style={{
           maxHeight,
         }}
-        className="overflow-hidden transition-all duration-200 opacity-80"
-        dangerouslySetInnerHTML={{ __html: content }}></motion.dd>
+        className="overflow-hidden transition-all duration-200 opacity-80">
+        <div
+          className="mt-4 mb-2"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
+      </motion.dd>
     </dl>
   );
 };
 
 export default function Page({ pageOptions }) {
   const { section: sections } = pageOptions;
+  const [currentHash, setCurrentHash] = useState();
+
+  useEffect(() => {
+    setCurrentHash(location.hash.slice(1));
+  }, []);
 
   return (
     <Layout>
@@ -68,6 +93,8 @@ export default function Page({ pageOptions }) {
             </header>
             {section.item.map((item) => (
               <FAQCard
+                openByDefault={currentHash === item.slug}
+                slug={item.slug === null ? '' : item.slug}
                 key={`faq-${section.title}-${item.header}`}
                 header={item.header}
                 content={item.content}
