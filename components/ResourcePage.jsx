@@ -102,7 +102,7 @@ function ResourcePage({ data, baseUrl }) {
           </Head>
           <div className="page-icons lg:hidden">
             <Link href={`/${baseUrl}`}>
-              <a className="page-icon-wrapper leading-none">
+              <a className="page-icon-wrapper leading-none no-underline">
                 <i className="far fa-angle-left text-blue"></i>
               </a>
             </Link>
