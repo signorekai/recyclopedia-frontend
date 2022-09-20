@@ -58,10 +58,16 @@ const ResourceTagLiterals = {
   },
 };
 
-const ResourceBullet = ({ tag, className, baseUrl = 'resources' }) => {
+const ResourceBullet = ({
+  tag,
+  id,
+  className,
+  baseUrl = 'resources',
+  tags,
+}) => {
   if (ResourceTagLiterals[tag]) {
     return (
-      <Link href={`/${baseUrl}?section=${tag}`}>
+      <Link href={`/${tags[id]}?section=${tag}`}>
         <a
           className={`no-underline inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo !text-white rounded-md text-sm lg:text-xs ${ResourceTagLiterals[tag].bgColor} ${className}`}>
           <i
@@ -76,7 +82,7 @@ const ResourceBullet = ({ tag, className, baseUrl = 'resources' }) => {
   }
 };
 
-function ResourcePage({ data, baseUrl }) {
+function ResourcePage({ data, baseUrl, tags }) {
   const { width } = useWindowDimensions();
 
   const modifier = 0.5;
@@ -182,10 +188,12 @@ function ResourcePage({ data, baseUrl }) {
                       width < 1080 && 'scale-75 mt-4'
                     }`}>
                     {data.resourceTags &&
-                      data.resourceTags.map(({ title }, key) => (
+                      data.resourceTags.map(({ title, id }, key) => (
                         <ResourceBullet
                           baseUrl={baseUrl}
                           key={key}
+                          tags={tags}
+                          id={id}
                           tag={title}
                         />
                       ))}

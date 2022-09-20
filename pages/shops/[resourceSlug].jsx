@@ -2,8 +2,8 @@ import qs from 'qs';
 import ResourcePage from '../../components/ResourcePage';
 import { staticFetcher } from '../../lib/hooks';
 
-function Page({ data }) {
-  return <ResourcePage data={data} baseUrl="shops" />;
+function Page({ data, categoryTags }) {
+  return <ResourcePage tags={categoryTags} data={data} baseUrl="shops" />;
 }
 export async function getStaticPaths() {
   const ip = process.env.API_URL;
@@ -81,13 +81,45 @@ export async function getStaticProps({ params }) {
     return { notFound: true };
   }
 
+  const categoryTags = {};
   const data = result.data[0];
+  const tags = data.resourceTags.map((tag) => tag.id);
 
-  // queryParams = qs.stringify({
-  //   filters:
-  // })
+  const categories = ['donate-page', 'shops-page', 'resource-page'];
+  const categorySlugs = {
+    'donate-page': 'freecycling',
+    'shops-page': 'shops',
+    'resource-page': 'resources',
+  };
 
-  return { props: { data } };
+  for (const category of categories) {
+    const { data } = await staticFetcher(
+      `${process.env.API_URL}/${category}?${qs.stringify({
+        populate: ['resourceTags'],
+        filters: {
+          resourceTags: {
+            id: {
+              $in: tags,
+            },
+          },
+        },
+      })}`,
+      process.env.API_KEY,
+    );
+
+    if (data !== null) {
+      for (const tagId of tags) {
+        for (const resourceTag of data.resourceTags) {
+          if (resourceTag.id === tagId) {
+            categoryTags[tagId] = categorySlugs[category];
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  return { props: { data, categoryTags } };
 }
 
 export default Page;
