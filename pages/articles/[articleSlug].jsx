@@ -158,22 +158,22 @@ export default function Page({ article, categoryTitles, nextPost }) {
             )}
             {article.resources && article.resources.length > 0 && (
               <div className="lg:divider-b">
-                <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
-                  <div className="lg:w-1/4">
-                    <h5 className="text-left">Related Resources</h5>
+                <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
+                  <div className="lg:col-span-1">
+                    <h5 className="text-left mb-2">Related Resources</h5>
                   </div>
-                  <div className="flex-1">
+                  <div className="lg:col-span-3">
                     <Carousel
                       slideWidth={256}
                       showNav={false}
-                      className="mt-0 mb-2 h-auto">
+                      className="mt-0 lg:mb-2 h-auto">
                       {article.resources.map((item, key) => (
                         <CarouselCard
                           key={key}
                           className="w-screen-1/2 lg:w-64 mt-0">
                           <Card
                             className="w-full"
-                            imagesWrapperClassName="h-64"
+                            imagesWrapperClassName="h-[50vw] lg:h-64"
                             uniqueKey={`related-${key}`}
                             key={`related-${key}`}
                             content={{
@@ -191,11 +191,11 @@ export default function Page({ article, categoryTitles, nextPost }) {
               </div>
             )}
             {nextPost && nextPost.length > 0 && (
-              <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
-                <div className="lg:w-1/4">
-                  <h5 className="text-left">Read next</h5>
+              <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
+                <div className="lg:col-span-1">
+                  <h5 className="text-left mb-2">Read next</h5>
                 </div>
-                <div className={`flex-1 flex flex-row mb-8 lg:mb-12`}>
+                <div className={`lg:col-span-3 flex flex-row mb-8 lg:mb-12`}>
                   <div className="w-full">
                     <Link
                       key={nextPost[0].slug}
