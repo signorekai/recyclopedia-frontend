@@ -167,7 +167,7 @@ const SingleSearchType = ({
 
 const MultiSearchType = ({ type, query, data, pageOptions }) => {
   const { width } = useWindowDimensions();
-  const CardWidth = width > 1080 ? 24 : 40;
+  const CardWidth = width > 1080 ? 23 : 40;
   const router = useRouter();
 
   const [openModal, setOpenModal] = useState(false);
