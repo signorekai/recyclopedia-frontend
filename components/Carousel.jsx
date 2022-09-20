@@ -79,8 +79,7 @@ export const Carousel = ({
   const [showNextBtn, setShowNextBtn] = useState(true);
 
   let scrollAmount =
-    slideWidth === 0 ? carouselRef.current?.offsetWidth : slideWidth + 8;
-
+    slideWidth === 0 ? carouselRef.current?.offsetWidth * 0.5 : slideWidth + 8;
   const childrenCount = Children.count(children);
 
   if (!autoSlideSize) {
