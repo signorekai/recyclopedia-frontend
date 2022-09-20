@@ -24,7 +24,6 @@ const FAQCard = ({ slug, header, content, openByDefault = false }) => {
   }, [expanded]);
 
   const handleClick = () => {
-    console.log(router);
     if (location) {
       if (expanded) {
         router.replace(router.pathname, false, { shallow: true });
@@ -38,7 +37,7 @@ const FAQCard = ({ slug, header, content, openByDefault = false }) => {
   };
 
   return (
-    <dl className={`px-4 divider-b after:mt-2 `}>
+    <dl className={`px-4 divider-b after:mt-2 `} id={slug}>
       <button className="w-full mt-4" onClick={handleClick}>
         <dt className="flex flex-row items-center">
           <h3 className="text-black my-0 flex-1 text-left font-semibold">
