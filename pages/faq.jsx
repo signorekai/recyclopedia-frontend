@@ -2,6 +2,7 @@ import Head from 'next/head';
 import qs from 'querystring';
 import { useState, useEffect } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 import Layout from '../components/Layout';
 
@@ -9,6 +10,7 @@ const FAQCard = ({ slug, header, content, openByDefault = false }) => {
   const max = '10000000px';
   const [expanded, setExpanded] = useState(openByDefault);
   const maxHeight = useMotionValue(0);
+  const router = useRouter();
 
   useEffect(() => {
     if (!expanded && openByDefault) {
@@ -22,13 +24,14 @@ const FAQCard = ({ slug, header, content, openByDefault = false }) => {
   }, [expanded]);
 
   const handleClick = () => {
+    console.log(router);
     if (location) {
       if (expanded) {
-        location.hash = '';
+        router.replace(router.pathname, false, { shallow: true });
       } else if (expanded === false && slug.length > 0) {
-        location.hash = slug;
+        router.replace(`${router.pathname}#${slug}`, false, { shallow: true });
       } else if (expanded === false && slug.length === 0) {
-        location.hash = '';
+        router.replace(router.pathname, false, { shallow: true });
       }
     }
     setExpanded(!expanded);
