@@ -17,7 +17,7 @@ export default function Home({ items, newsItems }) {
   const { width } = useWindowDimensions();
 
   return (
-    <Layout showHeaderInitially={false} showHeaderOn="DOWN" hideHeaderOn="">
+    <Layout showHeaderInitially={true} showHeaderOn="DOWN" hideHeaderOn="UP">
       <Head>
         <title>Recyclopedia</title>
         <meta name="description" content="Recyclopedia" />
