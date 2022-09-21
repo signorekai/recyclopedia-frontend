@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Formik, Form, Field, useFormikContext } from 'formik';
-import { object, string } from 'yup';
+import { object, string, number } from 'yup';
 import FocusTrap from 'focus-trap-react';
 import Select from 'react-select';
 import { useSession } from 'next-auth/react';
@@ -17,7 +17,11 @@ export const FeedbackFormSchema = object({
       { message: 'Invalid topic' },
     )
     .required('Please choose a topic'),
+  record: string(),
   message: string().required('Please type your message'),
+  item: number(),
+  resource: number(),
+  user: number(),
 });
 
 export const TextInput = ({
@@ -86,7 +90,7 @@ const CheckAuth = () => {
 
   useEffect(() => {
     if (authStatus === 'authenticated') {
-      const newValues = {};
+      const newValues = { ...values };
       // console.log(values);
       if (values.hasOwnProperty('name') && values.name.length === 0) {
         newValues.name = session.user.name;
@@ -111,17 +115,24 @@ const CheckAuth = () => {
 export const FeedbackForm = ({
   defaultTopic = '',
   defaultRecord,
+  item,
+  resource,
   handleModalClick = () => {},
 }) => {
   const [showSuccess, setShowSuccess] = useState(false);
-  const { data: session, status: authStatus } = useSession();
+  const { data, status: authStatus } = useSession();
 
   const _handleSubmit = async (values, { setSubmitting }) => {
+    const formData = values;
+    if (data !== null) formData.user = data.user.id;
+    if (typeof item === 'number') formData.item = item;
+    if (typeof resource === 'number') formData.resource = resource;
+
     let res = await fetch('/api/feedback', {
       method: 'POST',
       body: JSON.stringify({
         token: '',
-        formData: values,
+        formData,
       }),
     });
 
@@ -274,6 +285,8 @@ export const FeedbackModal = ({
   openModal = false,
   record = '',
   topic = '',
+  item = '',
+  resource = '',
   handleClick = () => {},
 }) => (
   <AnimatePresence>
@@ -296,6 +309,8 @@ export const FeedbackModal = ({
           <h2 className="text-black inline-block px-4">Feedback</h2>
           <div className="flex-1 lg:max-h-[60vh] overflow-y-auto px-4 pb-4">
             <FeedbackForm
+              item={item}
+              resource={resource}
               defaultTopic={topic}
               defaultRecord={record}
               handleModalClick={handleClick}
@@ -307,7 +322,12 @@ export const FeedbackModal = ({
   </AnimatePresence>
 );
 
-export const ReportBtn = ({ record = '', topic = '' }) => {
+export const ReportBtn = ({
+  record = '',
+  topic = '',
+  item = '',
+  resource = '',
+}) => {
   const [openModal, setOpenModal] = useState(false);
 
   const _handleClick = () => {
@@ -323,6 +343,8 @@ export const ReportBtn = ({ record = '', topic = '' }) => {
         </button>
       </div>
       <FeedbackModal
+        item={item}
+        resource={resource}
         openModal={openModal}
         record={record}
         topic={topic}

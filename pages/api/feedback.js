@@ -8,11 +8,23 @@ export default async function handler(req, res) {
   const validation = await FeedbackFormSchema.isValid(formData);
 
   if (validation) {
-    let response = await fetch(`${process.env.API_URL}/ezforms/submit`, {
+    let response = await fetch(`${process.env.API_URL}/feedbacks`, {
       method: 'POST',
-      body,
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.API_KEY}`,
+      },
+      body: JSON.stringify({
+        data: {
+          ...formData,
+        },
+      }),
     });
+    // let response = await fetch(`${process.env.API_URL}/ezforms/submit`, {
+    //   method: 'POST',
+    //   body,
+    //   headers: { 'Content-Type': 'application/json' },
+    // });
 
     let results = await response.json();
     res.status(response.status).json(results);

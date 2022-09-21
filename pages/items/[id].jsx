@@ -491,7 +491,7 @@ function Page({ data }) {
               )}
             </span>
             <div className="divider-b mt-2"></div>
-            <ReportBtn record={`${data.title} (Items)`} />
+            <ReportBtn item={data.id} record={`${data.title} (Items)`} />
           </div>
         </Layout>
       )}

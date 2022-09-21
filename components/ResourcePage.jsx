@@ -350,6 +350,7 @@ function ResourcePage({ data, baseUrl, tags }) {
             </span>
             <div className="divider-b mt-2"></div>
             <ReportBtn
+              resource={data.id}
               topic="Report An Error"
               record={`${data.title} (Freecycling Resources)`}
             />
