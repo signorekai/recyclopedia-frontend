@@ -523,9 +523,7 @@ export async function getServerSideProps({ req, query, res }) {
             break;
         }
 
-        const queryString = `${
-          process.env.API_URL
-        }/${contentType}?${qs.stringify({
+        const queryString = `${ip}/${contentType}?${qs.stringify({
           populate: populateFields,
           sort: ['title'],
           pagination: 1000,
@@ -576,7 +574,7 @@ export async function getServerSideProps({ req, query, res }) {
       }
 
       const visitorId = getOrSetVisitorToken(req, res);
-      await fetch(`${process.env.API_URL}/searches`, {
+      await fetch(`${ip}/searches`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${process.env.API_KEY}`,
