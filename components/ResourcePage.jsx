@@ -225,7 +225,7 @@ function ResourcePage({ data, baseUrl, tags }) {
                       />
                     </motion.div>
                   )}
-                  <div className="grid grid-cols-1 gap-y-2 mt-4 mb-2 order-5">
+                  <div className="grid grid-cols-1 lg:flex lg:flex-row lg:gap-x-2 gap-y-2 mt-4 mb-2 order-5">
                     {data.url && (
                       <motion.a
                         viewport={{ once: true }}
