@@ -132,7 +132,6 @@ function Page({ data }) {
           <Head>
             <title>Recyclopedia - {data && data.title}</title>
             <meta name="description" content="Recyclopedia" />
-            <link rel="icon" href="/favicon.ico" />
             <meta
               property="og:url"
               content={`${process.env.NEXT_PUBLIC_LOCATION}${router.asPath}`}

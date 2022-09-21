@@ -104,7 +104,6 @@ function ResourcePage({ data, baseUrl, tags }) {
           <Head>
             <title>Recyclopedia - {data && data.title}</title>
             <meta name="description" content="Recyclopedia" />
-            <link rel="icon" href="/favicon.ico" />
           </Head>
           <div className="page-icons lg:hidden">
             <Link href={`/${baseUrl}`}>
