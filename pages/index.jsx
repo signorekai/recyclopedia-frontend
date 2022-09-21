@@ -93,13 +93,13 @@ export default function Home({ items, newsItems }) {
             <Link href="/resources" passHref>
               <a className="no-underline">
                 <h2>
-                  <i className="far fa-recycle text-3xl mr-3 mt-1" /> Recycling
-                  Options
+                  <i className="far fa-recycle text-3xl mr-3 mt-1" />{' '}
+                  Recycling++
                   <i className="fa fa-arrow-right font-light text-coral text-lg ml-3 group-hover:translate-x-1" />
                 </h2>
                 <h3 className="text-black group-hover:opacity-80">
-                  Don’t let it just go to the landfill – give your waste a
-                  second life at the proper recycling channels available.
+                  There’s more than just blue bins. Find all the ways you can
+                  keep your trash out of the incinerator.
                 </h3>
               </a>
             </Link>
@@ -117,13 +117,12 @@ export default function Home({ items, newsItems }) {
               <a className="no-underline">
                 <h2>
                   <i className="far fa-box-heart text-3xl mr-3 mt-1" /> Where to
-                  Donate
+                  Freecycle
                   <i className="group-hover:translate-x-1 fa fa-arrow-right font-light text-coral text-lg ml-3" />
                 </h2>
                 <h3 className="text-black group-hover:opacity-80">
-                  Have something in great condition that you don’t need anymore?
-                  Think about passing it on to someone else in need. You’ll
-                  reduce your impact and make their day.
+                  Donate, share, bless, giveaway. Extend the life of your stuff
+                  by giving it to others.
                 </h3>
               </a>
             </Link>
@@ -141,11 +140,11 @@ export default function Home({ items, newsItems }) {
               <a className="no-underline">
                 <h2>
                   <i className="far fa-shopping-bag text-3xl mr-3 mt-1" /> Shop
-                  Sustainably
                   <i className="fa fa-arrow-right font-light text-coral text-lg ml-3 group-hover:translate-x-1" />
                 </h2>
                 <h3 className="text-black group-hover:opacity-80">
-                  Make better choices, starting from how you consume.
+                  Support businesses that are part of the circular solution.
+                  Find pre-loved, upcycled, and zero waste goodies here.
                 </h3>
               </a>
             </Link>
