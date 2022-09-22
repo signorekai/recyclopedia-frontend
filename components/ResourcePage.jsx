@@ -352,6 +352,7 @@ function ResourcePage({ data, baseUrl, tags }) {
             <ReportBtn
               resource={data.id}
               topic="Report An Error"
+              delay={3000}
               record={`${data.title} (Freecycling Resources)`}
             />
           </div>

@@ -118,9 +118,11 @@ export const FeedbackForm = ({
   item,
   resource,
   handleModalClick = () => {},
+  delay,
 }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const { data, status: authStatus } = useSession();
+  let handler;
 
   const _handleSubmit = async (values, { setSubmitting }) => {
     const formData = values;
@@ -137,7 +139,9 @@ export const FeedbackForm = ({
     });
 
     if (res.ok && res.status === 200) {
-      handleModalClick();
+      handler = setTimeout(() => {
+        handleModalClick();
+      }, delay);
       setSubmitting(false);
       setShowSuccess(true);
     }
@@ -288,6 +292,7 @@ export const FeedbackModal = ({
   item = '',
   resource = '',
   handleClick = () => {},
+  delay,
 }) => (
   <AnimatePresence>
     {openModal && (
@@ -295,7 +300,7 @@ export const FeedbackModal = ({
         initial="initial"
         animate="animate"
         exit="exit"
-        className="modal-wrapper items-center !justify-center top-0 left-0 !z-50">
+        className="modal-wrapper overflow-hidden items-center !justify-center top-0 left-0 !z-50">
         <div
           className="w-full h-full absolute top-0 left-0"
           onClick={handleClick}
@@ -307,12 +312,13 @@ export const FeedbackModal = ({
             <span className="far fa-times absolute top-4 right-6 text-2xl text-grey" />
           </button>
           <h2 className="text-black inline-block px-4">Feedback</h2>
-          <div className="flex-1 lg:max-h-[60vh] overflow-y-auto px-4 pb-4">
+          <div className="flex-1 lg:max-h-[60vh] px-4 pb-4">
             <FeedbackForm
               item={item}
               resource={resource}
               defaultTopic={topic}
               defaultRecord={record}
+              delay={delay}
               handleModalClick={handleClick}
             />
           </div>
@@ -327,12 +333,26 @@ export const ReportBtn = ({
   topic = '',
   item = '',
   resource = '',
+  delay = 0,
 }) => {
   const [openModal, setOpenModal] = useState(false);
+  let handler;
 
   const _handleClick = () => {
+    // if (!openModal) {
     setOpenModal(!openModal);
+    // } else {
+    //   handler = setTimeout(() => {
+    //     setOpenModal(!openModal);
+    //   }, delay);
+    // }
   };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(handler);
+    };
+  }, []);
 
   return (
     <>
@@ -348,6 +368,7 @@ export const ReportBtn = ({
         openModal={openModal}
         record={record}
         topic={topic}
+        delay={delay}
         handleClick={_handleClick}
       />
     </>
