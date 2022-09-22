@@ -312,7 +312,7 @@ export const FeedbackModal = ({
             <span className="far fa-times absolute top-4 right-6 text-2xl text-grey" />
           </button>
           <h2 className="text-black inline-block px-4">Feedback</h2>
-          <div className="flex-1 lg:max-h-[60vh] px-4 pb-4">
+          <div className="flex-1 lg:max-h-[60vh] overflow-x-hidden overflow-y-auto px-4 pb-4">
             <FeedbackForm
               item={item}
               resource={resource}
