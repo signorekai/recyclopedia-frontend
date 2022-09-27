@@ -253,19 +253,6 @@ function ResourcePage({ data, baseUrl, tags }) {
                         <i className="text-xs ml-2 far fa-external-link-alt"></i>
                       </motion.a>
                     ))}
-                    {data.address && (
-                      <motion.a
-                        viewport={{ once: true }}
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        className="btn m-0"
-                        href={`https://www.google.com.sg/maps?hl=en&q=${data.address}`}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        View on Google Maps{' '}
-                        <i className="text-xs ml-2 far fa-external-link-alt"></i>
-                      </motion.a>
-                    )}
                   </div>
                   {data.locations && (
                     <motion.div
