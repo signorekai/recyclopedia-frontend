@@ -392,7 +392,6 @@ export async function getServerSideProps({ req, query, res }) {
               `${ip}/items-page`,
               process.env.API_KEY,
             );
-            console.log('pageOptions fetched!');
             return true;
             break;
 
@@ -404,7 +403,6 @@ export async function getServerSideProps({ req, query, res }) {
                 populate: ['resourceTags'],
               },
             );
-            console.log('pageOptions fetched!');
             return true;
             break;
 
@@ -416,7 +414,6 @@ export async function getServerSideProps({ req, query, res }) {
                 populate: ['resourceTags'],
               },
             );
-            console.log('pageOptions fetched!');
             return true;
             break;
 
@@ -436,7 +433,6 @@ export async function getServerSideProps({ req, query, res }) {
               `${ip}/news-and-tips-page`,
               process.env.API_KEY,
             );
-            console.log('pageOptions fetched!');
             return true;
             break;
         }
