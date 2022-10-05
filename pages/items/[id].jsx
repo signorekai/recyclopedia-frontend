@@ -325,7 +325,7 @@ function Page({ data }) {
                           showNav={false}
                           slideWidth={256}
                           className={`gap-x-2 mt-6`}>
-                          {item.resources.map((resource, key) => {
+                          {item.resourcesComp.map(({ resource }, key) => {
                             return (
                               <CarouselCard
                                 featured={resource.featured === true}
@@ -371,7 +371,7 @@ function Page({ data }) {
                       </div>
                     ) : (
                       <section className="grid gap-y-2 my-4 divider-b after:mt-6">
-                        {item.resources.map((resource, key) => (
+                        {item.resourcesComp.map(({ resource }, key) => (
                           <Link
                             key={key}
                             href={`/resources/${resource.slug}`}
@@ -551,6 +551,9 @@ export async function getStaticProps({ params }) {
       'articles',
       'recommendations.resources',
       'recommendations.resources.images',
+      'recommendations.resourcesComp',
+      'recommendations.resourcesComp.resource',
+      'recommendations.resourcesComp.resource.images',
       'itemCategory',
       'itemCategory.items',
       'itemCategory.items.images',
