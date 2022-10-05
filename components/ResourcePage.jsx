@@ -130,20 +130,18 @@ function ResourcePage({ data, baseUrl, tags }) {
               <>
                 {data.images && data.images.length > 0 ? (
                   <div className="aspect-[1_/_1] w-full lg:w-1/2 lg:pr-12 relative">
-                    {data.resourceIcon.length > 0 &&
-                      data.resourceIcon === 'Sponsored' && (
-                        <div className="z-10 py-1 px-2 rounded-md tracking-2 absolute bottom-4 left-4 bg-grey-dark bg-opacity-70 text-white font-archivo font-bold text-xs uppercase">
-                          SPONSORED
-                        </div>
-                      )}
-                    {data.resourceIcon.length > 0 &&
-                      data.resourceIcon !== 'Sponsored' && (
-                        <img
-                          alt=""
-                          className="absolute bottom-4 left-4 z-40 h-8"
-                          src={`/img/${data.resourceIcon.toLowerCase()}.svg`}
-                        />
-                      )}
+                    {data.resource && data.resourceIcon === 'Sponsored' && (
+                      <div className="z-10 py-1 px-2 rounded-md tracking-2 absolute bottom-4 left-4 bg-grey-dark bg-opacity-70 text-white font-archivo font-bold text-xs uppercase">
+                        SPONSORED
+                      </div>
+                    )}
+                    {data.resourceIcon && data.resourceIcon !== 'Sponsored' && (
+                      <img
+                        alt=""
+                        className="absolute bottom-4 left-4 z-40 h-8"
+                        src={`/img/${data.resourceIcon.toLowerCase()}.svg`}
+                      />
+                    )}
                     <Image
                       layout={width > 1080 ? 'fixed' : 'responsive'}
                       width={768}
@@ -165,13 +163,13 @@ function ResourcePage({ data, baseUrl, tags }) {
                   <>
                     {data.images && data.images.length > 0 ? (
                       <div className="aspect-[1_/_1] w-full lg:w-1/2 lg:pr-12 relative">
-                        {data.resourceIcon.length > 0 &&
+                        {data.resourceIcon &&
                           data.resourceIcon === 'Sponsored' && (
                             <div className="z-10 py-1 px-2 rounded-md tracking-2 absolute top-4 left-4 bg-grey-dark bg-opacity-70 text-white font-archivo font-bold text-xs uppercase">
                               SPONSORED
                             </div>
                           )}
-                        {data.resourceIcon.length > 0 &&
+                        {data.resourceIcon &&
                           data.resourceIcon !== 'Sponsored' && (
                             <img
                               alt=""
