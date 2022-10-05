@@ -552,7 +552,9 @@ export async function getServerSideProps({ req, query, res }) {
       fuzzyResults.items.forEach((item) => {
         const result = _find(data.items, ['id', item.id]);
         if (result === undefined) {
-          console.log(item.id);
+          if (data.hasOwnProperty('items') === false) {
+            data.items = [];
+          }
           data.items.push(item);
         }
       });
@@ -571,6 +573,9 @@ export async function getServerSideProps({ req, query, res }) {
           const type = resourceTagMap[tag.id];
           const result = _find(data[type], ['id', resource.id]);
           if (result === undefined) {
+            if (data.hasOwnProperty(type) === false) {
+              data[type] = [];
+            }
             data[type].push(resource);
           } else {
             console.log(resource.title, 'already in', type);
