@@ -100,8 +100,6 @@ function ResourcePage({ data, baseUrl, tags }) {
     }
   };
 
-  console.log(data.resourceTags);
-
   return (
     <>
       {data && (
