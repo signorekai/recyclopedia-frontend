@@ -6,6 +6,8 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
+import _find from 'lodash.find';
+
 import { staticFetcher, useWindowDimensions } from '../lib/hooks';
 import Layout from '../components/Layout';
 import Card from '../components/Card';
@@ -542,6 +544,41 @@ export async function getServerSideProps({ req, query, res }) {
         });
       });
 
+      const fuzzySearchResult = await fetch(
+        `${ip}/fuzzy-search/search?query=${search.query}`,
+      );
+      const fuzzyResults = await fuzzySearchResult.json();
+
+      fuzzyResults.items.forEach((item) => {
+        const result = _find(data.items, ['id', item.id]);
+        if (result === undefined) {
+          console.log(item.id);
+          data.items.push(item);
+        }
+      });
+
+      const resourceTagMap = [];
+      for (const [key, { data: opt }] of Object.entries(pageOptions)) {
+        if (opt.resourceTags) {
+          opt.resourceTags.forEach((tag) => {
+            resourceTagMap[tag.id] = key;
+          });
+        }
+      }
+
+      fuzzyResults.resources.forEach((resource) => {
+        resource.resourceTags.forEach((tag) => {
+          const type = resourceTagMap[tag.id];
+          const result = _find(data[type], ['id', resource.id]);
+          if (result === undefined) {
+            data[type].push(resource);
+          } else {
+            console.log(resource.title, 'already in', type);
+          }
+        });
+      });
+
+      // compiling search results for logging
       const items = [];
       const resources = [];
       const articles = [];
