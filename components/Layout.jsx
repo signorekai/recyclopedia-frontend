@@ -109,6 +109,14 @@ const Layout = ({
   };
 
   useEffect(() => {
+    if (showMenu === false) {
+      document.querySelector('body').classList.remove('overflow-hidden');
+    } else {
+      document.querySelector('body').classList.add('overflow-hidden');
+    }
+  }, [showMenu]);
+
+  useEffect(() => {
     if (showSearchBar && searchBar) {
       searchBar.current.focus();
     }
@@ -474,7 +482,7 @@ const Layout = ({
                   animate: { x: 0 },
                   exit: { x: 0 },
                 }}
-                className="w-7/12 min-w-[220px] max-w-xs bg-white p-8 flex flex-col text-xl gap-y-6">
+                className="w-7/12 min-w-[220px] max-h-[calc(100vh_-_3rem)] max-w-xs bg-white p-8 flex flex-col text-xl gap-y-3 overflow-y-scroll">
                 {menu.map((m) => {
                   if (m.href === router.route) {
                     return (
