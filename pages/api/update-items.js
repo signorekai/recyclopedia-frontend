@@ -63,22 +63,24 @@ export default async function handler(req, res) {
       return update.title === filteredData[index].title;
     })
   ) {
-    updates.forEach(async (update, index) => {
-      const results = await fetch(
-        `${process.env.API_URL}/items/${filteredData[index].id}`,
-        {
-          body: JSON.stringify({ data: update }),
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${process.env.API_KEY}`,
+    await Promise.all(
+      updates.map(async (update, index) => {
+        const results = await fetch(
+          `${process.env.API_URL}/items/${filteredData[index].id}`,
+          {
+            body: JSON.stringify({ data: update }),
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${process.env.API_KEY}`,
+            },
           },
-        },
-      );
+        );
 
-      const response = await results.json();
-      updated.push(response);
-    });
+        const response = await results.json();
+        updated.push(response);
+      }),
+    );
   }
 
   res.json({ updated: updated });
