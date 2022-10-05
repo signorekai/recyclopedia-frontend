@@ -113,7 +113,8 @@ function Page({ data }) {
   const { width, height } = useWindowDimensions();
   const router = useRouter();
 
-  const modifier = 0.5;
+  const modifier = data.images.length === 1 ? 0.5 : 0.335;
+
   const handleShare = () => {
     if (typeof window !== 'undefined') {
       if (navigator.share) {
@@ -188,7 +189,7 @@ function Page({ data }) {
                             5: 'col-span-3',
                           }[data.images.length]
                     }`}>
-                    <NewImage source={image} alt="" />
+                    <NewImage source={image} wrapperClassName="h-full" alt="" />
                   </div>
                 ))}
               </div>
@@ -217,7 +218,7 @@ function Page({ data }) {
               {data.images && data.images.length > 1 && (
                 <CarouselProvider
                   naturalSlideWidth={width}
-                  naturalSlideHeight={width * 0.8}
+                  naturalSlideHeight={width * 0.66}
                   totalSlides={data.images.length}>
                   <Slider>
                     {data.images.map((image, key) => (
@@ -226,7 +227,11 @@ function Page({ data }) {
                           alt={image.alternativeText}
                           source={image}
                           width={image.width > width ? image.width : width}
-                          height={image.width > width ? image.width : width}
+                          height={
+                            image.width > width
+                              ? image.width * 0.66
+                              : width * 0.66
+                          }
                         />
                       </Slide>
                     ))}
@@ -235,7 +240,7 @@ function Page({ data }) {
                 </CarouselProvider>
               )}
               {data.images && data.images.length === 1 && (
-                <div className="w-full h-[80vw]">
+                <div className="w-full" style={{ height: width * 0.75 }}>
                   <NewImage
                     layout="responsive"
                     alt={data.images[0].alternativeText}
