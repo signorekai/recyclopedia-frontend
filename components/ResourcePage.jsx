@@ -75,9 +75,7 @@ const ResourceBullet = ({
       <a
         className={`no-underline inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo !text-white rounded-md text-sm lg:text-xs ${className}`}>
         <i
-          className={`far text-base lg:text-sm pr-2 ${
-            icon ? `fa-${icon}` : ResourceTagLiterals[tag].icon
-          }`}
+          className={`far text-base lg:text-sm pr-2 ${icon && `fa-${icon}`}`}
         />
         <span className="pt-[2px] tracking-2">{tag}</span>
       </a>
@@ -214,7 +212,7 @@ function ResourcePage({ data, baseUrl, tags }) {
                             className: bgColour,
                           };
 
-                          if (icon.length) {
+                          if (icon) {
                             props.icon = icon;
                           }
 

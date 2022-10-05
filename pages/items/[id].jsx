@@ -113,7 +113,8 @@ function Page({ data }) {
   const { width, height } = useWindowDimensions();
   const router = useRouter();
 
-  const modifier = data.images.length === 1 ? 0.5 : 0.335;
+  const modifier =
+    data && data.images && data.images.length === 1 ? 0.5 : 0.335;
 
   const handleShare = () => {
     if (typeof window !== 'undefined') {
