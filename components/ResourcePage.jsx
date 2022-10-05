@@ -28,6 +28,10 @@ const ResourceTagLiterals = {
     icon: 'fa-box-heart',
     bgColor: 'bg-coral',
   },
+  'Charity & Welfare': {
+    icon: 'fa-box-heart',
+    bgColor: 'bg-coral',
+  },
   'NGO / Volunteers': {
     icon: 'fa-people-carry',
     bgColor: 'bg-coral',
@@ -62,24 +66,23 @@ const ResourceBullet = ({
   tag,
   id,
   className,
+  icon = '',
   baseUrl = 'resources',
   tags,
 }) => {
-  if (ResourceTagLiterals[tag]) {
-    return (
-      <Link href={`/${tags[id]}?section=${tag}`}>
-        <a
-          className={`no-underline inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo !text-white rounded-md text-sm lg:text-xs ${ResourceTagLiterals[tag].bgColor} ${className}`}>
-          <i
-            className={`far text-base lg:text-sm pr-2 ${ResourceTagLiterals[tag].icon}`}
-          />
-          <span className="pt-[2px] tracking-2">{tag}</span>
-        </a>
-      </Link>
-    );
-  } else {
-    return <></>;
-  }
+  return (
+    <Link href={`/${tags[id]}?section=${encodeURIComponent(tag)}`}>
+      <a
+        className={`no-underline inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo !text-white rounded-md text-sm lg:text-xs ${className}`}>
+        <i
+          className={`far text-base lg:text-sm pr-2 ${
+            icon ? `fa-${icon}` : ResourceTagLiterals[tag].icon
+          }`}
+        />
+        <span className="pt-[2px] tracking-2">{tag}</span>
+      </a>
+    </Link>
+  );
 };
 
 function ResourcePage({ data, baseUrl, tags }) {
@@ -96,6 +99,8 @@ function ResourcePage({ data, baseUrl, tags }) {
       }
     }
   };
+
+  console.log(data.resourceTags);
 
   return (
     <>
@@ -139,7 +144,7 @@ function ResourcePage({ data, baseUrl, tags }) {
                       <img
                         alt=""
                         className="absolute bottom-4 left-4 z-40 h-8"
-                        src={`/img/${data.resourceIcon.toLowerCase()}.svg`}
+                        src={`/img/${data.resourceIcon.toLowerCase() + '.svg'}`}
                       />
                     )}
                     <Image
@@ -174,7 +179,9 @@ function ResourcePage({ data, baseUrl, tags }) {
                             <img
                               alt=""
                               className="absolute top-4 left-4 z-40 h-8"
-                              src={`/img/${data.resourceIcon.toLowerCase()}.svg`}
+                              src={`/img/${
+                                data.resourceIcon.toLowerCase() + '.svg'
+                              }`}
                             />
                           )}
                         <Image
@@ -199,15 +206,23 @@ function ResourcePage({ data, baseUrl, tags }) {
                       width < 1080 && 'scale-75 mt-4'
                     }`}>
                     {data.resourceTags &&
-                      data.resourceTags.map(({ title, id }, key) => (
-                        <ResourceBullet
-                          baseUrl={baseUrl}
-                          key={key}
-                          tags={tags}
-                          id={id}
-                          tag={title}
-                        />
-                      ))}
+                      data.resourceTags.map(
+                        ({ title, id, icon, bgColour }, key) => {
+                          const props = {
+                            baseUrl,
+                            tags,
+                            id,
+                            tag: title,
+                            className: bgColour,
+                          };
+
+                          if (icon.length) {
+                            props.icon = icon;
+                          }
+
+                          return <ResourceBullet key={key} {...props} />;
+                        },
+                      )}
                   </div>
                   <h2 className="text-black inline-block pt-2 order-1 lg:order-2">
                     {data.title}
