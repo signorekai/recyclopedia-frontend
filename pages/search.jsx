@@ -382,7 +382,6 @@ export async function getServerSideProps({ req, query, res }) {
     const search = {
       type: query?.contentType ? query.contentType.split(',') : [],
       query: query?.searchTerm ? query.searchTerm : '',
-      queryArray: query?.searchTerm ? query.searchTerm.split(' ') : [],
     };
 
     const pageOptions = {};
@@ -468,12 +467,12 @@ export async function getServerSideProps({ req, query, res }) {
           case 'items':
             populateFields.push('images', 'itemCategory');
             filters['$or'] = [
-              ...search.queryArray.map((query) => ({
-                title: { $containsi: query },
-              })),
-              ...search.queryArray.map((query) => ({
-                alternateSearchTerms: { $containsi: query },
-              })),
+              {
+                title: { $containsi: search.query },
+              },
+              {
+                alternateSearchTerms: { $containsi: search.query },
+              },
             ];
             break;
 
@@ -496,27 +495,28 @@ export async function getServerSideProps({ req, query, res }) {
             filters.$and[0].$or = contentTypeTags;
 
             filters.$and[1].$or = [
-              ...search.queryArray.map((query) => ({
-                title: { $containsi: query },
-              })),
-              ...search.queryArray.map((query) => ({
-                description: { $containsi: query },
-              })),
-              ...search.queryArray.map((query) => ({
-                items: { $containsi: query },
-              })),
+              {
+                title: { $containsi: search.query },
+              },
+              {
+                description: { $containsi: search.query },
+              },
+
+              {
+                items: { $containsi: search.query },
+              },
             ];
             break;
 
           case 'articles':
             populateFields.push('coverImage', 'category');
             filters['$or'] = [
-              ...search.queryArray.map((query) => ({
-                title: { $containsi: query },
-              })),
-              ...search.queryArray.map((query) => ({
-                content: { $containsi: query },
-              })),
+              {
+                title: { $containsi: search.query },
+              },
+              {
+                content: { $containsi: search.query },
+              },
             ];
             break;
         }
