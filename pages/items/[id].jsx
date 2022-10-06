@@ -292,7 +292,11 @@ function Page({ data }) {
                     className="lg:grid grid-cols-4 lg:gap-x-4 mt-6">
                     <div className="lg:col-span-1">
                       <h5 className="text-left">
-                        <i className="fas fa-check" />
+                        <i
+                          className={`fas ${
+                            key === 0 ? 'fa-star' : 'fa-check'
+                          }`}
+                        />
                         {key === 0 && ' Recommended'}
                         {key !== 0 && ' Alternative'}
                       </h5>
