@@ -128,12 +128,17 @@ function Page({ data }) {
   };
 
   let desktopImageHeight = 0;
-  const imageRatio = 1.33;
+  const imageRatio = 1.34;
 
   if (width > 1080) {
-    const widths = [0, 1000 * 0.75, 1000 * 0.5, 1000 * 0.67];
+    const widths = [
+      0,
+      1000 * 0.75 * imageRatio,
+      1000 * 0.496,
+      1000 * 0.67 * imageRatio,
+    ];
     if (widths[data.images.length]) {
-      desktopImageHeight = widths[data.images.length] / imageRatio;
+      desktopImageHeight = widths[data.images.length];
     }
   }
 
