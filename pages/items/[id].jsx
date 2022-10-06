@@ -133,9 +133,9 @@ function Page({ data }) {
   if (width > 1080) {
     const widths = [
       0,
-      1000 * 0.75 * imageRatio,
+      (1000 * 0.75) / imageRatio,
       1000 * 0.496,
-      1000 * 0.67 * imageRatio,
+      (1000 * 0.67) / imageRatio,
     ];
     if (widths[data.images.length]) {
       desktopImageHeight = widths[data.images.length];
