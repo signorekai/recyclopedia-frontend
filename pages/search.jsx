@@ -612,24 +612,27 @@ export async function getServerSideProps({ req, query, res }) {
       }
 
       const visitorId = getOrSetVisitorToken(req, res);
-      await fetch(`${ip}/searches`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${process.env.API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          data: {
-            dateTime: new Date().toISOString(),
-            query: search.query,
-            itemResults: items,
-            resourceResults: resources,
-            articleResults: articles,
-            type: query.contentType,
-            visitorId,
+
+      if (resources.length === 0 || items.length === 0) {
+        await fetch(`${ip}/searches`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${process.env.API_KEY}`,
+            'Content-Type': 'application/json',
           },
-        }),
-      });
+          body: JSON.stringify({
+            data: {
+              dateTime: new Date().toISOString(),
+              query: search.query,
+              itemResults: items,
+              resourceResults: resources,
+              articleResults: articles,
+              type: query.contentType,
+              visitorId,
+            },
+          }),
+        });
+      }
 
       return {
         props: {
