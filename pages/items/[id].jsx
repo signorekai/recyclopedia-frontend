@@ -127,6 +127,16 @@ function Page({ data }) {
     }
   };
 
+  let desktopImageHeight = 0;
+  const imageRatio = 1.33;
+
+  if (width > 1080) {
+    const widths = [0, 1000 * 0.75, 1000 * 0.5, 1000 * 0.67];
+    if (widths[data.images.length]) {
+      desktopImageHeight = widths[data.images.length] / imageRatio;
+    }
+  }
+
   return (
     <>
       {data && (
@@ -160,8 +170,10 @@ function Page({ data }) {
           {width > 1080 ? (
             <div className="container">
               <div
-                className="grid grid-cols-8 grid-rows-12 gap-2 mt-12"
-                style={{ height: height * modifier }}>
+                className="grid grid-cols-12 grid-rows-12 gap-2 mt-12"
+                style={{
+                  height: desktopImageHeight,
+                }}>
                 {data.images.map((image, key) => (
                   <div
                     key={key}
@@ -171,23 +183,17 @@ function Page({ data }) {
                         : {
                             2: 'row-span-full',
                             3: 'row-span-6',
-                            4: 'row-span-4',
-                            5: 'row-span-3',
                           }[data.images.length]
                     } ${
                       key === 0
                         ? {
-                            1: 'col-span-6',
-                            2: 'col-span-4',
-                            3: 'col-span-5',
-                            4: 'col-span-5',
-                            5: 'col-span-5',
+                            1: 'col-span-9',
+                            2: 'col-span-6',
+                            3: 'col-span-8',
                           }[data.images.length]
                         : {
-                            2: 'col-span-4',
-                            3: 'col-span-3',
-                            4: 'col-span-3',
-                            5: 'col-span-3',
+                            2: 'col-span-6',
+                            3: 'col-span-4',
                           }[data.images.length]
                     }`}>
                     <NewImage source={image} wrapperClassName="h-full" alt="" />
@@ -219,7 +225,7 @@ function Page({ data }) {
               {data.images && data.images.length > 1 && (
                 <CarouselProvider
                   naturalSlideWidth={width}
-                  naturalSlideHeight={width * 0.66}
+                  naturalSlideHeight={width / imageRatio}
                   totalSlides={data.images.length}>
                   <Slider>
                     {data.images.map((image, key) => (
@@ -230,8 +236,8 @@ function Page({ data }) {
                           width={image.width > width ? image.width : width}
                           height={
                             image.width > width
-                              ? image.width * 0.66
-                              : width * 0.66
+                              ? image.width / imageRatio
+                              : width / imageRatio
                           }
                         />
                       </Slide>
