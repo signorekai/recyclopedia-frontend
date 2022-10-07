@@ -333,7 +333,7 @@ function Page({ data }) {
                     {width > 1080 ? (
                       <div
                         className={`col-start-2 col-span-3 ${
-                          item.resources.length === 0 && 'hidden'
+                          item.resourcesComp.length === 0 && 'hidden'
                         }`}>
                         <Carousel
                           key={item.id}
