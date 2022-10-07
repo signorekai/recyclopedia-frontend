@@ -130,7 +130,7 @@ function Page({ data }) {
   let desktopImageHeight = 0;
   const imageRatio = 1.34;
 
-  if (width > 1080) {
+  if (width > 1080 && data && data.images) {
     const widths = [
       0,
       (1000 * 0.75) / imageRatio,
