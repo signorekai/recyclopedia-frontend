@@ -115,7 +115,8 @@
   }
 
   .basic-carousel__control {
-    @apply h-[calc(100%_-_1.75em)] opacity-70 w-16 from-white to-transparent absolute top-0 z-20;
+    @apply h-[calc(100%_-_1.75em)] w-16 from-white/75 to-transparent absolute top-0 z-20;
+    @apply flex items-center justify-center;
   }
 
   .basic-carousel__control--prev {

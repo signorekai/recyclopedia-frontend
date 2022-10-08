@@ -158,7 +158,13 @@ export const Carousel = ({
       {desktopControls && width > 1080 && showPreviousBtn && (
         <button
           onClick={() => _handleScrollBtn()}
-          className="basic-carousel__control basic-carousel__control--prev"></button>
+          className="basic-carousel__control basic-carousel__control--prev group">
+          <img
+            src="/img/previous-btn.svg"
+            alt=""
+            className="drop-shadow group-hover:opacity-0 transition-opacity duration-100"
+          />
+        </button>
       )}
       <div
         ref={carouselRef}
@@ -178,7 +184,13 @@ export const Carousel = ({
       {desktopControls && showNextBtn && width > 1080 && (
         <button
           onClick={() => _handleScrollBtn(1)}
-          className="basic-carousel__control basic-carousel__control--next"></button>
+          className="basic-carousel__control basic-carousel__control--next group">
+          <img
+            src="/img/next-btn.svg"
+            alt=""
+            className="drop-shadow group-hover:opacity-0 transition-opacity duration-100"
+          />
+        </button>
       )}
     </div>
   );
