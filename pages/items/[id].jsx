@@ -40,7 +40,7 @@ const ItemTagLiterals = {
   GiveAway: {
     bgColor: 'bg-coral',
     icon: 'fa-box-heart',
-    label: 'Donate / Give Away',
+    label: 'Freecycle / Give Away',
   },
   Repair: {
     bgColor: 'bg-blue-dark',
