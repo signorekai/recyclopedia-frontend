@@ -481,7 +481,7 @@ function Page({ data }) {
                           return (
                             <CarouselCard
                               key={key}
-                              className="w-36 lg:w-48 overflow-hidden relative">
+                              className="w-36 overflow-hidden relative">
                               <Card
                                 className="w-full"
                                 uniqueKey={`card-${key}`}
@@ -607,7 +607,7 @@ export async function getStaticProps({ params }) {
     results.data[0].itemCategory.items = relatedItems;
   }
 
-  return { props: { data: results.data[0] }, revalidate: 3600 };
+  return { props: { data: results.data[0] } };
 }
 
 export default Page;
