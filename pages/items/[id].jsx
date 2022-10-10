@@ -457,7 +457,7 @@ function Page({ data }) {
                     <i className="far fa-info-circle"></i> Info & Insights
                   </h5>
                   <div
-                    className="text-base lg:text-lg mt-2 lg:mt-0 flex-1 inline-link"
+                    className="text-base lg:text-lg mt-2 lg:mt-0 flex-1 inline-link article-body"
                     dangerouslySetInnerHTML={{ __html: data.otherInfo }}></div>
                 </section>
                 <div className="divider-b mt-8"></div>
