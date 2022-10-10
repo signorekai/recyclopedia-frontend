@@ -464,7 +464,8 @@ function Page({ data }) {
               <>
                 <section className="lg:flex lg:flex-row lg:gap-x-2 mt-6">
                   <h5 className="text-left lg:w-1/4">
-                    <i className="far fa-info-circle"></i> Info & Insights
+                    <i className="far fa-info-circle mr-2 text-sm"></i>Info &
+                    Insights
                   </h5>
                   <div
                     className="text-base lg:text-lg mt-2 lg:mt-0 flex-1 inline-link article-body info-insights"
@@ -478,7 +479,7 @@ function Page({ data }) {
                 <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
                   <div className="lg:col-span-1">
                     <h5 className="text-left">
-                      <i className="far fa-clone"></i> Similar Items
+                      <i className="far fa-clone mr-2 text-sm"></i>Similar Items
                     </h5>
                   </div>
                   <div className="lg:col-span-3">
@@ -491,7 +492,7 @@ function Page({ data }) {
                         if (item.id !== data.id) {
                           return (
                             <CarouselCard
-                              key={key}
+                              key={`carouselCard-${key}`}
                               className="w-36 overflow-hidden relative">
                               <Card
                                 className="w-full"
