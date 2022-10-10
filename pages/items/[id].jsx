@@ -49,7 +49,7 @@ const ItemTagLiterals = {
   },
   Reuse: {
     bgColor: 'bg-blue-dark',
-    icon: 'fa-wrench',
+    icon: 'fa-repeat',
     label: 'Reuse',
   },
   Trash: {
