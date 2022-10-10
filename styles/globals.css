@@ -400,35 +400,6 @@
     @apply p-2 text-2xl text-white;
   }
 
-  .carousel {
-    @apply relative;
-  }
-
-  .carousel__dot-group {
-    @apply mx-auto text-center absolute bottom-0 left-0 w-full;
-  }
-
-  .carousel__dot {
-    @apply px-1 pb-2;
-    span {
-      @apply w-[10px] h-[10px] inline-block bg-white shadow-md drop-shadow-md bg-opacity-30 rounded-full;
-    }
-
-    &.carousel__dot--selected {
-      span {
-        @apply bg-opacity-80;
-      }
-    }
-  }
-
-  .carousel__slider-tray-wrapper {
-    @apply overflow-hidden;
-  }
-
-  .carousel__slider-tray--horizontal {
-    @apply flex;
-  }
-
   .faq-section {
     @apply my-8 pb-4 first:mt-16 last:pb-0;
   }
@@ -566,4 +537,33 @@
       @apply underline hover:no-underline;
     }
   }
+}
+
+.carousel {
+  @apply relative;
+}
+
+.carousel__dot-group {
+  @apply mx-auto text-center absolute bottom-0 left-0 w-full;
+}
+
+.carousel__dot {
+  @apply px-1 pb-2;
+  span {
+    @apply w-[10px] h-[10px] inline-block bg-white shadow-md drop-shadow-md bg-opacity-30 rounded-full;
+  }
+
+  &.carousel__dot--selected {
+    span {
+      @apply bg-opacity-80;
+    }
+  }
+}
+
+.carousel__slider-tray-wrapper {
+  @apply overflow-hidden;
+}
+
+.carousel__slider-tray--horizontal {
+  @apply flex;
 }
