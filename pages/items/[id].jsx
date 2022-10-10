@@ -45,7 +45,12 @@ const ItemTagLiterals = {
   Repair: {
     bgColor: 'bg-blue-dark',
     icon: 'fa-wrench',
-    label: 'Repair / Reuse',
+    label: 'Repair',
+  },
+  Reuse: {
+    bgColor: 'bg-blue-dark',
+    icon: 'fa-wrench',
+    label: 'Reuse',
   },
   Trash: {
     bgColor: 'bg-grey-mid',
