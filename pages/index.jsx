@@ -59,7 +59,7 @@ export default function Home({ items, newsItems }) {
         wrapperClassName="z-20"
         showBottomSpacing={false}
       />
-      <div className="container container--narrow relative z-10">
+      <div className="container container--narrow relative z-10 mb-16">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 lg:mt-12 home-items-grid">
           {items.map((item, key) => (
             <Card
@@ -79,7 +79,7 @@ export default function Home({ items, newsItems }) {
           <a className="btn">View all Items</a>
         </Link>
       </div>
-      <div className="container container--wide mb-10">
+      <div className="container container--wide mb-20">
         <div className="divide-y lg:divide-y-0 lg:divide-x divide-grey-light border-y-1 lg:border-y-0 border-grey-light lg:flex lg:flex-row">
           <motion.div
             initial="initial"
@@ -89,7 +89,7 @@ export default function Home({ items, newsItems }) {
               initial: { opacity: 0, y: 40 },
               visible: { opacity: 1, y: 0 },
             }}
-            className="py-5 px-3 lg:px-6 lg:flex-1 lg:text-center group">
+            className="py-4 px-3 lg:px-6 lg:flex-1 lg:text-center group">
             <Link href="/resources" passHref>
               <a className="no-underline">
                 <h2>
@@ -112,7 +112,7 @@ export default function Home({ items, newsItems }) {
               initial: { opacity: 0, y: 40 },
               visible: { opacity: 1, y: 0 },
             }}
-            className="py-5 px-3 lg:px-6 lg:flex-1 lg:text-center group">
+            className="py-4 px-3 lg:px-6 lg:flex-1 lg:text-center group">
             <Link href="/freecycling" passHref>
               <a className="no-underline">
                 <h2>
@@ -135,7 +135,7 @@ export default function Home({ items, newsItems }) {
               initial: { opacity: 0, y: 40 },
               visible: { opacity: 1, y: 0 },
             }}
-            className="py-5 px-3 lg:flex-1 lg:text-center group">
+            className="py-4 px-3 lg:flex-1 lg:text-center group">
             <Link href="/shops" passHref>
               <a className="no-underline">
                 <h2>
