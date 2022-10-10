@@ -123,6 +123,8 @@ function Page({ data }) {
   const { width, height } = useWindowDimensions();
   const router = useRouter();
 
+  console.log(data);
+
   const modifier =
     data && data.images && data.images.length === 1 ? 0.5 : 0.335;
 
@@ -294,6 +296,21 @@ function Page({ data }) {
                 </AlternateTerms>
               )}
             </section>
+            <motion.div
+              viewport={{ once: true }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              className="lg:divider-b lg:divider-b-taller">
+              <section className="lg:grid grid-cols-4 lg:gap-x-4 mt-6">
+                <div className="lg:col-span-1">
+                  <h5 className="text-left">
+                    <i className="far fa-recycle mr-2 text-sm" />
+                    Recyclable?
+                  </h5>
+                </div>
+                <div className="lg:col-span-3 flex flex-col lg:flex-col"></div>
+              </section>
+            </motion.div>
             {data.recommendations.map((item, key) => {
               return (
                 <motion.div
@@ -302,16 +319,16 @@ function Page({ data }) {
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   className="lg:divider-b lg:divider-b-taller">
-                  <section
-                    key={key}
-                    className="lg:grid grid-cols-4 lg:gap-x-4 mt-6">
+                  <section className="lg:grid grid-cols-4 lg:gap-x-4 mt-6">
                     <div className="lg:col-span-1">
                       <h5 className="text-left">
                         <i
-                          className={key === 0 ? 'far fa-star' : 'fas fa-check'}
+                          className={`mr-2 text-sm
+                            ${key === 0 ? 'far fa-star' : 'fas fa-check'}
+                          `}
                         />
-                        {key === 0 && ' Recommended'}
-                        {key !== 0 && ' Alternative'}
+                        {key === 0 && 'Recommended'}
+                        {key !== 0 && 'Alternative'}
                       </h5>
                     </div>
                     <div className="lg:col-span-3">
