@@ -1,6 +1,7 @@
 import { getToken } from 'next-auth/jwt';
 import { string, object, ref } from 'yup';
 import { checkHTTPMethod } from '../../lib/functions';
+import qs from 'qs';
 
 export default async function handler(req, res) {
   checkHTTPMethod(res, req.method, ['POST', 'DELETE']);
@@ -144,6 +145,7 @@ export default async function handler(req, res) {
     }
 
     case 'DELETE': {
+      const { API_URL, API_KEY } = process.env;
       const Schema = object({
         name: string().equals([token.name]),
       });
@@ -151,28 +153,69 @@ export default async function handler(req, res) {
       const validation = await Schema.isValid(req.body);
 
       if (validation) {
-        const response = await fetch(
-          `${process.env.API_URL}/users/${token.id}`,
+        // @todo remove all bookmarks
+
+        const userResponse = await fetch(
+          `${API_URL}/users/${token.id}?${qs.stringify({
+            populate: ['bookmarks'],
+          })}`,
           {
-            method: 'DELETE',
             headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${process.env.API_KEY}`,
+              Authorization: `Bearer ${API_KEY}`,
             },
           },
         );
-        if (response.ok) {
-          res.status(200).json({
-            success: true,
+
+        const { bookmarks } = await userResponse.json();
+
+        await Promise.all(
+          bookmarks.map(async ({ id }) => {
+            return new Promise(async (resolve, reject) => {
+              const response = await fetch(`${API_URL}/bookmarks/${id}`, {
+                method: 'DELETE',
+                headers: {
+                  Authorization: `Bearer ${API_KEY}`,
+                },
+              });
+
+              if (response.ok) {
+                resolve();
+              } else {
+                reject();
+              }
+            });
+          }),
+        )
+          .then(async () => {
+            const response = await fetch(
+              `${process.env.API_URL}/users/${token.id}`,
+              {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${process.env.API_KEY}`,
+                },
+              },
+            );
+            if (response.ok) {
+              res.status(200).json({
+                success: true,
+              });
+            } else {
+              res.status(400).json({
+                success: false,
+                data: {
+                  error: response,
+                },
+              });
+            }
+          })
+          .catch(() => {
+            console.log(188);
+            res.status(400).json({
+              success: false,
+            });
           });
-        } else {
-          res.status(400).json({
-            success: false,
-            data: {
-              error: response,
-            },
-          });
-        }
       }
 
       // res.status(400).json({ success: true, data: { validation } });
