@@ -66,6 +66,7 @@ export const Carousel = ({
   slideWidth = 0,
   autoSlideSize = false,
   scrollTo = 0,
+  buttonOffset = 0,
   disableScroll = false,
   sliderStyle = {},
   desktopControls = true,
@@ -91,8 +92,6 @@ export const Carousel = ({
       }px`;
     }
   }
-
-  console.log(childrenCount, slideWidth);
 
   const _checkButtons = useCallback(() => {
     if (
@@ -162,6 +161,9 @@ export const Carousel = ({
           onClick={() => _handleScrollBtn()}
           className="basic-carousel__control basic-carousel__control--prev group">
           <img
+            style={{
+              transform: `translateY(${buttonOffset}px)`,
+            }}
             src="/img/previous-btn.svg"
             alt=""
             className="drop-shadow group-hover:opacity-0 transition-opacity duration-100"
@@ -188,6 +190,9 @@ export const Carousel = ({
           onClick={() => _handleScrollBtn(1)}
           className="basic-carousel__control basic-carousel__control--next group">
           <img
+            style={{
+              transform: `translateY(${buttonOffset}px)`,
+            }}
             src="/img/next-btn.svg"
             alt=""
             className="drop-shadow group-hover:opacity-0 transition-opacity duration-100"
