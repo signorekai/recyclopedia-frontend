@@ -26,6 +26,13 @@ export default function Page() {
     field: string().required().oneOf(['name']),
   });
 
+  const DeleteAccountSchema = object({
+    name: string()
+      .required('Name required')
+      .oneOf([session?.user.name], 'Please key in your name'),
+    field: string().required().oneOf(['name']),
+  });
+
   const PasswordSchema = object({
     field: string().required().oneOf(['password']),
     oldPassword: string()
@@ -59,6 +66,18 @@ export default function Page() {
       signOut({ callbackUrl: '/login' });
     } else {
       setPassChangeError(result.data.error);
+    }
+  };
+
+  const _handleDeleteAccount = async (values, { setSubmitting }) => {
+    const response = await fetch('/api/user', {
+      body: JSON.stringify(values),
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const result = await response.json();
+    if (result.success) {
+      signOut({ callbackUrl: '/' });
     }
   };
 
@@ -184,6 +203,47 @@ export default function Page() {
                   </Form>
                 )}
               </Formik>
+
+              <div className="divider-b divider-b-8"></div>
+
+              <div className="flex flex-col lg:flex-row flex-wrap items-start mt-6 lg:mt-10">
+                <h3 className="lg:w-1/3 mb-8 lg:mb-0">Delete Account</h3>
+                <div className="w-full lg:w-2/3">
+                  All your bookmarks will be lost. <br />
+                  Are you sure you want to delete your account?
+                  <Formik
+                    initialValues={{
+                      name: '',
+                      field: 'name',
+                    }}
+                    onSubmit={_handleDeleteAccount}
+                    validationSchema={DeleteAccountSchema}>
+                    {({ isSubmitting }) => (
+                      <Form className="">
+                        <Field
+                          type="text"
+                          name="name"
+                          tooltip={`To confirm, please type your name - ${session.user.name}`}
+                          label=""
+                          component={TextInput}
+                        />
+                        <div className="w-full">
+                          <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="form-submission-btn">
+                            {isSubmitting ? (
+                              <span className="far fa-spinner-third animate-spin" />
+                            ) : (
+                              'Yes, delete my account'
+                            )}
+                          </button>
+                        </div>
+                      </Form>
+                    )}
+                  </Formik>
+                </div>
+              </div>
             </>
           )}
         </div>
