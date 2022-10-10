@@ -306,14 +306,14 @@ function Page({ data }) {
                     </div>
                     <div className="lg:col-span-3">
                       <RecommendationCard recommendation={item.recommendation}>
-                        <h2 className="text-white align-middle mb-1 lg:justify-start">
+                        <h2 className="text-white mb-1 lg:justify-start">
                           <RecommendationIcon
                             recommendation={item.recommendation}
                           />
                           {ItemTagLiterals[item.recommendation].label}
                         </h2>
                         <div
-                          className="text-white text-lg"
+                          className="text-white text-lg recommendation__box"
                           dangerouslySetInnerHTML={{
                             __html: item.recommendationText,
                           }}
@@ -473,6 +473,7 @@ function Page({ data }) {
                   </div>
                   <div className="lg:col-span-3">
                     <Carousel
+                      buttonOffset={-28}
                       slideWidth={144}
                       showNav={false}
                       className="gap-x-2 flex-1 mt-3 lg:mt-0">
