@@ -37,6 +37,11 @@ const ItemTagLiterals = {
     icon: 'fa-tree',
     label: 'Recycle as Paper',
   },
+  CharitableDonation: {
+    bgColor: 'bg-coral',
+    icon: 'fa-box-heart',
+    label: 'Freecycle / Give Away',
+  },
   GiveAway: {
     bgColor: 'bg-coral',
     icon: 'fa-box-heart',
