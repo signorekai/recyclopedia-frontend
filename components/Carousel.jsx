@@ -109,6 +109,8 @@ export const Carousel = ({
       left: scrollAmount * direction * 2,
       behavior: 'smooth',
     });
+
+    _checkButtons();
   };
 
   useEffect(() => {
