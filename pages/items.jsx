@@ -84,6 +84,11 @@ export default function Page({ fallback, pageOptions }) {
         inactiveBackgroundColor={pageOptions.colour}
         activeBackgroundColor={pageOptions.colour}
       />
+      <div className="container mt-4 lg:mt-6">
+        <h4 className="text-grey-dark text-sm lg:text-lg font-thin">
+          Sorted by Popularity
+        </h4>
+      </div>
       <SWRConfig value={{ fallback }}>
         <Cards columnCount={pageOptions.gridColumnCount} />
       </SWRConfig>

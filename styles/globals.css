@@ -515,8 +515,8 @@ p + p {
 }
 
 .cards {
-  @apply grid grid-cols-2 md:grid-cols-3 mt-6;
-  @apply gap-x-2 gap-y-2 lg:gap-x-7 lg:gap-y-6 lg:mt-6;
+  @apply grid grid-cols-2 md:grid-cols-3 mt-2;
+  @apply gap-x-2 gap-y-2 lg:gap-x-7 lg:gap-y-6 lg:mt-4;
   @apply items-start;
 }
 
