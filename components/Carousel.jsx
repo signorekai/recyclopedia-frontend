@@ -92,6 +92,8 @@ export const Carousel = ({
     }
   }
 
+  console.log(childrenCount, slideWidth);
+
   const _checkButtons = useCallback(() => {
     if (
       carouselRef.current.offsetWidth >= slidesContainerRef.current.offsetWidth
