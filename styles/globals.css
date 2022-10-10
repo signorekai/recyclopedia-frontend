@@ -470,6 +470,7 @@
   .form-submission-btn {
     @apply w-full lg:w-auto;
     @apply bg-coral text-white px-5 py-2 mt-4 rounded-md text-lg font-semibold;
+    @apply hover:bg-coral-dark transition-all;
     @apply disabled:bg-grey-light;
   }
 
