@@ -40,7 +40,7 @@ const ItemTagLiterals = {
   CharitableDonation: {
     bgColor: 'bg-coral',
     icon: 'fa-box-heart',
-    label: 'Freecycle / Give Away',
+    label: 'Charitable Donation',
   },
   GiveAway: {
     bgColor: 'bg-coral',
