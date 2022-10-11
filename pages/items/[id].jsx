@@ -317,7 +317,7 @@ function Page({ data }) {
                       <>
                         <div className="flex items-center text-green p-4">
                           <i className="fas fa-check-circle text-4xl mr-2"></i>
-                          <h2 class="text-green">Blue bin</h2>
+                          <h2 className="text-green">Blue bin</h2>
                         </div>
                         <img
                           src="/img/bluebin-true.png"
@@ -329,7 +329,7 @@ function Page({ data }) {
                       <>
                         <div className="flex items-center text-red p-4">
                           <i className="fas fa-times-circle text-4xl mr-2"></i>
-                          <h2 class="text-red">Blue bin</h2>
+                          <h2 className="text-red">Blue bin</h2>
                         </div>
                         <img
                           src="/img/bluebin-false.png"
@@ -347,7 +347,7 @@ function Page({ data }) {
                       <>
                         <div className="flex items-center text-green p-4 pr-0">
                           <i className="fas fa-check-circle text-4xl mr-2"></i>
-                          <h2 class="text-green">Other Recycling</h2>
+                          <h2 className="text-green">Other Recycling</h2>
                         </div>
                         <img
                           src="/img/recycle-elsewhere.png"
@@ -359,7 +359,7 @@ function Page({ data }) {
                       <>
                         <div className="flex items-center text-red p-4 pr-0">
                           <i className="fas fa-times-circle text-4xl mr-2"></i>
-                          <h2 class="text-red">Other Recycling</h2>
+                          <h2 className="text-red">Other Recycling</h2>
                         </div>
                         <img
                           src="/img/recycle-elsewhere.png"
