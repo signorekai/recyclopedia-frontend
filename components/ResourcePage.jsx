@@ -241,7 +241,7 @@ function ResourcePage({ data, baseUrl, tags }) {
                         <i className="far fa-info-circle" /> Info
                       </h5>
                       <div
-                        className="text-base lg:text-lg mt-2 lg:mt-1 !leading-snug"
+                        className="text-base lg:text-lg mt-2 lg:mt-1 !leading-snug article-body lg:w-full info-insights"
                         dangerouslySetInnerHTML={{
                           __html: data.description,
                         }}
