@@ -123,6 +123,8 @@ function Page({ data }) {
   const { width, height } = useWindowDimensions();
   const router = useRouter();
 
+  console.log(data);
+
   const modifier =
     data && data.images && data.images.length === 1 ? 0.5 : 0.335;
 
@@ -275,7 +277,7 @@ function Page({ data }) {
             </>
           )}
           <div className="container">
-            <section className="mt-3 lg:mt-5 divider-b">
+            <section className="mt-3 lg:mt-5 divider-b lg:after:hidden">
               <h2 className="text-black mb-0 lg:text-3xl leading-tight justify-start">
                 {data.title}{' '}
                 <BookmarkButton
@@ -294,6 +296,82 @@ function Page({ data }) {
                 </AlternateTerms>
               )}
             </section>
+            <motion.div
+              viewport={{ once: true }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              className="lg:divider-b lg:divider-b-taller lg:mt-14">
+              <section className="lg:grid grid-cols-4 lg:gap-x-4 mt-6">
+                <div className="lg:col-span-1">
+                  <h5 className="text-left">
+                    <i className="far fa-recycle mr-2 text-sm" />
+                    Recyclable?
+                  </h5>
+                </div>
+                <div className="lg:col-span-3 flex flex-col mt-2 lg:mt-0 lg:flex-row gap-y-2 gap-x-5">
+                  <div
+                    className={`summary-box ${
+                      data.bluebin ? 'border-green' : 'border-red'
+                    }`}>
+                    {data.bluebin ? (
+                      <>
+                        <div className="flex items-center text-green p-4">
+                          <i className="fas fa-check-circle text-4xl mr-2"></i>
+                          <h2 class="text-green">Blue bin</h2>
+                        </div>
+                        <img
+                          src="/img/bluebin-true.png"
+                          alt=""
+                          className="h-16 lg:h-24"
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex items-center text-red p-4">
+                          <i className="fas fa-times-circle text-4xl mr-2"></i>
+                          <h2 class="text-red">Blue bin</h2>
+                        </div>
+                        <img
+                          src="/img/bluebin-false.png"
+                          alt=""
+                          className="h-16 lg:h-24"
+                        />
+                      </>
+                    )}
+                  </div>
+                  <div
+                    className={`summary-box ${
+                      data.recycleElsewhere ? 'border-green' : 'border-red'
+                    }`}>
+                    {data.recycleElsewhere ? (
+                      <>
+                        <div className="flex items-center text-green p-4 pr-0">
+                          <i className="fas fa-check-circle text-4xl mr-2"></i>
+                          <h2 class="text-green">Other Recycling</h2>
+                        </div>
+                        <img
+                          src="/img/recycle-elsewhere.png"
+                          alt=""
+                          className="h-16 lg:h-24"
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex items-center text-red p-4 pr-0">
+                          <i className="fas fa-times-circle text-4xl mr-2"></i>
+                          <h2 class="text-red">Other Recycling</h2>
+                        </div>
+                        <img
+                          src="/img/recycle-elsewhere.png"
+                          alt=""
+                          className="h-16 lg:h-24"
+                        />
+                      </>
+                    )}
+                  </div>
+                </div>
+              </section>
+            </motion.div>
             {data.recommendations.map((item, key) => {
               return (
                 <motion.div
@@ -302,16 +380,16 @@ function Page({ data }) {
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   className="lg:divider-b lg:divider-b-taller">
-                  <section
-                    key={key}
-                    className="lg:grid grid-cols-4 lg:gap-x-4 mt-6">
+                  <section className="lg:grid grid-cols-4 lg:gap-x-4 mt-6">
                     <div className="lg:col-span-1">
                       <h5 className="text-left">
                         <i
-                          className={key === 0 ? 'far fa-star' : 'fas fa-check'}
+                          className={`mr-2 text-sm
+                            ${key === 0 ? 'far fa-star' : 'fas fa-check'}
+                          `}
                         />
-                        {key === 0 && ' Recommended'}
-                        {key !== 0 && ' Alternative'}
+                        {key === 0 && 'Recommended'}
+                        {key !== 0 && 'Alternative'}
                       </h5>
                     </div>
                     <div className="lg:col-span-3">
