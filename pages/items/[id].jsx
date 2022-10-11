@@ -320,7 +320,7 @@ function Page({ data }) {
                         <img
                           src="/img/bluebin-true.png"
                           alt=""
-                          className="h-16 lg:h-24"
+                          className="h-16 lg:h-[4.5rem]"
                         />
                       </>
                     ) : (
@@ -332,7 +332,7 @@ function Page({ data }) {
                         <img
                           src="/img/bluebin-false.png"
                           alt=""
-                          className="h-16 lg:h-24"
+                          className="h-16 lg:h-[4.5rem]"
                         />
                       </>
                     )}
@@ -350,7 +350,7 @@ function Page({ data }) {
                         <img
                           src="/img/recycle-elsewhere.png"
                           alt=""
-                          className="h-16 lg:h-24"
+                          className="h-16 lg:h-[4.5rem]"
                         />
                       </>
                     ) : (
@@ -362,7 +362,7 @@ function Page({ data }) {
                         <img
                           src="/img/recycle-elsewhere.png"
                           alt=""
-                          className="h-16 lg:h-24"
+                          className="h-16 lg:h-[4.5rem]"
                         />
                       </>
                     )}
