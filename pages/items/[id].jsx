@@ -123,8 +123,6 @@ function Page({ data }) {
   const { width, height } = useWindowDimensions();
   const router = useRouter();
 
-  console.log(data);
-
   const modifier =
     data && data.images && data.images.length === 1 ? 0.5 : 0.335;
 

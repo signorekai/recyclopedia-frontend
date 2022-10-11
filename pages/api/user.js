@@ -211,7 +211,6 @@ export default async function handler(req, res) {
             }
           })
           .catch(() => {
-            console.log(188);
             res.status(400).json({
               success: false,
             });
