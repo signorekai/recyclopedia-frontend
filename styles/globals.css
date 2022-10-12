@@ -416,7 +416,7 @@
     }
 
     p + p {
-      @apply mt-6;
+      @apply mt-2;
     }
 
     h1,
@@ -425,7 +425,7 @@
     h4,
     h5,
     h6 {
-      @apply block text-left mb-4 mt-14;
+      @apply block text-left mb-4 mt-4;
       @apply first:mt-0;
     }
 
@@ -434,7 +434,7 @@
     }
 
     h3 {
-      @apply text-2xl mt-4 mb-2;
+      @apply text-2xl mb-2;
     }
 
     h4 {
@@ -443,7 +443,7 @@
 
     blockquote,
     code {
-      @apply w-[90%] block my-14;
+      @apply w-[90%] block my-4;
     }
 
     blockquote {
