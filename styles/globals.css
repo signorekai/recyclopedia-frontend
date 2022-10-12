@@ -425,7 +425,7 @@
     h4,
     h5,
     h6 {
-      @apply block text-left mb-4 mt-4;
+      @apply block text-left mb-4 mt-6;
       @apply first:mt-0;
     }
 
@@ -443,7 +443,7 @@
 
     blockquote,
     code {
-      @apply w-[90%] block my-4;
+      @apply w-[90%] block my-6;
     }
 
     blockquote {
