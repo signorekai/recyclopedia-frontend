@@ -318,6 +318,9 @@ function ResourcePage({ data, baseUrl, tags }) {
                       />
                     )}
                     <Carousel
+                      buttonOffset={
+                        width > 1080 ? (180 - 32) / 2 : (width * 0.5 - 32) / 2
+                      }
                       autoSlideSize={true}
                       showNav={false}
                       className="mb-6 h-auto"
