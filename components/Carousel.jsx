@@ -8,7 +8,7 @@ import React, {
 import { motion, useElementScroll, useMotionValue } from 'framer-motion';
 
 import {
-  useElementDimensions,
+  useElementSize,
   useScrollDrag,
   useWindowDimensions,
 } from '../lib/hooks';
@@ -161,7 +161,9 @@ export const Carousel = ({
       {desktopControls && width > 1080 && showPreviousBtn && (
         <button
           onClick={() => _handleScrollBtn()}
-          className="basic-carousel__control basic-carousel__control--prev group">
+          className={`basic-carousel__control basic-carousel__control--prev group ${
+            buttonOffset === 0 && 'items-center'
+          }`}>
           <img
             style={{
               transform: `translateY(${buttonOffset}px)`,
@@ -190,7 +192,9 @@ export const Carousel = ({
       {desktopControls && showNextBtn && width > 1080 && (
         <button
           onClick={() => _handleScrollBtn(1)}
-          className="basic-carousel__control basic-carousel__control--next group">
+          className={`basic-carousel__control basic-carousel__control--next group ${
+            buttonOffset === 0 && 'items-center'
+          }`}>
           <img
             style={{
               transform: `translateY(${buttonOffset}px)`,
