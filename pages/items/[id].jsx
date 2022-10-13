@@ -420,6 +420,7 @@ function Page({ data }) {
                           item.resourcesComp.length === 0 && 'hidden'
                         }`}>
                         <Carousel
+                          buttonOffset={(192 - 32) / 2}
                           key={item.id}
                           showNav={false}
                           slideWidth={256}
@@ -443,7 +444,10 @@ function Page({ data }) {
                                         <img
                                           alt=""
                                           className="absolute top-2 left-2 z-40 h-4 md:h-10"
-                                          src={`/img/${resource.resourceIcon.toLowerCase()}.svg`}
+                                          src={`/img/${
+                                            resource.resourceIcon.toLowerCase() +
+                                            '.svg'
+                                          }`}
                                         />
                                       )}
                                     <NewImage
@@ -513,7 +517,10 @@ function Page({ data }) {
                                     <img
                                       alt=""
                                       className="absolute top-2 right-14 z-40 h-4 md:h-10"
-                                      src={`/img/${resource.resourceIcon.toLowerCase()}.svg`}
+                                      src={`/img/${
+                                        resource.resourceIcon.toLowerCase() +
+                                        '.svg'
+                                      }`}
                                     />
                                   )}
                               </div>
