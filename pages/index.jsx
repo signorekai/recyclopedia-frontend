@@ -59,7 +59,7 @@ export default function Home({ items, newsItems }) {
         wrapperClassName="z-20"
         showBottomSpacing={false}
       />
-      <div className="container container--narrow relative z-10 mb-16">
+      <div className="container container--narrow relative z-10 lg:mb-16">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 lg:mt-12 home-items-grid">
           {items.map((item, key) => (
             <Card
@@ -79,7 +79,7 @@ export default function Home({ items, newsItems }) {
           <a className="btn">View all Items</a>
         </Link>
       </div>
-      <div className="container container--wide mb-20">
+      <div className="container container--wide mt-8 lg:mt-20 mb-6 lg:mb-20">
         <div className="divide-y lg:divide-y-0 lg:divide-x divide-grey-light border-y-1 lg:border-y-0 border-grey-light lg:flex lg:flex-row">
           <motion.div
             initial="initial"
