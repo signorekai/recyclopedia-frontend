@@ -560,8 +560,10 @@ function Page({ data }) {
                   </div>
                   <div className="lg:col-span-3">
                     <Carousel
-                      buttonOffset={-28}
-                      slideWidth={144}
+                      buttonOffset={
+                        width > 1080 ? (176 - 32) / 2 : (144 - 32) / 2
+                      }
+                      slideWidth={width > 1080 ? 176 : 144}
                       showNav={false}
                       className="gap-x-2 flex-1 mt-3 lg:mt-0">
                       {data.itemCategory.items.map((item, key) => {
@@ -569,7 +571,7 @@ function Page({ data }) {
                           return (
                             <CarouselCard
                               key={`carouselCard-${key}`}
-                              className="w-36 overflow-hidden relative">
+                              className="w-36 lg:w-44 overflow-hidden relative">
                               <Card
                                 className="w-full"
                                 uniqueKey={`card-${key}`}
