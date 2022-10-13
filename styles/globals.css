@@ -430,7 +430,7 @@
     }
 
     h2 {
-      @apply text-3xl text-black;
+      @apply text-3xl text-black mb-3;
     }
 
     h3 {
@@ -438,7 +438,7 @@
     }
 
     h4 {
-      @apply text-lg;
+      @apply text-lg mb-2;
     }
 
     blockquote,
