@@ -157,9 +157,14 @@ export default function Home({ items, newsItems }) {
           <i className="fa fa-arrow-right font-light text-coral text-lg ml-3 group-hover:translate-x-1" />
         </h2>
         <Carousel
+          buttonOffset={
+            width > 1080
+              ? ((320 / 4) * 3 - 32) / 2
+              : ((width * 0.75) / 4) * 3 - 32
+          }
           desktopControls={true}
           autoSlideSize={false}
-          slideWidth={width > 1080 ? 347 : width * 0.75}
+          slideWidth={width > 1080 ? 320 : width * 0.75}
           showNav={false}
           className="mt-3">
           {newsItems.map((item, key) => (
