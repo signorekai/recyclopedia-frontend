@@ -152,7 +152,10 @@ export default function Home({ items, newsItems }) {
         </div>
       </div>
       <div className="container lg:container--wide">
-        <h5>News & Tips</h5>
+        <h2 className="mb-3 lg:mb-5">
+          <i className="far fa-lightbulb-exclamation text-3xl mr-3 mt-1" /> Shop
+          <i className="fa fa-arrow-right font-light text-coral text-lg ml-3 group-hover:translate-x-1" />
+        </h2>
         <Carousel
           desktopControls={true}
           autoSlideSize={false}
