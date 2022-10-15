@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import useSWR from 'swr';
 
 import Link from './Link';
@@ -509,18 +510,25 @@ const Layout = ({
                   }
                 })}
                 <BookmarkLink authStatus={authStatus}>
-                  <a className="text-left no-underline !text-black">
+                  <a className="text-left no-underline !text-black mb-2">
                     <span className="fas fa-bookmark mr-3" />
                     Bookmarks
                   </a>
                 </BookmarkLink>
                 {authStatus === 'authenticated' ? (
-                  <Link href="/account">
-                    <a className="-mt-4 no-underline">
-                      <i className="far fa-user mr-3"></i>
-                      {capitalise(session.user.name)}
-                    </a>
-                  </Link>
+                  <>
+                    <Link href="/account">
+                      <a className="-mt-4 no-underline">
+                        <i className="far fa-user mr-3"></i>
+                        {capitalise(session.user.name)}
+                      </a>
+                    </Link>
+                    <button
+                      className="hover:opacity-70 transition-opacity text-left mt-auto"
+                      onClick={() => signOut({ callbackUrl: '/' })}>
+                      <i className="far fa-sign-out mr-2" /> Logout
+                    </button>
+                  </>
                 ) : (
                   <Link href="/login">
                     <a className="-mt-4 text-sm !text-grey-mid no-underline">
