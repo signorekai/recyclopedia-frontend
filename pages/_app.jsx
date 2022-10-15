@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { SessionProvider } from 'next-auth/react';
+import { GoogleAnalytics } from 'nextjs-google-analytics';
 import NextNProgress from 'nextjs-progressbar';
 
 import { logVisit } from '../lib/analytics';
@@ -25,6 +26,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         showOnShallow={false}
         options={{ showSpinner: false }}
       />
+      <GoogleAnalytics trackPageViews />
       <Component {...pageProps} />
     </SessionProvider>
   );

@@ -18,6 +18,7 @@
     "luxon": "^2.3.1",
     "next": "^12.2.2",
     "next-auth": "^4.3.3",
+    "nextjs-google-analytics": "^2.1.0",
     "nextjs-progressbar": "0.0.14",
     "node-fetch": "^3.2.3",
     "pure-react-carousel": "^1.28.1",
