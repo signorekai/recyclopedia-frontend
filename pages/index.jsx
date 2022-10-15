@@ -153,7 +153,11 @@ export default function Home({ items, newsItems }) {
       </div>
       <div className="container lg:container--wide">
         <h2 className="mb-3 lg:mb-5">
-          <i className="far fa-lightbulb-exclamation text-3xl mr-3 mt-1" /> Shop
+          <Link href="/learn" passHref>
+            <a className="no-underline">
+              <i className="far fa-lightbulb-exclamation text-3xl mr-3" /> Learn
+            </a>
+          </Link>
           <i className="fa fa-arrow-right font-light text-coral text-lg ml-3 group-hover:translate-x-1" />
         </h2>
         <Carousel
