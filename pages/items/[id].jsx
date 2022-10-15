@@ -105,17 +105,17 @@ const AlternateTerms = ({ children }) => {
   };
 
   return (
-    <p
+    <div
       onClick={_handleClick}
       ref={containerRef}
-      className={`cursor-pointer text-sm lg:text-lg text-grey-dark max-w-full overflow-hidden ${
-        collapsed ? 'whitespace-nowrap' : 'whitespace-normal'
+      className={`text-sm lg:text-lg text-grey-dark max-w-full overflow-hidden ${
+        collapsed ? 'cursor-pointer whitespace-nowrap' : 'whitespace-normal'
       } relative `}>
       {children}
       {collapsed && scrollWidth > offsetWidth && (
         <div className="absolute h-full w-6 -right-2 top-0 lg:w-full lg:h-10 lg:top-auto lg:-bottom-4 lg:left-0 lg:right-auto bg-gradient-to-r lg:bg-gradient-to-b from-transparent to-white" />
       )}
-    </p>
+    </div>
   );
 };
 
@@ -600,6 +600,51 @@ function Page({ data }) {
                 <div className="divider-b mt-4 mb-2"></div>
               </>
             )}
+            {data.articles && data.articles.length > 0 && (
+              <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
+                <div className="lg:col-span-1">
+                  <h5 className="text-left mb-2">
+                    <i className="far fa-lightbulb-exclamation mr-2 text-sm"></i>
+                    Read more
+                  </h5>
+                </div>
+                <div className={`lg:col-span-3 flex flex-col mb-8 lg:mb-12`}>
+                  {data.articles.map((article) => (
+                    <div key={article.slug} className="w-full">
+                      <Link
+                        key={article.slug}
+                        href={`/articles/${article.slug}`}>
+                        <a className="group no-underline">
+                          <div className="flex flex-row mb-8 gap-x-4 flex-wrap ">
+                            <div className="w-1/4 md:aspect-[4/3]">
+                              <NewImage
+                                wrapperClassName="md:rounded-md"
+                                className="aspect-[4/3] group-hover:scale-110 transition-transform"
+                                sizes="270px"
+                                source={article.coverImage || {}}
+                                layout="responsive"
+                              />
+                            </div>
+                            <div className="flex-1 mb-4">
+                              <h5 className="text-left pt-2">
+                                {article.category?.title}
+                              </h5>
+                              <h3 className="text-blue-dark group-hover:text-blue block">
+                                {article.title}
+                                <i className="fa fa-arrow-right ml-2 text-xs font-normal translate-y-[-2px] translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all"></i>
+                              </h3>
+                              <p className="hidden md:block text-black my-2 text-base leading-tight group-hover:opacity-60">
+                                {article.excerpt && article.excerpt}
+                              </p>
+                            </div>
+                          </div>
+                        </a>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
             <span className="text-grey-dark text-sm mt-2 block">
               Last Updated:{' '}
               {DateTime.fromISO(data.updatedAt).toLocaleString(
@@ -659,6 +704,7 @@ export async function getStaticProps({ params }) {
       'recommendations',
       'images',
       'articles',
+      'articles.coverImage',
       'recommendations.resources',
       'recommendations.resources.images',
       'recommendations.resourcesComp',
