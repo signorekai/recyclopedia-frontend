@@ -118,7 +118,7 @@ const Card = ({
                     <Slider classNameAnimation="transition-transform duration-200">
                       {content.images.map((image, key) => (
                         <Slide
-                          key={key}
+                          key={`${image.url}-${key}`}
                           index={key}
                           style={{ paddingBottom: 0 }}>
                           <Image
