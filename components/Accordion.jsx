@@ -76,7 +76,7 @@ export const AccordionHeader = ({
         sliderClassName={`gap-x-8 relative ${sliderClassName}`}>
         {items.map((header, key) => {
           return (
-            <CarouselCard className={cardClassName} key={key}>
+            <CarouselCard className={cardClassName} key={`${header}-${key}`}>
               <button
                 className={`pt-5`}
                 onClick={() => {
@@ -161,7 +161,7 @@ export const AccordionBody = ({
                 opacity: selected === key ? 1 : 0,
                 maxHeight: selected === key ? 1000000000000000000 : 0,
               }}
-              key={i}>
+              key={key}>
               <div ref={(el) => (itemRefs.current[key] = el)}>{items[key]}</div>
             </CarouselCard>
           );
