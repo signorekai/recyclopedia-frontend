@@ -48,7 +48,7 @@ const Tab = ({ category, columnCount = 3 }) => {
               <Card
                 key={key}
                 className="w-full"
-                uniqueKey={`card-${key}`}
+                uniqueKey={`card-${key}-${item.slug}`}
                 prefixIcon={item.resourceIcon || ''}
                 content={{
                   images: item.images,
@@ -91,7 +91,7 @@ const Cards = ({ categories, columnCount = 3 }) => {
               <Card
                 key={key}
                 className="w-full"
-                uniqueKey={`card-${key}`}
+                uniqueKey={`card-${key}-${item.slug}`}
                 prefixIcon={item.resourceIcon || ''}
                 content={{
                   images: item.images,
