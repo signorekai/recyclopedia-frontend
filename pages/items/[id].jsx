@@ -94,26 +94,42 @@ const RecommendationIcon = ({ recommendation }) => (
 
 const AlternateTerms = ({ children }) => {
   const [collapsed, setCollapsed] = useState(true);
+  const [active, setActive] = useState(true);
   const containerRef = useRef();
-  const { width } = useWindowDimensions();
-  const { offsetWidth, scrollWidth } = containerRef.current
-    ? containerRef.current
-    : { offsetWidth: 0, scrollWidth: 0 };
+  const wrapperRef = useRef();
 
   const _handleClick = () => {
-    setCollapsed(!collapsed);
+    if (active) {
+      setCollapsed(!collapsed);
+    }
   };
+
+  useEffect(() => {
+    const { offsetHeight: wrapperHeight } = wrapperRef.current
+      ? wrapperRef.current
+      : { offsetHeight: 0 };
+
+    const { offsetHeight: containerHeight } = containerRef.current
+      ? containerRef.current
+      : { offsetHeight: 0 };
+    setCollapsed(wrapperHeight > containerHeight);
+    if (wrapperHeight === containerHeight) setActive(false);
+  }, [containerRef, wrapperRef]);
 
   return (
     <div
-      onClick={_handleClick}
       ref={containerRef}
-      className={`text-sm lg:text-lg text-grey-dark max-w-full overflow-hidden ${
-        collapsed ? 'cursor-pointer whitespace-nowrap' : 'whitespace-normal'
-      } relative `}>
-      {children}
-      {collapsed && scrollWidth > offsetWidth && (
-        <div className="absolute h-full w-6 -right-2 top-0 lg:w-full lg:h-10 lg:top-auto lg:-bottom-4 lg:left-0 lg:right-auto bg-gradient-to-r lg:bg-gradient-to-b from-transparent to-white" />
+      className={`${
+        collapsed ? 'cursor-pointer max-h-5 lg:max-h-7' : ''
+      } overflow-hidden relative`}>
+      <div
+        onClick={_handleClick}
+        ref={wrapperRef}
+        className={`text-sm lg:text-lg text-grey-dark max-w-full`}>
+        {children}
+      </div>
+      {collapsed && (
+        <div className="absolute h-full w-6 -right-2 top-0 lg:w-full lg:h-10 lg:top-auto lg:-bottom-4 lg:left-0 lg:right-auto bg-gradient-to-r lg:bg-gradient-to-b from-transparent to-white pointer-events-none" />
       )}
     </div>
   );
