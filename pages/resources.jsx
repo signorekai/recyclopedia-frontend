@@ -168,10 +168,11 @@ export async function getStaticProps() {
   const fallback = {};
 
   const { data: pageOptions } = await staticFetcher(
-    `${ip}/resource-page?${qs.stringify({
-      populate: ['resourceTags'],
-    })}`,
+    `${ip}/resource-page`,
     process.env.API_KEY,
+    {
+      populate: ['resourceTags'],
+    },
   );
 
   const resourceQueryTemplate = {
