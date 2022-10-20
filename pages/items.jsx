@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
 import Head from 'next/head';
-import qs from 'qs';
 import { SWRConfig } from 'swr';
+import qs from 'qs';
 
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
@@ -10,26 +9,42 @@ import {
   useFetchContent,
   useSearchBarTopValue,
   ITEMS_PER_PAGE,
+  staticFetcher,
 } from '../lib/hooks';
 import InfiniteLoader from '../components/InfiniteLoader';
-import { getLargestPossibleImage } from '../lib/functions';
+import {
+  AccordionBody,
+  AccordionHeader,
+  AccordionProvider,
+} from '../components/Accordion';
 
-const Cards = ({ columnCount = 3 }) => {
-  const { data, loadNext, isFinished, error } = useFetchContent('items', {
-    populate: ['images'],
+const itemsCacheParams = {
+  populate: ['images'],
+  page: 0,
+  pageSize: ITEMS_PER_PAGE,
+};
+
+const Tab = ({ category, columnCount = 3 }) => {
+  const {
+    data: items,
+    loadNext,
+    isFinished,
+    error,
+  } = useFetchContent('items', {
+    category,
   });
 
   return (
-    <div className="container">
+    <>
       <div
         className={`cards ${
           { 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4', 5: 'lg:grid-cols-5' }[
             columnCount
           ]
         }`}>
-        {data &&
-          data.map((items) => {
-            return items.map((item, key) => (
+        {items &&
+          items.map((itemBatch) => {
+            return itemBatch.map((item, key) => (
               <Card
                 key={key}
                 className="w-full"
@@ -46,11 +61,71 @@ const Cards = ({ columnCount = 3 }) => {
           })}
       </div>
       {!isFinished && <InfiniteLoader handleEnter={loadNext} />}
+    </>
+  );
+};
+
+const Cards = ({ categories, columnCount = 3 }) => {
+  const {
+    data: items,
+    loadNext,
+    isFinished,
+    error,
+  } = useFetchContent('items', {
+    populate: ['images'],
+    category: categories.join('||'),
+  });
+
+  const cards = {};
+  cards['All'] = (
+    <>
+      <div
+        className={`cards ${
+          { 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4', 5: 'lg:grid-cols-5' }[
+            columnCount
+          ]
+        }`}>
+        {items &&
+          items.map((itemBatch) => {
+            return itemBatch.map((item, key) => (
+              <Card
+                key={key}
+                className="w-full"
+                uniqueKey={`card-${key}`}
+                prefixIcon={item.resourceIcon || ''}
+                content={{
+                  images: item.images,
+                  headerText: item.title,
+                  contentType: 'items',
+                  slug: item.slug,
+                }}
+              />
+            ));
+          })}
+      </div>
+      {!isFinished && <InfiniteLoader handleEnter={loadNext} />}
+    </>
+  );
+
+  categories.map((category, key) => {
+    cards[category] = (
+      <Tab columnCount={columnCount} key={key} category={category} />
+    );
+  });
+
+  return (
+    <div className="container">
+      {categories && (
+        <AccordionProvider headers={['All', ...categories]}>
+          <AccordionHeader />
+          <AccordionBody {...cards} />
+        </AccordionProvider>
+      )}
     </div>
   );
 };
 
-export default function Page({ fallback, pageOptions }) {
+export default function Page({ fallback, pageOptions, categories }) {
   const x = useSearchBarTopValue();
 
   return (
@@ -90,7 +165,10 @@ export default function Page({ fallback, pageOptions }) {
         </h4>
       </div>
       <SWRConfig value={{ fallback }}>
-        <Cards columnCount={pageOptions.gridColumnCount} />
+        <Cards
+          categories={categories}
+          columnCount={pageOptions.gridColumnCount}
+        />
       </SWRConfig>
     </Layout>
   );
@@ -98,22 +176,21 @@ export default function Page({ fallback, pageOptions }) {
 
 export async function getStaticProps() {
   const ip = process.env.API_URL;
-  const pageQuery = {
-    populate: ['resourceTags'],
-  };
 
-  const pageResponse = await fetch(
-    `${ip}/items-page?${qs.stringify(pageQuery)}`,
+  const page = await staticFetcher(`${ip}/items-page`, process.env.API_KEY, {
+    populate: ['resourceTags'],
+  });
+  const { data: pageOptions } = page;
+
+  const { data: categories } = await staticFetcher(
+    `${ip}/item-categories`,
+    process.env.API_KEY,
     {
-      headers: {
-        Authorization: `Bearer ${process.env.API_KEY}`,
-      },
+      sort: ['title'],
     },
   );
 
-  const { data: pageOptions } = await pageResponse.json();
-
-  const query = qs.stringify({
+  const itemsParams = {
     populate: ['images'],
     fields: ['title', 'slug'],
     publicationState: 'live',
@@ -122,25 +199,43 @@ export async function getStaticProps() {
       page: 0,
       pageSize: ITEMS_PER_PAGE,
     },
+  };
+
+  const { data: items } = await staticFetcher(
+    `${ip}/items`,
+    process.env.API_KEY,
+    itemsParams,
+  );
+
+  const fallback = {
+    [`/api/items?${qs.stringify({
+      ...itemsCacheParams,
+      category: categories.map(({ title }) => title).join('||'),
+    })}`]: [items],
+  };
+
+  const promises = categories.map(async ({ title }) => {
+    const { data: result } = await staticFetcher(
+      `${ip}/items`,
+      process.env.API_KEY,
+      {
+        ...itemsParams,
+        filters: { itemCategory: { title: { $eq: title } } },
+      },
+    );
+
+    fallback[
+      `/api/items?${qs.stringify({ ...itemsCacheParams, category: title })}`
+    ] = [result];
   });
 
-  const res = await fetch(`${ip}/items?${query}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.API_KEY}`,
+  await Promise.all(promises);
+
+  return {
+    props: {
+      fallback,
+      pageOptions,
+      categories: categories.map(({ title }) => title),
     },
-  });
-  const items = await res.json();
-
-  const cacheQuery = qs.stringify({
-    populate: ['images'],
-    fields: ['title', 'slug'],
-    page: 0,
-    pageSize: ITEMS_PER_PAGE,
-  });
-
-  const fallback = {};
-  fallback[`/api/items?${cacheQuery}`] = [items.data];
-  return { props: { fallback, pageOptions } };
-
-  // return { props: { items: items.data } };
+  };
 }

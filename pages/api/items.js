@@ -3,18 +3,28 @@ import qs from 'qs';
 export default function handler(req, res) {
   async function load() {
     const ip = process.env.API_URL;
-    const query = qs.stringify({
+    const query = {
       populate: ['images'],
-      sort: ['visits:desc', 'title'],
-      publicationState: 'live',
       fields: ['title', 'slug'],
+      publicationState: 'live',
+      sort: ['visits:desc', 'title'],
       pagination: {
         page: parseInt(req.query.page) + 1,
         pageSize: req.query.pageSize,
       },
-    });
+    };
 
-    const result = await fetch(`${ip}/items?${query}`, {
+    if (!!req.query.category) {
+      query.filters = {
+        itemCategory: {
+          title: {
+            $in: req.query.category.split('||'),
+          },
+        },
+      };
+    }
+
+    const result = await fetch(`${ip}/items?${qs.stringify(query)}`, {
       headers: {
         Authorization: `Bearer ${process.env.API_KEY}`,
       },
