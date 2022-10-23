@@ -89,7 +89,7 @@ export default function Home({ items, newsItems }) {
               initial: { opacity: 0, y: 40 },
               visible: { opacity: 1, y: 0 },
             }}
-            className="py-4 px-3 lg:px-6 lg:flex-1 lg:text-center group">
+            className="py-4 lg:px-6 lg:flex-1 lg:text-center group">
             <Link href="/resources" passHref>
               <a className="no-underline">
                 <h2>
@@ -112,7 +112,7 @@ export default function Home({ items, newsItems }) {
               initial: { opacity: 0, y: 40 },
               visible: { opacity: 1, y: 0 },
             }}
-            className="py-4 px-3 lg:px-6 lg:flex-1 lg:text-center group">
+            className="py-4 lg:px-6 lg:flex-1 lg:text-center group">
             <Link href="/freecycling" passHref>
               <a className="no-underline">
                 <h2>
@@ -135,7 +135,7 @@ export default function Home({ items, newsItems }) {
               initial: { opacity: 0, y: 40 },
               visible: { opacity: 1, y: 0 },
             }}
-            className="py-4 px-3 lg:flex-1 lg:text-center group">
+            className="py-4 lg:px-6 lg:flex-1 lg:text-center group">
             <Link href="/shops" passHref>
               <a className="no-underline">
                 <h2>
@@ -154,7 +154,7 @@ export default function Home({ items, newsItems }) {
       <div className="container lg:container--wide">
         <h2 className="mb-3 lg:mb-5">
           <Link href="/learn" passHref>
-            <a className="no-underline">
+            <a className="no-underline text-blue-light">
               <i className="far fa-lightbulb-exclamation text-3xl mr-3" /> Learn
             </a>
           </Link>
