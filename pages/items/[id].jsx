@@ -326,62 +326,41 @@ function Page({ data }) {
                 <div className="lg:col-span-3 flex flex-col mt-2 lg:mt-0 lg:flex-row gap-y-2 gap-x-5">
                   <div
                     className={`summary-box ${
-                      data.bluebin ? 'border-green' : 'border-red'
+                      data.bluebin
+                        ? 'border-green bg-green/5 text-green'
+                        : 'border-red bg-red/5 text-red'
                     }`}>
+                    <div className="flex items-center p-4">
+                      <i className="far fa-dumpster text-4xl mr-3"></i>
+                      <h2 className={data.bluebin ? 'text-green' : 'text-red'}>
+                        Blue bin
+                      </h2>
+                    </div>
                     {data.bluebin ? (
-                      <>
-                        <div className="flex items-center text-green p-4">
-                          <i className="fas fa-check-circle text-4xl mr-2"></i>
-                          <h2 className="text-green">Blue bin</h2>
-                        </div>
-                        <img
-                          src="/img/bluebin-true.png"
-                          alt=""
-                          className="h-16 lg:h-[4.5rem]"
-                        />
-                      </>
+                      <i className="fas fa-check-circle text-4xl mr-2"></i>
                     ) : (
-                      <>
-                        <div className="flex items-center text-red p-4">
-                          <i className="fas fa-times-circle text-4xl mr-2"></i>
-                          <h2 className="text-red">Blue bin</h2>
-                        </div>
-                        <img
-                          src="/img/bluebin-false.png"
-                          alt=""
-                          className="h-16 lg:h-[4.5rem]"
-                        />
-                      </>
+                      <i className="fas fa-times-circle text-4xl mr-2"></i>
                     )}
                   </div>
                   <div
                     className={`summary-box ${
-                      data.recycleElsewhere ? 'border-green' : 'border-red'
+                      data.recycleElsewhere
+                        ? 'border-green bg-green/5 text-green'
+                        : 'border-red bg-red/5 text-red'
                     }`}>
+                    <div className="flex items-center p-4">
+                      <i className="far fa-recycle text-4xl mr-3"></i>
+                      <h2
+                        className={
+                          data.recycleElsewhere ? 'text-green' : 'text-red'
+                        }>
+                        Other Recycling
+                      </h2>
+                    </div>
                     {data.recycleElsewhere ? (
-                      <>
-                        <div className="flex items-center text-green p-4 pr-0">
-                          <i className="fas fa-check-circle text-4xl mr-2"></i>
-                          <h2 className="text-green">Other Recycling</h2>
-                        </div>
-                        <img
-                          src="/img/recycle-elsewhere.png"
-                          alt=""
-                          className="h-16 lg:h-[4.5rem]"
-                        />
-                      </>
+                      <i className="fas fa-check-circle text-4xl mr-2"></i>
                     ) : (
-                      <>
-                        <div className="flex items-center text-red p-4 pr-0">
-                          <i className="fas fa-times-circle text-4xl mr-2"></i>
-                          <h2 className="text-red">Other Recycling</h2>
-                        </div>
-                        <img
-                          src="/img/recycle-elsewhere.png"
-                          alt=""
-                          className="h-16 lg:h-[4.5rem]"
-                        />
-                      </>
+                      <i className="fas fa-times-circle text-4xl mr-2"></i>
                     )}
                   </div>
                 </div>
