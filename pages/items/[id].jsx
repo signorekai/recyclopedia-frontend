@@ -330,17 +330,16 @@ function Page({ data }) {
                         ? 'border-green bg-green/5 text-green'
                         : 'border-red bg-red/5 text-red'
                     }`}>
-                    <div className="flex items-center p-4">
-                      <i className="far fa-dumpster text-4xl mr-3"></i>
+                    <div className="flex items-center ">
+                      <i className="far fa-dumpster text-[32px] lg:text-4xl mr-3"></i>
                       <h2 className={data.bluebin ? 'text-green' : 'text-red'}>
                         Blue bin
                       </h2>
                     </div>
-                    {data.bluebin ? (
-                      <i className="fas fa-check-circle text-4xl mr-2"></i>
-                    ) : (
-                      <i className="fas fa-times-circle text-4xl mr-2"></i>
-                    )}
+                    <i
+                      className={`fas ${
+                        data.bluebin ? 'fa-check-circle' : 'fa-times-circle'
+                      } text-[32px] lg:text-4xl`}></i>
                   </div>
                   <div
                     className={`summary-box ${
@@ -348,8 +347,8 @@ function Page({ data }) {
                         ? 'border-green bg-green/5 text-green'
                         : 'border-red bg-red/5 text-red'
                     }`}>
-                    <div className="flex items-center p-4">
-                      <i className="far fa-recycle text-4xl mr-3"></i>
+                    <div className="flex items-center">
+                      <i className="far fa-recycle text-[32px] lg:text-4xl mr-3"></i>
                       <h2
                         className={
                           data.recycleElsewhere ? 'text-green' : 'text-red'
@@ -357,11 +356,12 @@ function Page({ data }) {
                         Other Recycling
                       </h2>
                     </div>
-                    {data.recycleElsewhere ? (
-                      <i className="fas fa-check-circle text-4xl mr-2"></i>
-                    ) : (
-                      <i className="fas fa-times-circle text-4xl mr-2"></i>
-                    )}
+                    <i
+                      className={`fas ${
+                        data.recycleElsewhere
+                          ? 'fa-check-circle'
+                          : 'fa-times-circle'
+                      } text-[32px] lg:text-4xl`}></i>
                   </div>
                 </div>
               </section>
