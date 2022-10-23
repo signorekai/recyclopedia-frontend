@@ -26,7 +26,7 @@ export default function ItemMasonry({ items, columns = 4 }) {
   return (
     <div
       className="grid gap-x-4"
-      style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr));` }}>
+      style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
       {childElements}
       {items.length > columns && showAll === false && (
         <button
