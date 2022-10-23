@@ -15,6 +15,7 @@ import NewImage from '../../components/Image';
 import { ReportBtn } from '../../components/Report';
 import { useRouter } from 'next/router';
 import { BookmarkButton } from '../../components/BookmarkButton';
+import ItemMasonry from '../../components/Masonry';
 
 const ItemTagLiterals = {
   Recycle: {
@@ -611,6 +612,21 @@ function Page({ data }) {
                         }
                       })}
                     </Carousel>
+                  </div>
+                </section>
+                <div className="divider-b mt-4 mb-2"></div>
+              </>
+            )}
+            {data.itemCategory && data.itemCategory.items.length > 1 && (
+              <>
+                <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
+                  <div className="lg:col-span-1">
+                    <h5 className="text-left">
+                      <i className="far fa-clone mr-2 text-sm"></i>Similar Items
+                    </h5>
+                  </div>
+                  <div className="lg:col-span-3">
+                    <ItemMasonry items={data.itemCategory.items} />
                   </div>
                 </section>
                 <div className="divider-b mt-4 mb-2"></div>

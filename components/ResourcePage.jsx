@@ -5,8 +5,7 @@ import { DateTime } from 'luxon';
 import Link from './Link';
 import Layout from './Layout';
 import { useWindowDimensions } from '../lib/hooks';
-import { Carousel, CarouselCard } from './Carousel';
-import Card from './Card';
+import ItemMasonry from './Masonry';
 import Image from './Image';
 import { ReportBtn } from './Report';
 import { BookmarkButton } from './BookmarkButton';
@@ -317,7 +316,8 @@ function ResourcePage({ data, baseUrl, tags }) {
                         }}
                       />
                     )}
-                    <Carousel
+                    <ItemMasonry columns={3} items={data.relatedItems} />
+                    {/* <Carousel
                       buttonOffset={
                         width > 1080 ? (180 - 32) / 2 : (width * 0.5 - 32) / 2
                       }
@@ -350,7 +350,7 @@ function ResourcePage({ data, baseUrl, tags }) {
                             />
                           </CarouselCard>
                         ))}
-                    </Carousel>
+                    </Carousel> */}
                   </div>
                 </section>
               </div>
