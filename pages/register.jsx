@@ -11,10 +11,12 @@ import { RegisterSchema } from './api/register';
 
 export default function Page() {
   const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
   const router = useRouter();
   const callbackUrl = router.query.callbackUrl || '/account';
 
-  const _handleSubmit = async (values, { setSubmitting }) => {
+  const _handleSubmit = async (values, { resetForm, setSubmitting }) => {
+    setSubmitting(true);
     const response = await fetch('/api/register', {
       method: 'POST',
       body: JSON.stringify(values),
@@ -24,12 +26,13 @@ export default function Page() {
     const result = await response.json();
 
     if (result.success) {
-      signIn('credentials', {
-        identifier: values.email,
-        password: values.password,
-        callbackUrl,
-      });
+      setSuccessMsg(
+        `You've successfully registered your account. Please check your email for instructions on how to verify your email.`,
+      );
+      setSubmitting(false);
+      resetForm();
     } else {
+      setSubmitting(false);
       setErrorMsg(result.data.error);
     }
   };
@@ -50,6 +53,11 @@ export default function Page() {
           {errorMsg.length > 0 && (
             <p className="bg-coral text-white rounded-md py-3 px-4 mb-4 text-sm">
               {errorMsg}
+            </p>
+          )}
+          {successMsg.length > 0 && (
+            <p className="bg-green/10 text-green font-bold rounded-md py-3 px-4 mb-4 text-sm">
+              {successMsg}
             </p>
           )}
           <Formik
