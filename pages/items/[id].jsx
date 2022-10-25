@@ -15,7 +15,7 @@ import NewImage from '../../components/Image';
 import { ReportBtn } from '../../components/Report';
 import { useRouter } from 'next/router';
 import { BookmarkButton } from '../../components/BookmarkButton';
-import ItemMasonry from '../../components/Masonry';
+import Masonry from '../../components/Masonry';
 
 const ItemTagLiterals = {
   Recycle: {
@@ -169,6 +169,20 @@ function Page({ data }) {
     }
   }
 
+  const relatedItem = (item, key) => (
+    <div key={key} className="w-full">
+      <Card
+        uniqueKey={`card-${key}`}
+        prefixIcon={item.resourceIcon || ''}
+        content={{
+          image: item.images ? item.images[0] : {},
+          headerText: item.title,
+          contentType: 'items',
+          slug: item.slug,
+        }}
+      />
+    </div>
+  );
   return (
     <>
       {data && (
@@ -415,58 +429,58 @@ function Page({ data }) {
                         className={`col-start-2 col-span-3 ${
                           item.resourcesComp.length === 0 && 'hidden'
                         }`}>
-                        <Carousel
-                          buttonOffset={(192 - 32) / 2}
-                          key={item.id}
-                          showNav={false}
-                          slideWidth={256}
-                          className={`gap-x-2 mt-6`}>
-                          {item.resourcesComp.map(({ resource }, key) => {
+                        <Masonry
+                          items={item.resourcesComp}
+                          columns={3}
+                          className="mt-4"
+                          card={({ resource }, key) => {
                             return (
-                              <CarouselCard
-                                featured={resource.featured === true}
-                                key={key}
-                                className={`w-64 group rounded-md bg-white-pure border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative ${
-                                  resource.featured === true
-                                    ? 'm-[2px] basic-carousel__card--featured border-0'
-                                    : ' border-1'
-                                } `}>
-                                <Link
+                              <div className="">
+                                <CarouselCard
+                                  featured={resource.featured === true}
                                   key={key}
-                                  href={`/resources/${resource.slug}`}>
-                                  <a className="no-underline group-hover:opacity-100 group-active:opacity-100 relative">
-                                    {resource.resourceIcon &&
-                                      resource.resourceIcon.length > 0 && (
-                                        <img
-                                          alt=""
-                                          className="absolute top-2 left-2 z-40 h-4 md:h-10"
-                                          src={`/img/${
-                                            resource.resourceIcon.toLowerCase() +
-                                            '.svg'
-                                          }`}
-                                        />
-                                      )}
-                                    <NewImage
-                                      className="group-hover:scale-110 transition-transform"
-                                      layout="fixed"
-                                      source={
-                                        resource.images
-                                          ? resource.images[0]
-                                          : {}
-                                      }
-                                      width={256}
-                                      height={192}
-                                      alt={resource.title}
-                                    />
-                                    <h4 className="pb-2 px-3 text-blue group-hover:text-blue-dark text-lg">
-                                      {resource.title}
-                                    </h4>
-                                  </a>
-                                </Link>
-                              </CarouselCard>
+                                  className={`w-full group rounded-md bg-white-pure border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative ${
+                                    resource.featured === true
+                                      ? 'm-[2px] basic-carousel__card--featured border-0'
+                                      : ' border-1'
+                                  } `}>
+                                  <Link
+                                    key={key}
+                                    href={`/resources/${resource.slug}`}>
+                                    <a className="no-underline group-hover:opacity-100 group-active:opacity-100 relative">
+                                      {resource.resourceIcon &&
+                                        resource.resourceIcon.length > 0 && (
+                                          <img
+                                            alt=""
+                                            className="absolute top-2 left-2 z-40 h-4 md:h-10"
+                                            src={`/img/${
+                                              resource.resourceIcon.toLowerCase() +
+                                              '.svg'
+                                            }`}
+                                          />
+                                        )}
+                                      <NewImage
+                                        className="group-hover:scale-110 transition-transform"
+                                        layout="fixed"
+                                        source={
+                                          resource.images
+                                            ? resource.images[0]
+                                            : {}
+                                        }
+                                        width={256}
+                                        height={192}
+                                        alt={resource.title}
+                                      />
+                                      <h4 className="pb-2 px-3 text-blue group-hover:text-blue-dark text-lg">
+                                        {resource.title}
+                                      </h4>
+                                    </a>
+                                  </Link>
+                                </CarouselCard>
+                              </div>
                             );
-                          })}
-                        </Carousel>
+                          }}
+                        />
                       </div>
                     ) : (
                       <section className="grid gap-y-2 my-4 divider-b after:mt-6">
@@ -562,7 +576,23 @@ function Page({ data }) {
                     </h5>
                   </div>
                   <div className="lg:col-span-3">
-                    <ItemMasonry items={data.itemCategory.items} />
+                    <Masonry
+                      items={data.itemCategory.items}
+                      card={(item, key) => (
+                        <div key={key} className="w-full">
+                          <Card
+                            uniqueKey={`card-${key}`}
+                            prefixIcon={item.resourceIcon || ''}
+                            content={{
+                              image: item.images ? item.images[0] : {},
+                              headerText: item.title,
+                              contentType: 'items',
+                              slug: item.slug,
+                            }}
+                          />
+                        </div>
+                      )}
+                    />
                   </div>
                 </section>
                 <div className="divider-b mt-4 mb-2"></div>

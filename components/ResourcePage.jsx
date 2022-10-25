@@ -5,10 +5,11 @@ import { DateTime } from 'luxon';
 import Link from './Link';
 import Layout from './Layout';
 import { useWindowDimensions } from '../lib/hooks';
-import ItemMasonry from './Masonry';
+import Masonry from './Masonry';
 import Image from './Image';
 import { ReportBtn } from './Report';
 import { BookmarkButton } from './BookmarkButton';
+import Card from './Card';
 
 const ResourceTagLiterals = {
   Recycling: {
@@ -316,7 +317,24 @@ function ResourcePage({ data, baseUrl, tags }) {
                         }}
                       />
                     )}
-                    <ItemMasonry columns={3} items={data.relatedItems} />
+                    <Masonry
+                      columns={3}
+                      items={data.relatedItems}
+                      card={(item, key) => (
+                        <div key={key} className="w-full">
+                          <Card
+                            uniqueKey={`card-${key}`}
+                            prefixIcon={item.resourceIcon || ''}
+                            content={{
+                              image: item.images ? item.images[0] : {},
+                              headerText: item.title,
+                              contentType: 'items',
+                              slug: item.slug,
+                            }}
+                          />
+                        </div>
+                      )}
+                    />
                     {/* <Carousel
                       buttonOffset={
                         width > 1080 ? (180 - 32) / 2 : (width * 0.5 - 32) / 2

@@ -10,6 +10,7 @@ import Card from '../../components/Card';
 import { staticFetcher, useWindowDimensions } from '../../lib/hooks';
 import NewImage from '../../components/Image';
 import BookmarkButton from '../../components/BookmarkButton';
+import Masonry from '../../components/Masonry';
 
 export default function Page({ article, categoryTitles, nextPost }) {
   const router = useRouter();
@@ -123,20 +124,11 @@ export default function Page({ article, categoryTitles, nextPost }) {
                     <h5 className="text-left">Related Items</h5>
                   </div>
                   <div className="flex-1 mt-4">
-                    <Carousel
-                      autoSlideSize={true}
-                      showNav={false}
-                      className="mt-0 mb-2 h-auto"
-                      sliderStyle={{
-                        width:
-                          width > 1080
-                            ? 250 * article.items.length
-                            : width * 0.5 * article.items.length,
-                      }}>
-                      {article.items.map((item, key) => (
-                        <CarouselCard
-                          key={key}
-                          className="w-screen-1/2 lg:w-[250px] mt-0">
+                    <Masonry
+                      items={article.items}
+                      columns={3}
+                      card={(item, key) => (
+                        <CarouselCard key={key} className="w-full">
                           <Card
                             className="w-full"
                             imagesWrapperClassName="h-[200px]"
@@ -150,8 +142,8 @@ export default function Page({ article, categoryTitles, nextPost }) {
                             }}
                           />
                         </CarouselCard>
-                      ))}
-                    </Carousel>
+                      )}
+                    />
                   </div>
                 </section>
               </div>
@@ -163,14 +155,11 @@ export default function Page({ article, categoryTitles, nextPost }) {
                     <h5 className="text-left mb-2">Related Resources</h5>
                   </div>
                   <div className="lg:col-span-3">
-                    <Carousel
-                      slideWidth={256}
-                      showNav={false}
-                      className="mt-0 lg:mb-2 h-auto">
-                      {article.resources.map((item, key) => (
-                        <CarouselCard
-                          key={key}
-                          className="w-screen-1/2 lg:w-64 mt-0">
+                    <Masonry
+                      items={article.resources}
+                      columns={3}
+                      card={(item, key) => (
+                        <CarouselCard key={key} className="w-full">
                           <Card
                             className="w-full"
                             imagesWrapperClassName="h-[50vw] lg:h-64"
@@ -184,8 +173,8 @@ export default function Page({ article, categoryTitles, nextPost }) {
                             }}
                           />
                         </CarouselCard>
-                      ))}
-                    </Carousel>
+                      )}
+                    />
                   </div>
                 </section>
               </div>
