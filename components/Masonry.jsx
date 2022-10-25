@@ -1,23 +1,9 @@
-import { useState } from 'react';
-import Card from './Card';
+import { createContext, useState, useContext } from 'react';
 
-export default function ItemMasonry({ items, columns = 4 }) {
+export default function Masonry({ items, columns = 4, card, className = '' }) {
   const [showAll, setShowAll] = useState(false);
   const computedItems = showAll ? items : items.slice(0, columns);
-  const childElements = computedItems.map((item, key) => (
-    <div key={key} className="w-full">
-      <Card
-        uniqueKey={`card-${key}`}
-        prefixIcon={item.resourceIcon || ''}
-        content={{
-          image: item.images ? item.images[0] : {},
-          headerText: item.title,
-          contentType: 'items',
-          slug: item.slug,
-        }}
-      />
-    </div>
-  ));
+  const childElements = computedItems.map(card);
 
   const _handleClick = () => {
     setShowAll(!showAll);
@@ -25,7 +11,7 @@ export default function ItemMasonry({ items, columns = 4 }) {
 
   return (
     <div
-      className="grid gap-x-4"
+      className={`grid gap-x-4 gap-y-4 items-start ${className}`}
       style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
       {childElements}
       {items.length > columns && showAll === false && (
