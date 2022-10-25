@@ -9,7 +9,7 @@ import AboutUsBg from '../assets/img/about-us.svg';
 
 export default function Page({ pageOptions }) {
   const { width } = useWindowDimensions();
-  const { supporters, title, introHeader, description } = pageOptions;
+  const { supporters, title, introHeader, description, bodyText } = pageOptions;
 
   return (
     <Layout>
@@ -24,7 +24,7 @@ export default function Page({ pageOptions }) {
               <Image src={AboutUsBg} alt="" />
             </div>
           )}
-          <div className="lg:w-1/2 pb-7 pt-4 lg:py-20">
+          <div className="lg:w-1/2 pb-7 pt-4 lg:py-10">
             <h1 className="text-white">{introHeader}</h1>
             <div
               className="text-lg"
@@ -39,7 +39,13 @@ export default function Page({ pageOptions }) {
           </div>
         )}
       </div>
-      <div className="container flex flex-col lg:flex-row mt-8 lg:mt-12 items-start">
+      <div className="container">
+        <div
+          className="lg:w-1/2 pb-7 pt-4 lg:py-14 article-body"
+          dangerouslySetInnerHTML={{ __html: bodyText }}></div>
+        <div className="divider-b"></div>
+      </div>
+      <div className="container flex flex-col lg:flex-row mt-8 lg:mt-14 lg:mb-6 items-start">
         <h2 className="text-black lg:w-1/4 lg:justify-start">Contact Us</h2>
         <div className="w-full lg:w-1/3 lg:pr-8">
           <p>
