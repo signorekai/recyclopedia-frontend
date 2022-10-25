@@ -562,49 +562,6 @@ function Page({ data }) {
                     </h5>
                   </div>
                   <div className="lg:col-span-3">
-                    <Carousel
-                      buttonOffset={
-                        width > 1080 ? (176 - 32) / 2 : (144 - 32) / 2
-                      }
-                      slideWidth={width > 1080 ? 176 : 144}
-                      showNav={false}
-                      className="gap-x-2 flex-1 mt-3 lg:mt-0">
-                      {data.itemCategory.items.map((item, key) => {
-                        if (item.id !== data.id) {
-                          return (
-                            <CarouselCard
-                              key={`carouselCard-${key}`}
-                              className="w-36 lg:w-44 overflow-hidden relative">
-                              <Card
-                                className="w-full"
-                                uniqueKey={`card-${key}`}
-                                prefixIcon={item.resourceIcon || ''}
-                                content={{
-                                  image: item.images ? item.images[0] : {},
-                                  headerText: item.title,
-                                  contentType: 'items',
-                                  slug: item.slug,
-                                }}
-                              />
-                            </CarouselCard>
-                          );
-                        }
-                      })}
-                    </Carousel>
-                  </div>
-                </section>
-                <div className="divider-b mt-4 mb-2"></div>
-              </>
-            )}
-            {data.itemCategory && data.itemCategory.items.length > 1 && (
-              <>
-                <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
-                  <div className="lg:col-span-1">
-                    <h5 className="text-left">
-                      <i className="far fa-clone mr-2 text-sm"></i>Similar Items
-                    </h5>
-                  </div>
-                  <div className="lg:col-span-3">
                     <ItemMasonry items={data.itemCategory.items} />
                   </div>
                 </section>
