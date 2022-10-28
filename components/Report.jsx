@@ -265,7 +265,6 @@ export const FeedbackForm = ({
                       ref={recaptchaRef}
                       sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
                       onChange={(code) => {
-                        console.log(268, code, setFieldValue);
                         setFieldValue('recaptcha', code);
                       }}
                     />
