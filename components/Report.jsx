@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Formik, Form, Field, useFormikContext } from 'formik';
 import { object, string, number } from 'yup';
 import FocusTrap from 'focus-trap-react';
 import Select from 'react-select';
 import { useSession } from 'next-auth/react';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import Link from './Link';
 
@@ -21,6 +22,7 @@ export const FeedbackFormSchema = object({
   message: string().required('Please type your message'),
   item: number(),
   resource: number(),
+  recaptcha: string().required(),
   user: number(),
 });
 
@@ -122,6 +124,7 @@ export const FeedbackForm = ({
 }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const { data, status: authStatus } = useSession();
+  const recaptchaRef = useRef();
   let handler;
 
   const _handleSubmit = async (values, { setSubmitting }) => {
@@ -145,6 +148,10 @@ export const FeedbackForm = ({
       setSubmitting(false);
       setShowSuccess(true);
     }
+  };
+
+  const _onReCAPTCHAChange = (code) => {
+    console.log(code);
   };
 
   return (
@@ -174,6 +181,7 @@ export const FeedbackForm = ({
               email: '',
               topic: defaultTopic,
               message: '',
+              recaptcha: '',
               record: defaultRecord,
             }}
             onSubmit={_handleSubmit}
@@ -256,6 +264,15 @@ export const FeedbackForm = ({
                   <span className="text-sm text-grey-mid">
                     * denotes compulsory.
                   </span>
+                  <div className="mt-4">
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                      onChange={(code) => {
+                        setFieldValue('recaptcha', code);
+                      }}
+                    />
+                  </div>
                   <div className="">
                     <button
                       type="submit"
