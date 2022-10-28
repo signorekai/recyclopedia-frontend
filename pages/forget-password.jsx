@@ -46,7 +46,7 @@ export default function Page() {
       <div className="container container--narrow">
         <h1 className="text-black mt-6 lg:mt-16">Forget Password</h1>
         <h4 className="lg:text-xl font-normal">
-          Don't worry, we'll get you back and running
+          Don&apos;t worry, we&apos;ll get you back and running
         </h4>
       </div>
       <div className="container container--narrow flex flex-col lg:flex-row mt-6 lg:mt-12 lg:items-stretch">
