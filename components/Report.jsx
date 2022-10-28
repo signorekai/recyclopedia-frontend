@@ -150,10 +150,6 @@ export const FeedbackForm = ({
     }
   };
 
-  const _onReCAPTCHAChange = (code) => {
-    console.log(code);
-  };
-
   return (
     <>
       <AnimatePresence>
@@ -186,7 +182,7 @@ export const FeedbackForm = ({
             }}
             onSubmit={_handleSubmit}
             validationSchema={FeedbackFormSchema}>
-            {({ isSubmitting, values }) => (
+            {({ isSubmitting, values, setFieldValue }) => (
               <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
                 <Form className="test">
                   <CheckAuth />
@@ -269,6 +265,7 @@ export const FeedbackForm = ({
                       ref={recaptchaRef}
                       sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
                       onChange={(code) => {
+                        console.log(268, code, setFieldValue);
                         setFieldValue('recaptcha', code);
                       }}
                     />
