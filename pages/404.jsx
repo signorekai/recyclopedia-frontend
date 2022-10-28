@@ -7,6 +7,7 @@ export default function Page() {
     <Layout>
       <Head>
         <title>Recyclopedia - 404</title>
+        <meta name="og:title" content="Recyclopedia - 404" />
       </Head>
       <div className="container">
         <section className="mt-20 mx-auto flex flex-col items-center justify-center">

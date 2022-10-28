@@ -258,7 +258,7 @@ const Layout = ({
           name="og:description"
           content="All you need to know when you have something to throw"
         />
-        <meta name="og:title" content={`Recyclopedia - ${title}`} />
+        <meta name="og:title" content={`Recyclopedia`} />
       </Head>
       <Header
         containerStyle={{
