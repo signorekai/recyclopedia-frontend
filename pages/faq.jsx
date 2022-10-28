@@ -5,12 +5,12 @@ import { motion, useMotionValue } from 'framer-motion';
 import { useRouter } from 'next/router';
 
 import Layout from '../components/Layout';
+import Link from 'next/link';
 
-const FAQCard = ({ slug, header, content, openByDefault = false }) => {
+const FAQCard = ({ slug, header, content, openByDefault = false, onClick }) => {
   const max = '10000000px';
   const [expanded, setExpanded] = useState(openByDefault);
   const maxHeight = useMotionValue(0);
-  const router = useRouter();
 
   useEffect(() => {
     if (!expanded && openByDefault) {
@@ -23,15 +23,12 @@ const FAQCard = ({ slug, header, content, openByDefault = false }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [expanded]);
 
-  const handleClick = () => {
-    if (location) {
-      if (expanded) {
-        router.replace(router.pathname, false, { shallow: true });
-      } else if (expanded === false && slug.length > 0) {
-        router.replace(`${router.pathname}#${slug}`, false, { shallow: true });
-      } else if (expanded === false && slug.length === 0) {
-        router.replace(router.pathname, false, { shallow: true });
-      }
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (expanded) {
+      onClick('');
+    } else {
+      onClick(slug);
     }
     setExpanded(!expanded);
   };
@@ -67,10 +64,17 @@ const FAQCard = ({ slug, header, content, openByDefault = false }) => {
 export default function Page({ pageOptions }) {
   const { section: sections } = pageOptions;
   const [currentHash, setCurrentHash] = useState();
+  const router = useRouter();
+
+  console.log(71);
 
   useEffect(() => {
     setCurrentHash(location.hash.slice(1));
   }, []);
+
+  useEffect(() => {
+    window.history.replaceState({}, '', `${router.pathname}#${currentHash}`);
+  }, [currentHash]);
 
   return (
     <Layout>
@@ -95,6 +99,7 @@ export default function Page({ pageOptions }) {
             </header>
             {section.item.map((item) => (
               <FAQCard
+                onClick={setCurrentHash}
                 openByDefault={currentHash === item.slug}
                 slug={item.slug === null ? '' : item.slug}
                 key={`faq-${section.title}-${item.header}`}
