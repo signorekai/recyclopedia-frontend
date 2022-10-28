@@ -17,11 +17,17 @@ export default async function handler(req, res) {
   switch (req.method) {
     case 'POST': {
       const Schema = object({
-        field: string().required().oneOf(['password', 'name']),
+        field: string().required().oneOf(['password', 'name', 'email']),
         name: string().when('field', {
           is: 'name',
           then: (schema) => schema.required(),
         }),
+        email: string()
+          .email()
+          .when('field', {
+            is: 'email',
+            then: (schema) => schema.required(),
+          }),
         oldPassword: string().when('field', {
           is: 'password',
           then: (schema) =>
@@ -77,7 +83,35 @@ export default async function handler(req, res) {
                 },
               });
             }
-          } else {
+          } else if (req.body.field === 'email') {
+            const response = await fetch(
+              `${process.env.API_URL}/users/${token.id}`,
+              {
+                body: JSON.stringify({
+                  email: req.body.email,
+                  username: req.body.email,
+                }),
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${process.env.API_KEY}`,
+                },
+              },
+            );
+            if (response.ok) {
+              res.status(200).json({
+                success: true,
+              });
+            } else {
+              res.status(400).json({
+                success: false,
+                data: {
+                  error: response,
+                },
+              });
+            }
+          } else if (req.body.field === 'password') {
+            console.log(115);
             const { oldPassword, newPassword1, newPassword2 } = req.body;
             const loginResponse = await fetch(
               `${process.env.API_URL}/auth/local`,
@@ -128,6 +162,13 @@ export default async function handler(req, res) {
               });
             }
             res.status(200).end();
+          } else {
+            res.status(400).json({
+              success: false,
+              data: {
+                error: validation,
+              },
+            });
           }
         } else {
           res.status(400).json({

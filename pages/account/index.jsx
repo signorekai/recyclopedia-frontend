@@ -26,6 +26,11 @@ export default function Page() {
     field: string().required().oneOf(['name']),
   });
 
+  const EmailSchema = object({
+    email: string().email().required(),
+    field: string().required().oneOf(['email']),
+  });
+
   const DeleteAccountSchema = object({
     name: string()
       .required('Name required')
@@ -53,7 +58,8 @@ export default function Page() {
       .notOneOf([ref('oldPassword')], `Same password as your current password`),
   });
 
-  const _handleNameChange = async (values, { setSubmitting }) => {
+  const _handleInfoUpdate = async (values, { setSubmitting }) => {
+    console.log(values);
     const response = await fetch('/api/user', {
       body: JSON.stringify(values),
       method: 'POST',
@@ -116,7 +122,7 @@ export default function Page() {
                   name: session.user.name,
                   field: 'name',
                 }}
-                onSubmit={_handleNameChange}
+                onSubmit={_handleInfoUpdate}
                 validationSchema={NameSchema}>
                 {({ isSubmitting }) => (
                   <Form className="flex flex-col lg:flex-row flex-wrap items-start mt-6 lg:mt-14">
@@ -151,12 +157,48 @@ export default function Page() {
 
               <Formik
                 initialValues={{
+                  email: session.user.email,
+                  field: 'email',
+                }}
+                onSubmit={_handleInfoUpdate}
+                validationSchema={EmailSchema}>
+                {({ isSubmitting }) => (
+                  <Form className="flex flex-col lg:flex-row flex-wrap items-start mt-6 lg:mt-14">
+                    <h3 className="lg:w-1/3 mb-8 lg:mb-0">Email</h3>
+                    <div className="w-full lg:w-2/3">
+                      <Field
+                        type="text"
+                        name="email"
+                        tooltip="You will need to relogin after changing your email"
+                        label="email"
+                        component={TextInput}
+                      />
+                      <div className="w-full">
+                        <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="form-submission-btn">
+                          {isSubmitting ? (
+                            <span className="far fa-spinner-third animate-spin" />
+                          ) : (
+                            'Update'
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+              <div className="divider-b divider-b-8"></div>
+
+              <Formik
+                initialValues={{
                   oldPassword: '',
                   newPassword1: '',
                   newPassword2: '',
                   field: 'password',
                 }}
-                onSubmit={_handleNameChange}
+                onSubmit={_handleInfoUpdate}
                 validationSchema={PasswordSchema}>
                 {({ isSubmitting }) => (
                   <Form className="flex flex-col lg:flex-row flex-wrap items-start mt-6 lg:mt-10">
