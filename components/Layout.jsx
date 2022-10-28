@@ -545,13 +545,23 @@ const Layout = ({
       </main>
       <footer className="footer-wrapper" style={footerStyle}>
         <div className="container footer">
-          <div className="lg:order-2 flex-1 flex flex-col lg:flex-row lg:justify-between lg:items-center lg:px-10">
+          <div className="lg:order-2 flex-1 flex flex-col lg:flex-row lg:justify-between lg:items-center lg:px-10 gap-y-1">
             <span className="text-sm leading-tight">
               A community driven, non-profit initiative
             </span>
-            <span className="text-xs">
-              &copy; 2022 Recyclopedia. All rights reserved.
-            </span>
+            <div className="text-xs flex flex-row gap-x-2">
+              <Link href="/privacy-policy" passHref>
+                <a className="text-white no-underline hover:text-teal">
+                  Privacy Policy
+                </a>
+              </Link>
+              <Link href="/terms-of-use" passHref>
+                <a className="text-white no-underline hover:text-teal">
+                  Terms of Use
+                </a>
+              </Link>
+              <span>&copy; Recyclopedia 2022</span>
+            </div>
           </div>
           <div className="order-2 lg:order-1">
             {settings && settings.footerSocialIcons && (
