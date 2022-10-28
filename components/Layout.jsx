@@ -250,6 +250,15 @@ const Layout = ({
           content="/img/ms-icon-144x144.png"
         />
         <meta name="theme-color" content="#ffffff" />
+        <meta
+          name="description"
+          content="All you need to know when you have something to throw"
+        />
+        <meta
+          name="og:description"
+          content="All you need to know when you have something to throw"
+        />
+        <meta name="og:title" content={`Recyclopedia - ${title}`} />
       </Head>
       <Header
         containerStyle={{
