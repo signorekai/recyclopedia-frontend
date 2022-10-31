@@ -84,32 +84,41 @@ export default async function handler(req, res) {
               });
             }
           } else if (req.body.field === 'email') {
-            const response = await fetch(
-              `${process.env.API_URL}/users/${token.id}`,
-              {
-                body: JSON.stringify({
-                  email: req.body.email,
-                  username: req.body.email,
-                }),
-                method: 'PUT',
-                headers: {
-                  'Content-Type': 'application/json',
-                  Authorization: `Bearer ${process.env.API_KEY}`,
-                },
+            fetch(`${process.env.API_URL}/users/${token.id}`, {
+              body: JSON.stringify({
+                email: req.body.email,
+                username: req.body.email,
+                confirmed: false,
+              }),
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${process.env.API_KEY}`,
               },
-            );
-            if (response.ok) {
-              res.status(200).json({
-                success: true,
+            })
+              .then(() =>
+                fetch(`${process.env.API_URL}/auth/send-email-confirmation`, {
+                  body: JSON.stringify({
+                    email: req.body.email,
+                  }),
+                  method: 'post',
+                  headers: { 'Content-Type': 'application/json' },
+                }),
+              )
+              .then(() => {
+                res.status(200).json({
+                  success: true,
+                });
+              })
+              .catch((err) => {
+                console.error(err);
+                res.status(400).json({
+                  success: false,
+                  data: {
+                    error: err,
+                  },
+                });
               });
-            } else {
-              res.status(400).json({
-                success: false,
-                data: {
-                  error: response,
-                },
-              });
-            }
           } else if (req.body.field === 'password') {
             console.log(115);
             const { oldPassword, newPassword1, newPassword2 } = req.body;
@@ -183,6 +192,7 @@ export default async function handler(req, res) {
           success: false,
         });
       }
+      break;
     }
 
     case 'DELETE': {
@@ -259,6 +269,7 @@ export default async function handler(req, res) {
       }
 
       // res.status(400).json({ success: true, data: { validation } });
+      break;
     }
   }
 }

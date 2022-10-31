@@ -12,6 +12,7 @@ import { TextInput } from '../../components/Report';
 export default function Page() {
   const { data: session, status: authStatus } = useSession();
   const [passChangeError, setPassChangeError] = useState('');
+  const [emailChangeError, setEmailChangeError] = useState('');
 
   useEffect(() => {
     if (authStatus === 'unauthenticated') {
@@ -68,10 +69,10 @@ export default function Page() {
     const result = await response.json();
     setSubmitting(false);
     if (result.success) {
-      setPassChangeError('');
+      setEmailChangeError('');
       signOut({ callbackUrl: '/login' });
     } else {
-      setPassChangeError(result.data.error);
+      setEmailChangeError(result.data.error);
     }
   };
 
@@ -126,15 +127,57 @@ export default function Page() {
                 validationSchema={NameSchema}>
                 {({ isSubmitting }) => (
                   <Form className="flex flex-col lg:flex-row flex-wrap items-start mt-6 lg:mt-14">
-                    <h3 className="lg:w-1/3 mb-8 lg:mb-0">
-                      Personal Information
-                    </h3>
+                    <h3 className="lg:w-1/3 mb-8 lg:mb-0">Name</h3>
                     <div className="w-full lg:w-2/3">
+                      {emailChangeError.length > 0 && (
+                        <p className="bg-coral text-white rounded-md py-3 px-4 mb-4 text-sm">
+                          {emailChangeError}
+                        </p>
+                      )}
                       <Field
                         type="text"
                         name="name"
                         tooltip="You will need to relogin after changing your name"
-                        label="name"
+                        component={TextInput}
+                      />
+                      <div className="w-full">
+                        <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="form-submission-btn">
+                          {isSubmitting ? (
+                            <span className="far fa-spinner-third animate-spin" />
+                          ) : (
+                            'Update'
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+              <div className="divider-b divider-b-8"></div>
+
+              <Formik
+                initialValues={{
+                  email: session.user.email,
+                  field: 'email',
+                }}
+                onSubmit={_handleInfoUpdate}
+                validationSchema={EmailSchema}>
+                {({ isSubmitting }) => (
+                  <Form className="flex flex-col lg:flex-row flex-wrap items-start mt-6 lg:mt-14">
+                    <h3 className="lg:w-1/3 mb-8 lg:mb-0">Email</h3>
+                    <div className="w-full lg:w-2/3">
+                      {emailChangeError.length > 0 && (
+                        <p className="bg-coral text-white rounded-md py-3 px-4 mb-4 text-sm">
+                          {emailChangeError}
+                        </p>
+                      )}
+                      <Field
+                        type="email"
+                        name="email"
+                        tooltip="You will need to relogin after changing your email"
                         component={TextInput}
                       />
                       <div className="w-full">
