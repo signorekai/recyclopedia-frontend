@@ -20,7 +20,15 @@ export default function Home({ items, newsItems }) {
     <Layout>
       <Head>
         <title>Recyclopedia</title>
-        <meta name="description" content="Recyclopedia" />
+        <meta
+          name="description"
+          content="All you need to know when you have something to throw."
+        />
+        <meta name="og:title" content="Recyclopedia" />
+        <meta
+          name="og:description"
+          content="All you need to know when you have something to throw."
+        />
       </Head>
       <div className="bg-mobile-banner md:bg-banner bg-bottom bg-cover h-96 lg:mt-12 lg:h-[30vw] lg:max-h-[440px] absolute top-0 w-full left-0 z-0"></div>
       <Link href="/">
@@ -49,7 +57,10 @@ export default function Home({ items, newsItems }) {
         </a>
       </Link>
       <h3 className="text-center mb-4 px-2 leading-none text-black z-10 relative">
-        All you need to know when you have something to throw
+        All you need to know
+        <span className="block md:inline">
+          when you have something to throw
+        </span>
       </h3>
       <SearchBar
         placeholderText={'Search the site'}
