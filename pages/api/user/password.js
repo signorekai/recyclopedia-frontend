@@ -1,7 +1,6 @@
 import { object, ref, string } from 'yup';
 
 export const PasswordSchema = object({
-  field: string().required().oneOf(['password']),
   currentPassword: string()
     .required('Password required')
     .min(8, 'Password needs to be at least 8 characters long')
