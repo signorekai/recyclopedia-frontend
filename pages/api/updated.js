@@ -87,6 +87,14 @@ export default async function handler(req, res) {
     case 'shops-page':
       url.push('/shops');
       break;
+
+    case 'terms-of-service':
+      url.push('/terms-of-service');
+      break;
+
+    case 'privacy-policy':
+      url.push('/privacy-policy');
+      break;
   }
 
   console.table(url);
