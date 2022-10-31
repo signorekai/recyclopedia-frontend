@@ -11,7 +11,7 @@ function Plain({
   return (
     <Layout showHeaderInitially={true} showHeaderOn="" hideHeaderOn="">
       <Head>
-        <title>Recyclopedia - ${title}</title>
+        <title>Recyclopedia - {title}</title>
         <meta name="description" content={description} />
         <meta name="og:description" content={description} />
         <meta name="og:title" content={`Recyclopedia - ${title}`} />
