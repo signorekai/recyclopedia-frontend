@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   switch (req.method) {
     case 'POST': {
       const Schema = object({
-        field: string().required().oneOf(['password', 'name', 'email']),
+        field: string().required().oneOf(['name', 'email']),
         name: string().when('field', {
           is: 'name',
           then: (schema) => schema.required(),
@@ -28,29 +28,6 @@ export default async function handler(req, res) {
             is: 'email',
             then: (schema) => schema.required(),
           }),
-        oldPassword: string().when('field', {
-          is: 'password',
-          then: (schema) =>
-            schema
-              .required('Password required')
-              .min(8, 'Password needs to be at least 8 characters long')
-              .matches(/\d/, 'Requires at least 1 digit'),
-        }),
-        newPassword1: string().when('field', {
-          is: 'password',
-          then: (schema) =>
-            schema
-              .required('Password required')
-              .min(8, 'Password needs to be at least 8 characters long')
-              .matches(/\d/, 'Requires at least 1 digit'),
-        }),
-        newPassword2: string().when('field', {
-          is: 'password',
-          then: (schema) =>
-            schema
-              .required('Password required')
-              .oneOf([ref('newPassword1')], `Your passwords don't match`),
-        }),
       });
 
       if (token) {
@@ -119,58 +96,6 @@ export default async function handler(req, res) {
                   },
                 });
               });
-          } else if (req.body.field === 'password') {
-            console.log(115);
-            const { oldPassword, newPassword1, newPassword2 } = req.body;
-            const loginResponse = await fetch(
-              `${process.env.API_URL}/auth/local`,
-              {
-                method: 'POST',
-                body: JSON.stringify({
-                  identifier: token.email,
-                  password: oldPassword,
-                }),
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              },
-            );
-            const loginResult = await loginResponse.json();
-            if (loginResult.jwt) {
-              const response = await fetch(
-                `${process.env.API_URL}/users/${token.id}`,
-                {
-                  body: JSON.stringify({
-                    password: newPassword1,
-                  }),
-                  method: 'PUT',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${process.env.API_KEY}`,
-                  },
-                },
-              );
-              if (response.ok) {
-                res.status(200).json({
-                  success: true,
-                });
-              } else {
-                res.status(400).json({
-                  success: false,
-                  data: {
-                    error: response,
-                  },
-                });
-              }
-            } else {
-              res.status(400).json({
-                success: false,
-                data: {
-                  error: 'You did not enter your current password correctly',
-                },
-              });
-            }
-            res.status(200).end();
           } else {
             res.status(400).json({
               success: false,
