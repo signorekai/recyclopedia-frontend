@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 import _find from 'lodash.find';
 
-import { staticFetcher, useWindowDimensions } from '../lib/hooks';
+import { staticFetcher, staticPost, useWindowDimensions } from '../lib/hooks';
 import Layout from '../components/Layout';
 import Card from '../components/Card';
 import SearchBar from '../components/SearchBar';
@@ -633,6 +633,18 @@ export async function getServerSideProps({ req, query, res }) {
           }),
         });
       }
+
+      const response = await staticPost(
+        `${ip}/search-terms/upsert`,
+        {
+          data: {
+            term: search.query,
+          },
+        },
+        {
+          method: 'put',
+        },
+      );
 
       return {
         props: {
