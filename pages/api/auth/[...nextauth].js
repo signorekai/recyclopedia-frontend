@@ -2,6 +2,7 @@ import fetch from 'node-fetch';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import FacebookProvider from 'next-auth/providers/facebook';
+import GoogleProvider from 'next-auth/providers/google';
 
 const options = {
   pages: {
@@ -42,6 +43,17 @@ const options = {
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+      authorization: {
+        params: {
+          prompt: 'consent',
+          access_type: 'offline',
+          response_type: 'code',
+        },
+      },
+    }),
   ],
   session: {
     jwt: true,
@@ -57,7 +69,7 @@ const options = {
       const isSignIn = user ? true : false;
       if (isSignIn) {
         if (!!account && !!account.provider) {
-          if (account.provider !== 'credentials') {
+          if (account.provider !== 'local') {
             const response = await fetch(
               `${process.env.API_URL}/auth/${account.provider}/callback?access_token=${account?.access_token}`,
             );
@@ -67,7 +79,7 @@ const options = {
             token.sub = data.user.email;
             token.id = data.user.id;
             token.email = data.user.email;
-            token.name = data.user.username;
+            token.name = data.user.name || data.user.username;
           } else {
             token.provider = 'local';
             token.jwt = user.jwt;

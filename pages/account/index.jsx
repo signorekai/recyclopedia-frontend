@@ -122,48 +122,49 @@ export default function Page() {
       {authStatus === 'authenticated' && (
         <div className="container container--narrow mt-4 lg:mt-12">
           <h1 className="text-black">Account Settings</h1>
+          <>
+            <Formik
+              initialValues={{
+                name: session.user.name,
+                field: 'name',
+              }}
+              onSubmit={_handleNameChange}
+              validationSchema={NameSchema}>
+              {({ isSubmitting }) => (
+                <Form className="flex flex-col lg:flex-row flex-wrap items-start mt-6 lg:mt-14">
+                  <h3 className="lg:w-1/3 mb-8 lg:mb-0">Name</h3>
+                  <div className="w-full lg:w-2/3">
+                    {nameChangeError.length > 0 && (
+                      <p className="bg-coral text-white rounded-md py-3 px-4 mb-4 text-sm">
+                        {nameChangeError}
+                      </p>
+                    )}
+                    <Field
+                      type="text"
+                      name="name"
+                      tooltip="You will need to relogin after changing your name"
+                      component={TextInput}
+                    />
+                    <div className="w-full">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="form-submission-btn">
+                        {isSubmitting ? (
+                          <span className="far fa-spinner-third animate-spin" />
+                        ) : (
+                          'Update'
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+            <div className="divider-b divider-b-8"></div>
+          </>
           {session.user.provider === 'local' && (
             <>
-              <Formik
-                initialValues={{
-                  name: session.user.name,
-                  field: 'name',
-                }}
-                onSubmit={_handleNameChange}
-                validationSchema={NameSchema}>
-                {({ isSubmitting }) => (
-                  <Form className="flex flex-col lg:flex-row flex-wrap items-start mt-6 lg:mt-14">
-                    <h3 className="lg:w-1/3 mb-8 lg:mb-0">Name</h3>
-                    <div className="w-full lg:w-2/3">
-                      {nameChangeError.length > 0 && (
-                        <p className="bg-coral text-white rounded-md py-3 px-4 mb-4 text-sm">
-                          {nameChangeError}
-                        </p>
-                      )}
-                      <Field
-                        type="text"
-                        name="name"
-                        tooltip="You will need to relogin after changing your name"
-                        component={TextInput}
-                      />
-                      <div className="w-full">
-                        <button
-                          type="submit"
-                          disabled={isSubmitting}
-                          className="form-submission-btn">
-                          {isSubmitting ? (
-                            <span className="far fa-spinner-third animate-spin" />
-                          ) : (
-                            'Update'
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
-              <div className="divider-b divider-b-8"></div>
-
               <Formik
                 initialValues={{
                   email: session.user.email,
@@ -203,7 +204,11 @@ export default function Page() {
                 )}
               </Formik>
               <div className="divider-b divider-b-8"></div>
+            </>
+          )}
 
+          {session.user.provider === 'local' && (
+            <>
               <Formik
                 initialValues={{
                   currentPassword: '',
@@ -260,47 +265,47 @@ export default function Page() {
               </Formik>
 
               <div className="divider-b divider-b-8"></div>
-
-              <div className="flex flex-col lg:flex-row flex-wrap items-start mt-6 lg:mt-10">
-                <h3 className="lg:w-1/3 mb-8 lg:mb-0">Delete Account</h3>
-                <div className="w-full lg:w-2/3">
-                  All your bookmarks will be lost. <br />
-                  Are you sure you want to delete your account?
-                  <Formik
-                    initialValues={{
-                      name: '',
-                      field: 'name',
-                    }}
-                    onSubmit={_handleDeleteAccount}
-                    validationSchema={DeleteAccountSchema}>
-                    {({ isSubmitting }) => (
-                      <Form className="">
-                        <Field
-                          type="text"
-                          name="name"
-                          tooltip={`To confirm, please type your name - ${session.user.name}`}
-                          label=""
-                          component={TextInput}
-                        />
-                        <div className="w-full">
-                          <button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className="form-submission-btn">
-                            {isSubmitting ? (
-                              <span className="far fa-spinner-third animate-spin" />
-                            ) : (
-                              'Yes, delete my account'
-                            )}
-                          </button>
-                        </div>
-                      </Form>
-                    )}
-                  </Formik>
-                </div>
-              </div>
             </>
           )}
+
+          <div className="flex flex-col lg:flex-row flex-wrap items-start mt-6 lg:mt-10">
+            <h3 className="lg:w-1/3 mb-8 lg:mb-0">Delete Account</h3>
+            <div className="w-full lg:w-2/3">
+              All your bookmarks will be lost. <br />
+              Are you sure you want to delete your account?
+              <Formik
+                initialValues={{
+                  name: '',
+                  field: 'name',
+                }}
+                onSubmit={_handleDeleteAccount}
+                validationSchema={DeleteAccountSchema}>
+                {({ isSubmitting }) => (
+                  <Form className="">
+                    <Field
+                      type="text"
+                      name="name"
+                      tooltip={`To confirm, please type your name - ${session.user.name}`}
+                      label=""
+                      component={TextInput}
+                    />
+                    <div className="w-full">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="form-submission-btn">
+                        {isSubmitting ? (
+                          <span className="far fa-spinner-third animate-spin" />
+                        ) : (
+                          'Yes, delete my account'
+                        )}
+                      </button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+            </div>
+          </div>
         </div>
       )}
     </Layout>

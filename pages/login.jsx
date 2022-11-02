@@ -49,9 +49,8 @@ export default function Page() {
             Facebook
           </button>
           <button
-            // onClick={() => signIn('google', { callbackUrl })}
-            // className="bg-[#CE6143] w-full p-2 rounded-md text-white font-semibold lg:text-left lg:pl-16">
-            className="bg-grey w-full p-2 rounded-md text-white font-semibold lg:text-left lg:pl-16">
+            onClick={() => signIn('google', { callbackUrl })}
+            className="bg-[#CE6143] w-full p-2 rounded-md text-white font-semibold lg:text-left lg:pl-16">
             <i className="fab fa-google text-xl pr-1"></i> Continue with Google
           </button>
         </div>
