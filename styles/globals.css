@@ -467,6 +467,23 @@
     }
   }
 
+  .subscribe-form {
+    @apply flex flex-col md:flex-row text-base flex-wrap;
+    @apply text-lg placeholder:text-grey-mid mt-6;
+
+    input[type='email'] {
+      @apply flex-1 border-1 border-grey border-b-0 md:border-r-0 md:border-b-1 px-4 py-2 rounded-t-[4px] md:rounded-l-[4px] md:rounded-r-none;
+    }
+
+    button {
+      @apply bg-coral text-white px-9 py-2 rounded-b-[4px] md:rounded-r-[4px] md:rounded-l-none;
+    }
+
+    .msg-alert {
+      @apply order-1 w-full px-2 py-1;
+    }
+  }
+
   .form-submission-btn {
     @apply w-full lg:w-auto;
     @apply bg-coral text-white px-5 py-2 mt-4 rounded-md text-lg font-semibold;

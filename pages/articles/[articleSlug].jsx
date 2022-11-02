@@ -12,6 +12,8 @@ import NewImage from '../../components/Image';
 import BookmarkButton from '../../components/BookmarkButton';
 import Masonry from '../../components/Masonry';
 
+import Mailchimp from 'react-mailchimp-form';
+
 export default function Page({ article, categoryTitles, nextPost }) {
   const router = useRouter();
   const { width } = useWindowDimensions();
@@ -66,7 +68,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
               ))}
             </Carousel>
           </div>
-          <div className="container mt-10 divider-b divider-b-8">
+          <div className="container mt-10">
             {article.category && (
               <h5 className="text-left">{article.category.title}</h5>
             )}
@@ -113,8 +115,38 @@ export default function Page({ article, categoryTitles, nextPost }) {
               )}
             </div>
             <article
-              className="article-body mt-4 text-lg"
+              className="article-body mt-4 text-lg divider-b divider-b-8"
               dangerouslySetInnerHTML={{ __html: article.content }}></article>
+          </div>
+          <div className="container">
+            <div className="lg:w-3/4 mt-10 divider-b divider-b-8">
+              <h3 className="text-2xl">Want more stories like this?</h3>
+              <p className="mt-3 text-lg">
+                Sign up for Recylopedia’s email newsletters to get the latest
+                news on lorem ipsum dolor. We’ll never send spam.
+              </p>
+              <Mailchimp
+                className="subscribe-form"
+                action="https://gmail.us21.list-manage.com/subscribe/post?u=f06fddf11c9faa99bf4352f1e&amp;id=220c5b7c23&amp;f_id=00eac6e1f0"
+                messages={{
+                  sending: 'Sending...',
+                  success: 'Thank you for subscribing!',
+                  error: 'An unexpected internal error has occurred.',
+                  empty: 'You must write an e-mail.',
+                  duplicate:
+                    'Too many subscribe attempts for this email address',
+                  button: 'Sign up!',
+                }}
+                fields={[
+                  {
+                    name: 'EMAIL',
+                    placeholder: 'Email',
+                    type: 'email',
+                    required: true,
+                  },
+                ]}
+              />
+            </div>
           </div>
           <div className="container ">
             {article.items && article.items.length > 0 && (
