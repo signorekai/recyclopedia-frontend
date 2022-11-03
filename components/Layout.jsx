@@ -134,7 +134,7 @@ const Layout = ({
 
     [...document.querySelectorAll('a')].map((link) => {
       const href = link.getAttribute('href');
-      if (href.startsWith('http')) {
+      if (href !== null && href.startsWith('http')) {
         link.addEventListener('click', (e) => {
           e.preventDefault();
           window.open(href, '_blank');
