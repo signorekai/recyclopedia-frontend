@@ -30,7 +30,7 @@ export default function Home({ items, newsItems }) {
           content="All you need to know when you have something to throw."
         />
       </Head>
-      <div className="bg-mobile-banner md:bg-banner bg-bottom bg-cover h-96 lg:mt-12 lg:h-[30vw] lg:max-h-[440px] absolute top-[50px] lg:top-0 w-full left-0 z-0"></div>
+      <div className="bg-mobile-banner md:bg-banner bg-top bg-cover h-96 lg:mt-12 lg:h-[30vw] lg:max-h-[440px] absolute top-[50px] lg:top-0 w-full left-0 z-0"></div>
       {/* <a className="lg:flex justify-center md:mt-32 lg:mt-28 z-10 relative hidden">
         <svg
           width="172"
@@ -54,7 +54,7 @@ export default function Home({ items, newsItems }) {
           </g>
         </svg>
       </a> */}
-      <div className="max-w-md lg:max-w-none mt-32 mx-auto">
+      <div className="max-w-md lg:max-w-none mt-40 mx-auto">
         <h3 className="text-center mb-4 px-2 leading-none text-black z-10 relative">
           All you need to know
           <span className="block md:inline"> when you have </span>
