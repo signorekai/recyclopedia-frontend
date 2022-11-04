@@ -577,6 +577,7 @@ function Page({ data }) {
                   </div>
                   <div className="lg:col-span-3">
                     <Masonry
+                      columns={width > 1080 ? 4 : 2}
                       items={data.itemCategory.items}
                       card={(item, key) => (
                         <div key={key} className="w-full">
