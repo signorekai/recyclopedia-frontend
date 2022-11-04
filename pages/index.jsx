@@ -61,7 +61,7 @@ export default function Home({ items, newsItems }) {
           <span className="block md:inline">something to throw</span>
         </h3>
         <SearchBar
-          placeholderText={'Search the site'}
+          placeholderText={'Search for something'}
           searchType={[
             'items',
             'resources',
