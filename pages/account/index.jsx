@@ -132,7 +132,7 @@ export default function Page() {
               validationSchema={NameSchema}>
               {({ isSubmitting }) => (
                 <Form className="flex flex-col lg:flex-row flex-wrap items-start mt-6 lg:mt-14">
-                  <h3 className="lg:w-1/3 mb-8 lg:mb-0">Name</h3>
+                  <h3 className="lg:w-1/3 mb-8 lg:mb-0">Nickname</h3>
                   <div className="w-full lg:w-2/3">
                     {nameChangeError.length > 0 && (
                       <p className="bg-coral text-white rounded-md py-3 px-4 mb-4 text-sm">
@@ -142,7 +142,7 @@ export default function Page() {
                     <Field
                       type="text"
                       name="name"
-                      tooltip="You will need to relogin after changing your name"
+                      tooltip="You will need to relogin after changing your nickname"
                       component={TextInput}
                     />
                     <div className="w-full">
@@ -285,7 +285,7 @@ export default function Page() {
                     <Field
                       type="text"
                       name="name"
-                      tooltip={`To confirm, please type your name - ${session.user.name}`}
+                      tooltip={`To confirm, please type your nickname - ${session.user.name}`}
                       label=""
                       component={TextInput}
                     />
