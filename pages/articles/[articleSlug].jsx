@@ -163,7 +163,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
                         <CarouselCard key={key} className="w-full">
                           <Card
                             className="w-full"
-                            imagesWrapperClassName="h-[200px]"
+                            imagesWrapperClassName="aspect-square"
                             uniqueKey={`related-${key}`}
                             key={`related-${key}`}
                             content={{
@@ -182,11 +182,11 @@ export default function Page({ article, categoryTitles, nextPost }) {
             )}
             {article.resources && article.resources.length > 0 && (
               <div className="lg:divider-b">
-                <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
-                  <div className="lg:col-span-1">
+                <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
+                  <div className="lg:w-1/4">
                     <h5 className="text-left mb-2">Related Resources</h5>
                   </div>
-                  <div className="lg:col-span-3">
+                  <div className="flex-1 mt-4">
                     <Masonry
                       items={article.resources}
                       columns={3}
@@ -194,7 +194,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
                         <CarouselCard key={key} className="w-full">
                           <Card
                             className="w-full"
-                            imagesWrapperClassName="h-[50vw] lg:h-64"
+                            imagesWrapperClassName="aspect-[4_/_3]"
                             uniqueKey={`related-${key}`}
                             key={`related-${key}`}
                             content={{

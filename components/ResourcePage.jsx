@@ -321,7 +321,7 @@ function ResourcePage({ data, baseUrl, tags }) {
                       columns={3}
                       items={data.relatedItems}
                       card={(item, key) => (
-                        <div key={key} className="w-full">
+                        <div key={key} className="">
                           <Card
                             uniqueKey={`card-${key}`}
                             prefixIcon={item.resourceIcon || ''}
@@ -335,40 +335,6 @@ function ResourcePage({ data, baseUrl, tags }) {
                         </div>
                       )}
                     />
-                    {/* <Carousel
-                      buttonOffset={
-                        width > 1080 ? (180 - 32) / 2 : (width * 0.5 - 32) / 2
-                      }
-                      autoSlideSize={true}
-                      showNav={false}
-                      className="mb-6 h-auto"
-                      sliderStyle={{
-                        width:
-                          width > 1080
-                            ? 250 * data.relatedItems.length
-                            : width * 0.5 * data.relatedItems.length,
-                      }}>
-                      {data.relatedItems &&
-                        data.relatedItems.map((item, key) => (
-                          <CarouselCard
-                            key={key}
-                            className="w-36 lg:w-64 overflow-hidden relative">
-                            <Card
-                              className="w-full"
-                              imagesWrapperClassName="h-[180px]"
-                              uniqueKey={`related-${key}`}
-                              key={`related-${key}`}
-                              prefixIcon={item.resourceIcon || ''}
-                              content={{
-                                image: item.images ? item.images[0] : {},
-                                headerText: item.title,
-                                contentType: 'items',
-                                slug: item.slug,
-                              }}
-                            />
-                          </CarouselCard>
-                        ))}
-                    </Carousel> */}
                   </div>
                 </section>
               </div>

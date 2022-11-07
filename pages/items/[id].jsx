@@ -461,7 +461,7 @@ function Page({ data }) {
                                         )}
                                       <NewImage
                                         className="group-hover:scale-110 transition-transform"
-                                        layout="fixed"
+                                        layout="responsive"
                                         source={
                                           resource.images
                                             ? resource.images[0]
