@@ -12,21 +12,14 @@ export default function Masonry({
 }) {
   const { width } = useWindowDimensions();
   const [showAll, setShowAll] = useState(false);
-  const computedItems = showAll ? items : items.slice(0, columns);
+  const masonryColumns =
+    width < 768 ? mobileColumns : width < 1080 ? tabletColumns : desktopColumns;
+  const computedItems = showAll ? items : items.slice(0, masonryColumns);
   const childElements = computedItems.map(card);
 
   const _handleClick = () => {
     setShowAll(!showAll);
   };
-
-  let masonryColumns = mobileColumns;
-  if (width >= 768) {
-    masonryColumns = tabletColumns;
-  }
-
-  if (width >= 1080) {
-    masonryColumns = desktopColumns;
-  }
 
   return (
     <div
@@ -41,8 +34,9 @@ export default function Masonry({
           style={{
             gridColumn: `span ${masonryColumns} / span ${masonryColumns}`,
           }}
-          className="uppercase text-center font-bold text-blue-light hover:text-blue-dark transition-colors cursor-pointer">
+          className="text-center font-bold text-coral hover:text-coral-dark transition-colors cursor-pointer">
           View All
+          <i className="far fa-arrow-down ml-2"></i>
         </button>
       )}
     </div>
