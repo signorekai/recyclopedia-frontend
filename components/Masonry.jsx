@@ -28,7 +28,7 @@ export default function Masonry({
         gridTemplateColumns: `repeat(${masonryColumns}, minmax(0, 1fr))`,
       }}>
       {childElements}
-      {items.length > columns && showAll === false && (
+      {items.length > masonryColumns && showAll === false && (
         <button
           onClick={_handleClick}
           style={{
