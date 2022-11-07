@@ -24,7 +24,7 @@ const PrefixIcon = ({ type }) => {
 
   return (
     <>
-      {icon && icon.length > 0 && icon !== 'sponsored' && (
+      {icon && icon.length > 0 && icon !== 'sponsored' && icon !== 'none' && (
         <img
           alt=""
           className="absolute top-2 left-2 z-40 h-8 md:h-10"
