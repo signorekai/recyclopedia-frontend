@@ -73,7 +73,7 @@ const ResourceBullet = ({
   return (
     <Link href={`/${tags[id]}?section=${encodeURIComponent(tag)}`}>
       <a
-        className={`no-underline inline-flex mr-3 flex-row py-2 px-3 uppercase font-archivo !text-white rounded-md text-sm lg:text-xs ${className}`}>
+        className={`no-underline inline-flex mr-3 flex-row py-2 my-1 px-3 uppercase font-archivo !text-white rounded-md text-sm lg:text-xs ${className}`}>
         <i
           className={`far text-base lg:text-sm pr-2 ${icon && `fa-${icon}`}`}
         />
