@@ -18,7 +18,7 @@ export const LoginSchema = object({
 
 export default function Page() {
   const router = useRouter();
-  const callbackUrl = router.query.callbackUrl || '/';
+  const callbackUrl = router.query.callbackUrl || '/account/bookmarks';
   const error = router.query.error || '';
 
   const errorMsgs = {
