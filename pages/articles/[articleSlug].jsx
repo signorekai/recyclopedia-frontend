@@ -127,7 +127,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
               </p>
               <Mailchimp
                 className="subscribe-form"
-                action="https://gmail.us21.list-manage.com/subscribe/post?u=f06fddf11c9faa99bf4352f1e&amp;id=220c5b7c23&amp;f_id=00eac6e1f0"
+                action="https://recyclopedia.us21.list-manage.com/subscribe/post?u=4608db3496efcb6a32540ecc5&amp;id=d6722cdcc6&amp;f_id=0016c4e1f0"
                 messages={{
                   sending: 'Sending...',
                   success: 'Thank you for subscribing!',
