@@ -2,6 +2,8 @@ import Head from 'next/head';
 import { motion } from 'framer-motion';
 import qs from 'qs';
 
+import Mailchimp from '../components/Mailchimp';
+
 import {
   ITEMS_PER_PAGE,
   staticFetcher,
@@ -204,6 +206,20 @@ export default function Home({ items, newsItems }) {
             </CarouselCard>
           ))}
         </Carousel>
+      </div>
+      <div className="container ">
+        <div className="lg:w-3/4 mx-auto mt-10 divider-b divider-b-8">
+          <h3 className="text-[2rem] font-medium text-center">
+            Want to keep up Singapore Zero-Waste happenings?
+          </h3>
+          <p className="mt-3 text-lg">
+            Sign up for Waste-Not News here. Get the latest info on new donation
+            drives, recycling initiatives, zero-waste news, and the occasional
+            life-hack for living lighter. No spam. You can unsubscribe any time.
+            See a past issue here
+          </p>
+          <Mailchimp />
+        </div>
       </div>
     </Layout>
   );

@@ -11,8 +11,7 @@ import { staticFetcher, useWindowDimensions } from '../../lib/hooks';
 import NewImage from '../../components/Image';
 import BookmarkButton from '../../components/BookmarkButton';
 import Masonry from '../../components/Masonry';
-
-import Mailchimp from 'react-mailchimp-form';
+import Mailchimp from '../../components/Mailchimp';
 
 export default function Page({ article, categoryTitles, nextPost }) {
   const router = useRouter();
@@ -125,27 +124,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
                 Sign up for Recylopedia’s email newsletters to get the latest
                 news on lorem ipsum dolor. We’ll never send spam.
               </p>
-              <Mailchimp
-                className="subscribe-form"
-                action="https://recyclopedia.us21.list-manage.com/subscribe/post?u=4608db3496efcb6a32540ecc5&amp;id=d6722cdcc6&amp;f_id=0016c4e1f0"
-                messages={{
-                  sending: 'Sending...',
-                  success: 'Thank you for subscribing!',
-                  error: 'An unexpected internal error has occurred.',
-                  empty: 'You must write an e-mail.',
-                  duplicate:
-                    'Too many subscribe attempts for this email address',
-                  button: 'Sign up!',
-                }}
-                fields={[
-                  {
-                    name: 'EMAIL',
-                    placeholder: 'Email',
-                    type: 'email',
-                    required: true,
-                  },
-                ]}
-              />
+              <Mailchimp />
             </div>
           </div>
           <div className="container ">
