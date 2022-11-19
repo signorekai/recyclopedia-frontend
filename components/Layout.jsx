@@ -132,6 +132,14 @@ const Layout = ({
         suggestions.current = cached.split(',');
     }
 
+    console.log(location);
+    if (
+      location.hostname !== 'recyclopedia.sg' &&
+      location.hostname !== 'localhost'
+    ) {
+      window.location = `https://recyclopedia.sg${location.pathname}`;
+    }
+
     [...document.querySelectorAll('a')].map((link) => {
       const href = link.getAttribute('href');
       if (href !== null && href.startsWith('http')) {
