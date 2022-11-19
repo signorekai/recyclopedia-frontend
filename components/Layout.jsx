@@ -132,7 +132,6 @@ const Layout = ({
         suggestions.current = cached.split(',');
     }
 
-    console.log(location);
     if (
       location.hostname !== 'recyclopedia.sg' &&
       location.hostname !== 'localhost'
