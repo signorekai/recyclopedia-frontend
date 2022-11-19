@@ -119,10 +119,18 @@ export default function Page({ article, categoryTitles, nextPost }) {
           </div>
           <div className="container">
             <div className="lg:w-3/4 mt-10 divider-b divider-b-8">
-              <h3 className="text-2xl">Want more stories like this?</h3>
-              <p className="mt-3 text-lg">
-                Sign up for Recylopedia’s email newsletters to get the latest
-                news on lorem ipsum dolor. We’ll never send spam.
+              <h3 className="text-[2rem] leading-tight font-medium text-center">
+                Want to keep up Singapore Zero-Waste happenings?
+              </h3>
+              <p className="mt-3 text-lg text-center">
+                Sign up for Waste-Not News here. Get the latest info on new
+                donation drives, recycling initiatives, zero-waste news, and the
+                occasional life-hack for living lighter. No spam. You can
+                unsubscribe any time.{' '}
+                <a href="https://mailchi.mp/bf7c91fda049/recyclopediasg">
+                  See a past issue here
+                </a>
+                .
               </p>
               <Mailchimp />
             </div>
