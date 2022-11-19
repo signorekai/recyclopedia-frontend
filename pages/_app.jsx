@@ -12,8 +12,16 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
 
   useEffect(() => {
-    logVisit();
-    router.events.on('routeChangeComplete', logVisit);
+    if (
+      location.hostname !== 'recyclopedia.sg' &&
+      location.hostname !== 'localhost'
+    ) {
+      window.location = `https://recyclopedia.sg${location.pathname}`;
+    } else {
+      logVisit();
+      router.events.on('routeChangeComplete', logVisit);
+    }
+
     return () => {
       router.events.off('routeChangeComplete', logVisit);
     };
