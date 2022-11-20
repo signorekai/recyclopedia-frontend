@@ -252,13 +252,17 @@ const Layout = ({
         <meta name="theme-color" content="#ffffff" />
         <meta
           name="description"
-          content="All you need to know when you have something to throw"
+          content="Everything you need to know when you have something to throw. A Singapore based directory of recommendations and advice on reducing your waste-karma with info on donation drives, recycle options, thrift shops, and more."
         />
         <meta
           name="og:description"
-          content="All you need to know when you have something to throw"
+          content="Everything you need to know when you have something to throw. A Singapore based directory of recommendations and advice on reducing your waste-karma with info on donation drives, recycle options, thrift shops, and more."
         />
         <meta name="og:title" content={`Recyclopedia`} />
+        <meta
+          name="og:image"
+          content={`${process.env.NEXT_PUBLIC_LOCATION}/public/cover-image.jpg`}
+        />
       </Head>
       <Header
         containerStyle={{
