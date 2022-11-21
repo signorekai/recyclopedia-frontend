@@ -14,7 +14,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   useEffect(() => {
     if (
       location.hostname !== 'recyclopedia.sg' &&
-      location.hostname !== 'localhost'
+      location.hostname !== 'localhost' &&
+      location.hostname !== '192.168.0.102'
     ) {
       window.location = `https://recyclopedia.sg${location.pathname}`;
     } else {
