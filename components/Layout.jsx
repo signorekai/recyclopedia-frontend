@@ -25,6 +25,7 @@ const menu = [
   },
   { label: 'FAQ', href: '/faq', className: 'lg:ml-2' },
   { label: 'About&nbsp;Us', href: '/about-us' },
+  { label: 'Newsletter', href: '/newsletter', className: 'lg:hidden' },
   {
     label: 'Feedback',
     href: '/feedback',
