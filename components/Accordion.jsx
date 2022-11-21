@@ -73,6 +73,9 @@ export const AccordionHeader = ({
         autoSlideSize={true}
         scrollTo={scroll}
         className={carouselClassName}
+        buttonOffset="12"
+        prevBtnClassName="-translate-x-16"
+        nextBtnClassName="translate-x-16"
         sliderClassName={`gap-x-8 relative ${sliderClassName}`}>
         {items.map((header, key) => {
           return (
