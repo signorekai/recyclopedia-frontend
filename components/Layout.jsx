@@ -563,6 +563,11 @@ const Layout = ({
               A community driven, non-profit initiative
             </span>
             <div className="text-xs flex flex-row gap-x-2">
+              <Link href="/newsletter" passHref>
+                <a className="text-white no-underline hidden lg:inline hover:text-teal">
+                  Subscribe to our Newsletter
+                </a>
+              </Link>
               <Link href="/privacy-policy" passHref>
                 <a className="text-white no-underline hover:text-teal">
                   Privacy Policy
