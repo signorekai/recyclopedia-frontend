@@ -367,7 +367,7 @@
   }
 
   .modal-wrapper {
-    @apply fixed w-full h-full bg-grey-dark bg-opacity-80 flex flex-row justify-end;
+    @apply fixed w-full h-screen bg-grey-dark bg-opacity-80 flex flex-row justify-end;
     @apply z-30;
   }
 

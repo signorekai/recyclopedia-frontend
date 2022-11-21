@@ -184,7 +184,7 @@ export const FeedbackForm = ({
             validationSchema={FeedbackFormSchema}>
             {({ isSubmitting, values, setFieldValue }) => (
               <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
-                <Form className="test">
+                <Form className="">
                   <CheckAuth />
                   <Field
                     name="topic"
@@ -313,19 +313,19 @@ export const FeedbackModal = ({
         initial="initial"
         animate="animate"
         exit="exit"
-        className="modal-wrapper overflow-hidden items-center !justify-center top-0 left-0 !z-50">
+        className="modal-wrapper items-center !justify-center top-0 left-0 !z-50">
         <div
           className="w-full h-full absolute top-0 left-0"
           onClick={handleClick}
         />
-        <div className="mx-4 w-full max-w-xl my-14  bg-white py-7 px-3 rounded-lg relative overflow-hidden">
+        <div className="mx-4 w-full max-w-xl max-h-[calc(100vh_-_3.5rem)] bg-white py-7 px-3 rounded-lg relative overflow-y-scroll">
           <button
             onClick={handleClick}
             className="hover:opacity-80 transition-all duration-200">
-            <span className="far fa-times absolute top-4 right-6 text-2xl text-grey" />
+            <span className="far fa-times fixed top-10 right-10 text-2xl text-grey" />
           </button>
           <h2 className="text-black inline-block px-4">Feedback</h2>
-          <div className="flex-1 lg:max-h-[60vh] overflow-x-hidden overflow-y-auto px-4 pb-4">
+          <div className="flex-1 overflow-x-hidden overflow-y-auto px-4 pb-4">
             <FeedbackForm
               item={item}
               resource={resource}
