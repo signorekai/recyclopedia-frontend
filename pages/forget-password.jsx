@@ -74,10 +74,7 @@ export default function Page() {
   };
 
   return (
-    <Layout>
-      <Head>
-        <title>Recyclopedia - Forget Password</title>
-      </Head>
+    <Layout title="Forget Password">
       <div className="container container--narrow">
         <h1 className="text-black mt-6 lg:mt-16">Forget Password</h1>
         <h4 className="lg:text-xl font-normal">

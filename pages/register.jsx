@@ -38,10 +38,7 @@ export default function Page() {
   };
 
   return (
-    <Layout>
-      <Head>
-        <title>Recyclopedia - Register</title>
-      </Head>
+    <Layout title="Register an account">
       <div className="container container--narrow">
         <h1 className="text-black mt-6 lg:mt-16">Register an account</h1>
         <h4 className="lg:text-xl font-normal">

@@ -96,12 +96,10 @@ export default function Page() {
 
   return (
     <Layout
+      title="Your Account"
       mainStyle={{
         display: authStatus === 'authenticated' ? 'block' : 'flex',
       }}>
-      <Head>
-        <title>Recyclopedia - Your account</title>
-      </Head>
       <AccountHeader
         session={session}
         authStatus={authStatus}

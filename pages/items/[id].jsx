@@ -186,17 +186,12 @@ function Page({ data }) {
   return (
     <>
       {data && (
-        <Layout>
+        <Layout title={data && data.title}>
           <Head>
-            <title>Recyclopedia - {data && data.title}</title>
             <meta name="description" content="Recyclopedia" />
             <meta
               property="og:url"
               content={`${process.env.NEXT_PUBLIC_LOCATION}${router.asPath}`}
-            />
-            <meta
-              property="og:title"
-              content={`Recyclopedia - ${data.title}`}
             />
             <meta
               property="og:description"

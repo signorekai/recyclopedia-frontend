@@ -123,9 +123,10 @@ export default function Page({ fallback, pageOptions, resourceTags }) {
   const x = useSearchBarTopValue();
 
   return (
-    <Layout headerContainerStyle={{ backgroundColor: pageOptions.colour }}>
+    <Layout
+      headerContainerStyle={{ backgroundColor: pageOptions.colour }}
+      title={pageOptions.title}>
       <Head>
-        <title>Recyclopedia - {pageOptions.title}</title>
         <meta name="description" content={pageOptions.subtitle} />
       </Head>
       <section

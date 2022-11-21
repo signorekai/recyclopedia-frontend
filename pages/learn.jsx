@@ -123,10 +123,9 @@ export default function Page({
   }, [categoryTitles, fallback]);
 
   return (
-    <Layout headerContainerStyle={{ backgroundColor: pageOptions.colour }}>
-      <Head>
-        <title>Recyclopedia - {title}</title>
-      </Head>
+    <Layout
+      title={title}
+      headerContainerStyle={{ backgroundColor: pageOptions.colour }}>
       <section
         className="relative py-4 lg:pt-10"
         style={{

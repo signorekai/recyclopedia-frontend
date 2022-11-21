@@ -112,14 +112,12 @@ export default function Page({ ...props }) {
 
   return (
     <Layout
+      title="Your Bookmarks"
       mainStyle={{
         display: loading ? 'flex' : 'block',
         flexDirection: 'column',
       }}
       footerStyle={{ marginTop: 0 }}>
-      <Head>
-        <title>Recyclopedia - Your bookmarks</title>
-      </Head>
       <AccountHeader
         session={session}
         authStatus={authStatus}

@@ -101,11 +101,11 @@ function ResourcePage({ data, baseUrl, tags }) {
   return (
     <>
       {data && (
-        <Layout showHeaderInitially={true} showHeaderOn="" hideHeaderOn="">
-          <Head>
-            <title>Recyclopedia - {data && data.title}</title>
-            <meta name="description" content="Recyclopedia" />
-          </Head>
+        <Layout
+          showHeaderInitially={true}
+          showHeaderOn=""
+          hideHeaderOn=""
+          title={data && data.title}>
           <div className="page-icons lg:hidden">
             <Link href={`/${baseUrl}`}>
               <a className="page-icon-wrapper leading-none no-underline">

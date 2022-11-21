@@ -30,10 +30,7 @@ export default function Page() {
   };
 
   return (
-    <Layout>
-      <Head>
-        <title>Recyclopedia - Login</title>
-      </Head>
+    <Layout title="Login">
       <div className="container container--narrow">
         <h1 className="text-black mt-6 lg:mt-16">Register or Log In</h1>
         <h4 className="lg:text-xl font-normal">

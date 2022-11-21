@@ -4,11 +4,7 @@ import Link from 'next/link';
 
 export default function Page() {
   return (
-    <Layout>
-      <Head>
-        <title>Recyclopedia - 404</title>
-        <meta name="og:title" content="Recyclopedia - 404" />
-      </Head>
+    <Layout title="404">
       <div className="container">
         <section className="mt-20 mx-auto flex flex-col items-center justify-center">
           <img src="/img/404.svg" alt="" />

@@ -77,9 +77,8 @@ export default function Page({ pageOptions }) {
   }, [currentHash]);
 
   return (
-    <Layout>
+    <Layout title={pageOptions.title}>
       <Head>
-        <title>Recyclopedia - {pageOptions.title}</title>
         <meta name="description" content={pageOptions.subtitle} />
       </Head>
       <div className="container relative z-10 pt-4 lg:pt-10">

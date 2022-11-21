@@ -9,12 +9,14 @@ function Plain({
   updatedAt,
 }) {
   return (
-    <Layout showHeaderInitially={true} showHeaderOn="" hideHeaderOn="">
+    <Layout
+      showHeaderInitially={true}
+      showHeaderOn=""
+      hideHeaderOn=""
+      title={title}>
       <Head>
-        <title>Recyclopedia - {title}</title>
         <meta name="description" content={description} />
         <meta name="og:description" content={description} />
-        <meta name="og:title" content={`Recyclopedia - ${title}`} />
       </Head>
       <div className="container mt-10">
         <h1 className="text-black pt-2 mb-0">{title}</h1>

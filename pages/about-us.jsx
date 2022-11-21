@@ -12,9 +12,8 @@ export default function Page({ pageOptions }) {
   const { supporters, title, introHeader, description, bodyText } = pageOptions;
 
   return (
-    <Layout>
+    <Layout title={title}>
       <Head>
-        <title>Recyclopedia - {title}</title>
         <meta name="description" content={description} />
       </Head>
       <div className="bg-teal relative">

@@ -20,16 +20,15 @@ export default function Page({ article, categoryTitles, nextPost }) {
   return (
     <>
       {article && (
-        <Layout showHeaderInitially={true} showHeaderOn="" hideHeaderOn="">
+        <Layout
+          showHeaderInitially={true}
+          showHeaderOn=""
+          hideHeaderOn=""
+          title={article && article.title}>
           <Head>
-            <title>Recyclopedia - {article && article.title}</title>
             <meta
               property="og:url"
               content={`${process.env.NEXT_PUBLIC_LOCATION}${router.asPath}`}
-            />
-            <meta
-              property="og:title"
-              content={`Recyclopedia - ${article.title}`}
             />
             <meta property="og:description" content={article.excerpt} />
             {article.coverImage && (

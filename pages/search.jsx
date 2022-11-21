@@ -356,12 +356,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
 
 export default function Page(props) {
   return (
-    <Layout>
-      <Head>
-        <title>
-          Recyclopedia - Search Results for &quot;{props.query}&quot;
-        </title>
-      </Head>
+    <Layout title={`Recyclopedia - Search Results for "${props.query}"`}>
       {props.success && props.type.length === 1 && (
         <SingleSearchType
           type={props.type[0]}

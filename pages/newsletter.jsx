@@ -19,19 +19,7 @@ export default function Home({ items, newsItems }) {
   const { width } = useWindowDimensions();
 
   return (
-    <Layout>
-      <Head>
-        <title>Recyclopedia</title>
-        <meta
-          name="description"
-          content="All you need to know when you have something to throw."
-        />
-        <meta name="og:title" content="Recyclopedia" />
-        <meta
-          name="og:description"
-          content="All you need to know when you have something to throw."
-        />
-      </Head>
+    <Layout title="Newsletter">
       <div className="container divider-b">
         <div className="lg:w-3/4 mx-auto my-12 md:my-24">
           <h3 className="text-[2rem] leading-tight font-medium text-center">

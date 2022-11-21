@@ -4,10 +4,7 @@ import { FeedbackForm } from '../components/Report';
 
 export default function Page() {
   return (
-    <Layout>
-      <Head>
-        <title>Recyclopedia - Feedback</title>
-      </Head>
+    <Layout title="Feedback">
       <div className="container container--narrow h-full pt-4 lg:pt-10">
         <h1 className="text-black">Feedback</h1>
         <h3 className="mb-10">

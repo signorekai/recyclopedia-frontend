@@ -20,9 +20,6 @@ export default function Home({ items, newsItems }) {
 
   return (
     <Layout>
-      <Head>
-        <title>Recyclopedia</title>
-      </Head>
       <div className="bg-mobile-banner md:bg-banner bg-top bg-cover h-96 lg:h-[30vw] lg:max-h-[440px] absolute top-[50px] lg:top-20 w-full left-0 z-0"></div>
       <div className="max-w-md lg:max-w-none mt-40 lg:mt-32 mx-auto">
         <a className="lg:flex justify-center z-10 relative hidden">
