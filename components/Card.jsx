@@ -101,28 +101,31 @@ const Card = ({
       <AnimatePresence>
         {bookmarkBtn}
         {content.hasOwnProperty('headerText') ? (
-          <LinkWrapper passHref content={content}>
-            <motion.div
-              variants={variants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              className={`no-underline ${className}`}>
-              <div className={`${imagesWrapperClassName}`}>
-                <PrefixIcon type={prefixIcon} />
-                {content.images && content.images.length > 1 && (
-                  <CarouselProvider
-                    totalSlides={content.images.length}
-                    naturalSlideWidth={240}
-                    naturalSlideHeight={240}>
-                    <Slider classNameAnimation="transition-transform duration-200">
-                      {content.images.map((image, key) => (
-                        <Slide
-                          key={`${image.url}-${key}`}
-                          index={key}
-                          style={{ paddingBottom: 0 }}>
+          <motion.div
+            variants={variants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className={`no-underline ${className} rounded-md overflow-hidden`}>
+            <div className={`${imagesWrapperClassName}`}>
+              <PrefixIcon type={prefixIcon} />
+              {content.images && content.images.length > 1 && (
+                <CarouselProvider
+                  totalSlides={content.images.length}
+                  naturalSlideWidth={240}
+                  naturalSlideHeight={240}>
+                  <Slider
+                    className="rounded-md overflow-hidden"
+                    classNameAnimation="transition-transform duration-200">
+                    {content.images.map((image, key) => (
+                      <Slide
+                        key={`${image.url}-${key}`}
+                        index={key}
+                        className="rounded-md overflow-hidden"
+                        style={{ paddingBottom: 0, lineHeight: 0 }}>
+                        <LinkWrapper passHref content={content}>
                           <Image
-                            className={`rounded-md group-hover:scale-110 transition-transform ${imgClassName}`}
+                            className={`group-hover:scale-110 transition-transform ${imgClassName}`}
                             alt={image.alternativeText}
                             source={image}
                             width={
@@ -136,35 +139,39 @@ const Card = ({
                                 : image.height
                             }
                           />
-                        </Slide>
-                      ))}
-                    </Slider>
-                    <DotGroup className="z-30" />
-                  </CarouselProvider>
-                )}
-                {((typeof content.images === 'undefined' &&
-                  content.image.hasOwnProperty('url')) ||
-                  (content.images && content.images.length === 1)) && (
+                        </LinkWrapper>
+                      </Slide>
+                    ))}
+                  </Slider>
+                  <DotGroup className="z-30" />
+                </CarouselProvider>
+              )}
+              {((typeof content.images === 'undefined' &&
+                content.image.hasOwnProperty('url')) ||
+                (content.images && content.images.length === 1)) && (
+                <LinkWrapper passHref content={content}>
                   <Image
                     wrapperClassName="rounded-md"
                     className="group-hover:scale-110 transition-transform"
                     source={content.images ? content.images[0] : content.image}
                     alt={`Photo of ${content.headerText}`}
                   />
+                </LinkWrapper>
+              )}
+              {typeof content.images === 'undefined' &&
+                !content.image.hasOwnProperty('url') && (
+                  <div className="w-full h-full bg-grey-light rounded-md"></div>
                 )}
-                {typeof content.images === 'undefined' &&
-                  !content.image.hasOwnProperty('url') && (
-                    <div className="w-full h-full bg-grey-light rounded-md"></div>
-                  )}
-              </div>
+            </div>
+            <LinkWrapper passHref content={content}>
               {content.hasOwnProperty('subHeaderText') && (
                 <h6 className="tag">{content.subHeaderText}</h6>
               )}
               <h4 className="text-lg text-blue group-hover:text-blue-light leading-tight mt-1 mb-4 px-1">
                 {content.headerText}
               </h4>
-            </motion.div>
-          </LinkWrapper>
+            </LinkWrapper>
+          </motion.div>
         ) : (
           <motion.div
             variants={variants}
