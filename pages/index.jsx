@@ -22,15 +22,6 @@ export default function Home({ items, newsItems }) {
     <Layout>
       <Head>
         <title>Recyclopedia</title>
-        <meta
-          name="description"
-          content="All you need to know when you have something to throw."
-        />
-        <meta name="og:title" content="Recyclopedia" />
-        <meta
-          name="og:description"
-          content="All you need to know when you have something to throw."
-        />
       </Head>
       <div className="bg-mobile-banner md:bg-banner bg-top bg-cover h-96 lg:h-[30vw] lg:max-h-[440px] absolute top-[50px] lg:top-20 w-full left-0 z-0"></div>
       <div className="max-w-md lg:max-w-none mt-40 lg:mt-32 mx-auto">
