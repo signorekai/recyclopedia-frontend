@@ -41,7 +41,7 @@ export default function Page({ pageOptions }) {
       </div>
       <div className="container">
         <div
-          className="lg:w-1/2 pb-7 pt-4 lg:py-14 article-body"
+          className="pb-7 pt-4 lg:py-14 article-body"
           dangerouslySetInnerHTML={{ __html: bodyText }}></div>
         <div className="divider-b"></div>
       </div>
