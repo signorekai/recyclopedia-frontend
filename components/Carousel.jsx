@@ -70,6 +70,8 @@ export const Carousel = ({
   disableScroll = false,
   sliderStyle = {},
   desktopControls = true,
+  prevBtnClassName = '',
+  nextBtnClassName = '',
 }) => {
   const transformX = useMotionValue(scrollTo);
   const carouselRef = useRef(null);
@@ -95,7 +97,7 @@ export const Carousel = ({
 
   const _checkButtons = useCallback(() => {
     if (
-      carouselRef.current.offsetWidth >= slidesContainerRef.current.offsetWidth
+      carouselRef.current.offsetWidth >= slidesContainerRef.current.scrollWidth
     ) {
       setShowNextBtn(false);
       setShowPreviousBtn(false);
@@ -127,7 +129,7 @@ export const Carousel = ({
 
   useEffect(() => {
     _checkButtons();
-  }, [_checkButtons, carouselRef, slidesContainerRef, slideWidth, children]);
+  }, [_checkButtons, carouselRef, slidesContainerRef]);
 
   useEffect(() => {
     const debouncedFunction = debounce((scroll) => {
@@ -163,7 +165,7 @@ export const Carousel = ({
           onClick={() => _handleScrollBtn()}
           className={`basic-carousel__control basic-carousel__control--prev group ${
             buttonOffset === 0 && 'items-center'
-          }`}>
+          } ${prevBtnClassName}`}>
           <img
             style={{
               transform: `translateY(${buttonOffset}px)`,
@@ -194,7 +196,7 @@ export const Carousel = ({
           onClick={() => _handleScrollBtn(1)}
           className={`basic-carousel__control basic-carousel__control--next group ${
             buttonOffset === 0 && 'items-center'
-          }`}>
+          } ${nextBtnClassName}`}>
           <img
             style={{
               transform: `translateY(${buttonOffset}px)`,
