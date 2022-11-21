@@ -97,6 +97,20 @@ export default function Home({ items, newsItems }) {
           <a className="btn">View all Items</a>
         </Link>
       </div>
+      <div className="container ">
+        <div className="lg:w-3/4 mx-auto my-12 md:my-24">
+          <h3 className="text-[2rem] leading-tight font-medium text-center">
+            Are you based in Singapore? So are we!
+          </h3>
+          <p className="mt-3 text-lg text-center">
+            Are you trying to do the right thing but find info from abroad
+            confusing or irrelevant? Our recommendations are based on the
+            Singapore local context: local waste treatment, recycling
+            facilities, thrift shops, upcycling projects, popular apps &
+            platforms.
+          </p>
+        </div>
+      </div>
       <div className="container container--wide mt-8 lg:mt-20 mb-6 lg:mb-20">
         <div className="divide-y lg:divide-y-0 lg:divide-x divide-grey-light border-y-1 lg:border-y-0 border-grey-light lg:flex lg:flex-row">
           <motion.div
