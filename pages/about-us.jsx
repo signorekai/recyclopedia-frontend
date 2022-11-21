@@ -5,7 +5,7 @@ import Image from 'next/image';
 import NewImage from '../components/Image';
 import { staticFetcher, useWindowDimensions } from '../lib/hooks';
 
-import AboutUsBg from '../assets/img/about-us.svg';
+import AboutUsBg from '../assets/img/about-us.png';
 
 export default function Page({ pageOptions }) {
   const { width } = useWindowDimensions();
