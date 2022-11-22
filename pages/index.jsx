@@ -89,7 +89,7 @@ export default function Home({ items, newsItems }) {
         <div className="lg:w-3/4 mx-auto my-12 md:my-24">
           <h3 className="text-2xl lg:text-[2rem] leading-tight font-medium text-center">
             Are you based in Singapore?{' '}
-            <span className="block lg:inline">So are we!</span>
+            <span className="block lg:inline">So are we.</span>
           </h3>
           <p className="mt-3 text-lg text-center">
             Our recommendations are based on local knowledge: recycling
