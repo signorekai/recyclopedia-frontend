@@ -5,7 +5,7 @@ import Image from 'next/image';
 import NewImage from '../components/Image';
 import { staticFetcher, useWindowDimensions } from '../lib/hooks';
 
-import AboutUsBg from '../assets/img/about-us.png';
+import AboutUsBg from '../assets/img/about-us.svg';
 
 export default function Page({ pageOptions }) {
   const { width } = useWindowDimensions();
@@ -18,11 +18,13 @@ export default function Page({ pageOptions }) {
       </Head>
       <div className="bg-teal relative">
         <div className="container lg:flex lg:py-12">
-          <div className="pt-4 pr-2 lg:pl-4 lg:pr-0 lg:pt-4 lg:order-2 lg:-mr-24">
+          <div className="pt-8 pr-2 lg:pl-4 lg:pr-0 lg:pt-8 lg:order-2 lg:-mr-24">
             <Image src={AboutUsBg} alt="" />
           </div>
-          <div className="lg:w-3/5 pb-7 pt-4 lg:py-10 lg:order-1">
-            <h2 className="text-black justify-start">{introHeader}</h2>
+          <div className="lg:w-3/5 pb-7 pt-6 lg:py-10 lg:order-1">
+            <h2 className="text-black justify-start mt-0 lg:mt-4">
+              {introHeader}
+            </h2>
             <h1
               className="text-black"
               dangerouslySetInnerHTML={{
@@ -50,7 +52,7 @@ export default function Page({ pageOptions }) {
           </p>
         </div>
       </div>
-      <div className="container divider-b mt-16"></div>
+      <div className="container divider-b mt-12 lg:mt-16"></div>
       <div className="container flex flex-col lg:flex-row mt-8 lg:mt-14 lg:mb-6 items-start">
         <h2 className="text-black lg:w-1/4 lg:justify-start">
           Be part of the project
@@ -69,7 +71,7 @@ export default function Page({ pageOptions }) {
       </div>
       {supporters && supporters.length > 1 && (
         <>
-          <div className="container divider-b mt-16"></div>
+          <div className="container divider-b mt-12 lg:mt-16"></div>
           <div className="container flex flex-col lg:flex-row mt-8 lg:mt-12 items-start">
             <h2 className="text-black lg:w-1/4 lg:justify-start">
               Proudly Supported by
