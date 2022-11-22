@@ -57,7 +57,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
               </CarouselCard>
               {categoryTitles.map((title) => (
                 <CarouselCard key={title}>
-                  <Link href={`/news-tips?section=${title}`}>
+                  <Link href={`/learn?section=${title}`}>
                     <a className="no-underline text-xs uppercase font-bold tracking-2 font-archivo pb-2 !text-grey-dark">
                       {title}
                     </a>
