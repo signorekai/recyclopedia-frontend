@@ -87,15 +87,14 @@ export default function Home({ items, newsItems }) {
       </div>
       <div className="container ">
         <div className="lg:w-3/4 mx-auto my-12 md:my-24">
-          <h3 className="text-[2rem] leading-tight font-medium text-center">
-            Are you based in Singapore? So are we!
+          <h3 className="text-2xl lg:text-[2rem] leading-tight font-medium text-center">
+            Are you based in Singapore?{' '}
+            <span className="block lg:inline">So are we!</span>
           </h3>
           <p className="mt-3 text-lg text-center">
-            Are you trying to do the right thing but find info from abroad
-            confusing or irrelevant? Our recommendations are based on the
-            Singapore local context: local waste treatment, recycling
-            facilities, thrift shops, upcycling projects, popular apps &
-            platforms.
+            Our recommendations are based on local knowledge: recycling
+            facilities, thrift shops, upcycling projects, popular apps, and
+            more!
           </p>
         </div>
       </div>
@@ -211,7 +210,7 @@ export default function Home({ items, newsItems }) {
       </div>
       <div className="container ">
         <div className="lg:w-3/4 mx-auto my-12 md:my-24">
-          <h3 className="text-[2rem] leading-tight font-medium text-center">
+          <h3 className="text-2xl lg:text-[2rem] leading-tight font-medium text-center">
             Want to keep up Singapore Zero-Waste happenings?
           </h3>
           <p className="mt-3 text-lg text-center">
