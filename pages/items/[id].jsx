@@ -724,12 +724,9 @@ export async function getStaticProps({ params }) {
   if (!!results.data[0].itemCategory) {
     const unparsedRelatedItems = results.data[0].itemCategory.items;
 
-    while (
-      relatedItems.length < ITEMS_PER_PAGE &&
-      relatedItems.length < unparsedRelatedItems.length
-    ) {
+    while (relatedItems.length < unparsedRelatedItems.length) {
       const x = Math.floor(Math.random() * unparsedRelatedItems.length);
-      if (relatedItemsIndex.indexOf(x) === -1) {
+      if (relatedItemsIndex.indexOf(x) === -1 && x !== results.data[0].id) {
         relatedItems.push(unparsedRelatedItems[x]);
         relatedItemsIndex.push(x);
       }
