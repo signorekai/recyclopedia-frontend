@@ -17,7 +17,8 @@ export const ForgetSchema = object({
 export default function Page() {
   const router = useRouter();
   const [code, setCode] = useState('');
-  const [passChangeError, setPassChangeError] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
   const callbackUrl = router.query.callbackUrl || '/';
   const error = router.query.error || '';
@@ -70,7 +71,17 @@ export default function Page() {
         },
       },
     );
+    const result = await response.json();
     setSubmitting(false);
+    if (result.success) {
+      setSuccessMsg(
+        'If your email address is valid, you would have received an email from us on how to change your password. Check your inbox for further instructions.',
+      );
+    } else {
+      setErrorMsg(
+        'We have encountered an error while trying to reset your password. Please refresh the page and try again, thank you.',
+      );
+    }
   };
 
   return (
@@ -93,9 +104,14 @@ export default function Page() {
             validationSchema={ResetPasswordSchema}>
             {({ isSubmitting }) => (
               <Form className="">
-                {passChangeError.length > 0 && (
+                {errorMsg.length > 0 && (
                   <p className="bg-coral text-white rounded-md py-3 px-4 mb-4 text-sm">
-                    {passChangeError}
+                    {errorMsg}
+                  </p>
+                )}
+                {successMsg.length > 0 && (
+                  <p className="bg-green/10 text-green font-bold rounded-md py-3 px-4 mb-4 text-sm">
+                    {successMsg}
                   </p>
                 )}
                 <Field
@@ -140,6 +156,16 @@ export default function Page() {
               validationSchema={ForgetSchema}>
               {({ isSubmitting }) => (
                 <Form>
+                  {errorMsg.length > 0 && (
+                    <p className="bg-coral text-white rounded-md py-3 px-4 mb-4 text-sm">
+                      {errorMsg}
+                    </p>
+                  )}
+                  {successMsg.length > 0 && (
+                    <p className="bg-green/10 text-green font-bold rounded-md py-3 px-4 mb-4 text-sm">
+                      {successMsg}
+                    </p>
+                  )}
                   <Field
                     type="email"
                     name="identifier"
