@@ -72,8 +72,7 @@ export default function Page() {
     );
     const result = await response.json();
     setSubmitting(false);
-    console.log(result);
-    if (result.success) {
+    if (result.ok) {
       setSuccessMsg(
         'If your email address is valid, you would have received an email from us on how to change your password. Check your inbox for further instructions.',
       );
