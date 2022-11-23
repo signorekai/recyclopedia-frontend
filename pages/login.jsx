@@ -26,6 +26,7 @@ export default function Page() {
   };
 
   const _handleSubmit = async (values, { setSubmitting }) => {
+    setSubmitting(true);
     signIn('credentials', { ...values, callbackUrl });
   };
 
