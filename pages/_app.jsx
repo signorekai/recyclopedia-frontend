@@ -12,11 +12,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (
-      location.hostname !== 'recyclopedia.sg' &&
-      location.hostname !== 'localhost' &&
-      location.hostname !== '192.168.0.102'
-    ) {
+    if (location.hostname === 'recyclopedia-frontend.vercel.app') {
       window.location = `https://recyclopedia.sg${location.pathname}`;
     } else {
       logVisit();
