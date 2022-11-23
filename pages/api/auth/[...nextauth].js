@@ -3,6 +3,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import FacebookProvider from 'next-auth/providers/facebook';
 import GoogleProvider from 'next-auth/providers/google';
+import { staticFetcher } from '../../../lib/hooks';
 
 const options = {
   pages: {
@@ -59,7 +60,7 @@ const options = {
           id: profile.email,
           name: profile.name,
           email: profile.email,
-          image: profile.picture.data.url,
+          image: profile.picture,
         };
       },
       authorization: {
@@ -76,6 +77,32 @@ const options = {
     maxAge: 7 * 24 * 60 * 60,
   },
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      const isAllowedToSignIn = true;
+      console.log('account provider:', account.provider);
+
+      if (account.provider !== 'credentials' && account.provider !== 'local') {
+        const data = await staticFetcher(
+          `${process.env.API_URL}/users`,
+          process.env.API_KEY,
+          {
+            filters: {
+              email: {
+                $eq: user.email,
+              },
+            },
+          },
+        );
+
+        if (data.length === 0) {
+          return true;
+        } else {
+          return '/login?error=AlreadyRegisteredViaEmail';
+        }
+      } else {
+        return true;
+      }
+    },
     session: async ({ session, token }) => {
       session.jwt = token.jwt;
       session.user = token;
@@ -83,6 +110,7 @@ const options = {
     },
     jwt: async ({ token, user, account, ...others }) => {
       const isSignIn = user ? true : false;
+      console.log(86);
       if (isSignIn) {
         if (!!account && !!account.provider) {
           if (
@@ -114,6 +142,9 @@ const options = {
   },
 };
 
-const Auth = (req, res) => NextAuth(req, res, options);
+const Auth = (req, res) => {
+  console.log(119, req.query, req.body);
+  return NextAuth(req, res, options);
+};
 
 export default Auth;
