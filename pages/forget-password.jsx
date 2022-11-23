@@ -59,7 +59,6 @@ export default function Page() {
   };
 
   const _handleSubmit = async (values, { setSubmitting }) => {
-    console.log(25, `${process.env.NEXT_PUBLIC_API_URL}/auth/forget-password`);
     setSubmitting(true);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/forgot-password`,
@@ -73,6 +72,7 @@ export default function Page() {
     );
     const result = await response.json();
     setSubmitting(false);
+    console.log(result);
     if (result.success) {
       setSuccessMsg(
         'If your email address is valid, you would have received an email from us on how to change your password. Check your inbox for further instructions.',
