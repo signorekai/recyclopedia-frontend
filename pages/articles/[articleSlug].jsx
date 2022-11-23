@@ -126,7 +126,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
                 donation drives, recycling initiatives, zero-waste news, and the
                 occasional life-hack for living lighter. No spam. You can
                 unsubscribe any time.{' '}
-                <a href="https://mailchi.mp/bf7c91fda049/recyclopediasg">
+                <a href="https://mailchi.mp/d067d8c7e8ed/waste-not-news-5791">
                   See a past issue here
                 </a>
                 .
