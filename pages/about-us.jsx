@@ -2,6 +2,7 @@ import Head from 'next/head';
 import qs from 'querystring';
 import Layout from '../components/Layout';
 import Image from 'next/image';
+import Link from '../components/Link';
 import NewImage from '../components/Image';
 import { staticFetcher, useWindowDimensions } from '../lib/hooks';
 
@@ -44,7 +45,7 @@ export default function Page({ pageOptions }) {
         <div className="w-full">
           <p>
             Spotted outdated information, or have suggestions for improvements?
-            Contact us via our feedback form.{' '}
+            Contact us via our <Link href="/feedback">feedback form</Link>.
           </p>
           <p>
             For direct enquiries:{' '}
