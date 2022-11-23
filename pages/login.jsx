@@ -23,7 +23,7 @@ export default function Page() {
 
   const errorMsgs = {
     CredentialsSignin: `The information you provided is incorrect. Please try again.`,
-    AlreadyRegisteredViaEmail: `Our records showed that you have already registered via your email. Did you forget your password?`,
+    AlreadyRegisteredViaEmail: `Our records show that your email is already registered. Please login below.`,
   };
 
   const _handleSubmit = async (values, { setSubmitting }) => {
@@ -60,9 +60,9 @@ export default function Page() {
         </div>
         <div className="w-full lg:flex-1">
           {error.length > 0 && (
-            <p className="bg-coral text-white rounded-md py-3 px-4 mb-4 text-sm">
-              {errorMsgs[error]}
-            </p>
+            <p
+              className="bg-coral text-white rounded-md py-3 px-4 mb-4 text-sm"
+              dangerouslySetInnerHTML={{ __html: errorMsgs[error] }}></p>
           )}
           <Formik
             onSubmit={_handleSubmit}
