@@ -65,11 +65,14 @@ const options = {
       session.user = token;
       return Promise.resolve(session);
     },
-    jwt: async ({ token, user, account }) => {
+    jwt: async ({ token, user, account, ...others }) => {
       const isSignIn = user ? true : false;
       if (isSignIn) {
         if (!!account && !!account.provider) {
-          if (account.provider !== 'local') {
+          if (
+            account.provider !== 'local' &&
+            account.provider !== 'credentials'
+          ) {
             const response = await fetch(
               `${process.env.API_URL}/auth/${account.provider}/callback?access_token=${account?.access_token}`,
             );
