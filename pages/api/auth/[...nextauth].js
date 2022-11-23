@@ -94,7 +94,7 @@ const options = {
           },
         );
 
-        if (data.length === 0) {
+        if (data.length === 0 || data[0].provider === account.provider) {
           return true;
         } else {
           return '/login?error=AlreadyRegisteredViaEmail';
