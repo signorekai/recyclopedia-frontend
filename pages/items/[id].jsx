@@ -555,38 +555,41 @@ function Page({ data }) {
                 <div className="divider-b mt-8"></div>
               </>
             )}
-            {data.itemCategory && data.itemCategory.items.length > 1 && (
-              <>
-                <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
-                  <div className="lg:col-span-1">
-                    <h5 className="text-left">
-                      <i className="far fa-clone mr-2 text-sm"></i>Similar Items
-                    </h5>
-                  </div>
-                  <div className="lg:col-span-3">
-                    <Masonry
-                      columns={width > 1080 ? 4 : 2}
-                      items={data.itemCategory.items}
-                      card={(item, key) => (
-                        <div key={key} className="w-full">
-                          <Card
-                            uniqueKey={`card-${key}`}
-                            prefixIcon={item.resourceIcon || ''}
-                            content={{
-                              image: item.images ? item.images[0] : {},
-                              headerText: item.title,
-                              contentType: 'items',
-                              slug: item.slug,
-                            }}
-                          />
-                        </div>
-                      )}
-                    />
-                  </div>
-                </section>
-                <div className="divider-b mt-4 mb-2"></div>
-              </>
-            )}
+            {(data.showSimilar === null || data.showSimilar === true) &&
+              data.itemCategory &&
+              data.itemCategory.items.length > 1 && (
+                <>
+                  <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
+                    <div className="lg:col-span-1">
+                      <h5 className="text-left">
+                        <i className="far fa-clone mr-2 text-sm"></i>Similar
+                        Items
+                      </h5>
+                    </div>
+                    <div className="lg:col-span-3">
+                      <Masonry
+                        columns={width > 1080 ? 4 : 2}
+                        items={data.itemCategory.items}
+                        card={(item, key) => (
+                          <div key={key} className="w-full">
+                            <Card
+                              uniqueKey={`card-${key}`}
+                              prefixIcon={item.resourceIcon || ''}
+                              content={{
+                                image: item.images ? item.images[0] : {},
+                                headerText: item.title,
+                                contentType: 'items',
+                                slug: item.slug,
+                              }}
+                            />
+                          </div>
+                        )}
+                      />
+                    </div>
+                  </section>
+                  <div className="divider-b mt-4 mb-2"></div>
+                </>
+              )}
             {data.articles && data.articles.length > 0 && (
               <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
                 <div className="lg:col-span-1">
