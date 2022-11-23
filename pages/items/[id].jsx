@@ -339,11 +339,9 @@ function Page({ data }) {
                         ? 'border-green bg-green/5 text-green'
                         : 'border-red bg-red/5 text-red'
                     }`}>
-                    <div className="flex items-center ">
+                    <div className="flex items-center text-blue-light">
                       <i className="far fa-dumpster text-[32px] lg:text-4xl mr-3"></i>
-                      <h2 className={data.bluebin ? 'text-green' : 'text-red'}>
-                        Blue bin
-                      </h2>
+                      <h2>Blue Bins & Chute</h2>
                     </div>
                     <i
                       className={`fas ${
@@ -356,14 +354,9 @@ function Page({ data }) {
                         ? 'border-green bg-green/5 text-green'
                         : 'border-red bg-red/5 text-red'
                     }`}>
-                    <div className="flex items-center">
+                    <div className="flex items-center text-blue-light">
                       <i className="far fa-recycle text-[32px] lg:text-4xl mr-3"></i>
-                      <h2
-                        className={
-                          data.recycleElsewhere ? 'text-green' : 'text-red'
-                        }>
-                        Other Recycling
-                      </h2>
+                      <h2>Other Recycling</h2>
                     </div>
                     <i
                       className={`fas ${
