@@ -151,13 +151,13 @@ export default function Page({ ...props }) {
       {loading === false && Object.keys(bookmarks).length === 0 && (
         <section className="mt-20 mx-auto max-w-md text-center text-lg">
           <img src="/img/404.svg" alt="" className="mx-auto block mb-8" />
-          You do not have any bookmarks saved!
+          You do not have any bookmarks saved yet.
           <br />
-          Learn how to create a bookmark at the{' '}
-          <Link href="/faq">
-            <a className="text-blue inline">FAQ</a>
-          </Link>
-          .
+          Go check out some{' '}
+          <Link href="/items">
+            <a className="text-blue inline">Items</a>
+          </Link>{' '}
+          and start bookmarking!
         </section>
       )}
     </Layout>
