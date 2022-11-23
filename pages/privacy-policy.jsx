@@ -2,7 +2,6 @@ import Plain from '../components/PlainTemplate';
 import { staticFetcher } from '../lib/hooks';
 
 export default function Page({ data }) {
-  console.log(data);
   return <Plain {...data}></Plain>;
 }
 

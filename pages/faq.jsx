@@ -66,8 +66,6 @@ export default function Page({ pageOptions }) {
   const [currentHash, setCurrentHash] = useState();
   const router = useRouter();
 
-  console.log(71);
-
   useEffect(() => {
     setCurrentHash(location.hash.slice(1));
   }, []);
