@@ -70,7 +70,7 @@ export default function Page() {
                 <Field
                   type="text"
                   name="name"
-                  label="Name"
+                  label="Nickname"
                   component={TextInput}
                 />
                 <Field
