@@ -565,29 +565,29 @@ const Layout = ({
       <footer className="footer-wrapper" style={footerStyle}>
         <div className="container footer">
           <div className="lg:order-2 flex-1 flex flex-col lg:flex-row lg:justify-between lg:items-center lg:px-10 gap-y-1">
-            <span className="text-sm leading-tight">
+            <span className="text-sm leading-tight mt-1">
               A community driven, non-profit initiative
             </span>
-            <div className="text-xs flex flex-row gap-x-2">
+            <div className="text-xs flex flex-row gap-x-2 flex-wrap mt-2">
               <Link href="/newsletter" passHref>
-                <a className="text-white no-underline hidden lg:inline hover:text-teal">
+                <a className="text-white py-1 no-underline hover:text-teal font-bold">
                   Subscribe to our Newsletter
                 </a>
               </Link>
               <Link href="/privacy-policy" passHref>
-                <a className="text-white no-underline hover:text-teal">
+                <a className="text-white py-1 no-underline hover:text-teal font-bold">
                   Privacy Policy
                 </a>
               </Link>
               <Link href="/terms-of-use" passHref>
-                <a className="text-white no-underline hover:text-teal">
+                <a className="text-white py-1 no-underline hover:text-teal font-bold">
                   Terms of Use
                 </a>
               </Link>
-              <span>&copy; Recyclopedia 2022</span>
+              <span className="py-1">&copy; Recyclopedia 2022</span>
             </div>
           </div>
-          <div className="order-2 lg:order-1">
+          <div className="order-2 lg:order-1 -mt-1 md:mt-0">
             {settings && settings.footerSocialIcons && (
               <>
                 {settings.footerSocialIcons.map((icon, key) => (
