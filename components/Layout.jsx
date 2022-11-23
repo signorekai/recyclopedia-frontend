@@ -579,9 +579,9 @@ const Layout = ({
                   Privacy Policy
                 </a>
               </Link>
-              <Link href="/terms-of-use" passHref>
+              <Link href="/terms-of-service" passHref>
                 <a className="text-white py-1 no-underline hover:text-teal font-bold">
-                  Terms of Use
+                  Terms of Service
                 </a>
               </Link>
               <span className="py-1">&copy; Recyclopedia 2022</span>
