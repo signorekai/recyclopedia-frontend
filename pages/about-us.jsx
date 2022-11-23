@@ -64,10 +64,6 @@ export default function Page({ pageOptions }) {
             drop us a line at{' '}
             <a href="mailto:hello@recyclopedia.sg">hello@recyclopedia.sg</a>
           </p>
-          <p>
-            For direct enquiries:{' '}
-            <a href="mailto:hello@recyclopedia.sg">hello@recyclopedia.sg</a>
-          </p>
         </div>
       </div>
       {supporters && supporters.length > 1 && (
