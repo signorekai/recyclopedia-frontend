@@ -42,12 +42,26 @@ const options = {
     FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-      allowDangerousEmailAccountLinking: true,
+      profile(profile) {
+        return {
+          id: profile.email,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture.data.url,
+        };
+      },
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-      allowDangerousEmailAccountLinking: true,
+      profile(profile) {
+        return {
+          id: profile.email,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture.data.url,
+        };
+      },
       authorization: {
         params: {
           prompt: 'consent',
