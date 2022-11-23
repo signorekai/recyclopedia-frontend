@@ -20,7 +20,7 @@ export default function handler(req, res) {
     return items.data;
   }
   load().then((items) => {
-    res.setHeader('Cache-Control', 's-maxage=86400');
+    // res.setHeader('Cache-Control', 's-maxage=86400');
     res.status(200).json(items);
   });
 }
