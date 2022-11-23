@@ -23,6 +23,7 @@ export default function Page() {
 
   const errorMsgs = {
     CredentialsSignin: `The information you provided is incorrect. Please try again.`,
+    AlreadyRegisteredViaEmail: `Our records showed that you have already registered via your email. Did you forget your password?`,
   };
 
   const _handleSubmit = async (values, { setSubmitting }) => {
