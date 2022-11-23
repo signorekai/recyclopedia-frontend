@@ -148,7 +148,7 @@ export default function Page({
       <SearchBar
         top={x}
         searchType={['articles']}
-        placeholderText={`Search ${title}`}
+        placeholderText={`Search articles`}
         className="py-2 sticky lg:relative transition-all duration-200 z-20"
         wrapperClassName="max-w-[1040px]"
         searchSuggestionsClassName=""
