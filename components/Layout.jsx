@@ -258,15 +258,18 @@ const Layout = ({
         />
         <meta
           name="og:description"
+          key="og:description"
           content="Everything you need to know when you have something to throw. A Singapore based directory of recommendations and advice on reducing your waste-karma with info on donation drives, recycle options, thrift shops, and more."
         />
         <meta
           name="og:title"
+          key="og:title"
           content={`Recyclopedia.sg${title.length > 0 ? ` - ${title}` : ''}`}
         />
         <title>Recyclopedia.sg{title.length > 0 ? ` - ${title}` : ''}</title>
         <meta
           name="og:image"
+          key="og:image"
           content={`${process.env.NEXT_PUBLIC_LOCATION}/img/cover-image.jpg`}
         />
       </Head>

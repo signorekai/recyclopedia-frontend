@@ -194,15 +194,18 @@ function Page({ data }) {
             />
             <meta
               property="og:url"
+              key="og:url"
               content={`${process.env.NEXT_PUBLIC_LOCATION}${router.asPath}`}
             />
             <meta
               property="og:description"
+              key="og:description"
               content={`Learn what to do with ${data.title} here.`}
             />
             {data.images.length > 0 && (
               <meta
                 property="og:image"
+                key="og:image"
                 content={getLargestPossibleImage(
                   data.images[0],
                   'large',

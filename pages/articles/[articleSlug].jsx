@@ -29,12 +29,18 @@ export default function Page({ article, categoryTitles, nextPost }) {
           <Head>
             <meta
               property="og:url"
+              key="og:url"
               content={`${process.env.NEXT_PUBLIC_LOCATION}${router.asPath}`}
             />
-            <meta property="og:description" content={article.excerpt} />
+            <meta
+              property="og:description"
+              key="og:description"
+              content={article.excerpt}
+            />
             {article.coverImage && (
               <meta
                 property="og:image"
+                key="og:image"
                 content={getLargestPossibleImage(
                   article.coverImage,
                   'large',
