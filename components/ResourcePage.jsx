@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import { motion } from 'framer-motion';
 import { DateTime } from 'luxon';
+import { useRouter } from 'next/router';
 
+import { getLargestPossibleImage } from '../lib/functions';
 import Link from './Link';
 import Layout from './Layout';
 import { useWindowDimensions } from '../lib/hooks';
@@ -85,6 +87,7 @@ const ResourceBullet = ({
 
 function ResourcePage({ data, baseUrl, tags }) {
   const { width } = useWindowDimensions();
+  const router = useRouter();
 
   const modifier = 0.5;
   const handleShare = () => {
@@ -106,6 +109,27 @@ function ResourcePage({ data, baseUrl, tags }) {
           showHeaderOn=""
           hideHeaderOn=""
           title={data && data.title}>
+          <Head>
+            <meta name="description" content="Recyclopedia" />
+            <meta
+              property="og:url"
+              content={`${process.env.NEXT_PUBLIC_LOCATION}${router.asPath}`}
+            />
+            <meta
+              property="og:description"
+              content={`Learn what to do with ${data.title.toLowerCase()} here.`}
+            />
+            {data.images.length > 0 && (
+              <meta
+                property="og:image"
+                content={getLargestPossibleImage(
+                  data.images[0],
+                  'large',
+                  'medium',
+                )}
+              />
+            )}
+          </Head>
           <div className="page-icons lg:hidden">
             <Link href={`/${baseUrl}`}>
               <a className="page-icon-wrapper leading-none no-underline">
