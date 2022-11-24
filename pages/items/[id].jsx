@@ -188,14 +188,17 @@ function Page({ data }) {
       {data && (
         <Layout title={data && data.title}>
           <Head>
-            <meta name="description" content="Recyclopedia" />
+            <meta
+              name="description"
+              content={`Learn what to do with ${data.title} here.`}
+            />
             <meta
               property="og:url"
               content={`${process.env.NEXT_PUBLIC_LOCATION}${router.asPath}`}
             />
             <meta
               property="og:description"
-              content={`Learn what to do with ${data.title.toLowerCase()} here.`}
+              content={`Learn what to do with ${data.title} here.`}
             />
             {data.images.length > 0 && (
               <meta

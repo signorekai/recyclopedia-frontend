@@ -3,6 +3,7 @@ import qs from 'qs';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 
+import { getLargestPossibleImage } from '../../lib/functions';
 import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import { Carousel, CarouselCard } from '../../components/Carousel';
@@ -34,11 +35,11 @@ export default function Page({ article, categoryTitles, nextPost }) {
             {article.coverImage && (
               <meta
                 property="og:image"
-                content={
-                  article.coverImage.formats.large
-                    ? article.coverImage.formats.large.url
-                    : article.coverImage.url
-                }
+                content={getLargestPossibleImage(
+                  article.coverImage,
+                  'large',
+                  'medium',
+                )}
               />
             )}
           </Head>
