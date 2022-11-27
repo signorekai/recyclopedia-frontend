@@ -347,7 +347,7 @@ function Page({ data }) {
                     }`}>
                     <div className="flex items-center text-blue-light">
                       <i className="far fa-dumpster text-[32px] lg:text-4xl mr-3"></i>
-                      <h2>Blue Bins & Chute</h2>
+                      <h2>Blue Bins & Chutes</h2>
                     </div>
                     <i
                       className={`fas ${
