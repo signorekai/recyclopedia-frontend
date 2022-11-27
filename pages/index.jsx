@@ -190,22 +190,26 @@ export default function Home({ items, newsItems }) {
           slideWidth={width > 1080 ? 320 : width * 0.75}
           showNav={false}
           className="mt-3">
-          {newsItems.map((item, key) => (
-            <CarouselCard key={key} className="w-screen-3/4 lg:w-[320px]">
-              <Card
-                className="w-full"
-                imagesWrapperClassName="h-[240px]"
-                imgClassName=""
-                uniqueKey={`news-${item.slug}`}
-                content={{
-                  image: item.coverImage || {},
-                  headerText: item.title,
-                  slug: item.slug,
-                  contentType: 'articles',
-                }}
-              />
-            </CarouselCard>
-          ))}
+          {newsItems.map((item, key) => {
+            if (item !== null) {
+              return (
+                <CarouselCard key={key} className="w-screen-3/4 lg:w-[320px]">
+                  <Card
+                    className="w-full"
+                    imagesWrapperClassName="h-[240px]"
+                    imgClassName=""
+                    uniqueKey={`news-${item.slug}`}
+                    content={{
+                      image: item.coverImage || {},
+                      headerText: item.title,
+                      slug: item.slug,
+                      contentType: 'articles',
+                    }}
+                  />
+                </CarouselCard>
+              );
+            }
+          })}
         </Carousel>
       </div>
       <div className="container ">
