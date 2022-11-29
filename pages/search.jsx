@@ -126,8 +126,7 @@ const SingleSearchType = ({
             <span className="opacity-70">&quot;{query}&quot;</span>.
           </h2>
           <p className="mt-4 text-sm md:text-base">
-            Simplify your search term. Use keywords; instead of “where to donate
-            furniture”, search “furniture”.
+            Try a different term, or expand your search.
           </p>
           <h3 className="mt-2">
             <Link
@@ -332,8 +331,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
             <span className="opacity-70">&quot;{query}&quot;</span>.
           </h2>
           <p className="mt-4 text-sm md:text-base">
-            Simplify your search term. Use keywords; instead of “where to donate
-            furniture”, search “furniture”.
+            Double check your search, or try a different term.
           </p>
           <div className="divider-b mt-16"></div>
           <p className="mt-2 lg:text-base">
