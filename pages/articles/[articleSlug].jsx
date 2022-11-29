@@ -129,7 +129,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
                 Want to keep up Singapore Zero-Waste happenings?
               </h3>
               <p className="mt-3 text-lg text-center">
-                Sign up for Waste-Not News here. Get the latest info on new
+                Sign up for Recyclopedia News here. Get the latest info on new
                 donation drives, recycling initiatives, zero-waste news, and the
                 occasional life-hack for living lighter. No spam. You can
                 unsubscribe any time.{' '}
