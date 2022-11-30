@@ -127,6 +127,13 @@ const SingleSearchType = ({
           </h2>
           <p className="mt-4 text-sm md:text-base">
             Try a different term, or expand your search.
+            {query.split(' ').length > 1 && (
+              <>
+                <br />
+                Search Tip: Simplify with keywords. For example, instead of
+                searching “where to donate furniture”, search “furniture”.
+              </>
+            )}
           </p>
           <h3 className="mt-2">
             <Link
@@ -332,6 +339,14 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
           </h2>
           <p className="mt-4 text-sm md:text-base">
             Double check your search, or try a different term.
+            {query.split(' ').length > 1 && (
+              <>
+                <br />
+                Search Tip: Simplify with keywords. For example, instead of{' '}
+                <em>“where to donate furniture”</em> search <em>“furniture”</em>
+                .
+              </>
+            )}
           </p>
           <div className="divider-b mt-16"></div>
           <p className="mt-2 lg:text-base">
