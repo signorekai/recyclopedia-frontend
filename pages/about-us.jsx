@@ -42,9 +42,10 @@ export default function Page({ pageOptions }) {
       </div>
       <div className="container flex flex-col lg:flex-row mt-8 lg:mt-14 lg:mb-6 items-start">
         <h2 className="text-black lg:w-1/4 lg:justify-start">Contact Us</h2>
-        <div className="w-full">
+        <div className="w-full md:w-3/4 pl-4">
           <p>
             Spotted outdated information, or have suggestions for improvements?
+            <br />
             Contact us via our <Link href="/feedback">feedback form</Link>.
           </p>
           <p>
@@ -58,7 +59,7 @@ export default function Page({ pageOptions }) {
         <h2 className="text-black lg:w-1/4 lg:justify-start">
           Be part of the project
         </h2>
-        <div className="w-full">
+        <div className="w-full md:w-3/4 pl-4">
           <p>
             If you are passionate about zero waste and would like to contribute,
             drop us a line at{' '}
