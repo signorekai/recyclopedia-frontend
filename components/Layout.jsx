@@ -23,9 +23,9 @@ const menu = [
     href: '/learn',
     className: 'divider-b-wider lg:after:hidden',
   },
-  { label: 'FAQ', href: '/faq', className: 'lg:ml-2' },
+  { label: 'FAQ', href: '/faq', className: 'lg:ml-4' },
   { label: 'About&nbsp;Us', href: '/about-us' },
-  { label: 'Newsletter', href: '/newsletter', className: 'lg:hidden' },
+  { label: 'Newsletter', href: '/newsletter', className: '' },
   {
     label: 'Feedback',
     href: '/feedback',
@@ -281,7 +281,7 @@ const Layout = ({
         showHeaderInitially={showHeaderInitially}
         showHeaderOn={showHeaderOn}
         hideHeaderOn={hideHeaderOn}>
-        <div className="overflow-hidden h-full pl-4 lg:pl-0 flex-1 container mx-auto">
+        <div className="overflow-hidden h-full pl-4 lg:pl-0 flex-1 container container--lg mx-auto">
           <div
             className={`flex flex-col h-[200%] relative ease-in-out transition-transform duration-200 ${
               showSearchBar ? 'translate-y-0' : '-translate-y-full'
