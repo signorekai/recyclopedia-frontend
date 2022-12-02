@@ -108,7 +108,7 @@ export const Carousel = ({
 
   const _handleScrollBtn = (direction = -1) => {
     carouselRef.current.scrollBy({
-      left: scrollAmount * direction,
+      left: scrollAmount * 1.1 * direction,
       behavior: 'smooth',
     });
 
