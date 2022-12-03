@@ -607,7 +607,7 @@ export async function getServerSideProps({ req, query, res }) {
 
           case 'resources':
           case 'freecycling':
-          case 'shop':
+          case 'shops':
             results.map(({ id }) => {
               resources.push(id);
             });
