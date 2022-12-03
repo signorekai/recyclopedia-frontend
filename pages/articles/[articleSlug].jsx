@@ -126,7 +126,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
           <div className="container">
             <div className="lg:w-3/4 mt-10 divider-b divider-b-8">
               <h3 className="text-[2rem] leading-tight font-medium text-center">
-                Want to keep up Singapore Zero-Waste happenings?
+                > Want to keep up with Singapore&apos;s Zero-Waste happenings?
               </h3>
               <p className="mt-3 text-lg text-center">
                 Sign up for Recyclopedia News here. Get the latest info on new
