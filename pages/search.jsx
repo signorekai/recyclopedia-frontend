@@ -484,6 +484,15 @@ export async function getServerSideProps({ req, query, res }) {
                 alternateSearchTerms: { $containsi: search.query },
               },
             ];
+
+            search.query.split(' ').map((term) => {
+              filters['$or'].push({
+                title: { $containsi: term },
+              });
+              filters['$or'].push({
+                alternateSearchTerms: { $containsi: term },
+              });
+            });
             break;
 
           case 'freecycling':
@@ -516,6 +525,18 @@ export async function getServerSideProps({ req, query, res }) {
                 items: { $containsi: search.query },
               },
             ];
+
+            search.query.split(' ').map((term) => {
+              filters.$and[1].$or.push({
+                title: { $containsi: term },
+              });
+              filters.$and[1].$or.push({
+                description: { $containsi: term },
+              });
+              filters.$and[1].$or.push({
+                items: { $containsi: term },
+              });
+            });
             break;
 
           case 'articles':
@@ -528,6 +549,12 @@ export async function getServerSideProps({ req, query, res }) {
                 content: { $containsi: search.query },
               },
             ];
+
+            search.query.split(' ').map((term) => {
+              filters.$or.push({
+                title: { $containsi: term },
+              });
+            });
             break;
         }
 
