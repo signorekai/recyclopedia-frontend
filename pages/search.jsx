@@ -385,6 +385,8 @@ export default function Page(props) {
   );
 }
 
+const SEARCH_TYPES = ['items', 'resources', 'articles', 'freecycling', 'shops'];
+
 export async function getServerSideProps({ req, query, res }) {
   const ip = process.env.API_URL;
   if (req.method === 'GET') {
@@ -454,18 +456,12 @@ export async function getServerSideProps({ req, query, res }) {
     const Schema = object({
       type: array()
         .ensure()
-        .of(
-          string().oneOf([
-            'items',
-            'resources',
-            'articles',
-            'freecycling',
-            'shops',
-          ]),
-        )
+        .of(string().oneOf(SEARCH_TYPES))
         .required('Content type required'),
       query: string().required('Search query required').min(1),
     });
+
+    let nullSearch = false;
 
     const validation = await Schema.isValid(search);
     if (validation) {
@@ -473,26 +469,25 @@ export async function getServerSideProps({ req, query, res }) {
         const populateFields = [];
         const filters = {};
         let contentType = type;
+
         switch (type) {
           case 'items':
             populateFields.push('images', 'itemCategory');
+
             filters['$or'] = [
               {
-                title: { $containsi: search.query },
-              },
-              {
-                alternateSearchTerms: { $containsi: search.query },
+                $and: search.query
+                  .split(' ')
+                  .map((term) => ({ title: { $containsi: term } })),
               },
             ];
 
-            search.query.split(' ').map((term) => {
-              filters['$or'].push({
-                title: { $containsi: term },
-              });
-              filters['$or'].push({
+            filters['$or'].push({
+              $and: search.query.split(' ').map((term) => ({
                 alternateSearchTerms: { $containsi: term },
-              });
+              })),
             });
+
             break;
 
           case 'freecycling':
@@ -510,37 +505,35 @@ export async function getServerSideProps({ req, query, res }) {
               }),
             );
             populateFields.push('images', 'resourceTags');
-            filters.$and = [{}, {}];
-            filters.$and[0].$or = contentTypeTags;
-
-            filters.$and[1].$or = [
+            filters.$and = [
               {
-                title: { $containsi: search.query },
+                $or: contentTypeTags,
               },
               {
-                description: { $containsi: search.query },
-              },
-
-              {
-                items: { $containsi: search.query },
+                $or: [
+                  {
+                    $and: search.query.split(' ').map((term) => ({
+                      title: { $containsi: term },
+                    })),
+                  },
+                  {
+                    $and: search.query.split(' ').map((term) => ({
+                      description: { $containsi: term },
+                    })),
+                  },
+                  {
+                    $and: search.query.split(' ').map((term) => ({
+                      items: { $containsi: term },
+                    })),
+                  },
+                ],
               },
             ];
-
-            search.query.split(' ').map((term) => {
-              filters.$and[1].$or.push({
-                title: { $containsi: term },
-              });
-              filters.$and[1].$or.push({
-                description: { $containsi: term },
-              });
-              filters.$and[1].$or.push({
-                items: { $containsi: term },
-              });
-            });
             break;
 
           case 'articles':
             populateFields.push('coverImage', 'category');
+
             filters['$or'] = [
               {
                 title: { $containsi: search.query },
@@ -573,10 +566,13 @@ export async function getServerSideProps({ req, query, res }) {
       });
 
       const data = {};
+
       await Promise.all(promises).then((results) => {
         results.map((result, key) => {
           if (result.data?.length > 0) {
             data[search.type[key]] = result.data;
+          } else {
+            nullSearch = true;
           }
         });
       });
@@ -650,7 +646,7 @@ export async function getServerSideProps({ req, query, res }) {
 
       const visitorId = getOrSetVisitorToken(req, res);
 
-      if (resources.length === 0 || items.length === 0) {
+      if (nullSearch) {
         await fetch(`${ip}/searches`, {
           method: 'POST',
           headers: {
