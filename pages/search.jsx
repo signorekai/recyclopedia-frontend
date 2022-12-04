@@ -571,8 +571,6 @@ export async function getServerSideProps({ req, query, res }) {
         results.map((result, key) => {
           if (result.data?.length > 0) {
             data[search.type[key]] = result.data;
-          } else {
-            nullSearch = true;
           }
         });
       });
@@ -617,14 +615,17 @@ export async function getServerSideProps({ req, query, res }) {
       });
 
       // compiling search results for logging
-      const items = [];
-      const resources = [];
-      const articles = [];
+      const compiled = {
+        items: [],
+        resources: [],
+        articles: [],
+      };
+
       for (const [type, results] of Object.entries(data)) {
         switch (type) {
           case 'items':
             results.map(({ id }) => {
-              items.push(id);
+              compiled.items.push(id);
             });
             break;
 
@@ -632,17 +633,32 @@ export async function getServerSideProps({ req, query, res }) {
           case 'freecycling':
           case 'shops':
             results.map(({ id }) => {
-              resources.push(id);
+              compiled.resources.push(id);
             });
             break;
 
           case 'articles':
             results.map(({ id }) => {
-              articles.push(id);
+              compiled.articles.push(id);
             });
             break;
         }
       }
+
+      search.type.forEach((type) => {
+        switch (type) {
+          case 'articles':
+          case 'items':
+            nullSearch = compiled[type].length === 0;
+            break;
+
+          case 'resources':
+          case 'freecycling':
+          case 'shops':
+            nullSearch = compiled.resources.length === 0;
+            break;
+        }
+      });
 
       const visitorId = getOrSetVisitorToken(req, res);
 
@@ -657,9 +673,9 @@ export async function getServerSideProps({ req, query, res }) {
             data: {
               dateTime: new Date().toISOString(),
               query: search.query,
-              itemResults: items,
-              resourceResults: resources,
-              articleResults: articles,
+              itemResults: compiled.items,
+              resourceResults: compiled.resources,
+              articleResults: compiled.articles,
               type: query.contentType,
               visitorId,
             },
