@@ -56,7 +56,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
               className="scroll-px-4 mt-4"
               sliderClassName={`gap-x-8 relative px-4 container !max-w-screen-lg`}>
               <CarouselCard>
-                <Link href={`/learn`}>
+                <Link href={`/articles`}>
                   <a className="no-underline text-xs uppercase font-bold tracking-2 font-archivo pb-2 !text-grey-dark whitespace-nowrap">
                     All Articles
                   </a>
@@ -64,7 +64,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
               </CarouselCard>
               {categoryTitles.map((title) => (
                 <CarouselCard key={title}>
-                  <Link href={`/learn?section=${title}`}>
+                  <Link href={`/articles?section=${title}`}>
                     <a className="no-underline text-xs uppercase font-bold tracking-2 font-archivo pb-2 !text-grey-dark">
                       {title}
                     </a>

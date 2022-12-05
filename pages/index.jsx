@@ -173,7 +173,7 @@ export default function Home({ items, newsItems }) {
         </div>
         <div className="container lg:container--wide">
           <h2 className="mb-3 lg:mb-5">
-            <Link href="/learn" passHref>
+            <Link href="/articles" passHref>
               <a className="no-underline text-blue-light">
                 <i className="far fa-lightbulb-exclamation text-3xl mr-3" />{' '}
                 Learn

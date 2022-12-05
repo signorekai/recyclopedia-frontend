@@ -19,8 +19,8 @@ const menu = [
   { label: 'Freecycling', href: '/freecycling' },
   { label: 'Shops', href: '/shops' },
   {
-    label: 'Learn',
-    href: '/learn',
+    label: 'Latest',
+    href: '/articles',
     className: 'divider-b-wider lg:after:hidden',
   },
   { label: 'FAQ', href: '/faq', className: 'lg:ml-4' },
