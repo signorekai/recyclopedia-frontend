@@ -562,8 +562,8 @@ function Page({ data }) {
               </>
             )}
             {(data.showSimilar === null || data.showSimilar === true) &&
-              data.itemCategory &&
-              data.itemCategory.items.length > 1 && (
+              data.itemTag &&
+              data.itemTag.items.length > 1 && (
                 <>
                   <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
                     <div className="lg:col-span-1">
@@ -575,7 +575,7 @@ function Page({ data }) {
                     <div className="lg:col-span-3">
                       <Masonry
                         columns={width > 1080 ? 4 : 2}
-                        items={data.itemCategory.items}
+                        items={data.itemTag.items}
                         card={(item, key) => (
                           <div key={key} className="w-full">
                             <Card
@@ -706,9 +706,9 @@ export async function getStaticProps({ params }) {
       'recommendations.resourcesComp',
       'recommendations.resourcesComp.resource',
       'recommendations.resourcesComp.resource.images',
-      'itemCategory',
-      'itemCategory.items',
-      'itemCategory.items.images',
+      'itemTag',
+      'itemTag.items',
+      'itemTag.items.images',
     ],
     filters: {
       slug: {
@@ -730,8 +730,8 @@ export async function getStaticProps({ params }) {
 
   let relatedItems = [];
   let relatedItemsIndex = [];
-  if (!!results.data[0].itemCategory) {
-    const unparsedRelatedItems = results.data[0].itemCategory.items;
+  if (!!results.data[0].itemTag) {
+    const unparsedRelatedItems = results.data[0].itemTag.items;
 
     while (
       relatedItems.length < unparsedRelatedItems.length - 1 &&
@@ -746,7 +746,7 @@ export async function getStaticProps({ params }) {
         relatedItemsIndex.push(x);
       }
     }
-    results.data[0].itemCategory.items = relatedItems;
+    results.data[0].itemTag.items = relatedItems;
   }
 
   return { props: { data: results.data[0] } };
