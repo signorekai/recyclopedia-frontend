@@ -86,7 +86,7 @@ export default function Home({ items, newsItems, newsletter, donationDrives }) {
           </Link>
         </div>
         <div className="container ">
-          <div className="lg:w-3/4 mx-auto my-12 md:my-24">
+          <div className="lg:w-3/4 mx-auto my-12 md:mt-24 md:mb-20">
             <h3 className="text-2xl lg:text-[2rem] leading-tight font-medium text-center">
               Are you based in Singapore?{' '}
               <span className="block lg:inline">So are we.</span>
