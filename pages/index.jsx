@@ -116,7 +116,7 @@ export default function Home({ items, newsItems, newsletter, donationDrives }) {
                 if (item !== null) {
                   return (
                     <Card
-                      className={`w-[calc(75vw_-_8px)] ${
+                      className={`w-[calc(75vw_-_8px)] lg:w-auto ${
                         donationDrives.length - key === 1
                           ? 'snap-end'
                           : 'snap-start'
@@ -228,7 +228,7 @@ export default function Home({ items, newsItems, newsletter, donationDrives }) {
                 if (item !== null) {
                   return (
                     <Card
-                      className={`w-[calc(75vw_-_8px)] ${
+                      className={`w-[calc(75vw_-_8px)] lg:w-auto ${
                         newsItems.length - key === 1 ? 'snap-end' : 'snap-start'
                       }`}
                       imagesWrapperClassName="aspect-[320_/_240]"
