@@ -62,8 +62,8 @@ const SingleSearchType = ({
               </h1>
               {items && items.length > 0 && (
                 <p className="text-lg my-3 leading-tight">
-                  {items.length} search results for &quot;{query}
-                  &quot;
+                  {items.length} search results for &quot;{query}&quot; in{' '}
+                  <strong>{pageOptions.title}</strong>
                 </p>
               )}
             </div>
@@ -116,6 +116,24 @@ const SingleSearchType = ({
               );
             })}
           </div>
+          <p className="text-lg block mt-6 lg:mt-10">Want more results?</p>
+          <p className="mt-2 pt-0 text-lg mb-32">
+            <Link
+              href={`/search?${qs.stringify({
+                contentType: [
+                  'items',
+                  'resources',
+                  'articles',
+                  'freecycling',
+                  'shops',
+                ].join(','),
+                searchTerm: query,
+              })}`}>
+              <a className="text-coral hover:text-coral hover:opacity-80 no-underline">
+                Search entire site <i className="p-2 far fa-arrow-right"></i>
+              </a>
+            </Link>
+          </p>
         </div>
       )}
       {items && items.length === 0 && (
