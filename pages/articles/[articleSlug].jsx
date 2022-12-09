@@ -125,10 +125,10 @@ export default function Page({ article, categoryTitles, nextPost }) {
           </div>
           <div className="container">
             <div className="lg:w-3/4 mt-10 divider-b divider-b-8">
-              <h3 className="text-[2rem] leading-tight font-medium text-center">
+              <h3 className="text-2xl leading-tight font-medium ">
                 Want to keep up with Singapore&apos;s Zero-Waste happenings?
               </h3>
-              <p className="mt-3 text-lg text-center">
+              <p className="mt-3 text-lg">
                 Sign up for Recyclopedia News here. Get the latest info on new
                 donation drives, recycling initiatives, zero-waste news, and the
                 occasional life-hack for living lighter. No spam. You can
@@ -141,82 +141,78 @@ export default function Page({ article, categoryTitles, nextPost }) {
               <Mailchimp />
             </div>
           </div>
-          <div className="container ">
+          <div className="container">
             {article.items && article.items.length > 0 && (
-              <div className="lg:divider-b">
-                <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
-                  <div className="lg:w-1/4">
-                    <h5 className="text-left">Related Items</h5>
-                  </div>
-                  <div className="flex-1 mt-4">
-                    <Masonry
-                      items={article.items}
-                      columns={3}
-                      card={(item, key) => (
-                        <CarouselCard key={key} className="w-full">
-                          <Card
-                            className="w-full"
-                            imagesWrapperClassName="aspect-square"
-                            uniqueKey={`related-${key}`}
-                            key={`related-${key}`}
-                            content={{
-                              contentType: 'items',
-                              slug: item.slug,
-                              headerText: item.title,
-                              image: item.images ? item.images[0] : {},
-                            }}
-                          />
-                        </CarouselCard>
-                      )}
-                    />
-                  </div>
-                </section>
+              <div className="lg:divider-b lg:max-w-[75%]">
+                <div className="mt-10">
+                  <h5 className="text-left">Related Items</h5>
+                </div>
+                <div className="flex-1 mt-5">
+                  <Masonry
+                    items={article.items}
+                    columns={3}
+                    card={(item, key) => (
+                      <CarouselCard key={key} className="w-full">
+                        <Card
+                          className="w-full"
+                          imagesWrapperClassName="aspect-square"
+                          uniqueKey={`related-${key}`}
+                          key={`related-${key}`}
+                          content={{
+                            contentType: 'items',
+                            slug: item.slug,
+                            headerText: item.title,
+                            image: item.images ? item.images[0] : {},
+                          }}
+                        />
+                      </CarouselCard>
+                    )}
+                  />
+                </div>
               </div>
             )}
             {article.resources && article.resources.length > 0 && (
-              <div className="lg:divider-b">
-                <section className="flex flex-col lg:flex-row lg:gap-x-4 mt-6">
-                  <div className="lg:w-1/4">
-                    <h5 className="text-left mb-2">Related Resources</h5>
-                  </div>
-                  <div className="flex-1 mt-4">
-                    <Masonry
-                      items={article.resources}
-                      columns={3}
-                      card={(item, key) => (
-                        <CarouselCard key={key} className="w-full">
-                          <Card
-                            className="w-full"
-                            imagesWrapperClassName="aspect-[4_/_3]"
-                            uniqueKey={`related-${key}`}
-                            key={`related-${key}`}
-                            content={{
-                              contentType: 'resources',
-                              slug: item.slug,
-                              headerText: item.title,
-                              image: item.images ? item.images[0] : {},
-                            }}
-                          />
-                        </CarouselCard>
-                      )}
-                    />
-                  </div>
-                </section>
+              <div className="lg:divider-b lg:max-w-[75%]">
+                <div className="mt-10">
+                  <h5 className="text-left">Related Resources</h5>
+                </div>
+                <div className="flex-1 mt-5">
+                  <Masonry
+                    items={article.resources}
+                    columns={3}
+                    card={(item, key) => (
+                      <CarouselCard key={key} className="w-full">
+                        <Card
+                          className="w-full"
+                          imagesWrapperClassName="aspect-[4_/_3]"
+                          uniqueKey={`related-${key}`}
+                          key={`related-${key}`}
+                          content={{
+                            contentType: 'resources',
+                            slug: item.slug,
+                            headerText: item.title,
+                            image: item.images ? item.images[0] : {},
+                          }}
+                        />
+                      </CarouselCard>
+                    )}
+                  />
+                </div>
               </div>
             )}
             {nextPost && nextPost.length > 0 && (
-              <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
-                <div className="lg:col-span-1">
-                  <h5 className="text-left mb-2">Read next</h5>
+              <section className="lg:max-w-[75%]">
+                <div className="mt-10">
+                  <h5 className="text-left">Read next</h5>
                 </div>
-                <div className={`lg:col-span-3 flex flex-row mb-8 lg:mb-12`}>
+                <div className={`flex flex-row mt-5 mb-8 lg:mb-12`}>
                   <div className="w-full">
                     <Link
                       key={nextPost[0].slug}
                       href={`/articles/${nextPost[0].slug}`}>
                       <a className="group no-underline">
-                        <div className="flex flex-row mb-8 gap-x-4 flex-wrap ">
-                          <div className="w-1/4 md:aspect-[4/3]">
+                        <div className="flex flex-row mb-8 gap-x-4 flex-wrap justify-center items-center">
+                          <div className="w-1/4 min-w-[96px] aspect-[4/3]">
                             <NewImage
                               wrapperClassName="md:rounded-md"
                               className="aspect-[4/3] group-hover:scale-110 transition-transform"
