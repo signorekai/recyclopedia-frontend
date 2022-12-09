@@ -247,9 +247,9 @@ export default function Home({ items, newsItems, newsletter, donationDrives }) {
         </div>
         <div className="container ">
           <div className="my-12 md:my-24">
-            <h3 className="text-2xl lg:text-[2rem] leading-tight font-medium text-center">
+            <h2 className="leading-tight font-semibold text-center text-black">
               {newsletter.header}
-            </h3>
+            </h2>
             <div className="lg:w-3/4 mx-auto">
               <div
                 className="mt-3 text-lg text-center"
