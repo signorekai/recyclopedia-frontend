@@ -15,7 +15,7 @@ import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
 import Link from '../components/Link';
 
-export default function Home({ items, newsItems }) {
+export default function Home({ items, newsItems, newsletter }) {
   const { width } = useWindowDimensions();
 
   return (
@@ -176,7 +176,7 @@ export default function Home({ items, newsItems }) {
             <Link href="/articles" passHref>
               <a className="no-underline text-blue-light">
                 <i className="far fa-lightbulb-exclamation text-3xl mr-3" />{' '}
-                Learn
+                News & Views
               </a>
             </Link>
             <i className="fa fa-arrow-right font-light text-coral text-lg ml-3 group-hover:translate-x-1" />
@@ -215,21 +215,16 @@ export default function Home({ items, newsItems }) {
           </Carousel>
         </div>
         <div className="container ">
-          <div className="lg:w-3/4 mx-auto my-12 md:my-24">
+          <div className="my-12 md:my-24">
             <h3 className="text-2xl lg:text-[2rem] leading-tight font-medium text-center">
-              Want to keep up with Singapore&apos;s Zero-Waste happenings?
+              {newsletter.header}
             </h3>
-            <p className="mt-3 text-lg text-center">
-              Sign up for Recyclopedia News here. Get the latest info on new
-              donation drives, recycling initiatives, zero-waste news, and the
-              occasional life-hack for living lighter. No spam. You can
-              unsubscribe any time.{' '}
-              <a href="https://mailchi.mp/d067d8c7e8ed/waste-not-news-5791">
-                See a past issue here
-              </a>
-              .
-            </p>
-            <Mailchimp />
+            <div className="lg:w-3/4 mx-auto">
+              <div
+                className="mt-3 text-lg text-center"
+                dangerouslySetInnerHTML={{ __html: newsletter.body }}></div>
+              <Mailchimp />
+            </div>
           </div>
         </div>
       </div>
@@ -240,7 +235,7 @@ export default function Home({ items, newsItems }) {
 export async function getStaticProps() {
   const ip = process.env.API_URL;
 
-  const { data: articles } = await staticFetcher(
+  const { data: generalSettings } = await staticFetcher(
     `${ip}/general-setting?${qs.stringify({
       populate: [
         'homePageFeaturedArticles',
@@ -252,7 +247,9 @@ export async function getStaticProps() {
   );
 
   let newsItems =
-    articles.homePageFeaturedArticles.map((article) => article.article) || [];
+    generalSettings.homePageFeaturedArticles.map(
+      (article) => article.article,
+    ) || [];
 
   const { data: items } = await staticFetcher(
     `${ip}/items?${qs.stringify({
@@ -266,5 +263,14 @@ export async function getStaticProps() {
     process.env.API_KEY,
   );
 
-  return { props: { items, newsItems } };
+  return {
+    props: {
+      items,
+      newsItems,
+      newsletter: {
+        header: generalSettings.newsletterHeader,
+        body: generalSettings.newsletterBodyText,
+      },
+    },
+  };
 }
