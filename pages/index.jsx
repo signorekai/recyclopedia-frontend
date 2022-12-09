@@ -212,38 +212,26 @@ export default function Home({ items, newsItems, newsletter, donationDrives }) {
             </Link>
             <i className="fa fa-arrow-right font-light text-coral text-lg ml-3 group-hover:translate-x-1" />
           </h2>
-          <Carousel
-            buttonOffset={
-              width > 1080
-                ? ((320 / 4) * 3 - 32) / 2
-                : ((width * 0.75) / 4) * 3 - 32
-            }
-            desktopControls={true}
-            autoSlideSize={false}
-            slideWidth={width > 1080 ? 320 : width * 0.75}
-            showNav={false}
-            className="mt-3">
+          <div className="grid gap-x-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             {newsItems.map((item, key) => {
               if (item !== null) {
                 return (
-                  <CarouselCard key={key} className="w-screen-3/4 lg:w-[320px]">
-                    <Card
-                      className="w-full"
-                      imagesWrapperClassName="h-[240px]"
-                      imgClassName=""
-                      uniqueKey={`news-${item.slug}`}
-                      content={{
-                        image: item.coverImage || {},
-                        headerText: item.title,
-                        slug: item.slug,
-                        contentType: 'articles',
-                      }}
-                    />
-                  </CarouselCard>
+                  <Card
+                    className="w-full"
+                    imagesWrapperClassName="h-[240px]"
+                    imgClassName=""
+                    uniqueKey={`news-${item.slug}`}
+                    content={{
+                      image: item.coverImage || {},
+                      headerText: item.title,
+                      slug: item.slug,
+                      contentType: 'articles',
+                    }}
+                  />
                 );
               }
             })}
-          </Carousel>
+          </div>
         </div>
         <div className="container ">
           <div className="my-12 md:my-24">
