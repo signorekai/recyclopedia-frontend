@@ -108,25 +108,33 @@ export default function Home({ items, newsItems, newsletter, donationDrives }) {
             </Link>
             <i className="fa fa-arrow-right font-light text-coral text-lg ml-3 group-hover:translate-x-1" />
           </h2>
-          <div className="grid gap-x-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-            {donationDrives.map((item, key) => {
-              if (item !== null) {
-                return (
-                  <Card
-                    className="w-full"
-                    imagesWrapperClassName="h-[240px]"
-                    imgClassName=""
-                    uniqueKey={`news-${item.slug}`}
-                    content={{
-                      image: item.coverImage || {},
-                      headerText: item.title,
-                      slug: item.slug,
-                      contentType: 'articles',
-                    }}
-                  />
-                );
-              }
-            })}
+          <div className="overflow-x-auto snap-x snap-mandatory">
+            <div
+              className="grid gap-x-2 grid-cols-4 lg:max-w-full"
+              style={{ width: `${donationDrives.length * 100}vw` }}>
+              {donationDrives.map((item, key) => {
+                if (item !== null) {
+                  return (
+                    <Card
+                      className={`w-[calc(75vw_-_8px)] ${
+                        donationDrives.length - key === 1
+                          ? 'snap-end'
+                          : 'snap-start'
+                      }`}
+                      imagesWrapperClassName="aspect-[320_/_240]"
+                      imgClassName=""
+                      uniqueKey={`donation-drive-${item.slug}`}
+                      content={{
+                        image: item.coverImage || {},
+                        headerText: item.title,
+                        slug: item.slug,
+                        contentType: 'articles',
+                      }}
+                    />
+                  );
+                }
+              })}
+            </div>
           </div>
         </div>
         <div className="container container--wide mt-8 mb-6 lg:my-20">
@@ -212,25 +220,31 @@ export default function Home({ items, newsItems, newsletter, donationDrives }) {
             </Link>
             <i className="fa fa-arrow-right font-light text-coral text-lg ml-3 group-hover:translate-x-1" />
           </h2>
-          <div className="grid gap-x-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-            {newsItems.map((item, key) => {
-              if (item !== null) {
-                return (
-                  <Card
-                    className="w-full"
-                    imagesWrapperClassName="h-[240px]"
-                    imgClassName=""
-                    uniqueKey={`news-${item.slug}`}
-                    content={{
-                      image: item.coverImage || {},
-                      headerText: item.title,
-                      slug: item.slug,
-                      contentType: 'articles',
-                    }}
-                  />
-                );
-              }
-            })}
+          <div className="overflow-x-auto snap-x snap-mandatory">
+            <div
+              className="grid gap-x-2 grid-cols-4 lg:max-w-full"
+              style={{ width: `${newsItems.length * 75}vw` }}>
+              {newsItems.map((item, key) => {
+                if (item !== null) {
+                  return (
+                    <Card
+                      className={`w-[calc(75vw_-_8px)] ${
+                        newsItems.length - key === 1 ? 'snap-end' : 'snap-start'
+                      }`}
+                      imagesWrapperClassName="aspect-[320_/_240]"
+                      imgClassName=""
+                      uniqueKey={`news-${item.slug}`}
+                      content={{
+                        image: item.coverImage || {},
+                        headerText: item.title,
+                        slug: item.slug,
+                        contentType: 'articles',
+                      }}
+                    />
+                  );
+                }
+              })}
+            </div>
           </div>
         </div>
         <div className="container ">
