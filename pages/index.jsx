@@ -15,7 +15,7 @@ import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
 import Link from '../components/Link';
 
-export default function Home({ items, newsItems, newsletter }) {
+export default function Home({ items, newsItems, newsletter, donationDrives }) {
   const { width } = useWindowDimensions();
 
   return (
@@ -98,7 +98,38 @@ export default function Home({ items, newsItems, newsletter }) {
             </p>
           </div>
         </div>
-        <div className="container container--wide mt-8 lg:mt-20 mb-6 lg:mb-20">
+        <div className="container lg:container--wide">
+          <h2 className="mb-3 lg:mb-5">
+            <Link href="/articles?section=Donation Drives" passHref>
+              <a className="no-underline text-blue-light">
+                <i className="far fa-hand-heart text-3xl mr-3" /> Donation
+                Drives
+              </a>
+            </Link>
+            <i className="fa fa-arrow-right font-light text-coral text-lg ml-3 group-hover:translate-x-1" />
+          </h2>
+          <div className="grid gap-x-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            {donationDrives.map((item, key) => {
+              if (item !== null) {
+                return (
+                  <Card
+                    className="w-full"
+                    imagesWrapperClassName="h-[240px]"
+                    imgClassName=""
+                    uniqueKey={`news-${item.slug}`}
+                    content={{
+                      image: item.coverImage || {},
+                      headerText: item.title,
+                      slug: item.slug,
+                      contentType: 'articles',
+                    }}
+                  />
+                );
+              }
+            })}
+          </div>
+        </div>
+        <div className="container container--wide mt-8 mb-6 lg:my-20">
           <div className="divide-y lg:divide-y-0 lg:divide-x divide-grey-light border-y-1 lg:border-y-0 border-grey-light lg:flex lg:flex-row">
             <motion.div
               initial="initial"
@@ -241,6 +272,9 @@ export async function getStaticProps() {
         'homePageFeaturedArticles',
         'homePageFeaturedArticles.article.coverImage',
         'homePageFeaturedArticles.article.category',
+        'homepageFeaturedDonationDrives',
+        'homepageFeaturedDonationDrives.article.coverImage',
+        'homepageFeaturedDonationDrives.article.category',
       ],
     })}`,
     process.env.API_KEY,
@@ -248,6 +282,11 @@ export async function getStaticProps() {
 
   let newsItems =
     generalSettings.homePageFeaturedArticles.map(
+      (article) => article.article,
+    ) || [];
+
+  let donationDrives =
+    generalSettings.homepageFeaturedDonationDrives.map(
       (article) => article.article,
     ) || [];
 
@@ -267,6 +306,7 @@ export async function getStaticProps() {
     props: {
       items,
       newsItems,
+      donationDrives,
       newsletter: {
         header: generalSettings.newsletterHeader,
         body: generalSettings.newsletterBodyText,
