@@ -103,7 +103,7 @@ export default function Home({ items, newsItems, newsletter, donationDrives }) {
             <Link href="/articles?section=Donation Drives" passHref>
               <a className="no-underline text-blue-light">
                 <i className="far fa-hand-heart text-3xl mr-3" /> Donation
-                Drives
+                Drives & Events
               </a>
             </Link>
             <i className="fa fa-arrow-right font-light text-coral text-lg ml-3 group-hover:translate-x-1" />
