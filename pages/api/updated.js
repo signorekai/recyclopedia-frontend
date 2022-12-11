@@ -22,7 +22,7 @@ export default async function handler(req, res) {
 
     case 'article':
       url.push('/');
-      url.push('/news-tips');
+      url.push('/articles');
       url.push(`/${model}s/${entry.slug}`);
       break;
 
