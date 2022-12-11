@@ -21,7 +21,7 @@ export default function Home({ items, newsItems, newsletter, donationDrives }) {
   return (
     <Layout>
       <div className="bg-mobile-banner md:bg-banner bg-no-repeat bg-contain">
-        <div className="max-w-md lg:max-w-none pt-40 lg:pt-32 mx-auto">
+        <div className="max-w-md lg:max-w-none pt-40 md:pt-24 lg:pt-32 mx-auto">
           <a className="lg:flex justify-center z-10 relative hidden">
             <svg
               className="aspect-[305_/_50]"
