@@ -72,7 +72,9 @@ export default function Image({
           nopin="nopin"
           src={actualSrc}
           alt={
-            source.name !== source.alternativeText ? source.alternativeText : ''
+            source.name !== source.alternativeText
+              ? source.alternativeText
+              : alt
           }
           className={`object-cover object-center absolute w-0 h-0 min-w-full max-w-full min-h-full max-h-full ${className}`}
           style={style}

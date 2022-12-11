@@ -243,7 +243,11 @@ function Page({ data }) {
                             3: 'col-span-4',
                           }[data.images.length]
                     }`}>
-                    <NewImage source={image} wrapperClassName="h-full" alt="" />
+                    <NewImage
+                      source={image}
+                      wrapperClassName="h-full"
+                      alt={`${data.title} Recycling in Singapore`}
+                    />
                   </div>
                 ))}
               </div>
@@ -278,7 +282,7 @@ function Page({ data }) {
                     {data.images.map((image, key) => (
                       <Slide key={key} index={key} style={{ paddingBottom: 0 }}>
                         <NewImage
-                          alt={image.alternativeText}
+                          alt={`${data.title} Recycling in Singapore`}
                           source={image}
                           width={image.width > width ? image.width : width}
                           height={
@@ -297,7 +301,7 @@ function Page({ data }) {
                 <div className="w-full" style={{ height: width * 0.75 }}>
                   <NewImage
                     layout="responsive"
-                    alt={data.images[0].alternativeText}
+                    alt={`${data.title} Recycling in Singapore`}
                     source={data.images[0]}
                     width={data.images[0].width}
                     height={data.images[0].height}
@@ -463,7 +467,7 @@ function Page({ data }) {
                                         }
                                         width={256}
                                         height={192}
-                                        alt={resource.title}
+                                        alt={`${resource.title} Recycling in Singapore`}
                                       />
                                       <h4 className="pb-2 px-3 text-blue group-hover:text-blue-dark text-lg">
                                         {resource.title}
@@ -511,7 +515,7 @@ function Page({ data }) {
                                     source={resource.images[0]}
                                     width={80}
                                     height={80}
-                                    alt={resource.title}
+                                    alt={`${resource.title} Recycling in Singapore`}
                                   />
                                 ) : (
                                   <div className="w-20 h-20 bg-grey-light" />
@@ -580,6 +584,7 @@ function Page({ data }) {
                           <div key={key} className="w-full">
                             <Card
                               uniqueKey={`card-${key}`}
+                              alt={`${item.title} Recycling in Singapore`}
                               prefixIcon={item.resourceIcon || ''}
                               content={{
                                 image: item.images ? item.images[0] : {},
@@ -617,6 +622,7 @@ function Page({ data }) {
                                 wrapperClassName="md:rounded-md"
                                 className="aspect-[4/3] group-hover:scale-110 transition-transform"
                                 sizes="270px"
+                                alt={article.title}
                                 source={article.coverImage || {}}
                                 layout="responsive"
                               />

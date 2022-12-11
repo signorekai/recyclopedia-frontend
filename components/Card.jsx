@@ -126,7 +126,7 @@ const Card = ({
                         <LinkWrapper passHref content={content}>
                           <Image
                             className={`group-hover:scale-110 transition-transform ${imgClassName}`}
-                            alt={image.alternativeText}
+                            alt={`${content.headerText} Recycling in Singapore`}
                             source={image}
                             width={
                               image.width > image.height
@@ -154,7 +154,7 @@ const Card = ({
                     wrapperClassName="rounded-md"
                     className="group-hover:scale-110 transition-transform"
                     source={content.images ? content.images[0] : content.image}
-                    alt={`Photo of ${content.headerText}`}
+                    alt={`${content.headerText} Recycling in Singapore`}
                   />
                 </LinkWrapper>
               )}
