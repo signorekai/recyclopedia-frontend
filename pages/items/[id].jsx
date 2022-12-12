@@ -190,7 +190,7 @@ function Page({ data }) {
           <Head>
             <meta
               name="description"
-              content={`Learn what to do with ${data.title} here.`}
+              content={`Where and how to recycle ${data.title} in Singapore. Find out the best ways to recycle, upcycle, donate and recycle ${data.title}.`}
             />
             <meta
               property="og:url"
@@ -200,7 +200,7 @@ function Page({ data }) {
             <meta
               property="og:description"
               key="og:description"
-              content={`Learn what to do with ${data.title} here.`}
+              content={`Where and how to recycle ${data.title} in Singapore. Find out the best ways to recycle, upcycle, donate and recycle ${data.title}.`}
             />
             {data.images.length > 0 && (
               <meta

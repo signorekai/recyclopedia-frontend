@@ -272,6 +272,11 @@ const Layout = ({
           key="og:image"
           content={`${process.env.NEXT_PUBLIC_LOCATION}/img/cover-image.jpg`}
         />
+        <link
+          rel="canonical"
+          href={`${process.env.NEXT_PUBLIC_LOCATION}${router.asPath}`}
+          key="canonical"
+        />
       </Head>
       <Header
         containerStyle={{
