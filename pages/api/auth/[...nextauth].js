@@ -143,7 +143,6 @@ const options = {
 };
 
 const Auth = (req, res) => {
-  console.log(119, req.query, req.body);
   return NextAuth(req, res, options);
 };
 
