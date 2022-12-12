@@ -287,6 +287,10 @@ export async function getStaticProps({ params }) {
     process.env.API_KEY,
   );
 
+  if (articles.length === 0) {
+    return { notFound: true };
+  }
+
   const { data: categoryData } = await staticFetcher(
     `${process.env.API_URL}/article-categories?${qs.stringify({
       sort: ['title'],
@@ -317,10 +321,6 @@ export async function getStaticProps({ params }) {
   );
 
   const categoryTitles = categoryData.map(({ title }) => title);
-
-  if (articles.length === 0) {
-    return { notFound: true };
-  }
 
   return {
     props: {
