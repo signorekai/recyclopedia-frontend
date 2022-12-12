@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://recyclopedia.sg
+
+# Sitemaps
+Sitemap: https://recyclopedia.sg/sitemap.xml
+Sitemap: https://recyclopedia.sg/server-sitemap.xml
