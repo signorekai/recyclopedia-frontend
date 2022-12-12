@@ -318,12 +318,15 @@ export async function getStaticProps({ params }) {
 
   const categoryTitles = categoryData.map(({ title }) => title);
 
+  if (articles.length === 0) {
+    return { notFound: true };
+  }
+
   return {
     props: {
       article: articles[0],
       nextPost,
       categoryTitles,
     },
-    revalidate: 3600,
   };
 }
