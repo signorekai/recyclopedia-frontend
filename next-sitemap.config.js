@@ -2,10 +2,11 @@
 module.exports = {
   siteUrl: process.env.NEXT_PUBLIC_LOCATION,
   generateRobotsTxt: true, // (optional)
-  exclude: ['/server-sitemap.xml'], // <= exclude here
+  generateIndexSitemap: false,
+  exclude: ['/sitemap.xml'], // <= exclude here
   robotsTxtOptions: {
     additionalSitemaps: [
-      `${process.env.NEXT_PUBLIC_LOCATION}/server-sitemap.xml`, // <==== Add here
+      `${process.env.NEXT_PUBLIC_LOCATION}/sitemap.xml`, // <==== Add here
     ],
   },
   // ...other options

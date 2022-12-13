@@ -7,7 +7,52 @@ export const getServerSideProps = async (ctx) => {
   // const urls = await fetch('https//example.com/api')
   const ip = process.env.API_URL;
   const apiKey = process.env.API_KEY;
-  let fields = [];
+  let fields = [
+    {
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/`,
+      lastmod: new Date().toISOString(),
+    },
+    {
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/items/`,
+      lastmod: new Date().toISOString(),
+    },
+    {
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/about-us/`,
+      lastmod: new Date().toISOString(),
+    },
+    {
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/articles/`,
+      lastmod: new Date().toISOString(),
+    },
+    {
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/freecycling/`,
+      lastmod: new Date().toISOString(),
+    },
+    {
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/newsletter/`,
+      lastmod: new Date().toISOString(),
+    },
+    {
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/register/`,
+      lastmod: new Date().toISOString(),
+    },
+    {
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/privacy-policy/`,
+      lastmod: new Date().toISOString(),
+    },
+    {
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/shops/`,
+      lastmod: new Date().toISOString(),
+    },
+    {
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/resources/`,
+      lastmod: new Date().toISOString(),
+    },
+    {
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/terms-of-service/`,
+      lastmod: new Date().toISOString(),
+    },
+  ];
 
   const contentParams = {
     fields: ['slug'],
