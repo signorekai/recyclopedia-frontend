@@ -20,6 +20,7 @@ import {
 import { Carousel, CarouselCard } from '../components/Carousel';
 import { getOrSetVisitorToken } from '../lib/analytics';
 import { FeedbackModal } from '../components/Report';
+import pluralize from 'pluralize';
 
 const SingleSearchType = ({
   type,
@@ -496,13 +497,15 @@ export async function getServerSideProps({ req, query, res }) {
               {
                 $and: search.query
                   .split(' ')
-                  .map((term) => ({ title: { $containsi: term } })),
+                  .map((term) => ({
+                    title: { $containsi: pluralize(term, 1) },
+                  })),
               },
             ];
 
             filters['$or'].push({
               $and: search.query.split(' ').map((term) => ({
-                alternateSearchTerms: { $containsi: term },
+                alternateSearchTerms: { $containsi: pluralize(term, 1) },
               })),
             });
 
@@ -531,17 +534,17 @@ export async function getServerSideProps({ req, query, res }) {
                 $or: [
                   {
                     $and: search.query.split(' ').map((term) => ({
-                      title: { $containsi: term },
+                      title: { $containsi: pluralize(term, 1) },
                     })),
                   },
                   {
                     $and: search.query.split(' ').map((term) => ({
-                      description: { $containsi: term },
+                      description: { $containsi: pluralize(term, 1) },
                     })),
                   },
                   {
                     $and: search.query.split(' ').map((term) => ({
-                      items: { $containsi: term },
+                      items: { $containsi: pluralize(term, 1) },
                     })),
                   },
                 ],
@@ -563,7 +566,7 @@ export async function getServerSideProps({ req, query, res }) {
 
             search.query.split(' ').map((term) => {
               filters.$or.push({
-                title: { $containsi: term },
+                title: { $containsi: pluralize(term, 1) },
               });
             });
             break;
