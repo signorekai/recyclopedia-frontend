@@ -36,7 +36,7 @@ export default function Page({ pageOptions }) {
       </div>
       <div className="container">
         <div
-          className="pb-7 pt-4 lg:py-14 article-body"
+          className="pt-8 pb-0 article-body"
           dangerouslySetInnerHTML={{ __html: bodyText }}></div>
       </div>
       <div className="my-8 md:my-20">
