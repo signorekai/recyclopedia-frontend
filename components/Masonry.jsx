@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { createContext, useState, useContext } from 'react';
 import { useWindowDimensions } from '../lib/hooks';
 
@@ -20,6 +21,16 @@ export default function Masonry({
   const _handleClick = () => {
     setShowAll(!showAll);
   };
+
+  const _handleResize = () => {
+    if (width > 1080 && showAll === false) {
+      setShowAll(true);
+    }
+  };
+
+  useEffect(() => {
+    _handleResize();
+  }, [width]);
 
   return (
     <div
