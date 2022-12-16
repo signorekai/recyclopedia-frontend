@@ -145,16 +145,6 @@ export default function Page({
           <p className="text-lg leading-tight">{pageOptions.subtitle}</p>
         </div>
       </section>
-      <SearchBar
-        top={x}
-        searchType={['articles']}
-        placeholderText={`Search Articles`}
-        className="py-2 sticky lg:relative transition-all duration-200 z-20"
-        wrapperClassName="max-w-[1040px]"
-        searchSuggestionsClassName=""
-        inactiveBackgroundColor={pageOptions.colour}
-        activeBackgroundColor={pageOptions.colour}
-      />
       <SWRConfig value={{ fallback }}>
         <AccordionProvider headers={['All', ...articleHeaders]}>
           <div className="container ">

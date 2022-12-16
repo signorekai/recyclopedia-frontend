@@ -131,7 +131,7 @@ export default function Page({ fallback, pageOptions, resourceTags }) {
         <meta name="description" content={pageOptions.subtitle} />
       </Head>
       <section
-        className="py-4 lg:pt-10 text-white"
+        className="py-4 lg:py-10 text-white"
         style={{ backgroundColor: pageOptions.colour }}>
         <div className="container">
           <h1 className="text-white">
@@ -147,16 +147,6 @@ export default function Page({ fallback, pageOptions, resourceTags }) {
           <p className="text-lg leading-tight ">{pageOptions.subtitle}</p>
         </div>
       </section>
-      <SearchBar
-        top={x}
-        searchType={['resources']}
-        placeholderText={`Search ${pageOptions.title}`}
-        className="py-2 sticky lg:relative transition-all duration-200 z-20"
-        wrapperClassName="max-w-[1040px]"
-        searchSuggestionsClassName=""
-        inactiveBackgroundColor={pageOptions.colour}
-        activeBackgroundColor={pageOptions.colour}
-      />
       <SWRConfig value={{ fallback }}>
         <Cards tags={resourceTags} columnCount={pageOptions.gridColumnCount} />
       </SWRConfig>
