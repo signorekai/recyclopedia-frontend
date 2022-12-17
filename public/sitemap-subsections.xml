@@ -114,23 +114,23 @@
   </url>
 
   <url>
-    <loc>https://recyclopedia.sg/search?contentType=items&searchTerm=plastic</loc>
+    <loc>https://recyclopedia.sg/search?contentType=items&amp;searchTerm=plastic</loc>
   </url>
 
   <url>
-    <loc>https://recyclopedia.sg/search?contentType=items&searchTerm=paper</loc>
+    <loc>https://recyclopedia.sg/search?contentType=items&amp;searchTerm=paper</loc>
   </url>
 
   <url>
-    <loc>https://recyclopedia.sg/search?contentType=items&searchTerm=metal</loc>
+    <loc>https://recyclopedia.sg/search?contentType=items&amp;searchTerm=metal</loc>
   </url>
 
   <url>
-    <loc>https://recyclopedia.sg/search?contentType=items&searchTerm=glass</loc>
+    <loc>https://recyclopedia.sg/search?contentType=items&amp;searchTerm=glass</loc>
   </url>
 
   <url>
-    <loc>https://recyclopedia.sg/search?contentType=items&searchTerm=clothes</loc>
+    <loc>https://recyclopedia.sg/search?contentType=items&amp;searchTerm=clothes</loc>
   </url>
 
 </urlset>
