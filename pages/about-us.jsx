@@ -51,6 +51,13 @@ export default function Page({ pageOptions }) {
               Contact us via our <Link href="/feedback">feedback form</Link>.
             </p>
             <p>
+              <strong>
+                Please note that we do not provide recycling or collection
+                services. <br />
+                Recyclopedia.sg is a reference website.
+              </strong>
+            </p>
+            <p>
               For direct enquiries:{' '}
               <a href="mailto:hello@recyclopedia.sg">hello@recyclopedia.sg</a>
             </p>
