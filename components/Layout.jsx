@@ -63,12 +63,8 @@ const SearchIcon = ({
   );
 };
 
-const BookmarkLink = ({ authStatus, children }) => {
-  if (authStatus === 'authenticated') {
-    return <Link href="/account/bookmarks">{children}</Link>;
-  } else {
-    return children;
-  }
+const BookmarkLink = ({ children }) => {
+  return <Link href="/account/bookmarks">{children}</Link>;
 };
 
 const Layout = ({
