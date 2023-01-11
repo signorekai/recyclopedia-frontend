@@ -112,7 +112,7 @@ export default function Home({ items, newsItems, newsletter, donationDrives }) {
           <div className="overflow-x-auto snap-x snap-mandatory">
             <div
               className="grid gap-x-2 grid-cols-4 lg:max-w-full"
-              style={{ width: `${donationDrives.length * 100}vw` }}>
+              style={{ width: `${donationDrives.length * 75}vw` }}>
               {donationDrives.map((item, key) => {
                 if (item !== null) {
                   return (
