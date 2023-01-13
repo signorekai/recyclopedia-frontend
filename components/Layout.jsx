@@ -601,6 +601,7 @@ const Layout = ({
                     alt={icon.label}
                     className="social-icon"
                     target="_blank"
+                    title={icon.label}
                     rel="noopener noreferrer">
                     <i className={`fab fa-${icon.icon}`} />
                   </a>

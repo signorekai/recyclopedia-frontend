@@ -398,6 +398,7 @@
 
   .social-icon {
     @apply p-2 text-2xl text-white;
+    @apply hover:opacity-80 hover:text-white;
   }
 
   .faq-section {
