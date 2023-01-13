@@ -319,10 +319,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
 
   return (
     <>
-      <div
-        className={`container relative z-10 pt-4 lg:pt-10 ${
-          totalItemsCount === 0 && 'container--narrow'
-        }`}>
+      <div className={`container relative z-10 pt-4 lg:pt-10`}>
         <h1 className="text-black">Search Results</h1>
       </div>
       <SearchBar
@@ -335,9 +332,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
         className="mt-4"
         searchSuggestionsClassName="!bg-grey-white border-x-1 border-b-1 border-black"
         modalSearchBarWrapperClassName="!bg-blue-dark"
-        wrapperClassName={`!border-1
-          ${totalItemsCount > 0 ? `max-w-[1040px]` : `max-w-[800px]`}
-        `}
+        wrapperClassName={`!border-1 max-w-[1000px]`}
       />
       {totalItemsCount > 0 && (
         <AccordionProvider headers={['All', ...headerTabs]}>
@@ -351,32 +346,27 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
       )}
       <div className="border-b-1 mt-4 mb-6 lg:my-10 block w-full border-grey"></div>
       {totalItemsCount === 0 && (
-        <div className={`container relative container--narrow z-10`}>
-          <h2 className="text-black block mt-4 lg:mt-10">
-            0 results found for{' '}
-            <span className="opacity-70">&quot;{query}&quot;</span>.
-          </h2>
-          <p className="mt-4 text-sm md:text-base">
+        <div className={`container relative z-10 text-base lg:text-lg`}>
+          <h2 className="text-black block mt-4 lg:mt-10">0 results found</h2>
+          <p className="mt-3">
             Double check your search, or try a different term.
-            {query.split(' ').length > 1 && (
-              <>
-                <br />
-                Search Tip: Simplify with keywords. For example, instead of{' '}
-                <em>“where to donate furniture”</em> search <em>“furniture”</em>
-                .
-              </>
-            )}
           </p>
-          <div className="divider-b mt-16"></div>
-          <p className="mt-2 lg:text-base">
+          <div className="bg-bg mt-10 lg:mt-4 p-3 lg:p-2 rounded-smd inline-flex flex-row lg:inline-block">
+            <i className="far fa-lightbulb mr-3 lg:mr-2 mt-1"></i>
+            <span>
+              <strong>Search tip:</strong> Simplify with keywords. For example,
+              instead of “where to donate furniture” search “furniture”
+            </span>
+          </div>
+          <p className="mt-10 lg:mt-16 text-lg">
             Have something in mind you can’t find here? You can help us build up
             our database which in turn helps the community.{' '}
-            <button
-              onClick={_handleClick}
-              className="inline lg:text-base hover:opacity-80 text-blue">
-              Make a suggestion.
-            </button>
           </p>
+          <button
+            onClick={_handleClick}
+            className=" block mt-5 hover:opacity-80 text-coral">
+            Make a suggestion <i className="far fa-arrow-right"></i>
+          </button>
           <FeedbackModal
             openModal={openModal}
             topic="Make A Suggestion"
@@ -495,11 +485,9 @@ export async function getServerSideProps({ req, query, res }) {
 
             filters['$or'] = [
               {
-                $and: search.query
-                  .split(' ')
-                  .map((term) => ({
-                    title: { $containsi: pluralize(term, 1) },
-                  })),
+                $and: search.query.split(' ').map((term) => ({
+                  title: { $containsi: pluralize(term, 1) },
+                })),
               },
             ];
 
