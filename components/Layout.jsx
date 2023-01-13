@@ -260,9 +260,9 @@ const Layout = ({
         <meta
           name="og:title"
           key="og:title"
-          content={`Recyclopedia.sg${title.length > 0 ? ` - ${title}` : ''}`}
+          content={`${title.length > 0 ? `${title} | ` : ''}Recyclopedia.sg`}
         />
-        <title>Recyclopedia.sg{title.length > 0 ? ` - ${title}` : ''}</title>
+        <title>{title.length > 0 ? `${title} | ` : ''}Recyclopedia.sg</title>
         <meta
           name="og:image"
           key="og:image"
