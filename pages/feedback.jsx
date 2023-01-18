@@ -4,7 +4,7 @@ import { FeedbackForm } from '../components/Report';
 
 export default function Page() {
   return (
-    <Layout title="Feedback">
+    <Layout title="Contact Us">
       <div className="container container--narrow h-full pt-4 lg:pt-10">
         <h1 className="text-black">Contact us</h1>
         <h3 className="mb-10">
