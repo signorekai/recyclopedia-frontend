@@ -27,7 +27,7 @@ const menu = [
   { label: 'About&nbsp;Us', href: '/about-us' },
   { label: 'Newsletter', href: '/newsletter', className: '' },
   {
-    label: 'Feedback',
+    label: 'Contact Us',
     href: '/feedback',
     className: 'lg:mr-8 divider-b-wider lg:after:hidden',
   },
