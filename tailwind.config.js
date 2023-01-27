@@ -39,6 +39,7 @@ module.exports = {
         mid: '#87878C',
         light: '#EBe7e5',
         DEFAULT: '#c8c8c8',
+        hover: '#767888',
       },
     },
     extend: {
