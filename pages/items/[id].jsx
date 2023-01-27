@@ -255,7 +255,7 @@ function Page({ data }) {
           ) : (
             <>
               <div className="page-icons">
-                <Link href="/items">
+                <Link href="javascript:history.go(-1)">
                   <a className="page-icon-wrapper leading-none no-underline">
                     <i className="far fa-angle-left text-blue"></i>
                   </a>

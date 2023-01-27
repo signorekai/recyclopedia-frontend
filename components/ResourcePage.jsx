@@ -137,7 +137,7 @@ function ResourcePage({ data, baseUrl, tags }) {
             )}
           </Head>
           <div className="page-icons lg:hidden">
-            <Link href={`/${baseUrl}`}>
+            <Link href="javascript:history.go(-1)">
               <a className="page-icon-wrapper leading-none no-underline">
                 <i className="far fa-angle-left text-blue"></i>
               </a>
