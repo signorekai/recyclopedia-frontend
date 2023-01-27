@@ -59,7 +59,7 @@ export default function Home({ items, newsItems, newsletter, donationDrives }) {
               'freecycling',
               'shops',
             ]}
-            activeBackgroundColor="#F1EDEA"
+            activeBackgroundColor="#252B5C"
             className="lg:w-[720px]"
             wrapperClassName="z-20"
             showBottomSpacing={false}

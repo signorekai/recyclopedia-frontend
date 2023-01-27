@@ -495,6 +495,28 @@ const Layout = ({
                     ].join(',')}
                   />
                 </div>
+                <AnimatePresence>
+                  {isFocused && (
+                    <motion.div
+                      transition={{ duration: 0.2 }}
+                      variants={{
+                        initial: { y: '-100%', opacity: 0 },
+                        // animate: { y: 0, opacity: 1 },
+                        exit: { y: 50, scale: 0.9 },
+                      }}
+                      className="search-suggestions">
+                      <ul className="plain">
+                        {suggestions.current.map((suggestion, key) => (
+                          <Suggestion
+                            key={key}
+                            selectSuggestion={_selectSuggestion}
+                            text={suggestion}
+                          />
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </form>
             </div>
           </div>
@@ -529,38 +551,11 @@ const Layout = ({
             animate="animate"
             exit="exit"
             variants={{
-              initial: { opacity: 0, y: 100 },
+              initial: { opacity: 0, y: -20 },
               animate: { opacity: 1, y: 0 },
-              exit: { opacity: 0, y: 100 },
+              exit: { opacity: 0, y: -20 },
             }}
-            className="modal-wrapper !z-50 !flex-col top-0 left-0 !justify-start">
-            <motion.div
-              transition={{ duration: 0.2 }}
-              variants={{
-                // initial: { y: '-100%', opacity: 0 },
-                // animate: { y: 0, opacity: 1 },
-                exit: { y: 50, scale: 0.9 },
-              }}
-              style={{
-                marginTop: width >= 1080 ? 82 : 52,
-              }}
-              className="search-suggestions lg:max-w-[510px] lg:-translate-x-2 mx-auto">
-              <ul className="plain">
-                {suggestions.current.map((suggestion, key) => (
-                  <Suggestion
-                    key={key}
-                    selectSuggestion={_selectSuggestion}
-                    text={suggestion}
-                  />
-                ))}
-              </ul>
-            </motion.div>
-            <button
-              className="flex-1"
-              onClick={() => {
-                setIsFocused(false);
-              }}></button>
-          </motion.div>
+            className="modal-wrapper !z-50 !flex-col top-0 left-0 !justify-start"></motion.div>
         )}
       </AnimatePresence>
       <main className="main" style={mainStyle}>

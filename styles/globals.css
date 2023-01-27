@@ -416,8 +416,9 @@
   }
 
   .search-suggestions {
-    @apply rounded-b-22 bg-white w-full self-start;
-    @apply shadow-md z-20;
+    @apply rounded-b-xl bg-white w-full self-start;
+    @apply shadow-md z-50;
+    @apply absolute left-0 top-full;
   }
 
   .search-suggestion {

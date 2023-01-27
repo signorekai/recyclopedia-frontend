@@ -176,7 +176,7 @@ export default function SearchBar({
               : ''
           }`}>
           <form
-            className="w-full flex"
+            className="w-full flex relative"
             ref={formRef}
             onFocus={_handleOnFocus}
             method="get"
@@ -210,32 +210,32 @@ export default function SearchBar({
               className="search-close-btn absolute right-3 opacity-0 translate-y-2 pointer-events-none">
               <span className="fal fa-times search-icon border-l-1 border-bg pl-2"></span>
             </button>
-            <AnimatePresence>
-              {isFocused && width > 1080 && showSuggestions && (
-                <motion.div
-                  transition={{ bounce: 0, duration: 0.1 }}
-                  variants={{
-                    initial: { y: '80%', opacity: 0 },
-                    animate: { y: '100%', opacity: 1 },
-                    exit: { y: '80%', opacity: 0 },
-                  }}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  className={`search-suggestions absolute left-0 bottom-0 translate-y-[100%] ${searchSuggestionsClassName}`}>
-                  <ul className="plain">
-                    {suggestions.current.map((suggestion, key) => (
-                      <Suggestion
-                        key={key}
-                        selectSuggestion={selectSuggestion}
-                        text={suggestion}
-                      />
-                    ))}
-                  </ul>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </form>
+          <AnimatePresence>
+            {isFocused && width > 1080 && showSuggestions && (
+              <motion.div
+                transition={{ bounce: 0, duration: 0.1 }}
+                variants={{
+                  initial: { y: '-10%', opacity: 0 },
+                  animate: { y: '0%', opacity: 1 },
+                  exit: { y: '-10%', opacity: 0 },
+                }}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className={`search-suggestions ${searchSuggestionsClassName}`}>
+                <ul className="plain">
+                  {suggestions.current.map((suggestion, key) => (
+                    <Suggestion
+                      key={key}
+                      selectSuggestion={selectSuggestion}
+                      text={suggestion}
+                    />
+                  ))}
+                </ul>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       </motion.div>
       <AnimatePresence>
@@ -296,10 +296,10 @@ export default function SearchBar({
                 transition={{ duration: 0.2 }}
                 variants={{
                   // initial: { y: '-100%', opacity: 0 },
-                  // animate: { y: 0, opacity: 1 },
+                  animate: { y: 0, opacity: 1 },
                   exit: { y: 50, scale: 0.9 },
                 }}
-                className={`search-suggestions ${searchSuggestionsClassName}`}>
+                className={`search-suggestions !top-[56px] ${searchSuggestionsClassName}`}>
                 <ul className="plain">
                   {suggestions.current.map((suggestion, key) => (
                     <Suggestion
