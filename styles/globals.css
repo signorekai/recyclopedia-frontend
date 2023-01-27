@@ -425,6 +425,7 @@
 
   .search-suggestions--top {
     @apply mt-2 w-screen -left-3;
+    @apply lg:mt-0 lg:w-full lg:left-0;
   }
 
   .search-suggestion {

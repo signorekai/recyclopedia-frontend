@@ -342,110 +342,74 @@ const Layout = ({
                         <i className="fal fa-chevron-down pl-2 text-xs"></i>
                         <i className="fal fa-chevron-up pl-2 text-xs"></i>
                         <ul className="submenu group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto">
-                          {m.items.map((i) => {
-                            if (i.href === router.route) {
-                              return (
-                                <li>
-                                  {i.icon && (
-                                    <i
-                                      className={`far fa-${i.icon} text-lg pr-2`}
-                                    />
-                                  )}
+                          {m.items.map((i) => (
+                            <li key={i.href} className="group/menu">
+                              <Link href={i.href}>
+                                <a
+                                  className={`${
+                                    i.hasOwnProperty('className')
+                                      ? i.className
+                                      : ''
+                                  }`}>
                                   <span
-                                    className={`font-bold ${i.className}`}
-                                    dangerouslySetInnerHTML={{
-                                      __html: i.label,
-                                    }}
-                                  />
-                                </li>
-                              );
-                            } else {
-                              return (
-                                <li className="group/menu">
-                                  <Link key={i.href} href={i.href}>
-                                    <a
-                                      className={`${
-                                        i.hasOwnProperty('className')
-                                          ? i.className
-                                          : ''
-                                      }`}>
-                                      <span
-                                        className={`${
-                                          i.hasOwnProperty('colour')
-                                            ? 'group-hover/menu:hidden'
-                                            : 'group-hover/menu:opacity-70'
-                                        }`}>
-                                        {i.icon && (
-                                          <i
-                                            className={`far fa-${i.icon} text-lg pr-2`}
-                                          />
-                                        )}
-                                        <span
-                                          className="font-bold"
-                                          dangerouslySetInnerHTML={{
-                                            __html: i.label,
-                                          }}
+                                    className={`${
+                                      i.hasOwnProperty('colour')
+                                        ? 'group-hover/menu:hidden'
+                                        : 'group-hover/menu:opacity-70'
+                                    }`}>
+                                    {i.icon && (
+                                      <i
+                                        className={`far fa-${i.icon} text-lg pr-2`}
+                                      />
+                                    )}
+                                    <span
+                                      className="font-bold"
+                                      dangerouslySetInnerHTML={{
+                                        __html: i.label,
+                                      }}
+                                    />
+                                  </span>
+                                  {i.hasOwnProperty('colour') && (
+                                    <span
+                                      className="hidden group-hover/menu:inline"
+                                      style={{
+                                        color: i.colour,
+                                      }}>
+                                      {i.icon && (
+                                        <i
+                                          className={`far fa-${i.icon} text-lg pr-2`}
                                         />
-                                      </span>
-                                      {i.hasOwnProperty('colour') && (
-                                        <span
-                                          className="hidden group-hover/menu:inline"
-                                          style={{
-                                            color: i.colour,
-                                          }}>
-                                          {i.icon && (
-                                            <i
-                                              className={`far fa-${i.icon} text-lg pr-2`}
-                                            />
-                                          )}
-                                          <span
-                                            className="font-bold"
-                                            dangerouslySetInnerHTML={{
-                                              __html: i.label,
-                                            }}
-                                          />
-                                        </span>
                                       )}
-                                    </a>
-                                  </Link>
-                                </li>
-                              );
-                            }
-                          })}
+                                      <span
+                                        className="font-bold"
+                                        dangerouslySetInnerHTML={{
+                                          __html: i.label,
+                                        }}
+                                      />
+                                    </span>
+                                  )}
+                                </a>
+                              </Link>
+                            </li>
+                          ))}
                         </ul>
                       </div>
                     );
                   } else {
-                    if (m.href === router.route) {
-                      return (
-                        <>
+                    return (
+                      <Link key={m.href} href={m.href}>
+                        <a className={`${m.className}`}>
                           {m.icon && (
                             <i className={`far fa-${m.icon} text-lg pr-2`} />
                           )}
                           <span
-                            className={`font-bold ${m.className}`}
                             dangerouslySetInnerHTML={{
                               __html: m.label,
                             }}
                           />
-                        </>
-                      );
-                    } else {
-                      return (
-                        <Link key={m.href} href={m.href}>
-                          <a className={`${m.className}`}>
-                            {m.icon && (
-                              <i className={`far fa-${m.icon} text-lg pr-2`} />
-                            )}
-                            <span
-                              dangerouslySetInnerHTML={{
-                                __html: m.label,
-                              }}
-                            />
-                          </a>
-                        </Link>
-                      );
-                    }
+                        </a>
+                      </Link>
+                    );
                   }
                 })}
                 <Link href="/account/bookmarks">
@@ -616,82 +580,46 @@ const Layout = ({
                   if (m.hasOwnProperty('items')) {
                     return (
                       <>
-                        {m.items.map((i) => {
-                          if (i.href === router.route) {
-                            return (
-                              <>
+                        {m.items.map((i) => (
+                          <Link key={i.href} href={i.href}>
+                            <a
+                              className={`${
+                                i.hasOwnProperty('className') ? i.className : ''
+                              } no-underline`}>
+                              <span
+                                className=""
+                                style={{
+                                  color: i.colour,
+                                }}>
                                 {i.icon && (
                                   <i className={`far fa-${i.icon} pr-2`} />
                                 )}
                                 <span
-                                  className={`font-bold ${i.className}`}
                                   dangerouslySetInnerHTML={{
                                     __html: i.label,
                                   }}
                                 />
-                              </>
-                            );
-                          } else {
-                            return (
-                              <Link key={i.href} href={i.href}>
-                                <a
-                                  className={`${
-                                    i.hasOwnProperty('className')
-                                      ? i.className
-                                      : ''
-                                  } no-underline`}>
-                                  <span
-                                    className=""
-                                    style={{
-                                      color: i.colour,
-                                    }}>
-                                    {i.icon && (
-                                      <i className={`far fa-${i.icon} pr-2`} />
-                                    )}
-                                    <span
-                                      dangerouslySetInnerHTML={{
-                                        __html: i.label,
-                                      }}
-                                    />
-                                  </span>
-                                </a>
-                              </Link>
-                            );
-                          }
-                        })}
+                              </span>
+                            </a>
+                          </Link>
+                        ))}
                       </>
                     );
                   } else {
-                    if (m.href === router.route) {
-                      return (
-                        <>
+                    return (
+                      <Link key={m.href} href={m.href}>
+                        <a className={`${m.className} no-underline`}>
                           {m.icon && (
                             <i className={`far fa-${m.icon} text-lg pr-2`} />
                           )}
                           <span
-                            className={`font-bold ${m.className}`}
                             dangerouslySetInnerHTML={{
                               __html: m.label,
                             }}
                           />
-                        </>
-                      );
-                    } else {
-                      return (
-                        <Link key={m.href} href={m.href}>
-                          <a className={`${m.className} no-underline`}>
-                            {m.icon && (
-                              <i className={`far fa-${m.icon} text-lg pr-2`} />
-                            )}
-                            <span
-                              dangerouslySetInnerHTML={{
-                                __html: m.label,
-                              }}
-                            />
-                          </a>
-                        </Link>
-                      );
-                    }
+                        </a>
+                      </Link>
+                    );
                   }
                 })}
                 <Link href="/account/bookmarks">
