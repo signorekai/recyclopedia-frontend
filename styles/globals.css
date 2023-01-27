@@ -94,13 +94,14 @@
   .new-search-wrapper {
     @apply flex;
     @apply rounded-30 px-4 py-1 bg-white text-grey-dark;
-    @apply focus-within:rounded-b-none flex-row items-center;
-    @apply focus-within:rounded-t-xl;
+    @apply focus-within:lg:rounded-b-none flex-row items-center;
+    @apply focus-within:lg:rounded-t-xl;
   }
 
   .new-search-container {
     @apply absolute left-0 lg:relative;
-    @apply w-[calc(100vw_-_2rem)] lg:w-auto;
+    @apply w-[calc(100vw_-_1.5rem)] lg:w-auto;
+    @apply -translate-x-1 lg:translate-x-0;
   }
 
   .search-bar-wrapper {
@@ -420,6 +421,10 @@
     @apply rounded-b-xl bg-white w-full self-start;
     @apply shadow-md z-50;
     @apply absolute left-0 top-full;
+  }
+
+  .search-suggestions--top {
+    @apply mt-2 w-screen -left-3;
   }
 
   .search-suggestion {

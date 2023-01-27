@@ -258,7 +258,7 @@ export default function SearchBar({
               action="/search"
               onSubmit={_handleSubmit}>
               <div
-                className={`px-4 py-3 ${modalSearchBarWrapperClassName}`}
+                className={`px-3 py-3 ${modalSearchBarWrapperClassName}`}
                 style={{ backgroundColor: activeBackgroundColor }}>
                 <motion.div
                   layoutId={`${uniq.current}-search-bar`}

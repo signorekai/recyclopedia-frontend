@@ -484,7 +484,16 @@ const Layout = ({
                     id="searchTerm"
                     className="bg-transparent focus:outline-none flex-1 w-full lg:w-80"
                   />
-                  <SearchIcon />
+                  <button type="submit">
+                    <span className="far fa-search search-icon text-black ease-in-out px-2"></span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsFocused(false);
+                    }}
+                    className="search-close-btn pr-0 lg:hidden">
+                    <span className="fal fa-times search-icon text-black border-l-1 border-bg pl-2"></span>
+                  </button>
                   <input
                     type="hidden"
                     name="contentType"
@@ -506,7 +515,7 @@ const Layout = ({
                         // animate: { y: 0, opacity: 1 },
                         exit: { y: 50, scale: 0.9 },
                       }}
-                      className="search-suggestions">
+                      className="search-suggestions search-suggestions--top">
                       <ul className="plain">
                         {suggestions.current.map((suggestion, key) => (
                           <Suggestion
@@ -535,16 +544,16 @@ const Layout = ({
                   animate: { opacity: 1 },
                   exit: { opacity: 0 },
                 }}
-                className="px-2"
+                className="px-2 text-white lg:hidden"
                 onClick={() => {
                   searchBar.current.focus();
                 }}>
-                <SearchIcon className="text-white lg:hidden" />
+                <i className="far fa-search search-icon"></i>
               </motion.button>
             )}
           </AnimatePresence>
           <button
-            className={`lg:hidden group px-2 mr-2 block h-full text-xl text-white`}
+            className={`lg:hidden group px-2 mr-4 block h-full text-xl text-white`}
             id="menu-icon"
             onClick={_handleMenuBtn}>
             {showMenu ? (
@@ -552,23 +561,6 @@ const Layout = ({
             ) : (
               <i className="far fa-bars"></i>
             )}
-            {/* <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              className="w-6 h-6">
-              <path
-                className={`!stroke-0 fill-white group-hover:fill-teal translate-y-[1px] translate-x-[1px] ${
-                  showMenu ? 'opacity-0' : ''
-                }`}
-                d="M21.11 5.078a.522.522 0 00.515-.516V3.188c0-.257-.258-.515-.516-.515H2.891c-.301 0-.516.258-.516.515v1.376c0 .3.215.515.516.515h18.218zm0 6.875a.522.522 0 00.515-.515v-1.376c0-.257-.258-.515-.516-.515H2.891c-.301 0-.516.258-.516.515v1.376c0 .3.215.515.516.515h18.218zm0 6.875a.522.522 0 00.515-.515v-1.375c0-.258-.258-.516-.516-.516H2.891c-.301 0-.516.258-.516.515v1.375c0 .301.215.516.516.516h18.218z"
-              />
-              <path
-                className={`!stroke-0 fill-white group-hover:fill-teal translate-y-6 ${
-                  showMenu ? '!translate-y-1 translate-x-1' : 'opacity-0'
-                }`}
-                d="M9.785 8.25l3.621-3.586.739-.738c.105-.106.105-.281 0-.422l-.774-.774c-.14-.105-.316-.105-.422 0L8.625 7.09l-4.36-4.36c-.105-.105-.28-.105-.421 0l-.774.774c-.105.14-.105.316 0 .422L7.43 8.25l-4.36 4.36c-.105.105-.105.28 0 .421l.774.774c.14.105.316.105.422 0l4.359-4.36 3.586 3.621.738.739c.106.105.281.105.422 0l.774-.774c.105-.14.105-.316 0-.422L9.785 8.25z"
-              />
-            </svg> */}
           </button>
         </div>
       </Header>
