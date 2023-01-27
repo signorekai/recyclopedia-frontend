@@ -91,16 +91,7 @@ const SearchIcon = ({
     <>
       {showIcon && (
         <button id="search-icon" className={className} onClick={onClick}>
-          <svg
-            className="w-5 h-5 stroke-current stroke-2"
-            fill="none"
-            viewBox="0 0 20 20">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M8.65 16.3a7.65 7.65 0 100-15.3 7.65 7.65 0 000 15.3zM19 19l-4.5-4.5"
-            />
-          </svg>
+          <i className="far fa-search search-icon"></i>
         </button>
       )}
     </>
