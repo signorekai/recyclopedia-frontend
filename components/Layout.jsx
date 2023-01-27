@@ -13,23 +13,67 @@ import Header from './Header';
 import { SWRFetcher, useWindowDimensions } from '../lib/hooks';
 import { _cacheSearchTerm, Suggestion } from './SearchBar';
 
-const menu = [
-  { label: 'Items', href: '/items' },
-  { label: 'Resources', href: '/resources' },
-  { label: 'Freecycling', href: '/freecycling' },
-  { label: 'Shops', href: '/shops' },
+const menuWithDropdown = [
   {
-    label: 'Latest',
+    label: 'Browse',
+    items: [
+      {
+        label: 'Items',
+        href: '/items',
+        icon: 'box',
+        colour: '#28c9aa',
+      },
+      {
+        label: 'Freecycling',
+        href: '/freecycling',
+        icon: 'box-heart',
+        colour: '#ff6153',
+      },
+      {
+        label: 'Resources',
+        href: '/resources',
+        icon: 'recycle',
+        colour: '#224dbf',
+      },
+      {
+        label: 'Shops',
+        href: '/shops',
+        icon: 'shopping-bag',
+        colour: '#707075',
+        className: 'divider-b-wider lg:after:hidden',
+      },
+    ],
+  },
+  {
+    label: 'Donation Drives',
+    href: '/articles?section=Donation%20Drives',
+  },
+  {
+    label: 'Blog',
     href: '/articles',
     className: 'divider-b-wider lg:after:hidden',
   },
-  { label: 'FAQ', href: '/faq', className: 'lg:ml-4' },
-  { label: 'About&nbsp;Us', href: '/about-us' },
-  { label: 'Newsletter', href: '/newsletter', className: '' },
   {
-    label: 'Contact Us',
-    href: '/feedback',
-    className: 'lg:mr-8 divider-b-wider lg:after:hidden',
+    label: 'About Us',
+    items: [
+      {
+        label: 'Who We Are',
+        href: '/about-us',
+      },
+      {
+        label: 'FAQ',
+        href: '/faq',
+      },
+      {
+        label: 'Newsletter',
+        href: '/newsletter',
+      },
+      {
+        label: 'Contact Us',
+        href: '/feedback',
+        className: 'divider-b-wider lg:after:hidden',
+      },
+    ],
   },
 ];
 
@@ -338,80 +382,184 @@ const Layout = ({
                 </div>
               </form>
               <div className="hidden lg:inline-block lg:flex-1" />
+          <div className="header-wrapper">
+            <div className="logo-wrapper">
+              <Link href="/">
+                <a>
+                  <Image
+                    src="/img/logo.svg"
+                    className="h-6"
+                    alt=""
+                    width={172}
+                    height={24}
+                  />
+                </a>
+              </Link>
             </div>
-            <div className="header-wrapper">
-              <div className="logo-wrapper">
-                <Link href="/">
-                  <a>
-                    <Image
-                      src="/img/logo.svg"
-                      className="h-6"
-                      alt=""
-                      width={172}
-                      height={28}
-                    />
-                  </a>
-                </Link>
-              </div>
-              <div className="flex flex-row">
-                <div className="desktop-menu-wrapper">
-                  {menu.map((m) => {
+            <div className="flex flex-row items-center h-full">
+              <div className="desktop-menu-wrapper">
+                {menuWithDropdown.map((m) => {
+                  if (m.hasOwnProperty('items')) {
+                    return (
+                      <div className="has-dropdown group">
+                        <span dangerouslySetInnerHTML={{ __html: m.label }} />
+                        <i className="fal fa-chevron-down pl-2 text-xs"></i>
+                        <i className="fal fa-chevron-up pl-2 text-xs"></i>
+                        <ul className="submenu group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto">
+                          {m.items.map((i) => {
+                            if (i.href === router.route) {
+                              return (
+                                <li>
+                                  {i.icon && (
+                                    <i
+                                      className={`far fa-${i.icon} text-lg pr-2`}
+                                    />
+                                  )}
+                                  <span
+                                    className={`font-bold ${i.className}`}
+                                    dangerouslySetInnerHTML={{
+                                      __html: i.label,
+                                    }}
+                                  />
+                                </li>
+                              );
+                            } else {
+                              return (
+                                <li className="group/menu">
+                                  <Link key={i.href} href={i.href}>
+                                    <a
+                                      className={`${
+                                        i.hasOwnProperty('className')
+                                          ? i.className
+                                          : ''
+                                      }`}>
+                                      <span
+                                        className={`${
+                                          i.hasOwnProperty('colour')
+                                            ? 'group-hover/menu:hidden'
+                                            : 'group-hover/menu:opacity-70'
+                                        }`}>
+                                        {i.icon && (
+                                          <i
+                                            className={`far fa-${i.icon} text-lg pr-2`}
+                                          />
+                                        )}
+                                        <span
+                                          className="font-bold"
+                                          dangerouslySetInnerHTML={{
+                                            __html: i.label,
+                                          }}
+                                        />
+                                      </span>
+                                      {i.hasOwnProperty('colour') && (
+                                        <span
+                                          className="hidden group-hover/menu:inline"
+                                          style={{
+                                            color: i.colour,
+                                          }}>
+                                          {i.icon && (
+                                            <i
+                                              className={`far fa-${i.icon} text-lg pr-2`}
+                                            />
+                                          )}
+                                          <span
+                                            className="font-bold"
+                                            dangerouslySetInnerHTML={{
+                                              __html: i.label,
+                                            }}
+                                          />
+                                        </span>
+                                      )}
+                                    </a>
+                                  </Link>
+                                </li>
+                              );
+                            }
+                          })}
+                        </ul>
+                      </div>
+                    );
+                  } else {
                     if (m.href === router.route) {
                       return (
-                        <span
-                          className={`font-bold ${m.className}`}
-                          dangerouslySetInnerHTML={{ __html: m.label }}
-                        />
+                        <>
+                          {m.icon && (
+                            <i className={`far fa-${m.icon} text-lg pr-2`} />
+                          )}
+                          <span
+                            className={`font-bold ${m.className}`}
+                            dangerouslySetInnerHTML={{
+                              __html: m.label,
+                            }}
+                          />
+                        </>
                       );
                     } else {
                       return (
                         <Link key={m.href} href={m.href}>
-                          <a
-                            className={`${m.className}`}
-                            dangerouslySetInnerHTML={{ __html: m.label }}
-                          />
+                          <a className={`${m.className}`}>
+                            {m.icon && (
+                              <i className={`far fa-${m.icon} text-lg pr-2`} />
+                            )}
+                            <span
+                              dangerouslySetInnerHTML={{
+                                __html: m.label,
+                              }}
+                            />
+                          </a>
                         </Link>
                       );
                     }
-                  })}
-                </div>
-                <div className="icon-wrapper">
-                  {authStatus === 'authenticated' && (
-                    <BookmarkLink authStatus={authStatus}>
-                      <a
-                        className="hidden lg:block !text-white"
-                        id="bookmark-icon">
-                        <span className="far fa-bookmark text-xl"></span>
-                      </a>
-                    </BookmarkLink>
-                  )}
-                  <Link
-                    href={
-                      authStatus === 'authenticated' ? '/account' : '/login'
-                    }>
-                    <a
-                      className="hidden !text-white lg:flex items-center"
-                      id="person-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="19"
-                        height="20"
-                        fill="none"
-                        viewBox="0 0 19 20">
-                        <path
-                          className="stroke-current stroke-2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M9.489 10.665a4.832 4.832 0 100-9.665 4.832 4.832 0 000 9.665zM1 18.086c0-2.491 2.157-7.421 6.634-7.421h3.732c4.477 0 6.634 4.93 6.634 7.421H1z"></path>
-                      </svg>
-                    </a>
-                  </Link>
-                  <SearchIcon
-                    onClick={_handleSearchBtn}
-                    className="!mr-[-0.1rem]"
+                  }
+                })}
+                <Link href="/account/bookmarks">
+                  <a className="hidden lg:block !text-white" id="bookmark-icon">
+                    <i className="far fa-bookmark text-xl"></i>
+                  </a>
+                </Link>
+                <Link
+                  href={authStatus === 'authenticated' ? '/account' : '/login'}>
+                  <a className="!text-white" id="person-icon">
+                    <i className="far fa-user text-xl"></i>
+                  </a>
+                </Link>
+              </div>
+              <form
+                ref={formRef}
+                method="get"
+                onSubmit={_handleSubmit}
+                action="/search"
+                className="new-search-container">
+                <div className="new-search-wrapper">
+                  <input
+                    autoComplete="off"
+                    ref={searchBar}
+                    onFocus={() => {
+                      setIsFocused(true);
+                    }}
+                    onBlur={_handleOnBlur}
+                    onChange={_handleFormUpdate}
+                    value={formValue}
+                    placeholder="Search for anything"
+                    type="text"
+                    name="searchTerm"
+                    id="searchTerm"
+                    className="bg-transparent focus:outline-none flex-1 w-80"
+                  />
+                  <SearchIcon />
+                  <input
+                    type="hidden"
+                    name="contentType"
+                    value={[
+                      'items',
+                      'resources',
+                      'articles',
+                      'freecycling',
+                      'shops',
+                    ].join(',')}
                   />
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>

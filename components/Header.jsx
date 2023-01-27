@@ -117,7 +117,7 @@ export default function Header({
       }}
       animate={containerAnimControl}
       style={{ position: 'relative', ...containerStyle }}>
-      <motion.div ref={spacerRef} className="h-[56px] lg:h-[82px]" />
+      <motion.div ref={spacerRef} className="h-[52px] lg:h-[56px]" />
       <motion.header
         ref={headerRef}
         variants={{

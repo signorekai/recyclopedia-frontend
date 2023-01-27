@@ -91,6 +91,17 @@
     }
   }
 
+  .new-search-wrapper {
+    @apply hidden lg:flex;
+    @apply rounded-30 px-4 py-1 bg-white text-grey-dark;
+    @apply focus-within:rounded-b-none flex-row items-center;
+    @apply focus-within:rounded-t-xl;
+  }
+
+  .new-search-container {
+    @apply relative;
+  }
+
   .search-bar-wrapper {
     @apply flex-1 rounded-30 border-1 pl-3 pr-1 py-[3px] lg:py-2 lg:pl-5;
     @apply mx-auto;
@@ -304,6 +315,40 @@
   figure.image {
     @apply mx-auto;
   }
+
+  .has-dropdown {
+    @apply relative hover:text-grey-hover cursor-pointer;
+    @apply transition-colors h-full flex flex-row items-center;
+
+    .fa-chevron-up {
+      @apply hidden;
+    }
+
+    &:hover .fa-chevron-down {
+      @apply hidden;
+    }
+
+    &:hover .fa-chevron-up {
+      @apply inline;
+    }
+
+    .submenu {
+      @apply list-none p-4 m-0 absolute min-w-max top-full z-50;
+      @apply bg-white rounded-2xl;
+      @apply grid grid-cols-1 gap-y-4;
+      @apply left-[50%] -translate-x-1/2;
+      @apply opacity-0 translate-y-2 pointer-events-none transition-all;
+      @apply shadow-md;
+
+      li {
+        @apply list-none;
+
+        a {
+          @apply text-blue-dark text-base hover:opacity-100;
+        }
+      }
+    }
+  }
 }
 
 @layer utilities {
@@ -315,7 +360,7 @@
   .header {
     @apply bg-blue-dark fixed w-full top-0;
     @apply flex flex-row items-center;
-    @apply lg:p-4 z-40 lg:!translate-y-0;
+    @apply lg:h-[56px] z-40 lg:!translate-y-0;
     @apply lg:sticky;
 
     a {
@@ -323,19 +368,18 @@
     }
 
     .header-wrapper {
-      @apply pt-1;
       @apply flex flex-row justify-between items-center relative flex-1;
-      @apply absolute top-full w-full h-full;
+      @apply w-full h-full;
     }
   }
 
   .logo-wrapper {
-    @apply leading-none;
+    @apply leading-none -mb-1;
   }
 
   .desktop-menu-wrapper {
     @apply hidden lg:flex flex-1 flex-row gap-x-6 justify-end text-white;
-    @apply pb-1;
+    @apply h-full items-center mr-6;
 
     a {
       @apply no-underline;
