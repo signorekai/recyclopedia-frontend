@@ -100,19 +100,19 @@ export default function Home({ items, newsItems, newsletter, donationDrives }) {
           </div>
         </div>
         <div className="container lg:container--wide">
-          <h2 className="mb-3 lg:mb-5">
-            <Link href="/articles?section=Donation Drives" passHref>
-              <a className="no-underline text-blue-light">
+          <Link href="/articles?section=Donation Drives" passHref>
+            <a className="no-underline text-blue-light">
+              <h2 className="mb-3 lg:mb-5">
                 <i className="far fa-hand-heart text-3xl mr-3" /> Donation
                 Drives & Events
-              </a>
-            </Link>
-            <i className="fa fa-arrow-right font-light text-coral text-lg ml-3 group-hover:translate-x-1" />
-          </h2>
+                <i className="fa fa-arrow-right font-light text-coral text-lg ml-3 group-hover:translate-x-1" />
+              </h2>
+            </a>
+          </Link>
           <div className="overflow-x-auto snap-x snap-mandatory">
             <div
               className="grid gap-x-2 grid-cols-4 lg:max-w-full"
-              style={{ width: `${donationDrives.length * 100}vw` }}>
+              style={{ width: `${donationDrives.length * 75}vw` }}>
               {donationDrives.map((item, key) => {
                 if (item !== null) {
                   return (
@@ -213,15 +213,15 @@ export default function Home({ items, newsItems, newsletter, donationDrives }) {
           </div>
         </div>
         <div className="container lg:container--wide">
-          <h2 className="mb-3 lg:mb-5">
-            <Link href="/articles" passHref>
-              <a className="no-underline text-blue-light">
+          <Link href="/articles" passHref>
+            <a className="no-underline text-blue-light">
+              <h2 className="mb-3 lg:mb-5">
                 <i className="far fa-lightbulb-exclamation text-3xl mr-3" />{' '}
                 News & Views
-              </a>
-            </Link>
-            <i className="fa fa-arrow-right font-light text-coral text-lg ml-3 group-hover:translate-x-1" />
-          </h2>
+                <i className="fa fa-arrow-right font-light text-coral text-lg ml-3 group-hover:translate-x-1" />
+              </h2>
+            </a>
+          </Link>
           <div className="overflow-x-auto snap-x snap-mandatory">
             <div
               className="grid gap-x-2 grid-cols-4 lg:max-w-full"

@@ -49,6 +49,11 @@ export default function Image({
     }
   }
 
+  actualSrc = actualSrc.replace(
+    /recyclopedia.ap-south-1.linodeobjects.com/g,
+    'cdn.recyclopedia.sg',
+  );
+
   const responsiveStyles = {
     maxWidth: width,
     maxHeight: height,

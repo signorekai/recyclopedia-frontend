@@ -190,7 +190,7 @@ function Page({ data }) {
           <Head>
             <meta
               name="description"
-              content={`Where and how to recycle ${data.title} in Singapore. Find out the best ways to recycle, upcycle, donate and recycle ${data.title}.`}
+              content={`Where to recycle ${data.title.toLowerCase()} in Singapore. Find the best ways to recycle, upcycle or donate old, used, or new ${data.title.toLowerCase()}`}
             />
             <meta
               property="og:url"
@@ -200,7 +200,7 @@ function Page({ data }) {
             <meta
               property="og:description"
               key="og:description"
-              content={`Where and how to recycle ${data.title} in Singapore. Find out the best ways to recycle, upcycle, donate and recycle ${data.title}.`}
+              content={`Where to recycle ${data.title.toLowerCase()} in Singapore. Find the best ways to recycle, upcycle or donate old, used, or new ${data.title.toLowerCase()}`}
             />
             {data.images.length > 0 && (
               <meta

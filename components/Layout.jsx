@@ -27,7 +27,7 @@ const menu = [
   { label: 'About&nbsp;Us', href: '/about-us' },
   { label: 'Newsletter', href: '/newsletter', className: '' },
   {
-    label: 'Feedback',
+    label: 'Contact Us',
     href: '/feedback',
     className: 'lg:mr-8 divider-b-wider lg:after:hidden',
   },
@@ -63,12 +63,8 @@ const SearchIcon = ({
   );
 };
 
-const BookmarkLink = ({ authStatus, children }) => {
-  if (authStatus === 'authenticated') {
-    return <Link href="/account/bookmarks">{children}</Link>;
-  } else {
-    return children;
-  }
+const BookmarkLink = ({ children }) => {
+  return <Link href="/account/bookmarks">{children}</Link>;
 };
 
 const Layout = ({
@@ -264,9 +260,9 @@ const Layout = ({
         <meta
           name="og:title"
           key="og:title"
-          content={`Recyclopedia.sg${title.length > 0 ? ` - ${title}` : ''}`}
+          content={`${title.length > 0 ? `${title} | ` : ''}Recyclopedia.sg`}
         />
-        <title>Recyclopedia.sg{title.length > 0 ? ` - ${title}` : ''}</title>
+        <title>{title.length > 0 ? `${title} | ` : ''}Recyclopedia.sg</title>
         <meta
           name="og:image"
           key="og:image"
@@ -605,6 +601,7 @@ const Layout = ({
                     alt={icon.label}
                     className="social-icon"
                     target="_blank"
+                    title={icon.label}
                     rel="noopener noreferrer">
                     <i className={`fab fa-${icon.icon}`} />
                   </a>
