@@ -143,12 +143,12 @@ const Layout = ({
   };
 
   useEffect(() => {
-    if (showMenu === false) {
+    if (showMenu === false && isFocused === false) {
       document.querySelector('body').classList.remove('overflow-hidden');
     } else {
       document.querySelector('body').classList.add('overflow-hidden');
     }
-  }, [showMenu]);
+  }, [showMenu, isFocused]);
 
   useEffect(() => {
     if (showSearchBar && searchBar) {
@@ -317,7 +317,7 @@ const Layout = ({
         showHeaderInitially={showHeaderInitially}
         showHeaderOn={showHeaderOn}
         hideHeaderOn={hideHeaderOn}>
-        <div className="h-full pl-4 lg:pl-0 flex-1 container container--lg mx-auto">
+        <div className="h-full py-4 lg:py-0 pl-4 pr-0 lg:pr-4 lg:pl-0 flex-1 container container--lg mx-auto">
           <div className="header-wrapper">
             <div className="logo-wrapper">
               <Link href="/">
@@ -465,7 +465,9 @@ const Layout = ({
                 method="get"
                 onSubmit={_handleSubmit}
                 action="/search"
-                className="new-search-container">
+                className={`new-search-container ${
+                  !isFocused && width < 1080 ? '-translate-y-20 opacity-0' : ''
+                }`}>
                 <div className="new-search-wrapper">
                   <input
                     autoComplete="off"
@@ -480,7 +482,7 @@ const Layout = ({
                     type="text"
                     name="searchTerm"
                     id="searchTerm"
-                    className="bg-transparent focus:outline-none flex-1 w-80"
+                    className="bg-transparent focus:outline-none flex-1 w-full lg:w-80"
                   />
                   <SearchIcon />
                   <input
@@ -521,28 +523,54 @@ const Layout = ({
             </div>
           </div>
         </div>
-        <button
-          className={`lg:hidden group px-2 mr-2 pt-4 pb-3`}
-          id="menu-icon"
-          onClick={_handleMenuBtn}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            className="w-6 h-6">
-            <path
-              className={`!stroke-0 fill-white group-hover:fill-teal translate-y-[1px] translate-x-[1px] ${
-                showMenu ? 'opacity-0' : ''
-              }`}
-              d="M21.11 5.078a.522.522 0 00.515-.516V3.188c0-.257-.258-.515-.516-.515H2.891c-.301 0-.516.258-.516.515v1.376c0 .3.215.515.516.515h18.218zm0 6.875a.522.522 0 00.515-.515v-1.376c0-.257-.258-.515-.516-.515H2.891c-.301 0-.516.258-.516.515v1.376c0 .3.215.515.516.515h18.218zm0 6.875a.522.522 0 00.515-.515v-1.375c0-.258-.258-.516-.516-.516H2.891c-.301 0-.516.258-.516.515v1.375c0 .301.215.516.516.516h18.218z"
-            />
-            <path
-              className={`!stroke-0 fill-white group-hover:fill-teal translate-y-6 ${
-                showMenu ? '!translate-y-1 translate-x-1' : 'opacity-0'
-              }`}
-              d="M9.785 8.25l3.621-3.586.739-.738c.105-.106.105-.281 0-.422l-.774-.774c-.14-.105-.316-.105-.422 0L8.625 7.09l-4.36-4.36c-.105-.105-.28-.105-.421 0l-.774.774c-.105.14-.105.316 0 .422L7.43 8.25l-4.36 4.36c-.105.105-.105.28 0 .421l.774.774c.14.105.316.105.422 0l4.359-4.36 3.586 3.621.738.739c.106.105.281.105.422 0l.774-.774c.105-.14.105-.316 0-.422L9.785 8.25z"
-            />
-          </svg>
-        </button>
+        <div className="flex flex-row">
+          <AnimatePresence>
+            {!isFocused && (
+              <motion.button
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={{
+                  initial: { opacity: 0 },
+                  animate: { opacity: 1 },
+                  exit: { opacity: 0 },
+                }}
+                className="px-2"
+                onClick={() => {
+                  searchBar.current.focus();
+                }}>
+                <SearchIcon className="text-white lg:hidden" />
+              </motion.button>
+            )}
+          </AnimatePresence>
+          <button
+            className={`lg:hidden group px-2 mr-2 block h-full text-xl text-white`}
+            id="menu-icon"
+            onClick={_handleMenuBtn}>
+            {showMenu ? (
+              <i className="far fa-times"></i>
+            ) : (
+              <i className="far fa-bars"></i>
+            )}
+            {/* <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              className="w-6 h-6">
+              <path
+                className={`!stroke-0 fill-white group-hover:fill-teal translate-y-[1px] translate-x-[1px] ${
+                  showMenu ? 'opacity-0' : ''
+                }`}
+                d="M21.11 5.078a.522.522 0 00.515-.516V3.188c0-.257-.258-.515-.516-.515H2.891c-.301 0-.516.258-.516.515v1.376c0 .3.215.515.516.515h18.218zm0 6.875a.522.522 0 00.515-.515v-1.376c0-.257-.258-.515-.516-.515H2.891c-.301 0-.516.258-.516.515v1.376c0 .3.215.515.516.515h18.218zm0 6.875a.522.522 0 00.515-.515v-1.375c0-.258-.258-.516-.516-.516H2.891c-.301 0-.516.258-.516.515v1.375c0 .301.215.516.516.516h18.218z"
+              />
+              <path
+                className={`!stroke-0 fill-white group-hover:fill-teal translate-y-6 ${
+                  showMenu ? '!translate-y-1 translate-x-1' : 'opacity-0'
+                }`}
+                d="M9.785 8.25l3.621-3.586.739-.738c.105-.106.105-.281 0-.422l-.774-.774c-.14-.105-.316-.105-.422 0L8.625 7.09l-4.36-4.36c-.105-.105-.28-.105-.421 0l-.774.774c-.105.14-.105.316 0 .422L7.43 8.25l-4.36 4.36c-.105.105-.105.28 0 .421l.774.774c.14.105.316.105.422 0l4.359-4.36 3.586 3.621.738.739c.106.105.281.105.422 0l.774-.774c.105-.14.105-.316 0-.422L9.785 8.25z"
+              />
+            </svg> */}
+          </button>
+        </div>
       </Header>
       <AnimatePresence>
         {isFocused && (
@@ -555,7 +583,13 @@ const Layout = ({
               animate: { opacity: 1, y: 0 },
               exit: { opacity: 0, y: -20 },
             }}
-            className="modal-wrapper !z-50 !flex-col top-0 left-0 !justify-start"></motion.div>
+            className="modal-wrapper !z-50 !flex-col top-0 left-0 !justify-start">
+            <button
+              className="flex-1"
+              onClick={() => {
+                setIsFocused(false);
+              }}></button>
+          </motion.div>
         )}
       </AnimatePresence>
       <main className="main" style={mainStyle}>
@@ -595,9 +629,7 @@ const Layout = ({
                             return (
                               <>
                                 {i.icon && (
-                                  <i
-                                    className={`far fa-${i.icon} text-lg pr-2`}
-                                  />
+                                  <i className={`far fa-${i.icon} pr-2`} />
                                 )}
                                 <span
                                   className={`font-bold ${i.className}`}
@@ -622,12 +654,9 @@ const Layout = ({
                                       color: i.colour,
                                     }}>
                                     {i.icon && (
-                                      <i
-                                        className={`far fa-${i.icon} text-lg pr-2`}
-                                      />
+                                      <i className={`far fa-${i.icon} pr-2`} />
                                     )}
                                     <span
-                                      className="font-bold"
                                       dangerouslySetInnerHTML={{
                                         __html: i.label,
                                       }}
@@ -678,12 +707,6 @@ const Layout = ({
                     <i className="far fa-bookmark text-xl"></i>
                   </a>
                 </Link>
-                <Link
-                  href={authStatus === 'authenticated' ? '/account' : '/login'}>
-                  <a className="!text-white" id="person-icon">
-                    <i className="far fa-user text-xl"></i>
-                  </a>
-                </Link>
                 <BookmarkLink authStatus={authStatus}>
                   <a className="text-left no-underline !text-black mb-2">
                     <span className="fas fa-bookmark mr-3" />
@@ -706,9 +729,9 @@ const Layout = ({
                   </>
                 ) : (
                   <Link href="/login">
-                    <a className="-mt-4 text-sm !text-grey-mid no-underline">
-                      <i className="far fa-sign-in mr-4" />
-                      Login to access
+                    <a className="-mt-4 !text-grey-mid no-underline">
+                      <i className="far fa-user mr-3" />
+                      Login
                     </a>
                   </Link>
                 )}

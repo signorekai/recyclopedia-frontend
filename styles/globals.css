@@ -92,14 +92,15 @@
   }
 
   .new-search-wrapper {
-    @apply hidden lg:flex;
+    @apply flex;
     @apply rounded-30 px-4 py-1 bg-white text-grey-dark;
     @apply focus-within:rounded-b-none flex-row items-center;
     @apply focus-within:rounded-t-xl;
   }
 
   .new-search-container {
-    @apply relative;
+    @apply absolute left-0 lg:relative;
+    @apply w-[calc(100vw_-_2rem)] lg:w-auto;
   }
 
   .search-bar-wrapper {
