@@ -326,62 +326,7 @@ const Layout = ({
         showHeaderInitially={showHeaderInitially}
         showHeaderOn={showHeaderOn}
         hideHeaderOn={hideHeaderOn}>
-        <div className="overflow-hidden h-full pl-4 lg:pl-0 flex-1 container container--lg mx-auto">
-          <div
-            className={`flex flex-col h-[200%] relative ease-in-out transition-transform duration-200 ${
-              showSearchBar ? 'translate-y-0' : '-translate-y-full'
-            }`}>
-            <div className="flex-1 flex flex-row items-center">
-              <div className="hidden lg:inline-block lg:flex-1">
-                <Image
-                  src="/img/logo.svg"
-                  className="h-6"
-                  alt=""
-                  width={172}
-                  height={28}
-                />
-              </div>
-              <form
-                ref={formRef}
-                method="get"
-                onSubmit={_handleSubmit}
-                action="/search"
-                className="flex-[2]">
-                <div className="search-bar-wrapper border-grey-dark text-white">
-                  <input
-                    autoComplete="off"
-                    ref={searchBar}
-                    onFocus={() => {
-                      setIsFocused(true);
-                    }}
-                    disabled={showSearchBar === false}
-                    onBlur={_handleOnBlur}
-                    onChange={_handleFormUpdate}
-                    value={formValue}
-                    placeholder="Search Entire Site"
-                    type="text"
-                    name="searchTerm"
-                    id="searchTerm"
-                    className="bg-transparent focus:outline-none flex-1"
-                  />
-                  <SearchIcon className="pr-2" />
-                  <button type="button" onClick={_handleSearchBtn}>
-                    <span className="fal fa-times text-xl border-l-1 border-grey-dark pl-4 pr-2 mx-2 pt-1"></span>
-                  </button>
-                  <input
-                    type="hidden"
-                    name="contentType"
-                    value={[
-                      'items',
-                      'resources',
-                      'articles',
-                      'freecycling',
-                      'shops',
-                    ].join(',')}
-                  />
-                </div>
-              </form>
-              <div className="hidden lg:inline-block lg:flex-1" />
+        <div className="h-full pl-4 lg:pl-0 flex-1 container container--lg mx-auto">
           <div className="header-wrapper">
             <div className="logo-wrapper">
               <Link href="/">
