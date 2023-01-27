@@ -591,31 +591,104 @@ const Layout = ({
                   exit: { x: 0 },
                 }}
                 className="w-7/12 min-w-[220px] max-h-[calc(100vh_-_3rem)] max-w-xs bg-white p-8 flex flex-col text-xl gap-y-3 overflow-y-scroll">
-                {menu.map((m) => {
-                  if (m.href === router.route) {
+                {menuWithDropdown.map((m) => {
+                  if (m.hasOwnProperty('items')) {
                     return (
-                      <button
-                        onClick={() => {
-                          setShowMenu(false);
-                        }}
-                        className={`text-left font-bold text-blue ${m.className}`}
-                        dangerouslySetInnerHTML={{
-                          __html: m.label,
-                        }}></button>
+                      <>
+                        {m.items.map((i) => {
+                          if (i.href === router.route) {
+                            return (
+                              <>
+                                {i.icon && (
+                                  <i
+                                    className={`far fa-${i.icon} text-lg pr-2`}
+                                  />
+                                )}
+                                <span
+                                  className={`font-bold ${i.className}`}
+                                  dangerouslySetInnerHTML={{
+                                    __html: i.label,
+                                  }}
+                                />
+                              </>
+                            );
+                          } else {
+                            return (
+                              <Link key={i.href} href={i.href}>
+                                <a
+                                  className={`${
+                                    i.hasOwnProperty('className')
+                                      ? i.className
+                                      : ''
+                                  } no-underline`}>
+                                  <span
+                                    className=""
+                                    style={{
+                                      color: i.colour,
+                                    }}>
+                                    {i.icon && (
+                                      <i
+                                        className={`far fa-${i.icon} text-lg pr-2`}
+                                      />
+                                    )}
+                                    <span
+                                      className="font-bold"
+                                      dangerouslySetInnerHTML={{
+                                        __html: i.label,
+                                      }}
+                                    />
+                                  </span>
+                                </a>
+                              </Link>
+                            );
+                          }
+                        })}
+                      </>
                     );
                   } else {
-                    return (
-                      <Link href={m.href} key={m.href} passHref>
-                        <motion.a
-                          className={`motion-controlled no-underline ${m.className}`}
-                          variants={menuLinkVariant}
-                          dangerouslySetInnerHTML={{
-                            __html: m.label,
-                          }}></motion.a>
-                      </Link>
-                    );
+                    if (m.href === router.route) {
+                      return (
+                        <>
+                          {m.icon && (
+                            <i className={`far fa-${m.icon} text-lg pr-2`} />
+                          )}
+                          <span
+                            className={`font-bold ${m.className}`}
+                            dangerouslySetInnerHTML={{
+                              __html: m.label,
+                            }}
+                          />
+                        </>
+                      );
+                    } else {
+                      return (
+                        <Link key={m.href} href={m.href}>
+                          <a className={`${m.className} no-underline`}>
+                            {m.icon && (
+                              <i className={`far fa-${m.icon} text-lg pr-2`} />
+                            )}
+                            <span
+                              dangerouslySetInnerHTML={{
+                                __html: m.label,
+                              }}
+                            />
+                          </a>
+                        </Link>
+                      );
+                    }
                   }
                 })}
+                <Link href="/account/bookmarks">
+                  <a className="hidden lg:block !text-white" id="bookmark-icon">
+                    <i className="far fa-bookmark text-xl"></i>
+                  </a>
+                </Link>
+                <Link
+                  href={authStatus === 'authenticated' ? '/account' : '/login'}>
+                  <a className="!text-white" id="person-icon">
+                    <i className="far fa-user text-xl"></i>
+                  </a>
+                </Link>
                 <BookmarkLink authStatus={authStatus}>
                   <a className="text-left no-underline !text-black mb-2">
                     <span className="fas fa-bookmark mr-3" />
