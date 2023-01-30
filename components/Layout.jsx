@@ -517,11 +517,11 @@ const Layout = ({
             )}
           </AnimatePresence>
           <button
-            className={`lg:hidden group px-2 mr-4 block h-full text-xl text-white`}
+            className={`lg:hidden group px-2 mr-2 block h-full text-xl text-white`}
             id="menu-icon"
             onClick={_handleMenuBtn}>
             {showMenu ? (
-              <i className="far fa-times"></i>
+              <i className="fal fa-times text-3xl"></i>
             ) : (
               <i className="far fa-bars"></i>
             )}
