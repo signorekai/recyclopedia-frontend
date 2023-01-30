@@ -322,7 +322,9 @@ const Layout = ({
           <div className="header-wrapper">
             <div className="logo-wrapper">
               <Link href="/">
-                <Logo />
+                <a>
+                  <Logo />
+                </a>
               </Link>
             </div>
             <div className="flex flex-row items-center h-full">
