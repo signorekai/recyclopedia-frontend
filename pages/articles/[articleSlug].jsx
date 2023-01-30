@@ -321,6 +321,12 @@ export async function getStaticProps({ params }) {
   );
 
   const categoryTitles = categoryData.map(({ title }) => title);
+  let processedArticle = articles[0];
+
+  processedArticle = processedArticle.replace(
+    /recyclopedia.ap-south-1.linodeobjects.com/g,
+    'cdn.recyclopedia.sg',
+  );
 
   return {
     props: {
