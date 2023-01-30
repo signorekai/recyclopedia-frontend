@@ -10,6 +10,7 @@ import useSWR from 'swr';
 import Link from './Link';
 import { capitalise } from '../lib/functions';
 import Header from './Header';
+import Logo from './Logo';
 import { SWRFetcher, useWindowDimensions } from '../lib/hooks';
 import { _cacheSearchTerm, Suggestion } from './SearchBar';
 
@@ -321,15 +322,7 @@ const Layout = ({
           <div className="header-wrapper">
             <div className="logo-wrapper">
               <Link href="/">
-                <a>
-                  <Image
-                    src="/img/logo.svg"
-                    className="h-6"
-                    alt=""
-                    width={172}
-                    height={24}
-                  />
-                </a>
+                <Logo />
               </Link>
             </div>
             <div className="flex flex-row items-center h-full">
