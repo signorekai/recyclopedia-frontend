@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 
-import { getLargestPossibleImage } from '../lib/functions';
+import { getLargestPossibleImage, replaceCDNUri } from '../lib/functions';
 import Link from './Link';
 import Layout from './Layout';
 import { useWindowDimensions } from '../lib/hooks';
@@ -273,7 +273,7 @@ function ResourcePage({ data, baseUrl, tags }) {
                       <div
                         className="text-base lg:text-lg mt-2 lg:mt-1 !leading-snug article-body lg:w-full info-insights"
                         dangerouslySetInnerHTML={{
-                          __html: data.description,
+                          __html: replaceCDNUri(data.description),
                         }}
                       />
                     </motion.div>
@@ -319,7 +319,7 @@ function ResourcePage({ data, baseUrl, tags }) {
                       <div
                         className="text-base lg:text-lg mt-2 lg:mt-1 px-2 !leading-snug"
                         dangerouslySetInnerHTML={{
-                          __html: data.locations,
+                          __html: replaceCDNUri(data.locations),
                         }}
                       />
                     </motion.div>
@@ -343,7 +343,7 @@ function ResourcePage({ data, baseUrl, tags }) {
                       <div
                         className="text-base lg:text-lg mt-2 lg:mt-0 mb-6 !leading-snug"
                         dangerouslySetInnerHTML={{
-                          __html: data.items,
+                          __html: replaceCDNUri(data.items),
                         }}
                       />
                     )}

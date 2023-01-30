@@ -8,7 +8,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import { ITEMS_PER_PAGE, useWindowDimensions } from '../../lib/hooks';
-import { getLargestPossibleImage } from '../../lib/functions';
+import { getLargestPossibleImage, replaceCDNUri } from '../../lib/functions';
 import { Carousel, CarouselCard } from '../../components/Carousel';
 import Card from '../../components/Card';
 import NewImage from '../../components/Image';
@@ -409,7 +409,7 @@ function Page({ data }) {
                         <div
                           className="text-white text-lg recommendation__box"
                           dangerouslySetInnerHTML={{
-                            __html: item.recommendationText,
+                            __html: replaceCDNUri(item.recommendationText),
                           }}
                         />
                       </RecommendationCard>
@@ -417,7 +417,7 @@ function Page({ data }) {
                         <div
                           className="text-base lg:text-lg mt-2 lg:mt-4 px-2 inline-link"
                           dangerouslySetInnerHTML={{
-                            __html: item.otherText,
+                            __html: replaceCDNUri(item.otherText),
                           }}
                         />
                       )}
@@ -560,7 +560,9 @@ function Page({ data }) {
                   </h5>
                   <div
                     className="text-base lg:text-lg mt-2 lg:mt-0 flex-1 inline-link article-body info-insights"
-                    dangerouslySetInnerHTML={{ __html: data.otherInfo }}></div>
+                    dangerouslySetInnerHTML={{
+                      __html: replaceCDNUri(data.otherInfo),
+                    }}></div>
                 </section>
                 <div className="divider-b mt-8"></div>
               </>

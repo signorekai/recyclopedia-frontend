@@ -3,7 +3,7 @@ import qs from 'qs';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 
-import { getLargestPossibleImage } from '../../lib/functions';
+import { getLargestPossibleImage, replaceCDNUri } from '../../lib/functions';
 import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import { Carousel, CarouselCard } from '../../components/Carousel';
@@ -121,7 +121,9 @@ export default function Page({ article, categoryTitles, nextPost }) {
             </div>
             <article
               className="article-body mt-4 text-lg divider-b divider-b-8"
-              dangerouslySetInnerHTML={{ __html: article.content }}></article>
+              dangerouslySetInnerHTML={{
+                __html: replaceCDNUri(article.content),
+              }}></article>
           </div>
           <div className="container">
             <div className="lg:w-3/4 mt-10 divider-b divider-b-8">
@@ -321,16 +323,10 @@ export async function getStaticProps({ params }) {
   );
 
   const categoryTitles = categoryData.map(({ title }) => title);
-  let processedArticle = articles[0];
-
-  processedArticle.content = processedArticle.content.replace(
-    /recyclopedia.ap-south-1.linodeobjects.com/g,
-    'cdn.recyclopedia.sg',
-  );
 
   return {
     props: {
-      article: processedArticle,
+      article: articles[0],
       nextPost,
       categoryTitles,
     },
