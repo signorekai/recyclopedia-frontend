@@ -355,7 +355,7 @@ const Layout = ({
                                     className={`${
                                       i.hasOwnProperty('colour')
                                         ? 'group-hover/menu:hidden'
-                                        : 'group-hover/menu:opacity-70'
+                                        : 'group-hover/menu:text-grey-hover'
                                     }`}>
                                     {i.icon && (
                                       <i
