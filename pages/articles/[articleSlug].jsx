@@ -323,14 +323,14 @@ export async function getStaticProps({ params }) {
   const categoryTitles = categoryData.map(({ title }) => title);
   let processedArticle = articles[0];
 
-  processedArticle = processedArticle.replace(
+  processedArticle.content = processedArticle.content.replace(
     /recyclopedia.ap-south-1.linodeobjects.com/g,
     'cdn.recyclopedia.sg',
   );
 
   return {
     props: {
-      article: articles[0],
+      article: processedArticle,
       nextPost,
       categoryTitles,
     },
