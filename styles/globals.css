@@ -376,7 +376,7 @@
   }
 
   .logo-wrapper {
-    @apply leading-none -mb-1;
+    @apply leading-none -mb-1 lg:pl-4;
   }
 
   .desktop-menu-wrapper {
