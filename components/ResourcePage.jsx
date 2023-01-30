@@ -112,7 +112,7 @@ function ResourcePage({ data, baseUrl, tags }) {
           <Head>
             <meta
               name="description"
-              content={`Learn what to do with ${data.title} here.`}
+              content={`Learn more about ${data.title} here.`}
             />
             <meta
               property="og:url"
@@ -122,7 +122,7 @@ function ResourcePage({ data, baseUrl, tags }) {
             <meta
               property="og:description"
               key="og:description"
-              content={`Learn what to do with ${data.title} here.`}
+              content={`Learn more about ${data.title} here.`}
             />
             {data.images.length > 0 && (
               <meta
