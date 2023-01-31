@@ -7,6 +7,7 @@ import NewImage from '../components/Image';
 import { staticFetcher, useWindowDimensions } from '../lib/hooks';
 
 import AboutUsBg from '../assets/img/about-us.svg';
+import { replaceCDNUri } from '../lib/functions';
 
 export default function Page({ pageOptions }) {
   const { width } = useWindowDimensions();
@@ -15,7 +16,7 @@ export default function Page({ pageOptions }) {
   return (
     <Layout title={title}>
       <Head>
-        <meta name="description" content={description} />
+        <meta name="description" content={replaceCDNUri(description)} />
       </Head>
       <div className="bg-teal relative">
         <div className="container lg:flex lg:py-12">
@@ -29,7 +30,7 @@ export default function Page({ pageOptions }) {
             <h1
               className="text-black"
               dangerouslySetInnerHTML={{
-                __html: description,
+                __html: replaceCDNUri(description),
               }}></h1>
           </div>
         </div>
@@ -37,7 +38,7 @@ export default function Page({ pageOptions }) {
       <div className="container">
         <div
           className="pt-8 pb-0 article-body"
-          dangerouslySetInnerHTML={{ __html: bodyText }}></div>
+          dangerouslySetInnerHTML={{ __html: replaceCDNUri(bodyText) }}></div>
       </div>
       <div className="my-8 md:my-20">
         <div className="container max-w-[72rem] divider-b "></div>
