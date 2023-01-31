@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 
 import Layout from '../components/Layout';
 import Link from 'next/link';
+import { replaceCDNUri } from '../lib/functions';
 
 const FAQCard = ({ slug, header, content, openByDefault = false, onClick }) => {
   const max = '10000000px';
@@ -54,7 +55,7 @@ const FAQCard = ({ slug, header, content, openByDefault = false, onClick }) => {
         className="overflow-hidden transition-all duration-200 opacity-80">
         <div
           className="mt-4 mb-2"
-          dangerouslySetInnerHTML={{ __html: content }}
+          dangerouslySetInnerHTML={{ __html: replaceCDNUri(content) }}
         />
       </motion.dd>
     </dl>

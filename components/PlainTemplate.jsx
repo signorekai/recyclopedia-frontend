@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Layout from './Layout';
 import { DateTime } from 'luxon';
+import { replaceCDNUri } from '../lib/functions';
 
 function Plain({
   title = '',
@@ -34,7 +35,9 @@ function Plain({
         })()}
         <article
           className="article-body mt-4 text-lg"
-          dangerouslySetInnerHTML={{ __html: bodyText }}></article>
+          dangerouslySetInnerHTML={{
+            __html: replaceCDNUri(bodyText),
+          }}></article>
       </div>
     </Layout>
   );
