@@ -79,7 +79,7 @@
     }
 
     &.container--lg {
-      @apply max-w-[80rem];
+      @apply max-w-[70rem];
     }
 
     &.container--wide {
