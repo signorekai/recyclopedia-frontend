@@ -160,21 +160,12 @@ export const Carousel = ({
 
   return (
     <div className="relative">
-      {desktopControls && width > 1080 && showPreviousBtn && (
+      {desktopControls && showPreviousBtn && (
         <button
           onClick={() => _handleScrollBtn()}
           className={`basic-carousel__control basic-carousel__control--prev group ${
             buttonOffset === 0 && 'items-center'
-          } ${prevBtnClassName}`}>
-          <img
-            style={{
-              transform: `translateY(${buttonOffset}px)`,
-            }}
-            src="/img/previous-btn.svg"
-            alt=""
-            className="drop-shadow group-hover:opacity-0 transition-opacity duration-100"
-          />
-        </button>
+          } ${prevBtnClassName}`}></button>
       )}
       <div
         ref={carouselRef}
@@ -191,21 +182,12 @@ export const Carousel = ({
           {children}
         </motion.div>
       </div>
-      {desktopControls && showNextBtn && width > 1080 && (
+      {desktopControls && showNextBtn && (
         <button
           onClick={() => _handleScrollBtn(1)}
           className={`basic-carousel__control basic-carousel__control--next group ${
             buttonOffset === 0 && 'items-center'
-          } ${nextBtnClassName}`}>
-          <img
-            style={{
-              transform: `translateY(${buttonOffset}px)`,
-            }}
-            src="/img/next-btn.svg"
-            alt=""
-            className="drop-shadow group-hover:opacity-0 transition-opacity duration-100"
-          />
-        </button>
+          } ${nextBtnClassName}`}></button>
       )}
     </div>
   );

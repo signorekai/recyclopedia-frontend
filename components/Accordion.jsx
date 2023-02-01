@@ -74,9 +74,9 @@ export const AccordionHeader = ({
         scrollTo={scroll}
         className={carouselClassName}
         buttonOffset="12"
-        prevBtnClassName="-translate-x-16"
-        nextBtnClassName="translate-x-16"
-        sliderClassName={`gap-x-8 relative ${sliderClassName}`}>
+        prevBtnClassName="-translate-x-4"
+        nextBtnClassName="translate-x-4"
+        sliderClassName={`gap-x-6 relative ${sliderClassName}`}>
         {items.map((header, key) => {
           return (
             <CarouselCard className={cardClassName} key={`${header}-${key}`}>
