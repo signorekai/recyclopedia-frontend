@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   const { event, model, entry } = req.body;
 
-  console.log(model);
+  console.log(model, event, entry);
 
   if (
     req.headers.authorization !== `Bearer ${process.env.CONTENT_UPDATE_KEY}`
