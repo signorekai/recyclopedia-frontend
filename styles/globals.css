@@ -464,6 +464,10 @@
   .article-body {
     @apply lg:w-3/4;
 
+    &.article-body--wide {
+      @apply lg:w-full;
+    }
+
     a {
       @apply text-blue;
     }

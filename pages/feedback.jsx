@@ -2,18 +2,30 @@ import Head from 'next/head';
 import Layout from '../components/Layout';
 import { FeedbackForm } from '../components/Report';
 
-export default function Page() {
+import { staticFetcher } from '../lib/hooks';
+import { replaceCDNUri } from '../lib/functions';
+
+export default function Page({ pageOptions }) {
+  const { title, bodyText } = pageOptions;
+
   return (
-    <Layout title="Contact us">
+    <Layout title={title}>
       <div className="container container--narrow h-full pt-4 lg:pt-10">
-        <h1 className="text-black">Contact us</h1>
-        <h3 className="mb-10">
-          Spotted outdated information, or have suggestions for improvements?
-          Know a certain item that isn’t yet listed? Or got a tip you’d like to
-          share with everyone? Please reach out!
-        </h3>
+        <h1 className="text-black">{title}</h1>
+        <div
+          className="mb-10 article-body article-body--wide"
+          dangerouslySetInnerHTML={{ __html: replaceCDNUri(bodyText) }}></div>
         <FeedbackForm />
       </div>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  const { data: pageOptions } = await staticFetcher(
+    `${process.env.API_URL}/contact-us-page`,
+    process.env.API_KEY,
+  );
+
+  return { props: { pageOptions } };
 }
