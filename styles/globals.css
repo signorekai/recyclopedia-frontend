@@ -183,18 +183,16 @@
   }
 
   .basic-carousel__control {
-    @apply h-[calc(100%_-_1.75em)] w-16 from-white/75 to-transparent absolute top-0 z-20;
+    @apply h-full from-white to-transparent absolute top-0 z-20;
     @apply flex items-start justify-center;
   }
 
   .basic-carousel__control--prev {
-    @apply bg-gradient-to-r left-0;
-    @apply cursor-prev-btn;
+    @apply bg-gradient-to-r left-0 w-8;
   }
 
   .basic-carousel__control--next {
-    @apply bg-gradient-to-l right-0;
-    @apply cursor-next-btn;
+    @apply bg-gradient-to-l right-0 w-[25vw] max-w-[160px];
   }
 
   .basic-carousel__card {
