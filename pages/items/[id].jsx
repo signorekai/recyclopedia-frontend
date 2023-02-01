@@ -569,7 +569,7 @@ function Page({ data }) {
             )}
             {(data.showSimilar === null || data.showSimilar === true) &&
               data.itemTag &&
-              data.itemTag.items.length > 1 && (
+              data.itemTag.items.length > 0 && (
                 <>
                   <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
                     <div className="lg:col-span-1">
@@ -738,6 +738,7 @@ export async function getStaticProps({ params }) {
 
   let relatedItems = [];
   let relatedItemsIndex = [];
+
   if (!!results.data[0].itemTag) {
     const unparsedRelatedItems = results.data[0].itemTag.items;
 
@@ -746,6 +747,8 @@ export async function getStaticProps({ params }) {
       relatedItems.length < 12
     ) {
       const x = Math.floor(Math.random() * unparsedRelatedItems.length);
+
+      console.log(751, unparsedRelatedItems[x].id, results.data[0].id);
       if (
         relatedItemsIndex.indexOf(x) === -1 &&
         unparsedRelatedItems[x].id !== results.data[0].id
