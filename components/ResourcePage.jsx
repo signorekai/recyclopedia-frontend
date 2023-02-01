@@ -348,6 +348,7 @@ function ResourcePage({ data, baseUrl, tags }) {
                       />
                     )}
                     <Masonry
+                      expandedByDefault={width < 1080}
                       columns={3}
                       items={data.relatedItems}
                       card={(item, key) => (

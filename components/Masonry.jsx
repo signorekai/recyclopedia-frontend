@@ -10,9 +10,10 @@ export default function Masonry({
   mobileColumns = 2,
   tabletColumns = 3,
   desktopColumns = 4,
+  expandedByDefault = false,
 }) {
   const { width } = useWindowDimensions();
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(expandedByDefault);
   const masonryColumns =
     width < 768 ? mobileColumns : width < 1080 ? tabletColumns : desktopColumns;
   const computedItems = showAll ? items : items.slice(0, masonryColumns);
