@@ -3,14 +3,8 @@ import { SWRConfig } from 'swr';
 import qs from 'qs';
 
 import Layout from '../components/Layout';
-import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
-import {
-  useFetchContent,
-  useSearchBarTopValue,
-  ITEMS_PER_PAGE,
-  staticFetcher,
-} from '../lib/hooks';
+import { useFetchContent, ITEMS_PER_PAGE, staticFetcher } from '../lib/hooks';
 import InfiniteLoader from '../components/InfiniteLoader';
 import {
   AccordionBody,
@@ -114,20 +108,20 @@ const Cards = ({ categories, columnCount = 3 }) => {
   });
 
   return (
-    <div className="container">
+    <>
       {categories && (
         <AccordionProvider headers={['All', ...categories]}>
-          <AccordionHeader />
-          <AccordionBody {...cards} />
+          <div className="lg:container">
+            <AccordionHeader className="px-4 lg:px-0" />
+          </div>
+          <AccordionBody className="container" {...cards} />
         </AccordionProvider>
       )}
-    </div>
+    </>
   );
 };
 
 export default function Page({ fallback, pageOptions, categories }) {
-  const x = useSearchBarTopValue();
-
   return (
     <Layout
       title={pageOptions.title}
@@ -136,10 +130,10 @@ export default function Page({ fallback, pageOptions, categories }) {
         <meta name="description" content={pageOptions.subtitle} />
       </Head>
       <section
-        className="py-4 lg:pt-10 text-white"
+        className="py-4 lg:py-8 text-white"
         style={{ backgroundColor: pageOptions.colour }}>
         <div className="container ">
-          <h1 className="text-white">
+          <h1 className="text-white mb-2">
             <i
               className={`${
                 { Regular: 'far', Light: 'fal', Solid: 'fas' }[
@@ -152,14 +146,6 @@ export default function Page({ fallback, pageOptions, categories }) {
           <p className="text-lg leading-tight ">{pageOptions.subtitle}</p>
         </div>
       </section>
-      <SearchBar
-        top={x}
-        className="z-20 py-2 sticky lg:relative transition-all duration-200"
-        wrapperClassName="max-w-[1040px]"
-        searchSuggestionsClass=""
-        inactiveBackgroundColor={pageOptions.colour}
-        activeBackgroundColor={pageOptions.colour}
-      />
       <div className="container mt-4 lg:mt-6">
         <h4 className="text-grey-dark text-sm lg:text-lg font-thin">
           Sorted by Popularity
