@@ -30,6 +30,10 @@ export default function Masonry({
   };
 
   useEffect(() => {
+    setShowAll(expandedByDefault);
+  }, [expandedByDefault]);
+
+  useEffect(() => {
     _handleResize();
   }, [width]);
 
