@@ -60,6 +60,10 @@ export default async function handler(req, res) {
       url = url.concat(items);
       break;
 
+    case 'contact-us-page':
+      url.push('/feedback');
+      break;
+
     case 'about-us-page':
       url.push('/about-us');
       break;
