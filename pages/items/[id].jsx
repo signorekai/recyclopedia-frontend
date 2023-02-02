@@ -580,6 +580,7 @@ function Page({ data }) {
                     </div>
                     <div className="lg:col-span-3">
                       <Masonry
+                        expandedByDefault={width < 1080}
                         columns={width > 1080 ? 4 : 2}
                         items={data.itemTag.items}
                         card={(item, key) => (
