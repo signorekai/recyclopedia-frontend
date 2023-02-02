@@ -140,6 +140,8 @@ function Page({ data }) {
   const { width, height } = useWindowDimensions();
   const router = useRouter();
 
+  console.log(143, width);
+
   const modifier =
     data && data.images && data.images.length === 1 ? 0.5 : 0.335;
 
@@ -169,20 +171,6 @@ function Page({ data }) {
     }
   }
 
-  const relatedItem = (item, key) => (
-    <div key={key} className="w-full">
-      <Card
-        uniqueKey={`card-${key}`}
-        prefixIcon={item.resourceIcon || ''}
-        content={{
-          image: item.images ? item.images[0] : {},
-          headerText: item.title,
-          contentType: 'items',
-          slug: item.slug,
-        }}
-      />
-    </div>
-  );
   return (
     <>
       {data && (
@@ -433,18 +421,15 @@ function Page({ data }) {
                           className="mt-4"
                           card={({ resource }, key) => {
                             return (
-                              <div className="">
+                              <div key={`resource-${key}`} className="">
                                 <CarouselCard
                                   featured={resource.featured === true}
-                                  key={key}
                                   className={`w-full group rounded-md bg-white-pure border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative ${
                                     resource.featured === true
                                       ? 'm-[2px] basic-carousel__card--featured border-0'
                                       : ' border-1'
                                   } `}>
-                                  <Link
-                                    key={key}
-                                    href={`/resources/${resource.slug}`}>
+                                  <Link href={`/resources/${resource.slug}`}>
                                     <a className="no-underline group-hover:opacity-100 group-active:opacity-100 relative">
                                       {resource.resourceIcon &&
                                         resource.resourceIcon.length > 0 && (
@@ -584,7 +569,7 @@ function Page({ data }) {
                         columns={width > 1080 ? 4 : 2}
                         items={data.itemTag.items}
                         card={(item, key) => (
-                          <div key={key} className="w-full">
+                          <div key={`related-items-${key}`} className="w-full">
                             <Card
                               uniqueKey={`card-${key}`}
                               alt={`${item.title} Recycling in Singapore`}
