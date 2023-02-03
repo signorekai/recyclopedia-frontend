@@ -112,7 +112,12 @@ const Cards = ({ categories, columnCount = 3 }) => {
       {categories && (
         <AccordionProvider headers={['All', ...categories]}>
           <div className="lg:container">
-            <AccordionHeader className="px-4 lg:px-0" />
+            <AccordionHeader className="" />
+          </div>
+          <div className="container mt-4 lg:mt-6">
+            <h4 className="text-grey-dark text-sm lg:text-lg font-thin">
+              Sorted by Popularity
+            </h4>
           </div>
           <AccordionBody className="container" {...cards} />
         </AccordionProvider>
@@ -146,11 +151,6 @@ export default function Page({ fallback, pageOptions, categories }) {
           <p className="text-lg leading-tight ">{pageOptions.subtitle}</p>
         </div>
       </section>
-      <div className="container mt-4 lg:mt-6">
-        <h4 className="text-grey-dark text-sm lg:text-lg font-thin">
-          Sorted by Popularity
-        </h4>
-      </div>
       <SWRConfig value={{ fallback }}>
         <Cards
           categories={categories}

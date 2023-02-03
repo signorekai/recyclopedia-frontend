@@ -74,12 +74,14 @@ export const AccordionHeader = ({
         scrollTo={scroll}
         className={carouselClassName}
         buttonOffset="12"
-        prevBtnClassName="-translate-x-4"
-        nextBtnClassName="translate-x-4"
-        sliderClassName={`gap-x-6 relative ${sliderClassName}`}>
+        prevBtnClassName=""
+        nextBtnClassName=""
+        sliderClassName={`gap-x-1 relative ${sliderClassName}`}>
         {items.map((header, key) => {
           return (
-            <CarouselCard className={cardClassName} key={`${header}-${key}`}>
+            <CarouselCard
+              className={`px-3 first:pl-4 last:pr-4 ${cardClassName}`}
+              key={`${header}-${key}`}>
               <button
                 className={`pt-5`}
                 onClick={() => {
@@ -150,7 +152,7 @@ export const AccordionBody = ({
       <Carousel
         desktopControls={desktopControls}
         autoScroll={false}
-        className="mt-5"
+        className="mt-4"
         scrollTo={scroll}
         disableScroll={true}
         sliderClassName="relative gap-x-0">

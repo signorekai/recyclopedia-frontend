@@ -138,16 +138,14 @@ export const Carousel = ({
 
       if (progress >= 0.95) {
         setShowNextBtn(false);
+      } else {
+        setShowNextBtn(true);
       }
 
       if (scroll > 20) {
         setShowPreviousBtn(true);
       } else {
         setShowPreviousBtn(false);
-      }
-
-      if (progress <= 0.05) {
-        setShowNextBtn(true);
       }
     }, 100);
 
@@ -170,7 +168,7 @@ export const Carousel = ({
       <div
         ref={carouselRef}
         className={`basic-carousel ${
-          snapToChild && 'snap-x snap-mandatory'
+          snapToChild && 'snap-x snap-mandatory scroll-px-1'
         } ${className} ${disableScroll ? 'overflow-hidden' : ''}`}>
         <motion.div
           style={{

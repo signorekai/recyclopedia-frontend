@@ -115,7 +115,7 @@ const Cards = ({ tags, columnCount = 3, contentType }) => {
       {tags && (
         <AccordionProvider headers={['All', ...tags.map((title) => title)]}>
           <div className="lg:container">
-            <AccordionHeader className="px-4 lg:px-0" />
+            <AccordionHeader className="" />
           </div>
           <AccordionBody className="container" {...items} />
         </AccordionProvider>
