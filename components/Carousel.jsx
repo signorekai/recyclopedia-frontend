@@ -5,13 +5,14 @@ import React, {
   useCallback,
   Children,
 } from 'react';
-import { motion, useElementScroll, useMotionValue } from 'framer-motion';
-
 import {
-  useElementSize,
-  useScrollDrag,
-  useWindowDimensions,
-} from '../lib/hooks';
+  motion,
+  useElementScroll,
+  useMotionValue,
+  AnimatePresence,
+} from 'framer-motion';
+
+import { useWindowDimensions } from '../lib/hooks';
 
 import { debounce } from '../lib/functions';
 
@@ -134,7 +135,6 @@ export const Carousel = ({
   useEffect(() => {
     const debouncedFunction = debounce((scroll) => {
       const progress = scrollXProgress.get();
-      const carouselWidth = carouselRef.current.offsetWidth;
 
       if (progress >= 0.95) {
         setShowNextBtn(false);
@@ -158,13 +158,25 @@ export const Carousel = ({
 
   return (
     <div className="relative">
-      {desktopControls && showPreviousBtn && (
-        <button
-          onClick={() => _handleScrollBtn()}
-          className={`basic-carousel__control basic-carousel__control--prev group ${
-            buttonOffset === 0 && 'items-center'
-          } ${prevBtnClassName}`}></button>
-      )}
+      <AnimatePresence initial={false}>
+        {desktopControls && showPreviousBtn && (
+          <motion.button
+            transition={{ ease: 'easeInOut', duration: 0.15 }}
+            initial={{
+              x: '-100%',
+            }}
+            animate={{
+              x: '0%',
+            }}
+            exit={{
+              x: '-100%',
+            }}
+            onClick={() => _handleScrollBtn()}
+            className={`basic-carousel__control basic-carousel__control--prev group ${
+              buttonOffset === 0 && 'items-center'
+            } ${prevBtnClassName}`}></motion.button>
+        )}
+      </AnimatePresence>
       <div
         ref={carouselRef}
         className={`basic-carousel ${
@@ -180,13 +192,25 @@ export const Carousel = ({
           {children}
         </motion.div>
       </div>
-      {desktopControls && showNextBtn && (
-        <button
-          onClick={() => _handleScrollBtn(1)}
-          className={`basic-carousel__control basic-carousel__control--next group ${
-            buttonOffset === 0 && 'items-center'
-          } ${nextBtnClassName}`}></button>
-      )}
+      <AnimatePresence initial={false}>
+        {desktopControls && showNextBtn && (
+          <motion.button
+            transition={{ ease: 'easeInOut', duration: 0.15 }}
+            initial={{
+              x: '100%',
+            }}
+            animate={{
+              x: '0%',
+            }}
+            exit={{
+              x: '100%',
+            }}
+            onClick={() => _handleScrollBtn(1)}
+            className={`basic-carousel__control basic-carousel__control--next group ${
+              buttonOffset === 0 && 'items-center'
+            } ${nextBtnClassName}`}></motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

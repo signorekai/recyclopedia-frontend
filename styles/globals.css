@@ -183,12 +183,13 @@
   }
 
   .basic-carousel__control {
-    @apply h-full from-white to-transparent absolute top-0 z-20;
+    @apply h-12 from-white to-transparent absolute top-0 z-20;
     @apply flex items-start justify-center;
+    @apply touch-none;
   }
 
   .basic-carousel__control--prev {
-    @apply bg-gradient-to-r left-0 w-8;
+    @apply bg-gradient-to-r left-0 w-10;
   }
 
   .basic-carousel__control--next {
