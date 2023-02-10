@@ -82,7 +82,7 @@ export default function Page({ pageOptions }) {
             <div className="container divider-b mt-12 lg:mt-16"></div>
             <div className="container flex flex-col lg:flex-row mt-8 lg:mt-12 items-start">
               <h2 className="text-black lg:w-1/4 lg:justify-start">
-                Proudly Supported by
+                Featured On
               </h2>
               <div className="flex-1 mt-2 lg:mt-0 flex lg:grid items-center grid-cols-3 gap-x-4 gap-y-2">
                 {supporters.map((supporter) => (
