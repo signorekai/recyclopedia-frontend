@@ -77,7 +77,7 @@ export default function Page({ pageOptions }) {
             </p>
           </div>
         </div>
-        {supporters && supporters.length > 1 && (
+        {supporters && supporters.length >= 1 && (
           <>
             <div className="container divider-b mt-12 lg:mt-16"></div>
             <div className="container flex flex-col lg:flex-row mt-8 lg:mt-12 items-start">
@@ -95,7 +95,7 @@ export default function Page({ pageOptions }) {
                       className="max-h-[55px]"
                       width={supporter.image.width}
                       height={supporter.image.height}
-                      layout="fixed"
+                      layout="responsive"
                       placeholder={supporter.image.placeholder}
                       source={supporter.image}
                     />
