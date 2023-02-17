@@ -72,7 +72,9 @@ export default function Page({ pageOptions }) {
           <div className="w-full md:w-3/4 md:pl-4">
             <p>
               If you are passionate about zero waste and would like to
-              contribute, drop us a line at{' '}
+              contribute,
+              <br />
+              drop us a line at{' '}
               <a href="mailto:hello@recyclopedia.sg">hello@recyclopedia.sg</a>
             </p>
           </div>
