@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "algoliasearch": "^4.14.3",
     "cookies": "^0.8.0",
     "focus-trap-react": "^8.9.2",
     "formik": "^2.2.9",

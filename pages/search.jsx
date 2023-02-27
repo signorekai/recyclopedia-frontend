@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import _find from 'lodash.find';
+import pluralize from 'pluralize';
+import algoliasearch from 'algoliasearch';
 
 import { staticFetcher, staticPost, useWindowDimensions } from '../lib/hooks';
 import Layout from '../components/Layout';
@@ -20,7 +22,6 @@ import {
 import { Carousel, CarouselCard } from '../components/Carousel';
 import { getOrSetVisitorToken } from '../lib/analytics';
 import { FeedbackModal } from '../components/Report';
-import pluralize from 'pluralize';
 
 const SingleSearchType = ({
   type,
@@ -117,24 +118,6 @@ const SingleSearchType = ({
               );
             })}
           </div>
-          <p className="text-lg block mt-6 lg:mt-10">Want more results?</p>
-          <p className="mt-2 pt-0 text-lg mb-32">
-            <Link
-              href={`/search?${qs.stringify({
-                contentType: [
-                  'items',
-                  'resources',
-                  'articles',
-                  'freecycling',
-                  'shops',
-                ].join(','),
-                searchTerm: query,
-              })}`}>
-              <a className="text-coral hover:text-coral hover:opacity-80 no-underline">
-                Search entire site <i className="p-2 far fa-arrow-right"></i>
-              </a>
-            </Link>
-          </p>
         </div>
       )}
       {items && items.length === 0 && (
@@ -576,27 +559,44 @@ export async function getServerSideProps({ req, query, res }) {
 
       const data = {};
 
-      await Promise.all(promises).then((results) => {
-        results.map((result, key) => {
-          if (result.data?.length > 0) {
-            data[search.type[key]] = result.data;
-          }
+      const client = algoliasearch(
+        process.env.ALGOLIA_APP_ID,
+        process.env.ALGOLIA_API_KEY,
+      );
+
+      const itemIndex = client.initIndex('production_api::item.item');
+      const resourcesIndex = client.initIndex(
+        'production_api::resource.resource',
+      );
+
+      const articlesIndex = client.initIndex('production_api::article.article');
+
+      await itemIndex.search(search.query).then(({ hits }) => {
+        data.items = [];
+        hits.forEach((item) => {
+          data.items.push({
+            id: item.objectID,
+            title: item.title,
+            alternateSearchTerms: item.alternateSearchTerms,
+            slug: item.slug,
+            images: item.images,
+          });
         });
       });
 
-      const fuzzySearchResult = await fetch(
-        `${ip}/fuzzy-search/search?query=${search.query}`,
-      );
-      const fuzzyResults = await fuzzySearchResult.json();
-
-      fuzzyResults.items.forEach((item) => {
-        const result = _find(data.items, ['id', item.id]);
-        if (result === undefined) {
-          if (data.hasOwnProperty('items') === false) {
-            data.items = [];
-          }
-          data.items.push(item);
+      await articlesIndex.search(search.query).then(({ hits }) => {
+        if (hits.length > 0) {
+          data.articles = [];
         }
+
+        hits.forEach((article) => {
+          data.articles.push({
+            id: article.objectID,
+            title: article.title,
+            slug: article.slug,
+            coverImage: article.coverImage,
+          });
+        });
       });
 
       const resourceTagMap = [];
@@ -608,18 +608,25 @@ export async function getServerSideProps({ req, query, res }) {
         }
       }
 
-      fuzzyResults.resources.forEach((resource) => {
-        resource.resourceTags.forEach((tag) => {
-          const type = resourceTagMap[tag.id];
-          const result = _find(data[type], ['id', resource.id]);
-          if (result === undefined) {
-            if (data.hasOwnProperty(type) === false) {
-              data[type] = [];
+      await resourcesIndex.search(search.query).then(({ hits }) => {
+        hits.forEach((resource) => {
+          resource.resourceTags.forEach((tag) => {
+            const type = resourceTagMap[tag.id];
+            const result = _find(data[type], ['id', resource.objectID]);
+            if (result === undefined) {
+              if (data.hasOwnProperty(type) === false) {
+                data[type] = [];
+              }
+              data[type].push({
+                id: resource.objectID,
+                title: resource.title,
+                images: resource.images,
+                slug: resource.slug,
+              });
+            } else {
+              console.log(resource.title, 'already in', type);
             }
-            data[type].push(resource);
-          } else {
-            console.log(resource.title, 'already in', type);
-          }
+          });
         });
       });
 
