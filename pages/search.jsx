@@ -572,7 +572,8 @@ export async function getServerSideProps({ req, query, res }) {
       const articlesIndex = client.initIndex('production_api::article.article');
 
       await itemIndex.search(search.query).then(({ hits }) => {
-        data.items = [];
+        if (hits.length > 0) data.items = [];
+
         hits.forEach((item) => {
           data.items.push({
             id: item.objectID,
