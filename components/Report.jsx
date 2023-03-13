@@ -269,6 +269,12 @@ export const FeedbackForm = ({
                       }}
                     />
                   </div>
+                  <p className="mt-4 text-blue-dark">
+                    <strong>
+                      Please note that we do not provide recycling or collection
+                      services. Recyclopedia.sg is a reference website.
+                    </strong>
+                  </p>
                   <div className="">
                     <button
                       type="submit"
