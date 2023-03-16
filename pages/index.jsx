@@ -15,12 +15,28 @@ import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
 import Link from '../components/Link';
 import Logo from '../components/Logo';
+import OpenGraph from '../components/OpenGraph';
 
-export default function Home({ items, newsItems, newsletter, donationDrives }) {
+export default function Home({
+  items,
+  newsItems,
+  newsletter,
+  donationDrives,
+  pageOptions,
+}) {
   const { width } = useWindowDimensions();
+  const { SEO } = pageOptions;
 
   return (
     <Layout>
+      <OpenGraph
+        defaultData={{
+          title: 'Home',
+          description:
+            'Everything you need to know when you have something to throw. A Singapore based directory of recommendations and advice on reducing your waste-karma with info on donation drives, recycle options, thrift shops, and more.',
+        }}
+        SEO={SEO}
+      />
       <div className="bg-mobile-banner md:bg-banner bg-no-repeat bg-contain">
         <div className="max-w-md lg:max-w-none pt-40 md:pt-24 lg:pt-32 mx-auto">
           <a className="lg:flex justify-center z-10 relative hidden">
@@ -265,6 +281,16 @@ export async function getStaticProps() {
     process.env.API_KEY,
   );
 
+  const { data: pageOptions } = await staticFetcher(
+    `${ip}/home-page`,
+    process.env.API_KEY,
+    {
+      populate: ['SEO', 'SEO.image'],
+    },
+  );
+
+  console.log(291, pageOptions);
+
   let newsItems =
     generalSettings.homePageFeaturedArticles.map(
       (article) => article.article,
@@ -292,6 +318,7 @@ export async function getStaticProps() {
       items,
       newsItems,
       donationDrives,
+      pageOptions,
       newsletter: {
         header: generalSettings.newsletterHeader,
         body: generalSettings.newsletterBodyText,

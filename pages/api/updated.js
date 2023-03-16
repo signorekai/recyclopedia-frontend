@@ -20,6 +20,10 @@ export default async function handler(req, res) {
       url.push('/');
       break;
 
+    case 'home-page':
+      url.push('/');
+      break;
+
     case 'article':
       url.push('/');
       url.push('/articles');
@@ -78,10 +82,6 @@ export default async function handler(req, res) {
 
     case 'items-page':
       url.push('/items');
-      break;
-
-    case 'home-page':
-      url.push('/');
       break;
 
     case 'newsletter-page':
