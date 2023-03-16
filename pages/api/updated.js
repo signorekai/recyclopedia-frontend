@@ -44,7 +44,7 @@ export default async function handler(req, res) {
       break;
 
     case 'article-category':
-      url.push('/news-tips');
+      url.push('/articles');
       var items = entry.articles.map((article) => `/articles/${article.slug}`);
       url = url.concat(items);
       break;
@@ -89,7 +89,7 @@ export default async function handler(req, res) {
       break;
 
     case 'news-and-tips-page':
-      url.push('/news-tips');
+      url.push('/articles');
       break;
 
     case 'resource-page':
