@@ -62,6 +62,8 @@ export async function getStaticProps({ params }) {
       'relatedItems',
       'relatedItems.images',
       'externalLinks',
+      'SEO',
+      'SEO.image',
     ],
     filters: {
       slug: {

@@ -285,6 +285,7 @@ const Layout = ({
         />
         <meta name="theme-color" content="#ffffff" />
         <meta
+          key="description"
           name="description"
           content="Everything you need to know when you have something to throw. A Singapore based directory of recommendations and advice on reducing your waste-karma with info on donation drives, recycle options, thrift shops, and more."
         />

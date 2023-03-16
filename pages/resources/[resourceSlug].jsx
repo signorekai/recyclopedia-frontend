@@ -25,7 +25,7 @@ export async function getStaticPaths() {
     },
   }));
 
-  const queryParams = qs.stringify({
+  const result = await staticFetcher(`${ip}/resources`, process.env.API_KEY, {
     pagination: {
       page: 1,
       pagesize: 50,
@@ -35,16 +35,10 @@ export async function getStaticPaths() {
     },
   });
 
-  const res = await fetch(`${ip}/resources?${queryParams}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.API_KEY}`,
-    },
-  });
-  const result = await res.json();
-
   if (result.data.length === 0) {
     return { notFound: true };
   }
+
   // Get the paths we want to pre-render based on posts
   const paths = result.data.map((item) => ({
     params: { resourceSlug: item.slug },
@@ -56,13 +50,16 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const { resourceSlug } = params;
   const ip = process.env.API_URL;
-  const queryParams = qs.stringify({
+
+  const result = await staticFetcher(`${ip}/resources`, process.env.API_KEY, {
     populate: [
       'images',
       'resourceTags',
       'relatedItems',
       'relatedItems.images',
       'externalLinks',
+      'SEO',
+      'SEO.image',
     ],
     filters: {
       slug: {
@@ -70,13 +67,6 @@ export async function getStaticProps({ params }) {
       },
     },
   });
-
-  const res = await fetch(`${ip}/resources?${queryParams}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.API_KEY}`,
-    },
-  });
-  const result = await res.json();
 
   if (result.data.length === 0) {
     return { notFound: true };
@@ -93,32 +83,40 @@ export async function getStaticProps({ params }) {
     'resource-page': 'resources',
   };
 
+  const promises = [];
   for (const category of categories) {
-    const { data } = await staticFetcher(
-      `${process.env.API_URL}/${category}?${qs.stringify({
-        populate: ['resourceTags'],
-        filters: {
-          resourceTags: {
-            id: {
-              $in: tags,
+    promises.push(
+      new Promise(async (resolve) => {
+        const { data } = await staticFetcher(
+          `${process.env.API_URL}/${category}`,
+          process.env.API_KEY,
+          {
+            populate: ['resourceTags'],
+            filters: {
+              resourceTags: {
+                id: {
+                  $in: tags,
+                },
+              },
             },
           },
-        },
-      })}`,
-      process.env.API_KEY,
-    );
+        );
 
-    if (data !== null) {
-      for (const tagId of tags) {
-        for (const resourceTag of data.resourceTags) {
-          if (resourceTag.id === tagId) {
-            categoryTags[tagId] = categorySlugs[category];
-            break;
+        if (data !== null) {
+          for (const tagId of tags) {
+            for (const resourceTag of data.resourceTags) {
+              if (resourceTag.id === tagId) {
+                categoryTags[tagId] = categorySlugs[category];
+                break;
+              }
+            }
           }
         }
-      }
-    }
+        resolve();
+      }),
+    );
   }
+  await Promise.all(promises);
 
   return { props: { data, categoryTags } };
 }

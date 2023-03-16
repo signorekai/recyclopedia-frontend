@@ -7,8 +7,16 @@ import { useState, useEffect, useRef } from 'react';
 
 import Link from '../../components/Link';
 import Layout from '../../components/Layout';
-import { ITEMS_PER_PAGE, useWindowDimensions } from '../../lib/hooks';
-import { getLargestPossibleImage, replaceCDNUri } from '../../lib/functions';
+import {
+  ITEMS_PER_PAGE,
+  staticFetcher,
+  useWindowDimensions,
+} from '../../lib/hooks';
+import {
+  getLargestPossibleImage,
+  replaceCDNUri,
+  replaceText,
+} from '../../lib/functions';
 import { Carousel, CarouselCard } from '../../components/Carousel';
 import Card from '../../components/Card';
 import NewImage from '../../components/Image';
@@ -140,8 +148,6 @@ function Page({ data }) {
   const { width, height } = useWindowDimensions();
   const router = useRouter();
 
-  console.log(143, width);
-
   const modifier =
     data && data.images && data.images.length === 1 ? 0.5 : 0.335;
 
@@ -171,36 +177,57 @@ function Page({ data }) {
     }
   }
 
+  const meta = {
+    description: `Where to recycle ${data.title.toLowerCase()} in Singapore. Find the best ways to recycle, upcycle or donate old, used, or new ${data.title.toLowerCase()}`,
+    title: data.title,
+    image: `${process.env.NEXT_PUBLIC_LOCATION}/img/cover-image.jpg`,
+  };
+
+  if (data.images.length > 0) {
+    meta.image = getLargestPossibleImage(data.images[0], 'large', 'medium');
+  }
+
+  if (data.SEO) {
+    if (data.SEO.title) {
+      meta.title = replaceText(data.SEO.title, [['%s', data.title]]);
+    }
+    if (data.SEO.description) {
+      meta.description = replaceText(data.SEO.description, [
+        ['%s', data.title],
+      ]);
+    }
+
+    if (data.SEO.image !== null) {
+      meta.image = getLargestPossibleImage(data.SEO.image, 'large', 'medium');
+    }
+  }
+
   return (
     <>
       {data && (
         <Layout title={data && data.title}>
           <Head>
             <meta
-              name="description"
-              content={`Where to recycle ${data.title.toLowerCase()} in Singapore. Find the best ways to recycle, upcycle or donate old, used, or new ${data.title.toLowerCase()}`}
-            />
-            <meta
               property="og:url"
               key="og:url"
               content={`${process.env.NEXT_PUBLIC_LOCATION}${router.asPath}`}
             />
             <meta
+              name="og:title"
+              key="og:title"
+              content={`${meta.title} | Recyclopedia.sg`}
+            />
+            <meta
+              key="description"
+              name="description"
+              content={meta.description}
+            />
+            <meta
               property="og:description"
               key="og:description"
-              content={`Where to recycle ${data.title.toLowerCase()} in Singapore. Find the best ways to recycle, upcycle or donate old, used, or new ${data.title.toLowerCase()}`}
+              content={meta.description}
             />
-            {data.images.length > 0 && (
-              <meta
-                property="og:image"
-                key="og:image"
-                content={getLargestPossibleImage(
-                  data.images[0],
-                  'large',
-                  'medium',
-                )}
-              />
-            )}
+            <meta property="og:image" key="og:image" content={meta.image} />
           </Head>
           {width > 1080 ? (
             <div className="container">
@@ -688,45 +715,46 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const { id } = params;
-  const ip = process.env.API_URL;
-  const queryParams = qs.stringify({
-    populate: [
-      'recommendations',
-      'images',
-      'articles',
-      'articles.coverImage',
-      'recommendations.resources',
-      'recommendations.resources.images',
-      'recommendations.resourcesComp',
-      'recommendations.resourcesComp.resource',
-      'recommendations.resourcesComp.resource.images',
-      'itemTag',
-      'itemTag.items',
-      'itemTag.items.images',
-    ],
-    filters: {
-      slug: {
-        $eq: id,
+
+  const results = await staticFetcher(
+    `${process.env.API_URL}/items`,
+    process.env.API_KEY,
+    {
+      populate: [
+        'recommendations',
+        'images',
+        'articles',
+        'articles.coverImage',
+        'recommendations.resources',
+        'recommendations.resources.images',
+        'recommendations.resourcesComp',
+        'recommendations.resourcesComp.resource',
+        'recommendations.resourcesComp.resource.images',
+        'itemTag',
+        'itemTag.items',
+        'itemTag.items.images',
+        'SEO',
+        'SEO.image',
+      ],
+      filters: {
+        slug: {
+          $eq: id,
+        },
       },
     },
-  });
-
-  const res = await fetch(`${ip}/items?${queryParams}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.API_KEY}`,
-    },
-  });
-  let results = await res.json();
+  );
 
   if (results.data.length === 0) {
     return { notFound: true };
   }
 
+  const data = results.data[0];
+
   let relatedItems = [];
   let relatedItemsIndex = [];
 
-  if (!!results.data[0].itemTag) {
-    const unparsedRelatedItems = results.data[0].itemTag.items;
+  if (!!data.itemTag) {
+    const unparsedRelatedItems = data.itemTag.items;
 
     while (
       relatedItems.length < unparsedRelatedItems.length - 1 &&
@@ -734,19 +762,18 @@ export async function getStaticProps({ params }) {
     ) {
       const x = Math.floor(Math.random() * unparsedRelatedItems.length);
 
-      console.log(751, unparsedRelatedItems[x].id, results.data[0].id);
       if (
         relatedItemsIndex.indexOf(x) === -1 &&
-        unparsedRelatedItems[x].id !== results.data[0].id
+        unparsedRelatedItems[x].id !== data.id
       ) {
         relatedItems.push(unparsedRelatedItems[x]);
         relatedItemsIndex.push(x);
       }
     }
-    results.data[0].itemTag.items = relatedItems;
+    data.itemTag.items = relatedItems;
   }
 
-  return { props: { data: results.data[0] } };
+  return { props: { data } };
 }
 
 export default Page;
