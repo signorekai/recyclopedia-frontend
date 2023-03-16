@@ -2,12 +2,14 @@ import Head from 'next/head';
 import Layout from './Layout';
 import { DateTime } from 'luxon';
 import { replaceCDNUri } from '../lib/functions';
+import OpenGraph from './OpenGraph';
 
 function Plain({
   title = '',
   bodyText = <div></div>,
   description = '',
   updatedAt,
+  SEO,
 }) {
   return (
     <Layout
@@ -15,6 +17,13 @@ function Plain({
       showHeaderOn=""
       hideHeaderOn=""
       title={title}>
+      <OpenGraph
+        defaultData={{
+          title,
+          description,
+        }}
+        SEO={SEO}
+      />
       <Head>
         <meta name="description" content={description} />
         <meta name="og:description" content={description} />

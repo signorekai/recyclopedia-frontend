@@ -32,6 +32,9 @@ export async function getStaticProps() {
   const { data: pageOptions } = await staticFetcher(
     `${process.env.API_URL}/contact-us-page`,
     process.env.API_KEY,
+    {
+      populate: ['SEO', 'SEO.image'],
+    },
   );
 
   return { props: { pageOptions } };
