@@ -1,5 +1,3 @@
-import Head from 'next/head';
-import qs from 'querystring';
 import Layout from '../components/Layout';
 import Image from 'next/image';
 import Link from '../components/Link';
@@ -8,16 +6,22 @@ import { staticFetcher, useWindowDimensions } from '../lib/hooks';
 
 import AboutUsBg from '../assets/img/about-us.svg';
 import { replaceCDNUri } from '../lib/functions';
+import OpenGraph from '../components/Opengraph';
 
 export default function Page({ pageOptions }) {
   const { width } = useWindowDimensions();
-  const { supporters, title, introHeader, description, bodyText } = pageOptions;
+  const { supporters, title, introHeader, description, bodyText, SEO } =
+    pageOptions;
 
   return (
     <Layout title={title}>
-      <Head>
-        <meta name="description" content={replaceCDNUri(description)} />
-      </Head>
+      <OpenGraph
+        defaultData={{
+          title,
+          description,
+        }}
+        SEO={SEO}
+      />
       <div className="bg-teal relative">
         <div className="container lg:flex lg:py-12">
           <div className="pt-8 pr-2 lg:pl-4 lg:pr-0 lg:pt-8 lg:order-2 lg:-mr-24">
@@ -114,10 +118,11 @@ export default function Page({ pageOptions }) {
 
 export async function getStaticProps() {
   const { data: pageOptions } = await staticFetcher(
-    `${process.env.API_URL}/about-us-page?${qs.stringify({
-      populate: ['supporters', 'supporters.image'],
-    })}`,
+    `${process.env.API_URL}/about-us-page`,
     process.env.API_KEY,
+    {
+      populate: ['supporters', 'supporters.image', 'SEO', 'SEO.image'],
+    },
   );
 
   return { props: { pageOptions } };

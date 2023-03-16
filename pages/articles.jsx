@@ -1,17 +1,14 @@
-import Head from 'next/head';
 import qs from 'qs';
 import { SWRConfig } from 'swr';
 
 import Link from '../components/Link';
 import Layout from '../components/Layout';
-import SearchBar from '../components/SearchBar';
 import NewImage from '../components/Image';
 import InfiniteLoader from '../components/InfiniteLoader';
 import {
   ITEMS_PER_PAGE,
   staticFetcher,
   useSearchBarTopValue,
-  useWindowDimensions,
   useFetchContent,
 } from '../lib/hooks';
 import {
@@ -20,6 +17,7 @@ import {
   AccordionProvider,
 } from '../components/Accordion';
 import { useMemo } from 'react';
+import OpenGraph from '../components/Opengraph';
 
 const articlesParams = {
   populate: ['coverImage', 'category'],
@@ -83,7 +81,7 @@ export default function Page({
   fallback,
   categoryTitles,
 }) {
-  const { title } = pageOptions;
+  const { title, SEO } = pageOptions;
   const x = useSearchBarTopValue();
 
   const [articleHeaders, articleTabs] = useMemo(() => {
@@ -126,6 +124,12 @@ export default function Page({
     <Layout
       title={title}
       headerContainerStyle={{ backgroundColor: pageOptions.colour }}>
+      <OpenGraph
+        defaultData={{
+          title,
+        }}
+        SEO={SEO}
+      />
       <section
         className="relative py-4 lg:pt-10"
         style={{
@@ -167,26 +171,29 @@ export async function getStaticProps() {
   const { data: pageOptions } = await staticFetcher(
     `${process.env.API_URL}/news-and-tips-page`,
     process.env.API_KEY,
+    {
+      populate: ['SEO', 'SEO.image'],
+    },
   );
 
   const { data: categoryData } = await staticFetcher(
-    `${process.env.API_URL}/article-categories?${qs.stringify({
-      sort: ['title'],
-    })}`,
+    `${process.env.API_URL}/article-categories`,
     process.env.API_KEY,
+    {
+      sort: ['title'],
+    },
   );
 
   const categoryTitles = categoryData.map(({ title }) => title);
 
   const fetchEachCategory = categoryTitles.map(async (title) => {
-    const query = qs.stringify({
-      ...articlesParams,
-      filters: { category: { title: { $eq: title } } },
-    });
-
     const { data: results } = await staticFetcher(
-      `${process.env.API_URL}/articles?${query}`,
+      `${process.env.API_URL}/articles`,
       process.env.API_KEY,
+      {
+        ...articlesParams,
+        filters: { category: { title: { $eq: title } } },
+      },
     );
 
     fallback[
@@ -204,8 +211,9 @@ export async function getStaticProps() {
   await Promise.all(fetchEachCategory);
 
   const { data: allArticles } = await staticFetcher(
-    `${process.env.API_URL}/articles?${qs.stringify(articlesParams)}`,
+    `${process.env.API_URL}/articles`,
     process.env.API_KEY,
+    articlesParams,
   );
 
   fallback[

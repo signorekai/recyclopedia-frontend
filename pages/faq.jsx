@@ -5,8 +5,8 @@ import { motion, useMotionValue } from 'framer-motion';
 import { useRouter } from 'next/router';
 
 import Layout from '../components/Layout';
-import Link from 'next/link';
 import { replaceCDNUri } from '../lib/functions';
+import OpenGraph from '../components/Opengraph';
 
 const FAQCard = ({ slug, header, content, openByDefault = false, onClick }) => {
   const max = '10000000px';
@@ -63,7 +63,7 @@ const FAQCard = ({ slug, header, content, openByDefault = false, onClick }) => {
 };
 
 export default function Page({ pageOptions }) {
-  const { section: sections } = pageOptions;
+  const { section: sections, SEO, title, subtitle } = pageOptions;
   const [currentHash, setCurrentHash] = useState();
   const router = useRouter();
 
@@ -76,15 +76,19 @@ export default function Page({ pageOptions }) {
   }, [currentHash]);
 
   return (
-    <Layout title={pageOptions.title}>
-      <Head>
-        <meta name="description" content={pageOptions.subtitle} />
-      </Head>
+    <Layout title={title}>
+      <OpenGraph
+        defaultData={{
+          title,
+          description: subtitle,
+        }}
+        SEO={SEO}
+      />
       <div className="container relative z-10 pt-4 lg:pt-10">
-        <h1 className="text-black">{pageOptions.title}</h1>
+        <h1 className="text-black">{title}</h1>
         <p
           className="text-lg leading-tight"
-          dangerouslySetInnerHTML={{ __html: pageOptions.subtitle }}
+          dangerouslySetInnerHTML={{ __html: subtitle }}
         />
       </div>
       <div className="lg:container">

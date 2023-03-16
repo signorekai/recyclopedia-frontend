@@ -4,12 +4,19 @@ import { FeedbackForm } from '../components/Report';
 
 import { staticFetcher } from '../lib/hooks';
 import { replaceCDNUri } from '../lib/functions';
+import OpenGraph from '../components/Opengraph';
 
 export default function Page({ pageOptions }) {
-  const { title, bodyText } = pageOptions;
+  const { title, bodyText, SEO } = pageOptions;
 
   return (
     <Layout title={title}>
+      <OpenGraph
+        defaultData={{
+          title,
+        }}
+        SEO={SEO}
+      />
       <div className="container container--narrow h-full pt-4 lg:pt-10">
         <h1 className="text-black">{title}</h1>
         <div

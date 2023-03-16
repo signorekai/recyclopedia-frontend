@@ -14,12 +14,21 @@ import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
 import Link from '../components/Link';
+import OpenGraph from '../components/Opengraph';
 
-export default function Home({ items, newsItems }) {
+export default function Home({ pageOptions }) {
   const { width } = useWindowDimensions();
 
+  const { title, SEO } = pageOptions;
+
   return (
-    <Layout title="Newsletter">
+    <Layout title={title}>
+      <OpenGraph
+        defaultData={{
+          title,
+        }}
+        SEO={SEO}
+      />
       <div className="container divider-b">
         <div className="lg:w-3/4 mx-auto my-12 md:my-24">
           <h3 className="text-[2rem] leading-tight font-medium text-center">
@@ -40,4 +49,16 @@ export default function Home({ items, newsItems }) {
       </div>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  const { data: pageOptions } = await staticFetcher(
+    `${process.env.API_URL}/newsletter-page`,
+    process.env.API_KEY,
+    {
+      populate: ['SEO', 'SEO.image'],
+    },
+  );
+
+  return { props: { pageOptions } };
 }

@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { CarouselProvider, Slider, Slide, DotGroup } from 'pure-react-carousel';
 import { motion } from 'framer-motion';
 import { DateTime } from 'luxon';
@@ -24,6 +23,7 @@ import { ReportBtn } from '../../components/Report';
 import { useRouter } from 'next/router';
 import { BookmarkButton } from '../../components/BookmarkButton';
 import Masonry from '../../components/Masonry';
+import OpenGraph from '../../components/Opengraph';
 
 const ItemTagLiterals = {
   Recycle: {
@@ -177,58 +177,20 @@ function Page({ data }) {
     }
   }
 
-  const meta = {
-    description: `Where to recycle ${data.title.toLowerCase()} in Singapore. Find the best ways to recycle, upcycle or donate old, used, or new ${data.title.toLowerCase()}`,
-    title: data.title,
-    image: `${process.env.NEXT_PUBLIC_LOCATION}/img/cover-image.jpg`,
-  };
-
-  if (data.images.length > 0) {
-    meta.image = getLargestPossibleImage(data.images[0], 'large', 'medium');
-  }
-
-  if (data.SEO) {
-    if (data.SEO.title) {
-      meta.title = replaceText(data.SEO.title, [['%s', data.title]]);
-    }
-    if (data.SEO.description) {
-      meta.description = replaceText(data.SEO.description, [
-        ['%s', data.title],
-      ]);
-    }
-
-    if (data.SEO.image !== null) {
-      meta.image = getLargestPossibleImage(data.SEO.image, 'large', 'medium');
-    }
-  }
-
   return (
     <>
       {data && (
         <Layout title={data && data.title}>
-          <Head>
-            <meta
-              property="og:url"
-              key="og:url"
-              content={`${process.env.NEXT_PUBLIC_LOCATION}${router.asPath}`}
-            />
-            <meta
-              name="og:title"
-              key="og:title"
-              content={`${meta.title} | Recyclopedia.sg`}
-            />
-            <meta
-              key="description"
-              name="description"
-              content={meta.description}
-            />
-            <meta
-              property="og:description"
-              key="og:description"
-              content={meta.description}
-            />
-            <meta property="og:image" key="og:image" content={meta.image} />
-          </Head>
+          <OpenGraph
+            defaultData={{
+              description: `Where to recycle ${data.title.toLowerCase()} in Singapore. Find the best ways to recycle, upcycle or donate old, used, or new ${data.title.toLowerCase()}`,
+              title: data.title,
+              image:
+                data.images.length > 0 &&
+                getLargestPossibleImage(data.images[0], 'large', 'medium'),
+            }}
+            SEO={data.SEO}
+          />
           {width > 1080 ? (
             <div className="container">
               <div

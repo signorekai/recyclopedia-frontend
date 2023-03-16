@@ -12,6 +12,7 @@ import {
 } from '../lib/hooks';
 import InfiniteLoader from './InfiniteLoader';
 import { AccordionBody, AccordionHeader, AccordionProvider } from './Accordion';
+import OpenGraph from './Opengraph';
 
 const strapiAPIQueryTemplate = {
   populate: ['images'],
@@ -131,7 +132,7 @@ export async function getListingStaticProps({ contentUrl }) {
   const fallback = {};
 
   const pageQuery = {
-    populate: ['resourceTags'],
+    populate: ['resourceTags', 'SEO', 'SEO.image'],
   };
 
   const { data: pageOptions } = await staticFetcher(
@@ -203,10 +204,19 @@ export default function ListingPage({
 }) {
   const x = useSearchBarTopValue();
 
+  const { title, subtitle, SEO } = pageOptions;
+
   return (
     <Layout
       title={pageOptions.title}
       headerContainerStyle={{ backgroundColor: pageOptions.colour }}>
+      <OpenGraph
+        defaultData={{
+          title,
+          description: subtitle,
+        }}
+        SEO={SEO}
+      />
       <Head>
         <meta name="description" content={pageOptions.subtitle} />
       </Head>

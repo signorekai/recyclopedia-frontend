@@ -11,6 +11,7 @@ import {
   AccordionHeader,
   AccordionProvider,
 } from '../components/Accordion';
+import OpenGraph from '../components/Opengraph';
 
 const itemsCacheParams = {
   populate: ['images'],
@@ -127,13 +128,18 @@ const Cards = ({ categories, columnCount = 3 }) => {
 };
 
 export default function Page({ fallback, pageOptions, categories }) {
+  const { title, subtitle, SEO } = pageOptions;
   return (
     <Layout
       title={pageOptions.title}
       headerContainerStyle={{ backgroundColor: pageOptions.colour }}>
-      <Head>
-        <meta name="description" content={pageOptions.subtitle} />
-      </Head>
+      <OpenGraph
+        defaultData={{
+          title,
+          description: subtitle,
+        }}
+        SEO={SEO}
+      />
       <section
         className="py-4 lg:py-8 text-white"
         style={{ backgroundColor: pageOptions.colour }}>
@@ -165,7 +171,7 @@ export async function getStaticProps() {
   const ip = process.env.API_URL;
 
   const page = await staticFetcher(`${ip}/items-page`, process.env.API_KEY, {
-    populate: ['resourceTags'],
+    populate: ['resourceTags', 'SEO', 'SEO.image'],
   });
   const { data: pageOptions } = page;
 
