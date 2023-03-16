@@ -1,6 +1,7 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useRef, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
+import Link from 'next/link';
 
 /**
  *
@@ -71,6 +72,14 @@ export const BookmarkButton = ({
             className={`${bookmarked ? 'fas' : 'far'} fa-bookmark`}
           />
         </button>
+      )}
+      {authStatus !== 'authenticated' && loading === false && (
+        <Link href="/register" passHref>
+          <a
+            className={`${className} group text-base text-blue leading-none !flex justify-center items-center`}>
+            <i className={`${bookmarked ? 'fas' : 'far'} fa-bookmark`} />
+          </a>
+        </Link>
       )}
       {authStatus === 'authenticated' && loading === true && (
         <div className={`${className}`}>
