@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 import Layout from '../components/Layout';
 import { replaceCDNUri } from '../lib/functions';
-import OpenGraph from '../components/Opengraph';
+import OpenGraph from '../components/OpenGraph';
 
 const FAQCard = ({ slug, header, content, openByDefault = false, onClick }) => {
   const max = '10000000px';

@@ -23,7 +23,7 @@ import { ReportBtn } from '../../components/Report';
 import { useRouter } from 'next/router';
 import { BookmarkButton } from '../../components/BookmarkButton';
 import Masonry from '../../components/Masonry';
-import OpenGraph from '../../components/Opengraph';
+import OpenGraph from '../../components/OpenGraph';
 
 const ItemTagLiterals = {
   Recycle: {

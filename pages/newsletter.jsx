@@ -14,7 +14,7 @@ import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
 import Link from '../components/Link';
-import OpenGraph from '../components/Opengraph';
+import OpenGraph from '../components/OpenGraph';
 
 export default function Home({ pageOptions }) {
   const { width } = useWindowDimensions();

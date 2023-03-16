@@ -6,7 +6,7 @@ import { staticFetcher, useWindowDimensions } from '../lib/hooks';
 
 import AboutUsBg from '../assets/img/about-us.svg';
 import { replaceCDNUri } from '../lib/functions';
-import OpenGraph from '../components/Opengraph';
+import OpenGraph from '../components/OpenGraph';
 
 export default function Page({ pageOptions }) {
   const { width } = useWindowDimensions();

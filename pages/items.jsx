@@ -11,7 +11,7 @@ import {
   AccordionHeader,
   AccordionProvider,
 } from '../components/Accordion';
-import OpenGraph from '../components/Opengraph';
+import OpenGraph from '../components/OpenGraph';
 
 const itemsCacheParams = {
   populate: ['images'],

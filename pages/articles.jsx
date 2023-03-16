@@ -17,7 +17,7 @@ import {
   AccordionProvider,
 } from '../components/Accordion';
 import { useMemo } from 'react';
-import OpenGraph from '../components/Opengraph';
+import OpenGraph from '../components/OpenGraph';
 
 const articlesParams = {
   populate: ['coverImage', 'category'],

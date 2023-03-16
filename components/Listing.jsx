@@ -12,7 +12,7 @@ import {
 } from '../lib/hooks';
 import InfiniteLoader from './InfiniteLoader';
 import { AccordionBody, AccordionHeader, AccordionProvider } from './Accordion';
-import OpenGraph from './Opengraph';
+import OpenGraph from './OpenGraph';
 
 const strapiAPIQueryTemplate = {
   populate: ['images'],
