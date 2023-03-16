@@ -80,6 +80,14 @@ export default async function handler(req, res) {
       url.push('/items');
       break;
 
+    case 'home-page':
+      url.push('/');
+      break;
+
+    case 'newsletter-page':
+      url.push('/newsletter');
+      break;
+
     case 'news-and-tips-page':
       url.push('/news-tips');
       break;
