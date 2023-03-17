@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { motion } from 'framer-motion';
 import qs from 'qs';
 
-import Mailchimp from '../components/Mailchimp';
+import Mailchimp from '../components/SubscribeForm';
 
 import {
   ITEMS_PER_PAGE,

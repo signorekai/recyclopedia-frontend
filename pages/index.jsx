@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { motion } from 'framer-motion';
 import qs from 'qs';
 
-import Mailchimp from '../components/Mailchimp';
+import SubscribeForm from '../components/SubscribeForm';
 
 import {
   ITEMS_PER_PAGE,
@@ -255,7 +255,7 @@ export default function Home({
               <div
                 className="mt-3 text-lg text-center"
                 dangerouslySetInnerHTML={{ __html: newsletter.body }}></div>
-              <Mailchimp />
+              <SubscribeForm />
             </div>
           </div>
         </div>
@@ -288,8 +288,6 @@ export async function getStaticProps() {
       populate: ['SEO', 'SEO.image'],
     },
   );
-
-  console.log(291, pageOptions);
 
   let newsItems =
     generalSettings.homePageFeaturedArticles.map(
