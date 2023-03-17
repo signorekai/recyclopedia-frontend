@@ -106,34 +106,33 @@ export default function Home({
               </h2>
             </a>
           </Link>
-          <div className="overflow-x-auto snap-x snap-mandatory">
-            <div
-              className="grid gap-x-2 grid-cols-4 lg:max-w-full"
-              style={{ width: `${donationDrives.length * 75}vw` }}>
+          <div>
+            <Carousel
+              prevBtnClassName="hidden"
+              nextBtnClassName="h-full pointer-events-none"
+              autoSlideSize={false}
+              slideWidth={width > 1080 ? width / 4 : 0.75 * width}>
               {donationDrives.map((item, key) => {
                 if (item !== null) {
                   return (
-                    <Card
-                      className={`w-[calc(75vw_-_8px)] lg:w-auto ${
-                        donationDrives.length - key === 1
-                          ? 'snap-end'
-                          : 'snap-start'
-                      }`}
-                      imagesWrapperClassName="aspect-[320_/_240]"
-                      imgClassName=""
-                      alt={`${item.title} Recycling in Singapore`}
-                      uniqueKey={`donation-drive-${item.slug}`}
-                      content={{
-                        image: item.coverImage || {},
-                        headerText: item.title,
-                        slug: item.slug,
-                        contentType: 'articles',
-                      }}
-                    />
+                    <CarouselCard className="w-[75vw]">
+                      <Card
+                        imagesWrapperClassName="aspect-[320_/_240]"
+                        imgClassName=""
+                        alt={`${item.title} Recycling in Singapore`}
+                        uniqueKey={`donation-drive-${item.slug}`}
+                        content={{
+                          image: item.coverImage || {},
+                          headerText: item.title,
+                          slug: item.slug,
+                          contentType: 'articles',
+                        }}
+                      />
+                    </CarouselCard>
                   );
                 }
               })}
-            </div>
+            </Carousel>
           </div>
         </div>
         <div className="container container--wide mt-8 mb-6 lg:my-20">
@@ -219,31 +218,33 @@ export default function Home({
               </h2>
             </a>
           </Link>
-          <div className="overflow-x-auto snap-x snap-mandatory">
-            <div
-              className="grid gap-x-2 grid-cols-4 lg:max-w-full"
-              style={{ width: `${newsItems.length * 75}vw` }}>
+          <div>
+            <Carousel
+              prevBtnClassName="hidden"
+              nextBtnClassName="h-full pointer-events-none"
+              autoSlideSize={false}
+              slideWidth={width > 1080 ? width / 4 : 0.75 * width}>
               {newsItems.map((item, key) => {
                 if (item !== null) {
                   return (
-                    <Card
-                      className={`w-[calc(75vw_-_8px)] lg:w-auto ${
-                        newsItems.length - key === 1 ? 'snap-end' : 'snap-start'
-                      }`}
-                      imagesWrapperClassName="aspect-[320_/_240]"
-                      imgClassName=""
-                      uniqueKey={`news-${item.slug}`}
-                      content={{
-                        image: item.coverImage || {},
-                        headerText: item.title,
-                        slug: item.slug,
-                        contentType: 'articles',
-                      }}
-                    />
+                    <CarouselCard className="w-[75vw]">
+                      <Card
+                        imagesWrapperClassName="aspect-[320_/_240]"
+                        imgClassName=""
+                        alt={`${item.title} Recycling in Singapore`}
+                        uniqueKey={`donation-drive-${item.slug}`}
+                        content={{
+                          image: item.coverImage || {},
+                          headerText: item.title,
+                          slug: item.slug,
+                          contentType: 'articles',
+                        }}
+                      />
+                    </CarouselCard>
                   );
                 }
               })}
-            </div>
+            </Carousel>
           </div>
         </div>
         <div className="container ">
