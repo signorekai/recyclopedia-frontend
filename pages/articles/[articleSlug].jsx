@@ -12,7 +12,7 @@ import { staticFetcher, useWindowDimensions } from '../../lib/hooks';
 import NewImage from '../../components/Image';
 import BookmarkButton from '../../components/BookmarkButton';
 import Masonry from '../../components/Masonry';
-import Mailchimp from '../../components/Mailchimp';
+import Form from '../../components/SubscribeForm';
 
 export default function Page({ article, categoryTitles, nextPost }) {
   const router = useRouter();
@@ -140,7 +140,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
                 </a>
                 .
               </p>
-              <Mailchimp />
+              <Form />
             </div>
           </div>
           <div className="container">
