@@ -64,7 +64,7 @@
 
 @layer components {
   .sticky-btn {
-    @apply sticky bottom-0 md:bottom-20 w-full md:w-[200px] inline-flex justify-between left-0 bg-coral md:rounded-r-md items-center;
+    @apply fixed bottom-0 md:bottom-20 w-full md:w-[200px] inline-flex justify-between left-0 bg-coral md:rounded-r-md items-center;
     @apply z-80;
   }
 
