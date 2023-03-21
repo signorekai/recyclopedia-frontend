@@ -12,8 +12,6 @@ function OpenGraph({ defaultData, SEO, children }) {
     meta.image = `${process.env.NEXT_PUBLIC_LOCATION}/img/cover-image.jpg`;
   }
 
-  console.log(15, SEO);
-
   if (SEO) {
     if (SEO.title) {
       meta.title = replaceText(SEO.title, [['%s', defaultData.title]]);
