@@ -239,7 +239,7 @@ function ResourcePage({ data, baseUrl, tags }) {
                       },
                     )}
                 </div>
-                <h2 className="text-black inline-block pt-2 order-1 lg:order-2">
+                <h2 className="text-black inline-flex justify-start pt-2 order-1 lg:order-2">
                   {data.title}
                   <BookmarkButton
                     contentType="resources"
