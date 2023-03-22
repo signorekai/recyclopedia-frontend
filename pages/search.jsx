@@ -627,7 +627,7 @@ export async function getServerSideProps({ req, query, res }) {
       const faqResults = [];
       await faqIndex.search(search.query).then(({ hits }) => {
         if (hits.length > 0) {
-          const highlightResults = hits[0]._highlightResult;
+          const highlightResults = hits[0]._snippetResult;
           highlightResults.section.forEach(({ item }) => {
             item.forEach((match) => {
               if (
