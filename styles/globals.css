@@ -49,8 +49,12 @@
   ol:not(.plain) {
     @apply px-4 ml-4 pt-2 pb-4;
     li {
-      @apply list-disc mb-1 last:mb-0;
+      @apply mb-1 last:mb-0;
     }
+  }
+
+  ul:not(.plain) li {
+    @apply list-disc;
   }
 
   a {
