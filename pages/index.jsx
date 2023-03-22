@@ -246,7 +246,7 @@ export default function Home({
               prevBtnClassName="hidden"
               nextBtnClassName="h-full pointer-events-none"
               autoSlideSize={false}
-              slideWidth={width > 1080 ? 324 : 0.75 * width}>
+              slideWidth={width > 1080 ? 312 : 0.75 * width}>
               {newsItems.map((item, key) => {
                 if (item !== null) {
                   return (
