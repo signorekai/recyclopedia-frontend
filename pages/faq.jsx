@@ -8,7 +8,15 @@ import Layout from '../components/Layout';
 import { replaceCDNUri } from '../lib/functions';
 import OpenGraph, { getOpengraphTags } from '../components/OpenGraph';
 
-const FAQCard = ({ slug, header, content, openByDefault = false, onClick }) => {
+export const FAQCard = ({
+  className = '',
+  slug,
+  header,
+  content,
+  openByDefault = false,
+  onClick,
+  disableAccordion = false,
+}) => {
   const max = '10000000px';
   const [expanded, setExpanded] = useState(openByDefault);
   const maxHeight = useMotionValue(0);
@@ -26,25 +34,31 @@ const FAQCard = ({ slug, header, content, openByDefault = false, onClick }) => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    if (expanded) {
-      onClick('');
-    } else {
-      onClick(slug);
+    if (disableAccordion === false) {
+      if (expanded) {
+        onClick('');
+      } else {
+        onClick(slug);
+      }
+      setExpanded(!expanded);
     }
-    setExpanded(!expanded);
   };
 
   return (
-    <dl className={`px-4 divider-b after:mt-2 `} id={slug}>
+    <dl className={`px-4 divider-b after:mt-2 ${className}`} id={slug}>
       <button className="w-full mt-4" onClick={handleClick}>
         <dt className="flex flex-row items-center">
-          <h3 className="text-black my-0 flex-1 text-left font-semibold">
-            {header}
-          </h3>
-          {expanded ? (
-            <i className="far fa-chevron-up"></i>
-          ) : (
-            <i className="far fa-chevron-down"></i>
+          <h3
+            className="text-black my-0 flex-1 text-left font-semibold"
+            dangerouslySetInnerHTML={{ __html: replaceCDNUri(header) }}></h3>
+          {disableAccordion === false && (
+            <>
+              {expanded ? (
+                <i className="far fa-chevron-up"></i>
+              ) : (
+                <i className="far fa-chevron-down"></i>
+              )}
+            </>
           )}
         </dt>
       </button>
@@ -52,7 +66,7 @@ const FAQCard = ({ slug, header, content, openByDefault = false, onClick }) => {
         style={{
           maxHeight,
         }}
-        className="overflow-hidden transition-all duration-200 opacity-80">
+        className="overflow-hidden transition-all duration-200 ">
         <div
           className="mt-4 mb-2"
           dangerouslySetInnerHTML={{ __html: replaceCDNUri(content) }}
