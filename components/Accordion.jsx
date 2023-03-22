@@ -134,6 +134,7 @@ export const AccordionHeader = ({
 export const AccordionBody = ({
   className = '',
   desktopControls = false,
+  carouselClassName = '',
   ...items
 }) => {
   const { selected, setSelected, hash } = useContext(AccordionContext);
@@ -152,7 +153,7 @@ export const AccordionBody = ({
       <Carousel
         desktopControls={desktopControls}
         autoScroll={false}
-        className="mt-4"
+        className={`mt-4 ${carouselClassName}`}
         scrollTo={scroll}
         disableScroll={true}
         sliderClassName="relative gap-x-0">
