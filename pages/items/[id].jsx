@@ -190,6 +190,8 @@ function Page({ data }) {
       data.SEO,
     );
 
+    console.log(193, meta);
+
     return (
       <Layout title={data && data.title}>
         <Head>

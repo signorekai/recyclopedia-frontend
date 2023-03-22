@@ -4,7 +4,8 @@ import Head from 'next/head';
 export const getOpengraphTags = (defaultData, SEO) => {
   const meta = {
     title: '',
-    description: '',
+    description:
+      'Everything you need to know when you have something to throw. A Singapore based directory of recommendations and advice on reducing your waste-karma with info on donation drives, recycle options, thrift shops, and more.',
     ...defaultData,
   };
 
