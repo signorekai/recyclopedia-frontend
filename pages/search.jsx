@@ -21,7 +21,8 @@ import {
 } from '../components/Accordion';
 import { Carousel, CarouselCard } from '../components/Carousel';
 import { getOrSetVisitorToken } from '../lib/analytics';
-import { FeedbackModal } from '../components/Report';
+import { FeedbackModal, ReportBtn } from '../components/Report';
+import { FAQCard } from './faq';
 
 const SingleSearchType = ({
   type,
@@ -324,10 +325,9 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
             carouselClassName="scroll-px-4"
             sliderClassName="lg:max-w-screen-lg mx-auto px-6"
           />
-          <AccordionBody {...contentTabs} />
+          <AccordionBody carouselClassName="pb-0" {...contentTabs} />
         </AccordionProvider>
       )}
-      <div className="border-b-1 mt-4 mb-6 lg:my-10 block w-full border-grey"></div>
       {totalItemsCount === 0 && (
         <div className={`container relative z-10 text-base lg:text-lg`}>
           <h2 className="text-black block mt-4 lg:mt-10">0 results found</h2>
@@ -355,6 +355,8 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
             topic="Make A Suggestion"
             handleClick={_handleClick}
           />
+
+          <div className="mt-6 lg:mt-10 block w-full border-b-1 border-b-grey-light "></div>
         </div>
       )}
     </>
@@ -362,6 +364,8 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
 };
 
 export default function Page(props) {
+  const { faqResults } = props;
+  console.log(faqResults);
   return (
     <Layout title={`Search Results for "${props.query}"`}>
       {props.success && props.type.length === 1 && (
@@ -373,6 +377,23 @@ export default function Page(props) {
         />
       )}
       {props.success && props.type.length > 1 && <MultiSearchType {...props} />}
+      {faqResults.length > 0 && (
+        <div className="container border-t-1 my-6 border-t-grey-light">
+          <h2 className="h2--left mt-6 mb-0">FAQ</h2>
+          {faqResults.map((item) => (
+            <FAQCard
+              className="!px-0 faq-search-results"
+              slug={''}
+              openByDefault={true}
+              disableAccordion={true}
+              key={item.header.value}
+              header={item.header.value}
+              content={item.content.value}
+            />
+          ))}
+        </div>
+      )}
+      <ReportBtn record={`Search results for "${props.query}"`} delay={3000} />
     </Layout>
   );
 }
@@ -571,6 +592,8 @@ export async function getServerSideProps({ req, query, res }) {
 
       const articlesIndex = client.initIndex('production_api::article.article');
 
+      const faqIndex = client.initIndex('production_api::faq.faq');
+
       await itemIndex.search(search.query).then(({ hits }) => {
         if (hits.length > 0) data.items = [];
 
@@ -598,6 +621,23 @@ export async function getServerSideProps({ req, query, res }) {
             coverImage: article.coverImage,
           });
         });
+      });
+
+      const faqResults = [];
+      await faqIndex.search(search.query).then(({ hits }) => {
+        if (hits.length > 0) {
+          const highlightResults = hits[0]._highlightResult;
+          highlightResults.section.forEach(({ item }) => {
+            item.forEach((match) => {
+              if (
+                match.header.matchLevel !== 'none' ||
+                match.content.matchLevel !== 'none'
+              ) {
+                faqResults.push(match);
+              }
+            });
+          });
+        }
       });
 
       const resourceTagMap = [];
@@ -717,6 +757,7 @@ export async function getServerSideProps({ req, query, res }) {
           success: true,
           ...search,
           data,
+          faqResults,
           pageOptions,
         },
       };
