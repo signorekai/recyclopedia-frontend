@@ -133,6 +133,7 @@ export default function Home({
             <Carousel
               prevBtnClassName="hidden"
               nextBtnClassName="h-full pointer-events-none"
+              desktopControls={false}
               autoSlideSize={false}
               slideWidth={width > 1080 ? 312 : 0.75 * width}>
               {donationDrives.map((item, key) => {
@@ -245,6 +246,7 @@ export default function Home({
             <Carousel
               prevBtnClassName="hidden"
               nextBtnClassName="h-full pointer-events-none"
+              desktopControls={false}
               autoSlideSize={false}
               slideWidth={width > 1080 ? 312 : 0.75 * width}>
               {newsItems.map((item, key) => {
