@@ -18,6 +18,10 @@
     @apply text-2xl text-blue-light font-semibold align-middle flex flex-row items-center w-full;
     @apply mb-3;
     @apply lg:justify-center;
+
+    &.h2--left {
+      @apply block;
+    }
   }
 
   h3 {
@@ -63,6 +67,12 @@
 }
 
 @layer components {
+  .faq-search-results {
+    dd em {
+      @apply text-blue-dark font-bold not-italic;
+    }
+  }
+
   .sticky-btn {
     @apply fixed bottom-0 md:bottom-20 w-full md:w-[200px] inline-flex justify-between left-0 bg-coral md:rounded-r-md items-center;
     @apply z-80;
