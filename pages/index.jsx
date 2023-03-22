@@ -134,11 +134,11 @@ export default function Home({
               prevBtnClassName="hidden"
               nextBtnClassName="h-full pointer-events-none"
               autoSlideSize={false}
-              slideWidth={width > 1080 ? width / 4 : 0.75 * width}>
+              slideWidth={width > 1080 ? 312 : 0.75 * width}>
               {donationDrives.map((item, key) => {
                 if (item !== null) {
                   return (
-                    <CarouselCard className="w-[75vw]">
+                    <CarouselCard className="w-[75vw] lg:w-1/4">
                       <Card
                         imagesWrapperClassName="aspect-[320_/_240]"
                         imgClassName=""
@@ -246,11 +246,11 @@ export default function Home({
               prevBtnClassName="hidden"
               nextBtnClassName="h-full pointer-events-none"
               autoSlideSize={false}
-              slideWidth={width > 1080 ? width / 4 : 0.75 * width}>
+              slideWidth={width > 1080 ? 324 : 0.75 * width}>
               {newsItems.map((item, key) => {
                 if (item !== null) {
                   return (
-                    <CarouselCard className="w-[75vw]">
+                    <CarouselCard className="w-[75vw] md:w-1/4">
                       <Card
                         imagesWrapperClassName="aspect-[320_/_240]"
                         imgClassName=""
