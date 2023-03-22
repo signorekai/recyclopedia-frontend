@@ -6,22 +6,40 @@ import { staticFetcher, useWindowDimensions } from '../lib/hooks';
 
 import AboutUsBg from '../assets/img/about-us.svg';
 import { replaceCDNUri } from '../lib/functions';
-import OpenGraph from '../components/OpenGraph';
+import OpenGraph, { getOpengraphTags } from '../components/OpenGraph';
+import Head from 'next/head';
 
 export default function Page({ pageOptions }) {
   const { width } = useWindowDimensions();
   const { supporters, title, introHeader, description, bodyText, SEO } =
     pageOptions;
 
+  const meta = getOpengraphTags({ title, description }, SEO);
+
   return (
     <Layout title={title}>
-      <OpenGraph
-        defaultData={{
-          title,
-          description,
-        }}
-        SEO={SEO}
-      />
+      <Head>
+        <meta
+          name="og:title"
+          key="og:title"
+          content={`${meta.title} | Recyclopedia.sg`}
+        />
+        {meta.description && meta.description.length > 0 && (
+          <>
+            <meta
+              key="description"
+              name="description"
+              content={meta.description}
+            />
+            <meta
+              property="og:description"
+              key="og:description"
+              content={meta.description}
+            />
+          </>
+        )}
+        <meta property="og:image" key="og:image" content={meta.image} />
+      </Head>
       <div className="bg-teal relative">
         <div className="container lg:flex lg:py-12">
           <div className="pt-8 pr-2 lg:pl-4 lg:pr-0 lg:pt-8 lg:order-2 lg:-mr-24">

@@ -1,6 +1,35 @@
 import { replaceText, getLargestPossibleImage } from '../lib/functions';
 import Head from 'next/head';
 
+export const getOpengraphTags = (defaultData, SEO) => {
+  const meta = {
+    title: '',
+    description: '',
+    ...defaultData,
+  };
+
+  if (meta.image === null || meta.image === false) {
+    meta.image = `${process.env.NEXT_PUBLIC_LOCATION}/img/cover-image.jpg`;
+  }
+
+  if (SEO) {
+    if (SEO.title) {
+      meta.title = replaceText(SEO.title, [['%s', defaultData.title]]);
+    }
+    if (SEO.description) {
+      meta.description = replaceText(SEO.description, [
+        ['%s', defaultData.title],
+      ]);
+    }
+
+    if (SEO.image !== null) {
+      meta.image = getLargestPossibleImage(SEO.image, 'large', 'medium');
+    }
+  }
+
+  return meta;
+};
+
 function OpenGraph({ defaultData, SEO, children }) {
   const meta = {
     title: '',

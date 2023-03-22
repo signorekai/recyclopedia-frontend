@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 import Layout from '../components/Layout';
 import { replaceCDNUri } from '../lib/functions';
-import OpenGraph from '../components/OpenGraph';
+import OpenGraph, { getOpengraphTags } from '../components/OpenGraph';
 
 const FAQCard = ({ slug, header, content, openByDefault = false, onClick }) => {
   const max = '10000000px';
@@ -75,15 +75,32 @@ export default function Page({ pageOptions }) {
     window.history.replaceState({}, '', `${router.pathname}#${currentHash}`);
   }, [currentHash]);
 
+  const meta = getOpengraphTags({ title, description: subtitle }, SEO);
+
   return (
     <Layout title={title}>
-      <OpenGraph
-        defaultData={{
-          title,
-          description: subtitle,
-        }}
-        SEO={SEO}
-      />
+      <Head>
+        <meta
+          name="og:title"
+          key="og:title"
+          content={`${meta.title} | Recyclopedia.sg`}
+        />
+        {meta.description && meta.description.length > 0 && (
+          <>
+            <meta
+              key="description"
+              name="description"
+              content={meta.description}
+            />
+            <meta
+              property="og:description"
+              key="og:description"
+              content={meta.description}
+            />
+          </>
+        )}
+        <meta property="og:image" key="og:image" content={meta.image} />
+      </Head>
       <div className="container relative z-10 pt-4 lg:pt-10">
         <h1 className="text-black">{title}</h1>
         <p

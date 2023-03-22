@@ -15,7 +15,7 @@ import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
 import Link from '../components/Link';
 import Logo from '../components/Logo';
-import OpenGraph from '../components/OpenGraph';
+import OpenGraph, { getOpengraphTags } from '../components/OpenGraph';
 
 export default function Home({
   items,
@@ -27,16 +27,39 @@ export default function Home({
   const { width } = useWindowDimensions();
   const { SEO } = pageOptions;
 
+  const meta = getOpengraphTags(
+    {
+      title: 'Home',
+      description:
+        'Everything you need to know when you have something to throw. A Singapore based directory of recommendations and advice on reducing your waste-karma with info on donation drives, recycle options, thrift shops, and more.',
+    },
+    SEO,
+  );
+
   return (
     <Layout>
-      <OpenGraph
-        defaultData={{
-          title: 'Home',
-          description:
-            'Everything you need to know when you have something to throw. A Singapore based directory of recommendations and advice on reducing your waste-karma with info on donation drives, recycle options, thrift shops, and more.',
-        }}
-        SEO={SEO}
-      />
+      <Head>
+        <meta
+          name="og:title"
+          key="og:title"
+          content={`${meta.title} | Recyclopedia.sg`}
+        />
+        {meta.description && meta.description.length > 0 && (
+          <>
+            <meta
+              key="description"
+              name="description"
+              content={meta.description}
+            />
+            <meta
+              property="og:description"
+              key="og:description"
+              content={meta.description}
+            />
+          </>
+        )}
+        <meta property="og:image" key="og:image" content={meta.image} />
+      </Head>
       <div className="bg-mobile-banner md:bg-banner bg-no-repeat bg-contain">
         <div className="max-w-md lg:max-w-none pt-40 md:pt-24 lg:pt-32 mx-auto">
           <a className="lg:flex justify-center z-10 relative hidden">

@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Layout from './Layout';
 import { DateTime } from 'luxon';
 import { replaceCDNUri } from '../lib/functions';
-import OpenGraph from './OpenGraph';
+import OpenGraph, { getOpengraphTags } from './OpenGraph';
 
 function Plain({
   title = '',
@@ -11,22 +11,41 @@ function Plain({
   updatedAt,
   SEO,
 }) {
+  const meta = getOpengraphTags(
+    {
+      title,
+      description,
+    },
+    SEO,
+  );
+
   return (
     <Layout
       showHeaderInitially={true}
       showHeaderOn=""
       hideHeaderOn=""
       title={title}>
-      <OpenGraph
-        defaultData={{
-          title,
-          description,
-        }}
-        SEO={SEO}
-      />
       <Head>
-        <meta name="description" content={description} />
-        <meta name="og:description" content={description} />
+        <meta
+          name="og:title"
+          key="og:title"
+          content={`${meta.title} | Recyclopedia.sg`}
+        />
+        {meta.description && meta.description.length > 0 && (
+          <>
+            <meta
+              key="description"
+              name="description"
+              content={meta.description}
+            />
+            <meta
+              property="og:description"
+              key="og:description"
+              content={meta.description}
+            />
+          </>
+        )}
+        <meta property="og:image" key="og:image" content={meta.image} />
       </Head>
       <div className="container mt-10">
         <h1 className="text-black pt-2 mb-0">{title}</h1>

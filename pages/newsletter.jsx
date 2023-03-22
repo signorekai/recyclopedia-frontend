@@ -1,34 +1,40 @@
 import Head from 'next/head';
-import { motion } from 'framer-motion';
-import qs from 'qs';
 
 import Mailchimp from '../components/SubscribeForm';
 
-import {
-  ITEMS_PER_PAGE,
-  staticFetcher,
-  useWindowDimensions,
-} from '../lib/hooks';
-import { Carousel, CarouselCard } from '../components/Carousel';
+import { staticFetcher, useWindowDimensions } from '../lib/hooks';
 import Layout from '../components/Layout';
-import SearchBar from '../components/SearchBar';
-import Card from '../components/Card';
-import Link from '../components/Link';
-import OpenGraph from '../components/OpenGraph';
+import { getOpengraphTags } from '../components/OpenGraph';
 
 export default function Home({ pageOptions }) {
   const { width } = useWindowDimensions();
-
   const { title, SEO } = pageOptions;
+  const meta = getOpengraphTags({ title }, SEO);
 
   return (
     <Layout title={title}>
-      <OpenGraph
-        defaultData={{
-          title,
-        }}
-        SEO={SEO}
-      />
+      <Head>
+        <meta
+          name="og:title"
+          key="og:title"
+          content={`${meta.title} | Recyclopedia.sg`}
+        />
+        {meta.description && meta.description.length > 0 && (
+          <>
+            <meta
+              key="description"
+              name="description"
+              content={meta.description}
+            />
+            <meta
+              property="og:description"
+              key="og:description"
+              content={meta.description}
+            />
+          </>
+        )}
+        <meta property="og:image" key="og:image" content={meta.image} />
+      </Head>
       <div className="container divider-b">
         <div className="lg:w-3/4 mx-auto my-12 md:my-24">
           <h3 className="text-[2rem] leading-tight font-medium text-center">

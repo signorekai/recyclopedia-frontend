@@ -17,7 +17,8 @@ import {
   AccordionProvider,
 } from '../components/Accordion';
 import { useMemo } from 'react';
-import OpenGraph from '../components/OpenGraph';
+import OpenGraph, { getOpengraphTags } from '../components/OpenGraph';
+import Head from 'next/head';
 
 const articlesParams = {
   populate: ['coverImage', 'category'],
@@ -120,16 +121,34 @@ export default function Page({
     return [accordionHeaders, articleTabs];
   }, [categoryTitles, fallback]);
 
+  const meta = getOpengraphTags({ title }, SEO);
+
   return (
     <Layout
       title={title}
       headerContainerStyle={{ backgroundColor: pageOptions.colour }}>
-      <OpenGraph
-        defaultData={{
-          title,
-        }}
-        SEO={SEO}
-      />
+      <Head>
+        <meta
+          name="og:title"
+          key="og:title"
+          content={`${meta.title} | Recyclopedia.sg`}
+        />
+        {meta.description && meta.description.length > 0 && (
+          <>
+            <meta
+              key="description"
+              name="description"
+              content={meta.description}
+            />
+            <meta
+              property="og:description"
+              key="og:description"
+              content={meta.description}
+            />
+          </>
+        )}
+        <meta property="og:image" key="og:image" content={meta.image} />
+      </Head>
       <section
         className="relative py-4 lg:pt-10"
         style={{

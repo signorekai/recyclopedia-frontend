@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useState, useEffect, useRef } from 'react';
+import Head from 'next/head';
 
 import Link from '../../components/Link';
 import Layout from '../../components/Layout';
@@ -23,7 +24,7 @@ import { ReportBtn } from '../../components/Report';
 import { useRouter } from 'next/router';
 import { BookmarkButton } from '../../components/BookmarkButton';
 import Masonry from '../../components/Masonry';
-import OpenGraph from '../../components/OpenGraph';
+import { getOpengraphTags } from '../../components/OpenGraph';
 
 const ItemTagLiterals = {
   Recycle: {
@@ -177,20 +178,43 @@ function Page({ data }) {
     }
   }
 
+  const meta = getOpengraphTags(
+    {
+      description: `Where to recycle ${data.title.toLowerCase()} in Singapore. Find the best ways to recycle, upcycle or donate old, used, or new ${data.title.toLowerCase()}`,
+      title: data.title,
+      image:
+        data.images.length > 0 &&
+        getLargestPossibleImage(data.images[0], 'large', 'medium'),
+    },
+    data.SEO,
+  );
+
   return (
     <>
       {data && (
         <Layout title={data && data.title}>
-          <OpenGraph
-            defaultData={{
-              description: `Where to recycle ${data.title.toLowerCase()} in Singapore. Find the best ways to recycle, upcycle or donate old, used, or new ${data.title.toLowerCase()}`,
-              title: data.title,
-              image:
-                data.images.length > 0 &&
-                getLargestPossibleImage(data.images[0], 'large', 'medium'),
-            }}
-            SEO={data.SEO}
-          />
+          <Head>
+            <meta
+              name="og:title"
+              key="og:title"
+              content={`${meta.title} | Recyclopedia.sg`}
+            />
+            {meta.description && meta.description.length > 0 && (
+              <>
+                <meta
+                  key="description"
+                  name="description"
+                  content={meta.description}
+                />
+                <meta
+                  property="og:description"
+                  key="og:description"
+                  content={meta.description}
+                />
+              </>
+            )}
+            <meta property="og:image" key="og:image" content={meta.image} />
+          </Head>
           {width > 1080 ? (
             <div className="container">
               <div

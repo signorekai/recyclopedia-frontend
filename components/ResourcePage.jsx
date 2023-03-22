@@ -16,7 +16,7 @@ import Image from './Image';
 import { ReportBtn } from './Report';
 import { BookmarkButton } from './BookmarkButton';
 import Card from './Card';
-import OpenGraph from './OpenGraph';
+import OpenGraph, { getOpengraphTags } from './OpenGraph';
 
 const ResourceTagLiterals = {
   Recycling: {
@@ -106,25 +106,47 @@ function ResourcePage({ data, baseUrl, tags }) {
   };
 
   if (data) {
+    const meta = getOpengraphTags(
+      {
+        description: `Learn more about ${data.title} here.`,
+        title: data.title,
+        image: `${process.env.NEXT_PUBLIC_LOCATION}/img/cover-image.jpg`,
+      },
+      data.SEO,
+    );
     return (
       <Layout
         showHeaderInitially={true}
         showHeaderOn=""
         hideHeaderOn=""
         title={data && data.title}>
-        <OpenGraph
-          defaultData={{
-            description: `Learn more about ${data.title} here.`,
-            title: data.title,
-            image: `${process.env.NEXT_PUBLIC_LOCATION}/img/cover-image.jpg`,
-          }}
-          SEO={data.SEO}>
+        <Head>
+          <meta
+            name="og:title"
+            key="og:title"
+            content={`${meta.title} | Recyclopedia.sg`}
+          />
+          {meta.description && meta.description.length > 0 && (
+            <>
+              <meta
+                key="description"
+                name="description"
+                content={meta.description}
+              />
+              <meta
+                property="og:description"
+                key="og:description"
+                content={meta.description}
+              />
+            </>
+          )}
+          <meta property="og:image" key="og:image" content={meta.image} />
           <meta
             property="og:url"
             key="og:url"
             content={`${process.env.NEXT_PUBLIC_LOCATION}${router.asPath}`}
           />
-        </OpenGraph>
+        </Head>
         <div className="page-icons lg:hidden">
           <Link href="javascript:history.go(-1)">
             <a className="page-icon-wrapper leading-none no-underline">

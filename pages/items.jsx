@@ -11,7 +11,7 @@ import {
   AccordionHeader,
   AccordionProvider,
 } from '../components/Accordion';
-import OpenGraph from '../components/OpenGraph';
+import OpenGraph, { getOpengraphTags } from '../components/OpenGraph';
 
 const itemsCacheParams = {
   populate: ['images'],
@@ -129,17 +129,34 @@ const Cards = ({ categories, columnCount = 3 }) => {
 
 export default function Page({ fallback, pageOptions, categories }) {
   const { title, subtitle, SEO } = pageOptions;
+  const meta = getOpengraphTags({ title, description: subtitle }, SEO);
+
   return (
     <Layout
       title={pageOptions.title}
       headerContainerStyle={{ backgroundColor: pageOptions.colour }}>
-      <OpenGraph
-        defaultData={{
-          title,
-          description: subtitle,
-        }}
-        SEO={SEO}
-      />
+      <Head>
+        <meta
+          name="og:title"
+          key="og:title"
+          content={`${meta.title} | Recyclopedia.sg`}
+        />
+        {meta.description && meta.description.length > 0 && (
+          <>
+            <meta
+              key="description"
+              name="description"
+              content={meta.description}
+            />
+            <meta
+              property="og:description"
+              key="og:description"
+              content={meta.description}
+            />
+          </>
+        )}
+        <meta property="og:image" key="og:image" content={meta.image} />
+      </Head>
       <section
         className="py-4 lg:py-8 text-white"
         style={{ backgroundColor: pageOptions.colour }}>

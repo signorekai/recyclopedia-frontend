@@ -12,7 +12,7 @@ import {
 } from '../lib/hooks';
 import InfiniteLoader from './InfiniteLoader';
 import { AccordionBody, AccordionHeader, AccordionProvider } from './Accordion';
-import OpenGraph from './OpenGraph';
+import OpenGraph, { getOpengraphTags } from './OpenGraph';
 
 const strapiAPIQueryTemplate = {
   populate: ['images'],
@@ -206,19 +206,33 @@ export default function ListingPage({
 
   const { title, subtitle, SEO } = pageOptions;
 
+  const meta = getOpengraphTags({ title, description: subtitle }, SEO);
+
   return (
     <Layout
       title={pageOptions.title}
       headerContainerStyle={{ backgroundColor: pageOptions.colour }}>
-      <OpenGraph
-        defaultData={{
-          title,
-          description: subtitle,
-        }}
-        SEO={SEO}
-      />
       <Head>
-        <meta name="description" content={pageOptions.subtitle} />
+        <meta
+          name="og:title"
+          key="og:title"
+          content={`${meta.title} | Recyclopedia.sg`}
+        />
+        {meta.description && meta.description.length > 0 && (
+          <>
+            <meta
+              key="description"
+              name="description"
+              content={meta.description}
+            />
+            <meta
+              property="og:description"
+              key="og:description"
+              content={meta.description}
+            />
+          </>
+        )}
+        <meta property="og:image" key="og:image" content={meta.image} />
       </Head>
       <section
         className="py-4 lg:py-10 text-white"
