@@ -24,7 +24,7 @@ export default function Home({
   donationDrives,
   pageOptions,
 }) {
-  const { width } = useWindowDimensions();
+  const { width, isDesktop } = useWindowDimensions();
   const { SEO } = pageOptions;
 
   const meta = getOpengraphTags(
@@ -133,7 +133,7 @@ export default function Home({
             <Carousel
               prevBtnClassName="hidden"
               nextBtnClassName="h-full pointer-events-none"
-              desktopControls={false}
+              desktopControls={isDesktop === false}
               autoSlideSize={false}
               slideWidth={width > 1080 ? 312 : 0.75 * width}>
               {donationDrives.map((item, key) => {
@@ -246,7 +246,7 @@ export default function Home({
             <Carousel
               prevBtnClassName="hidden"
               nextBtnClassName="h-full pointer-events-none"
-              desktopControls={false}
+              desktopControls={isDesktop === false}
               autoSlideSize={false}
               slideWidth={width > 1080 ? 312 : 0.75 * width}>
               {newsItems.map((item, key) => {
