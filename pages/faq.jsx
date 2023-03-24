@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 import { replaceCDNUri } from '../lib/functions';
 import OpenGraph, { getOpengraphTags } from '../components/OpenGraph';
+import Link from 'next/link';
 
 export const FAQCard = ({
   className = '',
@@ -16,10 +17,12 @@ export const FAQCard = ({
   openByDefault = false,
   onClick,
   disableAccordion = false,
+  href = '',
 }) => {
   const max = '10000000px';
   const [expanded, setExpanded] = useState(openByDefault);
   const maxHeight = useMotionValue(0);
+  const router = useRouter();
 
   useEffect(() => {
     if (!expanded && openByDefault) {
@@ -41,12 +44,30 @@ export const FAQCard = ({
         onClick(slug);
       }
       setExpanded(!expanded);
+    } else if (href !== '') {
+      router.push(href);
+    }
+  };
+
+  const Header = ({ children }) => {
+    if (href !== '') {
+      return (
+        <Link href={href} passHref>
+          <a className="no-underline mt-4 block">{children}</a>
+        </Link>
+      );
+    } else {
+      return (
+        <button className="w-full mt-4" onClick={handleClick}>
+          {children}
+        </button>
+      );
     }
   };
 
   return (
     <dl className={`px-4 divider-b after:mt-2 ${className}`} id={slug}>
-      <button className="w-full mt-4" onClick={handleClick}>
+      <Header>
         <dt className="flex flex-row items-center">
           <h3
             className="text-black my-0 flex-1 text-left font-semibold"
@@ -61,7 +82,7 @@ export const FAQCard = ({
             </>
           )}
         </dt>
-      </button>
+      </Header>
       <motion.dd
         style={{
           maxHeight,

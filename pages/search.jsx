@@ -383,6 +383,7 @@ export default function Page(props) {
           </h2>
           {faqResults.map((item) => (
             <FAQCard
+              href={item.slug ? `/faq#${item.slug.value}` : ''}
               className="!px-0 faq-search-results"
               slug={''}
               openByDefault={true}
