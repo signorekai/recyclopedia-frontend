@@ -378,7 +378,9 @@ export default function Page(props) {
       {props.success && props.type.length > 1 && <MultiSearchType {...props} />}
       {faqResults.length > 0 && (
         <div className="container border-t-1 my-6 border-t-grey-light">
-          <h2 className="h2--left mt-6 mb-0">FAQ</h2>
+          <h2 className="h2--left mt-6 mb-0">
+            Results from Frequently Asked Questions (FAQ)
+          </h2>
           {faqResults.map((item) => (
             <FAQCard
               className="!px-0 faq-search-results"
