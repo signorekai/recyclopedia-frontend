@@ -1,14 +1,13 @@
 import Head from 'next/head';
+import { DateTime } from 'luxon';
 
 import Mailchimp from '../components/SubscribeForm';
-
-import { staticFetcher, useWindowDimensions } from '../lib/hooks';
+import { staticFetcher } from '../lib/hooks';
 import Layout from '../components/Layout';
 import { getOpengraphTags } from '../components/OpenGraph';
 
 export default function Home({ pageOptions }) {
-  const { width } = useWindowDimensions();
-  const { title, SEO } = pageOptions;
+  const { title, SEO, newsletters } = pageOptions;
   const meta = getOpengraphTags({ title }, SEO);
 
   return (
@@ -36,7 +35,7 @@ export default function Home({ pageOptions }) {
         <meta property="og:image" key="og:image" content={meta.image} />
       </Head>
       <div className="container divider-b">
-        <div className="lg:w-3/4 mx-auto my-12 md:my-24">
+        <div className="lg:w-3/4 mx-auto my-12">
           <h3 className="text-[2rem] leading-tight font-medium text-center">
             Want to keep up with Singapore&apos;s Zero-Waste happenings?
           </h3>
@@ -53,6 +52,29 @@ export default function Home({ pageOptions }) {
           <Mailchimp />
         </div>
       </div>
+      <div className="mx-auto w-full lg:max-w-min my-12">
+        <h2 className="pl-4 lg:pl-0 text-center">Past newsletters</h2>
+        <ul className="!ml-0">
+          {newsletters.map((newsletter, key) => {
+            const date = DateTime.fromFormat(
+              newsletter.dateOfPublish,
+              "yyyy'-'MM'-'dd",
+            ).toLocaleString(DateTime.DATE_SHORT);
+            return (
+              <li className="!list-none lg:min-w-max block text-lg" key={key}>
+                {date} -{' '}
+                <a
+                  className=""
+                  href={newsletter.url}
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  {newsletter.title}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </Layout>
   );
 }
@@ -62,7 +84,7 @@ export async function getStaticProps() {
     `${process.env.API_URL}/newsletter-page`,
     process.env.API_KEY,
     {
-      populate: ['SEO', 'SEO.image'],
+      populate: ['SEO', 'SEO.image', 'newsletters'],
     },
   );
 
