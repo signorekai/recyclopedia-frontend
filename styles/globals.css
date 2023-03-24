@@ -73,7 +73,7 @@
 @layer components {
   .faq-search-results {
     dd em {
-      @apply text-blue-dark font-bold not-italic;
+      @apply text-blue font-bold not-italic;
     }
   }
 
