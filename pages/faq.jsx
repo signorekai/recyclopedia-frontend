@@ -49,7 +49,7 @@ export const FAQCard = ({
     }
   };
 
-  const Header = ({ children }) => {
+  const Wrapper = ({ buttonClassName = '', children }) => {
     if (href !== '') {
       return (
         <Link href={href} passHref>
@@ -58,7 +58,9 @@ export const FAQCard = ({
       );
     } else {
       return (
-        <button className="w-full mt-4" onClick={handleClick}>
+        <button
+          className={`w-full mt-4 ${buttonClassName}`}
+          onClick={handleClick}>
           {children}
         </button>
       );
@@ -66,9 +68,9 @@ export const FAQCard = ({
   };
 
   return (
-    <dl className={`px-4 divider-b after:mt-2 ${className}`} id={slug}>
-      <Header>
-        <dt className="flex flex-row items-center">
+    <dl className={`px-4 divider-b after:mt-2 group ${className}`} id={slug}>
+      <Wrapper>
+        <dt className="flex flex-row items-center group-hover:opacity-80">
           <h3
             className="text-black my-0 flex-1 text-left font-semibold"
             dangerouslySetInnerHTML={{ __html: replaceCDNUri(header) }}></h3>
@@ -82,16 +84,27 @@ export const FAQCard = ({
             </>
           )}
         </dt>
-      </Header>
+      </Wrapper>
       <motion.dd
         style={{
           maxHeight,
         }}
-        className="overflow-hidden transition-all duration-200 ">
-        <div
-          className="mt-4 mb-2"
-          dangerouslySetInnerHTML={{ __html: replaceCDNUri(content) }}
-        />
+        className="overflow-hidden transition-all duration-200  group-hover:opacity-80">
+        {href !== '' ? (
+          <Link passHref href={href}>
+            <a className="no-underline">
+              <div
+                className="mt-4 mb-2"
+                dangerouslySetInnerHTML={{ __html: replaceCDNUri(content) }}
+              />
+            </a>
+          </Link>
+        ) : (
+          <div
+            className="mt-4 mb-2"
+            dangerouslySetInnerHTML={{ __html: replaceCDNUri(content) }}
+          />
+        )}
       </motion.dd>
     </dl>
   );
