@@ -74,7 +74,11 @@
   .faq-search-results {
     dt,
     dd {
-      em {
+      a {
+        @apply text-black;
+      }
+      em,
+      a em {
         @apply text-blue font-bold not-italic;
       }
     }
