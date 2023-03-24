@@ -1,10 +1,10 @@
 import fetch from 'node-fetch';
 import qs from 'qs';
 import { object, string, array } from 'yup';
-import Head from 'next/head';
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import sanitizeHtml from 'sanitize-html';
 
 import _find from 'lodash.find';
 import pluralize from 'pluralize';
@@ -381,18 +381,26 @@ export default function Page(props) {
           <h2 className="h2--left mt-6 mb-0">
             Results from Frequently Asked Questions (FAQ)
           </h2>
-          {faqResults.map((item) => (
-            <FAQCard
-              href={item.slug ? `/faq#${item.slug.value}` : ''}
-              className="!px-0 faq-search-results"
-              slug={''}
-              openByDefault={true}
-              disableAccordion={true}
-              key={item.header.value}
-              header={item.header.value}
-              content={item.content.value}
-            />
-          ))}
+          {faqResults.map((item) => {
+            const slug = item.slug
+              ? sanitizeHtml(item.slug.value, {
+                  allowedTags: [],
+                  allowedAttributes: {},
+                })
+              : '';
+            return (
+              <FAQCard
+                href={`/faq#${slug}`}
+                className="!px-0 faq-search-results"
+                slug={slug}
+                openByDefault={true}
+                disableAccordion={true}
+                key={item.header.value}
+                header={item.header.value}
+                content={item.content.value}
+              />
+            );
+          })}
         </div>
       )}
       <ReportBtn record={`Search results for "${props.query}"`} delay={3000} />
