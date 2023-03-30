@@ -645,7 +645,19 @@ function Page({ data }) {
           )}
           <span className="text-grey-dark text-sm mt-2 block">
             Last Updated:{' '}
-            {DateTime.fromISO(data.updatedAt).toLocaleString(DateTime.DATE_MED)}
+            {data.hasOwnProperty('contentUpdatedAt') ? (
+              <>
+                {DateTime.fromISO(data.contentUpdatedAt).toLocaleString(
+                  DateTime.DATE_MED,
+                )}
+              </>
+            ) : (
+              <>
+                {DateTime.fromISO(data.updatedAt).toLocaleString(
+                  DateTime.DATE_MED,
+                )}
+              </>
+            )}
           </span>
           <div className="divider-b mt-2"></div>
           <ReportBtn
