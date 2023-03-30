@@ -53,7 +53,9 @@ export default function Home({ pageOptions }) {
         </div>
       </div>
       <div className="mx-auto w-full lg:max-w-min my-12">
-        <h2 className="pl-4 lg:pl-0 text-center">Past newsletters</h2>
+        <h2 className="pl-4 lg:pl-0 text-center text-black">
+          Past newsletters
+        </h2>
         <ul className="!ml-0">
           {newsletters.map((newsletter, key) => {
             const date = DateTime.fromFormat(
