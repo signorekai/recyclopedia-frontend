@@ -61,7 +61,10 @@ export default function Home({ pageOptions }) {
             const date = DateTime.fromFormat(
               newsletter.dateOfPublish,
               "yyyy'-'MM'-'dd",
-            ).toLocaleString(DateTime.DATE_SHORT);
+              {
+                locale: 'en-SG',
+              },
+            ).toFormat("dd'/'MM'/'yyyy", { locale: 'en-SG' });
             return (
               <li
                 className="!list-none lg:min-w-max block text-lg pb-4 md:pb-0"
