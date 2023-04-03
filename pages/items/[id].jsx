@@ -4,19 +4,12 @@ import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
+import sanitizeHtml from 'sanitize-html';
 
 import Link from '../../components/Link';
 import Layout from '../../components/Layout';
-import {
-  ITEMS_PER_PAGE,
-  staticFetcher,
-  useWindowDimensions,
-} from '../../lib/hooks';
-import {
-  getLargestPossibleImage,
-  replaceCDNUri,
-  replaceText,
-} from '../../lib/functions';
+import { staticFetcher, useWindowDimensions } from '../../lib/hooks';
+import { getLargestPossibleImage, replaceCDNUri } from '../../lib/functions';
 import { Carousel, CarouselCard } from '../../components/Carousel';
 import Card from '../../components/Card';
 import NewImage from '../../components/Image';
@@ -25,67 +18,80 @@ import { useRouter } from 'next/router';
 import { BookmarkButton } from '../../components/BookmarkButton';
 import Masonry from '../../components/Masonry';
 import { getOpengraphTags } from '../../components/OpenGraph';
+import StructuredData from '../../components/StructuredData';
 
 const ItemTagLiterals = {
   Recycle: {
     bgColor: 'bg-blue-light',
     icon: 'fa-dumpster',
     label: 'Recycling Bins & Chutes',
+    answer: 'Use Recycling Bins & Chutes.',
   },
   eWasteRecycle: {
     bgColor: 'bg-blue-light',
     icon: 'fa-bolt',
     label: 'eWaste Recycle',
+    answer: 'Look for eWaste recycling options.',
   },
   RecycleElsewhere: {
     bgColor: 'bg-blue-light',
     icon: 'fa-map-marker-exclamation',
     label: 'Specialised Recycling',
+    answer: 'Specialized Recycling is required.',
   },
   RecycleAsPaper: {
     bgColor: 'bg-blue-light',
     icon: 'fa-tree',
     label: 'Recycle as Paper',
+    answer: 'Recycle it as paper.',
   },
   CharitableDonation: {
     bgColor: 'bg-coral',
     icon: 'fa-box-heart',
     label: 'Charitable Donation',
+    answer: 'Donate it.',
   },
   GiveAway: {
     bgColor: 'bg-coral',
     icon: 'fa-box-heart',
     label: 'Freecycle / Give Away',
+    answer: 'Freecycle it.',
   },
   Repair: {
     bgColor: 'bg-blue-dark',
     icon: 'fa-wrench',
     label: 'Repair',
+    answer: 'Repair it.',
   },
   Reuse: {
     bgColor: 'bg-blue-dark',
     icon: 'fa-repeat',
     label: 'Reuse',
+    answer: 'Reuse it.',
   },
   Trash: {
     bgColor: 'bg-grey-mid',
     icon: 'fa-trash-alt',
     label: 'Trash',
+    answer: 'Trash it.',
   },
   Others: {
     bgColor: 'bg-blue-dark',
     icon: 'fa-leaf',
     label: 'Other',
+    answer: "It's complicated.",
   },
   BuyOrSell: {
     bgColor: 'bg-blue-dark',
     icon: 'fa-store',
     label: 'Buy or Sell',
+    answer: 'Buy or sell it.',
   },
   TipsAndSuggestions: {
     bgColor: 'bg-teal',
     icon: 'fa-lightbulb',
     label: 'Tips & Suggestions',
+    answer: 'Some other tips & suggestions:',
   },
 };
 
@@ -146,7 +152,7 @@ const AlternateTerms = ({ children }) => {
 };
 
 function Page({ data }) {
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const router = useRouter();
 
   const modifier =
@@ -190,8 +196,52 @@ function Page({ data }) {
       data.SEO,
     );
 
+    const structuredData = {
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: `How to recycle, upcycle or donate ${data.title}?`,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: `There are ${data.recommendations.length} ways to do it. 1. ${
+              ItemTagLiterals[data.recommendations[0].recommendation].answer
+            } ${sanitizeHtml(data.recommendations[0].recommendationText, {
+              allowedTags: [],
+              allowedAttributes: {},
+            })}`,
+          },
+          // suggestedAnswer: [],
+        },
+      ],
+    };
+
+    if (data.recommendations.length > 1) {
+      for (let x = 1; x < data.recommendations.length; x++) {
+        structuredData.mainEntity[0].acceptedAnswer.text += ` ${x + 1}. ${
+          ItemTagLiterals[data.recommendations[x].recommendation].answer
+        } ${sanitizeHtml(data.recommendations[x].recommendationText, {
+          allowedTags: [],
+          allowedAttributes: {},
+        })}`;
+        // structuredData.mainEntity.suggestedAnswer.push({
+        //   '@type': 'Answer',
+        //   text: `${
+        //     ItemTagLiterals[data.recommendations[x].recommendation].answer
+        //   } ${sanitizeHtml(data.recommendations[x].recommendationText, {
+        //     allowedTags: [],
+        //     allowedAttributes: {},
+        //   })}`,
+        //   url: `${process.env.NEXT_PUBLIC_LOCATION}${
+        //     router.asPath.split('#')[0]
+        //   }#alternative-${x}`,
+        // });
+      }
+    }
+
     return (
       <Layout title={data && data.title}>
+        <StructuredData data={structuredData} />
         <Head>
           <meta
             name="og:title"
@@ -381,11 +431,12 @@ function Page({ data }) {
           {data.recommendations.map((item, key) => {
             return (
               <motion.div
+                id={key === 0 ? 'recommended' : `alternative-${key}`}
                 key={key}
                 viewport={{ once: true }}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                className="lg:divider-b lg:divider-b-taller">
+                className="lg:divider-b lg:divider-b-taller scroll-mt-16">
                 <section className="lg:grid grid-cols-4 lg:gap-x-4 mt-6">
                   <div className="lg:col-span-1">
                     <h5 className="text-left">
