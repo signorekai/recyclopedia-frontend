@@ -63,8 +63,13 @@ export default function Home({ pageOptions }) {
               "yyyy'-'MM'-'dd",
             ).toLocaleString(DateTime.DATE_SHORT);
             return (
-              <li className="!list-none lg:min-w-max block text-lg" key={key}>
-                {date} -{' '}
+              <li
+                className="!list-none lg:min-w-max block text-lg pb-4 md:pb-0"
+                key={key}>
+                <span className="block md:inline text-sm md:text-base">
+                  {date}
+                </span>
+                <div className="hidden md:inline-block md:mx-2">-</div>
                 <a
                   className=""
                   href={newsletter.url}
