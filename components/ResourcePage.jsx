@@ -110,7 +110,9 @@ function ResourcePage({ data, baseUrl, tags }) {
       {
         description: `Learn more about ${data.title} here.`,
         title: data.title,
-        image: `${process.env.NEXT_PUBLIC_LOCATION}/img/cover-image.jpg`,
+        image:
+          data.images.length > 0 &&
+          getLargestPossibleImage(data.images[0], 'large', 'medium'),
       },
       data.SEO,
     );
