@@ -116,6 +116,7 @@ function ResourcePage({ data, baseUrl, tags }) {
       },
       data.SEO,
     );
+
     return (
       <Layout
         showHeaderInitially={true}
