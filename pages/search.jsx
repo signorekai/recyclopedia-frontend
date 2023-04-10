@@ -488,105 +488,105 @@ export async function getServerSideProps({ req, query, res }) {
 
     const validation = await Schema.isValid(search);
     if (validation) {
-      const promises = search.type.map((type) => {
-        const populateFields = [];
-        const filters = {};
-        let contentType = type;
+      // const promises = search.type.map((type) => {
+      //   const populateFields = [];
+      //   const filters = {};
+      //   let contentType = type;
 
-        switch (type) {
-          case 'items':
-            populateFields.push('images', 'itemCategory');
+      //   switch (type) {
+      //     case 'items':
+      //       populateFields.push('images', 'itemCategory');
 
-            filters['$or'] = [
-              {
-                $and: search.query.split(' ').map((term) => ({
-                  title: { $containsi: pluralize(term, 1) },
-                })),
-              },
-            ];
+      //       filters['$or'] = [
+      //         {
+      //           $and: search.query.split(' ').map((term) => ({
+      //             title: { $containsi: pluralize(term, 1) },
+      //           })),
+      //         },
+      //       ];
 
-            filters['$or'].push({
-              $and: search.query.split(' ').map((term) => ({
-                alternateSearchTerms: { $containsi: pluralize(term, 1) },
-              })),
-            });
+      //       filters['$or'].push({
+      //         $and: search.query.split(' ').map((term) => ({
+      //           alternateSearchTerms: { $containsi: pluralize(term, 1) },
+      //         })),
+      //       });
 
-            break;
+      //       break;
 
-          case 'freecycling':
-          case 'shops':
-            contentType = 'resources';
-          case 'resources':
-            // @todo add tag filtering
-            const contentTypeTags = pageOptions[type].data.resourceTags.map(
-              (tag) => ({
-                resourceTags: {
-                  id: {
-                    $eq: tag.id,
-                  },
-                },
-              }),
-            );
-            populateFields.push('images', 'resourceTags');
-            filters.$and = [
-              {
-                $or: contentTypeTags,
-              },
-              {
-                $or: [
-                  {
-                    $and: search.query.split(' ').map((term) => ({
-                      title: { $containsi: pluralize(term, 1) },
-                    })),
-                  },
-                  {
-                    $and: search.query.split(' ').map((term) => ({
-                      description: { $containsi: pluralize(term, 1) },
-                    })),
-                  },
-                  {
-                    $and: search.query.split(' ').map((term) => ({
-                      items: { $containsi: pluralize(term, 1) },
-                    })),
-                  },
-                ],
-              },
-            ];
-            break;
+      //     case 'freecycling':
+      //     case 'shops':
+      //       contentType = 'resources';
+      //     case 'resources':
+      //       // @todo add tag filtering
+      //       const contentTypeTags = pageOptions[type].data.resourceTags.map(
+      //         (tag) => ({
+      //           resourceTags: {
+      //             id: {
+      //               $eq: tag.id,
+      //             },
+      //           },
+      //         }),
+      //       );
+      //       populateFields.push('images', 'resourceTags');
+      //       filters.$and = [
+      //         {
+      //           $or: contentTypeTags,
+      //         },
+      //         {
+      //           $or: [
+      //             {
+      //               $and: search.query.split(' ').map((term) => ({
+      //                 title: { $containsi: pluralize(term, 1) },
+      //               })),
+      //             },
+      //             {
+      //               $and: search.query.split(' ').map((term) => ({
+      //                 description: { $containsi: pluralize(term, 1) },
+      //               })),
+      //             },
+      //             {
+      //               $and: search.query.split(' ').map((term) => ({
+      //                 items: { $containsi: pluralize(term, 1) },
+      //               })),
+      //             },
+      //           ],
+      //         },
+      //       ];
+      //       break;
 
-          case 'articles':
-            populateFields.push('coverImage', 'category');
+      //     case 'articles':
+      //       populateFields.push('coverImage', 'category');
 
-            filters['$or'] = [
-              {
-                title: { $containsi: search.query },
-              },
-              {
-                content: { $containsi: search.query },
-              },
-            ];
+      //       filters['$or'] = [
+      //         {
+      //           title: { $containsi: search.query },
+      //         },
+      //         {
+      //           content: { $containsi: search.query },
+      //         },
+      //       ];
 
-            search.query.split(' ').map((term) => {
-              filters.$or.push({
-                title: { $containsi: pluralize(term, 1) },
-              });
-            });
-            break;
-        }
+      //       search.query.split(' ').map((term) => {
+      //         filters.$or.push({
+      //           title: { $containsi: pluralize(term, 1) },
+      //         });
+      //       });
+      //       break;
+      //   }
 
-        const queryString = `${ip}/${contentType}?${qs.stringify({
-          populate: populateFields,
-          sort: ['title'],
-          pagination: 1000,
-          filters,
-        })}`;
+      //   const queryString = `${ip}/${contentType}?${qs.stringify({
+      //     populate: populateFields,
+      //     sort: ['title'],
+      //     pagination: 1000,
+      //     filters,
+      //   })}`;
 
-        return fetch(queryString, {
-          headers: {
-            Authorization: `Bearer ${process.env.API_KEY}`,
-          },
-        }).then((resp) => resp.json());
-      });
+      //   return fetch(queryString, {
+      //     headers: {
+      //       Authorization: `Bearer ${process.env.API_KEY}`,
+      //     },
+      //   }).then((resp) => resp.json());
+      // });
 
       const data = {};
 
@@ -605,31 +605,33 @@ export async function getServerSideProps({ req, query, res }) {
       const faqIndex = client.initIndex('production_api::faq.faq');
 
       await itemIndex.search(search.query).then(({ hits }) => {
-        if (hits.length > 0) data.items = [];
-
         hits.forEach((item) => {
-          data.items.push({
-            id: item.objectID,
-            title: item.title,
-            alternateSearchTerms: item.alternateSearchTerms,
-            slug: item.slug,
-            images: item.images,
-          });
+          if (item.publishedAt !== null) {
+            if (!data.items) data.items = [];
+
+            data.items.push({
+              id: item.objectID,
+              title: item.title,
+              alternateSearchTerms: item.alternateSearchTerms,
+              slug: item.slug,
+              images: item.images,
+            });
+          }
         });
       });
 
       await articlesIndex.search(search.query).then(({ hits }) => {
-        if (hits.length > 0) {
-          data.articles = [];
-        }
-
         hits.forEach((article) => {
-          data.articles.push({
-            id: article.objectID,
-            title: article.title,
-            slug: article.slug,
-            coverImage: article.coverImage,
-          });
+          if (article.publishedAt !== null) {
+            if (!data.articles) data.articles = [];
+
+            data.articles.push({
+              id: article.objectID,
+              title: article.title,
+              slug: article.slug,
+              coverImage: article.coverImage,
+            });
+          }
         });
       });
 
@@ -665,15 +667,17 @@ export async function getServerSideProps({ req, query, res }) {
             const type = resourceTagMap[tag.id];
             const result = _find(data[type], ['id', resource.objectID]);
             if (result === undefined) {
-              if (data.hasOwnProperty(type) === false) {
-                data[type] = [];
+              if (resource.publishedAt !== null) {
+                if (data.hasOwnProperty(type) === false) {
+                  data[type] = [];
+                }
+                data[type].push({
+                  id: resource.objectID,
+                  title: resource.title,
+                  images: resource.images,
+                  slug: resource.slug,
+                });
               }
-              data[type].push({
-                id: resource.objectID,
-                title: resource.title,
-                images: resource.images,
-                slug: resource.slug,
-              });
             } else {
               console.log(resource.title, 'already in', type);
             }
