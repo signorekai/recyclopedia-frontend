@@ -175,13 +175,17 @@
     @apply relative;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+  }
 
+  @media screen only and (max-width: 767px) {
     /* 
       hack necessary for hiding ios safari
       https://stackoverflow.com/a/61799019 
     */
-    @apply pb-7 -mb-7;
-    clip-path: inset(0 0 28px 0);
+    .basic-carousel {
+      @apply pb-7 -mb-7;
+      clip-path: inset(0 0 28px 0);
+    }
   }
 
   .basic-carousel::-webkit-scrollbar {
