@@ -202,7 +202,7 @@ function Page({ data }) {
       mainEntity: [
         {
           '@type': 'Question',
-          name: `How to recycle, upcycle or donate ${data.title}?`,
+          name: `How to recycle ${data.title}?`,
           acceptedAnswer: {
             '@type': 'Answer',
             text: `There are ${data.recommendations.length} ways to do it. 1. ${

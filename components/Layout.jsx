@@ -671,7 +671,7 @@ const Layout = ({
                   Terms of Service
                 </a>
               </Link>
-              <span className="py-1">&copy; Recyclopedia 2022</span>
+              <span className="py-1">&copy; Recyclopedia 2023</span>
             </div>
           </div>
           <div className="order-2 lg:order-1 -mt-1 md:mt-0">
