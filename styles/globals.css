@@ -79,7 +79,7 @@
       }
       em,
       a em {
-        @apply text-blue font-bold not-italic;
+        @apply text-blue font-bold not-italic bg-[yellow];
       }
     }
   }
