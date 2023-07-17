@@ -89,7 +89,7 @@ export const FAQCard = ({
         style={{
           maxHeight,
         }}
-        className="overflow-hidden transition-all duration-200  group-hover:opacity-80">
+        className="overflow-hidden transition-all duration-200 group-hover:opacity-80">
         {href !== '' ? (
           <Link passHref href={href}>
             <a className="no-underline">
