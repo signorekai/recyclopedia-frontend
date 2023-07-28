@@ -1,136 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://recyclopedia.sg/articles?section=All</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/articles?section=Donation%20Drives</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/articles?section=News%20and%20Views</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/articles?section=Tips</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/items</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/items?section=Electronics</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/items?section=Food%20%26%20Edibles</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/items?section=Glass</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/items?section=Metal</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/items?section=Mixed%20Material</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/items?section=Others</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/items?section=Paper</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/items?section=Plastic</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/items?section=Textile%20%26%20Clothes</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/resources</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/resources?section=Recycling</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/resources?section=Trash</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/resources?section=Repair</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/resources?section=Public%20Waste%20Collectors</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/freecycling</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/freecycling?section=Charity%20%26%20Welfare</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/freecycling?section=Sharing%20Initiatives</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/freecycling?section=Online%20Communities</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/freecycling?section=Upcycling%20%26%20Rescue</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/freecycling?section=Apps</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/faq</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/about-us</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/newsletter</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/search?contentType=items&amp;searchTerm=plastic</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/search?contentType=items&amp;searchTerm=paper</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/search?contentType=items&amp;searchTerm=metal</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/search?contentType=items&amp;searchTerm=glass</loc>
-  </url>
-
-  <url>
-    <loc>https://recyclopedia.sg/search?contentType=items&amp;searchTerm=clothes</loc>
-  </url>
-
+<url>
+<loc>https://recyclopedia.sg/articles?section=All</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/articles?section=Donation%20Drives</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/articles?section=News%20and%20Views</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/articles?section=Tips</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/items</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/items?section=Electronics</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/items?section=Food%20%26%20Edibles</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/items?section=Glass</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/items?section=Metal</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/items?section=Mixed%20Material</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/items?section=Others</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/items?section=Paper</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/items?section=Plastic</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/items?section=Textile%20%26%20Clothes</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/resources</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/resources?section=Recycling</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/resources?section=Trash</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/resources?section=Repair</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/resources?section=Public%20Waste%20Collectors</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/freecycling</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/freecycling?section=Charity%20%26%20Welfare</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/freecycling?section=Sharing%20Initiatives</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/freecycling?section=Online%20Communities</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/freecycling?section=Upcycling%20%26%20Rescue</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/freecycling?section=Apps</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/faq</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/about-us</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/newsletter</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/search?contentType=items&searchTerm=plastic</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/search?contentType=items&searchTerm=paper</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/search?contentType=items&searchTerm=metal</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/search?contentType=items&searchTerm=glass</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/search?contentType=items&searchTerm=clothes</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/shops?section=Book%20Shops</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/shops?section=Clothing%20%26%20Thrift</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/shops?section=Other%20Shops</loc>
+</url>
+<url>
+<loc>https://recyclopedia.sg/shops?section=Other%20Zero%20Waste%20Businesses</loc>
+</url>
 </urlset>
