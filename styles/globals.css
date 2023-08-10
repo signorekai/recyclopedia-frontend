@@ -53,8 +53,12 @@
     }
   }
 
-  ul:not(.plain) li {
+  ul:not(.plain) {
     @apply list-disc;
+  }
+
+  ol:not(.plain) {
+    @apply list-decimal;
   }
 
   a {
