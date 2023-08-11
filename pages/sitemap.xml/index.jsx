@@ -52,6 +52,10 @@ export const getServerSideProps = async (ctx) => {
       loc: `${process.env.NEXT_PUBLIC_LOCATION}/terms-of-service/`,
       lastmod: new Date().toISOString(),
     },
+    {
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/faq/`,
+      lastmod: new Date().toISOString(),
+    },
   ];
 
   const contentParams = {
@@ -170,6 +174,128 @@ export const getServerSideProps = async (ctx) => {
   articles.map((item) => {
     fields.push({
       loc: `${process.env.NEXT_PUBLIC_LOCATION}/articles/${item.slug}`,
+      lastmod: new Date().toISOString(),
+    });
+  });
+
+  const { data: articleCategories } = await staticFetcher(
+    `${process.env.API_URL}/article-categories`,
+    process.env.API_KEY,
+    {
+      sort: ['title'],
+    },
+  );
+
+  fields.push({
+    loc: `${process.env.NEXT_PUBLIC_LOCATION}/articles?section=All`,
+    lastmod: new Date().toISOString(),
+  });
+
+  articleCategories.map(({ title }) => {
+    const params = new URLSearchParams({
+      section: title,
+    });
+
+    fields.push({
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/articles?${params.toString()}`,
+      lastmod: new Date().toISOString(),
+    });
+  });
+
+  const { data: itemCategories } = await staticFetcher(
+    `${ip}/item-categories`,
+    process.env.API_KEY,
+    {
+      sort: ['title'],
+    },
+  );
+
+  fields.push({
+    loc: `${process.env.NEXT_PUBLIC_LOCATION}/items?section=All`,
+    lastmod: new Date().toISOString(),
+  });
+
+  itemCategories.map(({ title }) => {
+    const params = new URLSearchParams({
+      section: title,
+    });
+
+    fields.push({
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/items?${params.toString()}`,
+      lastmod: new Date().toISOString(),
+    });
+  });
+
+  const { data: resourcePage } = await staticFetcher(
+    `${ip}/resource-page`,
+    process.env.API_KEY,
+    {
+      populate: ['resourceTags'],
+    },
+  );
+
+  fields.push({
+    loc: `${process.env.NEXT_PUBLIC_LOCATION}/resources?section=All`,
+    lastmod: new Date().toISOString(),
+  });
+
+  resourcePage.resourceTags.map(({ title }) => {
+    const params = new URLSearchParams({
+      section: title,
+    });
+
+    fields.push({
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/resources?${params.toString()}`,
+      lastmod: new Date().toISOString(),
+    });
+  });
+
+  const { data: freecyclingPage } = await staticFetcher(
+    `${ip}/donate-page`,
+    process.env.API_KEY,
+    {
+      populate: ['resourceTags'],
+    },
+  );
+
+  fields.push({
+    loc: `${process.env.NEXT_PUBLIC_LOCATION}/freecycling?section=All`,
+    lastmod: new Date().toISOString(),
+  });
+
+  freecyclingPage.resourceTags.map(({ title }) => {
+    const params = new URLSearchParams({
+      section: title,
+    });
+
+    fields.push({
+      loc: `${
+        process.env.NEXT_PUBLIC_LOCATION
+      }/freecycling?${params.toString()}`,
+      lastmod: new Date().toISOString(),
+    });
+  });
+
+  const { data: shopPage } = await staticFetcher(
+    `${ip}/shops-page`,
+    process.env.API_KEY,
+    {
+      populate: ['resourceTags'],
+    },
+  );
+
+  fields.push({
+    loc: `${process.env.NEXT_PUBLIC_LOCATION}/shops?section=All`,
+    lastmod: new Date().toISOString(),
+  });
+
+  shopPage.resourceTags.map(({ title }) => {
+    const params = new URLSearchParams({
+      section: title,
+    });
+
+    fields.push({
+      loc: `${process.env.NEXT_PUBLIC_LOCATION}/shops?${params.toString()}`,
       lastmod: new Date().toISOString(),
     });
   });
