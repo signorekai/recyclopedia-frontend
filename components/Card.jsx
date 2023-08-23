@@ -4,6 +4,7 @@ import ContentLoader from 'react-content-loader';
 
 import Link from './Link';
 import Image from './Image';
+import NextImage from 'next/image';
 import { CarouselProvider, Slider, Slide, DotGroup } from 'pure-react-carousel';
 
 const variants = {
@@ -91,7 +92,7 @@ const Card = ({
   content = {},
   className = '',
   uniqueKey,
-  imagesWrapperClassName = 'aspect-square',
+  imagesWrapperClassName = 'aspect-square rounded-md overflow-hidden',
   imgClassName = '',
   prefixIcon = '',
   bookmarkBtn = <></>,
@@ -106,14 +107,14 @@ const Card = ({
             initial="initial"
             animate="animate"
             exit="exit"
-            className={`no-underline ${className} rounded-md overflow-hidden`}>
-            <div className={`${imagesWrapperClassName}`}>
+            className={`no-underline ${className} overflow-hidden`}>
+            <div className={`${imagesWrapperClassName} relative`}>
               <PrefixIcon type={prefixIcon} />
               {content.images && content.images.length > 1 && (
                 <CarouselProvider
                   totalSlides={content.images.length}
-                  naturalSlideWidth={240}
-                  naturalSlideHeight={240}>
+                  naturalSlideWidth={228}
+                  naturalSlideHeight={228}>
                   <Slider
                     className="rounded-md overflow-hidden"
                     classNameAnimation="transition-transform duration-200">
@@ -124,20 +125,13 @@ const Card = ({
                         className="rounded-md overflow-hidden"
                         style={{ paddingBottom: 0, lineHeight: 0 }}>
                         <LinkWrapper passHref content={content}>
-                          <Image
+                          <NextImage
                             className={`group-hover:scale-110 transition-transform ${imgClassName}`}
                             alt={`${content.headerText} Recycling in Singapore`}
-                            source={image}
-                            width={
-                              image.width > image.height
-                                ? image.width
-                                : image.height
-                            }
-                            height={
-                              image.width > image.height
-                                ? image.width
-                                : image.height
-                            }
+                            src={image.url}
+                            layout="fixed"
+                            width={228}
+                            height={228}
                           />
                         </LinkWrapper>
                       </Slide>
@@ -146,16 +140,35 @@ const Card = ({
                   <DotGroup className="z-30" />
                 </CarouselProvider>
               )}
-              {((typeof content.images === 'undefined' &&
-                content.image.hasOwnProperty('url')) ||
-                (content.images && content.images.length === 1)) && (
-                <LinkWrapper passHref content={content}>
-                  <Image
-                    wrapperClassName="rounded-md"
+              {typeof content.images === 'undefined' &&
+                content.image.hasOwnProperty('url') && (
+                  <LinkWrapper passHref content={content} className="block">
+                    <NextImage
+                      layout="fill"
+                      objectFit="cover"
+                      objectPosition="center center"
+                      quality={100}
+                      sizes="240px"
+                      className="group-hover:scale-110 transition-transform"
+                      // width={content.image.width}
+                      // height={content.image.height}
+                      src={content.image.url}
+                      alt={`${content.headerText} Recycling in Singapore`}
+                    />
+                  </LinkWrapper>
+                )}
+              {content.images && content.images.length === 1 && (
+                <LinkWrapper passHref content={content} className="block">
+                  <NextImage
+                    layout="fill"
+                    objectFit="cover"
+                    objectPosition="center center"
                     className="group-hover:scale-110 transition-transform"
-                    width={content.images ? content.images[0].width : 0}
-                    height={content.images ? content.images[0].height : 0}
-                    source={content.images ? content.images[0] : content.image}
+                    quality={100}
+                    width={content.images[0].width}
+                    height={content.images[0].height}
+                    sizes="240px"
+                    src={content.images[0].url}
                     alt={`${content.headerText} Recycling in Singapore`}
                   />
                 </LinkWrapper>

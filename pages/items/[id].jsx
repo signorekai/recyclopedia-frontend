@@ -6,6 +6,8 @@ import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import sanitizeHtml from 'sanitize-html';
 
+import NextImage from 'next/image';
+
 import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import { staticFetcher, useWindowDimensions } from '../../lib/hooks';
@@ -275,7 +277,7 @@ function Page({ data }) {
               {data.images.map((image, key) => (
                 <div
                   key={key}
-                  className={`overflow-hidden rounded-md ${
+                  className={`overflow-hidden rounded-md relative ${
                     key === 0
                       ? 'row-span-full'
                       : {
@@ -294,9 +296,15 @@ function Page({ data }) {
                           3: 'col-span-4',
                         }[data.images.length]
                   }`}>
-                  <NewImage
-                    source={image}
-                    wrapperClassName="h-full"
+                  <NextImage
+                    src={image.url}
+                    layout="fill"
+                    sizes="50vw"
+                    priority={true}
+                    objectFit="cover"
+                    objectPosition="center center"
+                    width={image.width}
+                    height={image.height}
                     alt={`${data.title} Recycling in Singapore`}
                   />
                 </div>

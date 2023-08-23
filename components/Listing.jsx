@@ -83,7 +83,7 @@ const Cards = ({ tags, columnCount = 3, contentType }) => {
           return items.map((item, key) => (
             <Card
               key={key}
-              className="w-full"
+              className="w-full test"
               uniqueKey={`card-${key}`}
               prefixIcon={item.resourceIcon || ''}
               content={{

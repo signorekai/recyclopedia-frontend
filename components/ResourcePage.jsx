@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 
+import NextImage from 'next/image';
+
 import {
   getLargestPossibleImage,
   replaceCDNUri,
@@ -187,11 +189,12 @@ function ResourcePage({ data, baseUrl, tags }) {
                       src={`/img/${data.resourceIcon.toLowerCase() + '.svg'}`}
                     />
                   )}
-                  <Image
-                    layout={width > 1080 ? 'fixed' : 'responsive'}
-                    width={768}
-                    height={768}
-                    source={data.images[0] || {}}
+                  <NextImage
+                    layout={'fill'}
+                    objectFit="cover"
+                    objectPosition="center center"
+                    sizes="100vw"
+                    src={data.images[0].url || {}}
                     alt={`${data.title}`}
                   />
                 </div>
