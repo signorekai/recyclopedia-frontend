@@ -19,12 +19,16 @@ export default function Image({
   className = '',
   wrapperClassName = '',
   style = {},
+  priority = false,
 }) {
   const src = source.url || '';
   const formats = source.formats || {};
 
   const orderedFormats = orderBy(formats, 'width');
-  const [ref, { width: elemWidth, height: elemHeight }] = useElementSize();
+  const [ref, { width: elemWidth, height: elemHeight }] = useElementSize({
+    width,
+    height,
+  });
 
   let actualSrc = '';
 
@@ -74,6 +78,7 @@ export default function Image({
       style={layout === 'responsive' ? responsiveStyles : fixedStyles}>
       {actualSrc.length > 0 && (
         <img
+          fetchpriority={priority ? 'high' : 'low'}
           nopin="nopin"
           src={actualSrc}
           alt={

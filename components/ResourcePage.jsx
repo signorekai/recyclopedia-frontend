@@ -204,42 +204,35 @@ function ResourcePage({ data, baseUrl, tags }) {
           )}
           <div className="container">
             <section className="flex flex-col lg:flex-row">
-              {width > 1080 && (
-                <>
-                  {data.images && data.images.length > 0 ? (
-                    <div className="aspect-[1_/_1] w-full lg:w-1/2 lg:pr-12 relative">
-                      {data.resourceIcon &&
-                        data.resourceIcon === 'Sponsored' && (
-                          <div className="z-10 py-1 px-2 rounded-md tracking-2 absolute top-4 left-4 bg-grey-dark bg-opacity-70 text-white font-archivo font-bold text-xs uppercase">
-                            SPONSORED
-                          </div>
-                        )}
-                      {data.resourceIcon &&
-                        data.resourceIcon !== 'Sponsored' && (
-                          <img
-                            alt=""
-                            className="absolute top-4 left-4 z-40 h-8"
-                            src={`/img/${
-                              data.resourceIcon.toLowerCase() + '.svg'
-                            }`}
-                          />
-                        )}
-                      <Image
-                        layout={width > 1080 ? 'fixed' : 'responsive'}
-                        className="rounded-md"
-                        width={480}
-                        height={480}
-                        source={data.images[0] || {}}
-                        alt={`${data.title}`}
+              <div className="aspect-[1_/_1] hidden lg:block lg:w-1/2 lg:pr-12 relative">
+                {data.images && data.images.length > 0 ? (
+                  <>
+                    {data.resourceIcon && data.resourceIcon === 'Sponsored' && (
+                      <div className="z-10 py-1 px-2 rounded-md tracking-2 absolute top-4 left-4 bg-grey-dark bg-opacity-70 text-white font-archivo font-bold text-xs uppercase">
+                        SPONSORED
+                      </div>
+                    )}
+                    {data.resourceIcon && data.resourceIcon !== 'Sponsored' && (
+                      <img
+                        alt=""
+                        className="absolute top-4 left-4 z-40 h-8"
+                        src={`/img/${data.resourceIcon.toLowerCase() + '.svg'}`}
                       />
-                    </div>
-                  ) : (
-                    <div className="aspect-[1_/_1] w-full lg:w-1/2 lg:pr-12">
-                      <div className="w-full h-full bg-grey rounded-md"></div>
-                    </div>
-                  )}
-                </>
-              )}
+                    )}
+                    <Image
+                      priority={true}
+                      layout={width > 1080 ? 'fixed' : 'responsive'}
+                      className="rounded-md"
+                      width={480}
+                      height={480}
+                      source={data.images[0] || {}}
+                      alt={`${data.title}`}
+                    />
+                  </>
+                ) : (
+                  <div className="w-full h-full bg-grey rounded-md"></div>
+                )}
+              </div>
               <div className="flex-1 mb-6 lg:mb-0 flex flex-col">
                 <div
                   className={`order-3 lg:order-1 origin-top-left ${
