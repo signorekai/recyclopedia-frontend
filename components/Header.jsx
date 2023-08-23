@@ -127,7 +127,7 @@ export default function Header({
         }}
         style={{
           y: showHeaderInitially ? 0 : '-100%',
-          position: width < 1080 ? '' : 'fixed',
+          position: 'fixed',
         }}
         animate={headerAnimControl}
         className="header top-0">
