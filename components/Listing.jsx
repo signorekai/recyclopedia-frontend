@@ -145,6 +145,7 @@ export async function getListingStaticProps({ contentUrl }) {
     populate: ['images'],
     fields: ['title', 'slug'],
     publicationState: 'live',
+    sort: ['visits:desc', 'title'],
     pagination: {
       page: 1,
       pageSize: ITEMS_PER_PAGE,

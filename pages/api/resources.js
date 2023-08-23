@@ -11,7 +11,7 @@ export default function handler(req, res) {
         'relatedItems.images',
         'externalLinks',
       ],
-      sort: ['title'],
+      sort: ['visits:desc', 'title'],
       publicationState: 'live',
       pagination: {
         page: parseInt(req.query.page) + 1,
