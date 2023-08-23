@@ -173,42 +173,34 @@ function ResourcePage({ data, baseUrl, tags }) {
           </div>
         </div>
         <div className="bg-bg lg:pt-12 lg:pb-8 ">
-          {width < 1080 && (
-            <>
-              {data.images && data.images.length > 0 ? (
-                <div className="aspect-[1_/_1] w-full lg:w-1/2 lg:pr-12 relative">
-                  {data.resource && data.resourceIcon === 'Sponsored' && (
-                    <div className="z-10 py-1 px-2 rounded-md tracking-2 absolute bottom-4 left-4 bg-grey-dark bg-opacity-70 text-white font-archivo font-bold text-xs uppercase">
-                      SPONSORED
-                    </div>
-                  )}
-                  {data.resourceIcon && data.resourceIcon !== 'Sponsored' && (
-                    <img
-                      alt=""
-                      className="absolute bottom-4 left-4 z-40 h-8"
-                      src={`/img/${data.resourceIcon.toLowerCase() + '.svg'}`}
-                    />
-                  )}
-                  <NextImage
-                    layout={'fill'}
-                    objectFit="cover"
-                    objectPosition="center center"
-                    sizes="100vw"
-                    src={data.images[0].url || {}}
-                    alt={`${data.title}`}
-                  />
-                </div>
-              ) : (
-                <div className="aspect-[1_/_1] w-full lg:w-1/2 lg:pr-12">
-                  <div className="w-full h-full bg-grey rounded-md"></div>
+          {data.images && data.images.length > 0 && (
+            <div className="aspect-[1_/_1] w-full lg:hidden relative">
+              {data.resource && data.resourceIcon === 'Sponsored' && (
+                <div className="z-10 py-1 px-2 rounded-md tracking-2 absolute bottom-4 left-4 bg-grey-dark bg-opacity-70 text-white font-archivo font-bold text-xs uppercase">
+                  SPONSORED
                 </div>
               )}
-            </>
+              {data.resourceIcon && data.resourceIcon !== 'Sponsored' && (
+                <img
+                  alt=""
+                  className="absolute bottom-4 left-4 z-40 h-8"
+                  src={`/img/${data.resourceIcon.toLowerCase() + '.svg'}`}
+                />
+              )}
+              <NextImage
+                layout={'fill'}
+                objectFit="cover"
+                objectPosition="center center"
+                sizes="100vw"
+                src={data.images[0].url || {}}
+                alt={`${data.title}`}
+              />
+            </div>
           )}
           <div className="container">
             <section className="flex flex-col lg:flex-row">
-              <div className="aspect-[1_/_1] hidden lg:block lg:w-1/2 lg:pr-12 relative">
-                {data.images && data.images.length > 0 ? (
+              <div className="aspect-square hidden lg:block lg:w-1/2 lg:pr-12 relative">
+                {data.images && data.images.length > 0 && (
                   <>
                     {data.resourceIcon && data.resourceIcon === 'Sponsored' && (
                       <div className="z-10 py-1 px-2 rounded-md tracking-2 absolute top-4 left-4 bg-grey-dark bg-opacity-70 text-white font-archivo font-bold text-xs uppercase">
@@ -232,8 +224,6 @@ function ResourcePage({ data, baseUrl, tags }) {
                       alt={`${data.title}`}
                     />
                   </>
-                ) : (
-                  <div className="w-full h-full bg-grey rounded-md"></div>
                 )}
               </div>
               <div className="flex-1 mb-6 lg:mb-0 flex flex-col">
