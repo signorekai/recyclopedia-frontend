@@ -11,7 +11,10 @@ const nextConfig = {
   },
   reactStrictMode: true,
   images: {
-    domains: ['recyclopedia.ap-south-1.linodeobjects.com'],
+    domains: [
+      'cdn.recyclopedia.sg',
+      'recyclopedia.ap-south-1.linodeobjects.com',
+    ],
   },
 };
 

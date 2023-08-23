@@ -153,6 +153,8 @@ const Card = ({
                   <Image
                     wrapperClassName="rounded-md"
                     className="group-hover:scale-110 transition-transform"
+                    width={content.images ? content.images[0].width : 0}
+                    height={content.images ? content.images[0].height : 0}
                     source={content.images ? content.images[0] : content.image}
                     alt={`${content.headerText} Recycling in Singapore`}
                   />

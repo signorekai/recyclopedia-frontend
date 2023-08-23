@@ -2,6 +2,8 @@ import { useRef, useEffect } from 'react';
 import orderBy from 'lodash.orderby';
 import { useElementSize } from '../lib/hooks';
 
+import NextImage from 'next/image';
+
 /**
  *
  * @param {Object} props
@@ -30,7 +32,7 @@ export default function Image({
     height,
   });
 
-  let actualSrc = '';
+  let actualSrc = src;
 
   const acceptedLayout = ['responsive', 'fixed'];
   if (acceptedLayout.indexOf(layout) === -1) {
