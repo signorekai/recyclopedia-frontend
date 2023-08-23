@@ -267,108 +267,105 @@ function Page({ data }) {
           )}
           <meta property="og:image" key="og:image" content={meta.image} />
         </Head>
-        {width > 1080 ? (
-          <div className="container">
-            <div
-              className="grid grid-cols-12 grid-rows-12 gap-2 mt-12"
-              style={{
-                height: desktopImageHeight,
-              }}>
-              {data.images.map((image, key) => (
-                <div
-                  key={key}
-                  className={`overflow-hidden rounded-md relative ${
-                    key === 0
-                      ? 'row-span-full'
-                      : {
-                          2: 'row-span-full',
-                          3: 'row-span-6',
-                        }[data.images.length]
-                  } ${
-                    key === 0
-                      ? {
-                          1: 'col-span-9',
-                          2: 'col-span-6',
-                          3: 'col-span-8',
-                        }[data.images.length]
-                      : {
-                          2: 'col-span-6',
-                          3: 'col-span-4',
-                        }[data.images.length]
-                  }`}>
-                  <NextImage
-                    src={image.url}
-                    layout="fill"
-                    sizes="50vw"
-                    priority={true}
-                    objectFit="cover"
-                    objectPosition="center center"
-                    width={image.width}
-                    height={image.height}
-                    alt={`${data.title} Recycling in Singapore`}
-                  />
-                </div>
-              ))}
+        <div className="hidden container lg:block">
+          <div
+            className="lg:grid grid-cols-12 grid-rows-12 gap-2 mt-12"
+            style={{
+              height: desktopImageHeight,
+            }}>
+            {data.images.map((image, key) => (
+              <div
+                key={key}
+                className={`overflow-hidden rounded-md relative ${
+                  key === 0
+                    ? 'row-span-full'
+                    : {
+                        2: 'row-span-full',
+                        3: 'row-span-6',
+                      }[data.images.length]
+                } ${
+                  key === 0
+                    ? {
+                        1: 'col-span-9',
+                        2: 'col-span-6',
+                        3: 'col-span-8',
+                      }[data.images.length]
+                    : {
+                        2: 'col-span-6',
+                        3: 'col-span-4',
+                      }[data.images.length]
+                }`}>
+                <NextImage
+                  src={image.url}
+                  layout="fill"
+                  sizes="50vw"
+                  priority={true}
+                  objectFit="cover"
+                  objectPosition="center center"
+                  width={image.width}
+                  height={image.height}
+                  alt={`${data.title} Recycling in Singapore`}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="lg:hidden">
+          <div className="page-icons">
+            <Link href="javascript:history.go(-1)">
+              <a className="page-icon-wrapper leading-none no-underline">
+                <i className="far fa-angle-left text-blue"></i>
+              </a>
+            </Link>
+            <div className="flex flex-row gap-x-2">
+              <button
+                onClick={handleShare}
+                className="page-icon-wrapper text-base leading-none">
+                <i className="far fa-external-link text-blue"></i>
+              </button>
+              <BookmarkButton
+                contentType="items"
+                slug={data.slug}
+                contentId={data.id}
+              />
             </div>
           </div>
-        ) : (
-          <>
-            <div className="page-icons">
-              <Link href="javascript:history.go(-1)">
-                <a className="page-icon-wrapper leading-none no-underline">
-                  <i className="far fa-angle-left text-blue"></i>
-                </a>
-              </Link>
-              <div className="flex flex-row gap-x-2">
-                <button
-                  onClick={handleShare}
-                  className="page-icon-wrapper text-base leading-none">
-                  <i className="far fa-external-link text-blue"></i>
-                </button>
-                <BookmarkButton
-                  contentType="items"
-                  slug={data.slug}
-                  contentId={data.id}
-                />
-              </div>
+          {data.images && data.images.length > 1 && (
+            <CarouselProvider
+              naturalSlideWidth={width}
+              naturalSlideHeight={width / imageRatio}
+              totalSlides={data.images.length}>
+              <Slider>
+                {data.images.map((image, key) => (
+                  <Slide key={key} index={key} style={{ paddingBottom: 0 }}>
+                    <NewImage
+                      alt={`${data.title} Recycling in Singapore`}
+                      source={image}
+                      width={image.width > width ? image.width : width}
+                      height={
+                        image.width > width
+                          ? image.width / imageRatio
+                          : width / imageRatio
+                      }
+                    />
+                  </Slide>
+                ))}
+              </Slider>
+              {data.images.length > 1 && <DotGroup className="z-30" />}
+            </CarouselProvider>
+          )}
+          {data.images && data.images.length === 1 && (
+            <div className="w-full" style={{ height: width * 0.75 }}>
+              <NewImage
+                layout="responsive"
+                alt={`${data.title} Recycling in Singapore`}
+                source={data.images[0]}
+                width={data.images[0].width}
+                height={data.images[0].height}
+              />
             </div>
-            {data.images && data.images.length > 1 && (
-              <CarouselProvider
-                naturalSlideWidth={width}
-                naturalSlideHeight={width / imageRatio}
-                totalSlides={data.images.length}>
-                <Slider>
-                  {data.images.map((image, key) => (
-                    <Slide key={key} index={key} style={{ paddingBottom: 0 }}>
-                      <NewImage
-                        alt={`${data.title} Recycling in Singapore`}
-                        source={image}
-                        width={image.width > width ? image.width : width}
-                        height={
-                          image.width > width
-                            ? image.width / imageRatio
-                            : width / imageRatio
-                        }
-                      />
-                    </Slide>
-                  ))}
-                </Slider>
-                {data.images.length > 1 && <DotGroup className="z-30" />}
-              </CarouselProvider>
-            )}
-            {data.images && data.images.length === 1 && (
-              <div className="w-full" style={{ height: width * 0.75 }}>
-                <NewImage
-                  layout="responsive"
-                  alt={`${data.title} Recycling in Singapore`}
-                  source={data.images[0]}
-                  width={data.images[0].width}
-                  height={data.images[0].height}
-                />
-              </div>
-            )}
-          </>
-        )}
+          )}
+        </div>
         <div className="container">
           <section className="mt-3 lg:mt-5 divider-b lg:after:hidden">
             <h2 className="text-black mb-0 lg:text-3xl leading-tight justify-start">
