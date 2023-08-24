@@ -123,7 +123,7 @@ Mailchimp.propTypes = {
   buttonClassName: PropTypes.string,
 };
 
-export default function Form({ messages: {} }) {
+export default function Form() {
   const msg = {
     sending: 'Sending...',
     success: 'Thank you for subscribing!',
@@ -131,7 +131,6 @@ export default function Form({ messages: {} }) {
     empty: 'You need to include an email.',
     duplicate: 'Too many subscribe attempts for this email address',
     button: 'Sign up!',
-    ...messages,
   };
 
   return (
