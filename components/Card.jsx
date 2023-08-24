@@ -67,14 +67,14 @@ const LinkWrapper = ({ children, content }) => {
 
 /**
  * @typedef {Object} MultiImgCardContentProp
+ * @extends CardContentProp
  * @property {Object[]} images
- * @augments CardContentProp
  */
 
 /**
  * @typedef {Object} SingleImgCardContentProp
+ * @extends CardContentProp
  * @property {Object} image
- * @augments CardContentProp
  */
 
 /**
