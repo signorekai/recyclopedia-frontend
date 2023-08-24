@@ -64,23 +64,19 @@ const LinkWrapper = ({ children, content }) => {
  * @property {'articles'|'resources'|'items'|'freecycling'|'shops'} contentType
  * @property {string} slug
  */
-
 /**
- * @typedef {Object} MultiImgCardContentProp
- * @extends CardContentProp
+ * @typedef {Object} MultiImgCardContentPropProperties
  * @property {Object[]} images
  */
-
 /**
- * @typedef {Object} SingleImgCardContentProp
- * @extends CardContentProp
+ * @typedef {Object} SingleImgCardContentPropProperties
  * @property {Object} image
  */
 
 /**
  * Card for items / resources
  * @param {Object} props
- * @param {MultiImgCardContentProp|SingleImgCardContentProp|CardContentProp} props.content
+ * @param {(MultiImgCardContentProp | SingleImgCardContentProp) & CardContentProp} props.content
  * @param {string} [props.className=""]
  * @param {string} [props.imagesWrapperClassName="aspect-square"]
  * @param {string} [props.imgClassName=""]
