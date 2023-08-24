@@ -431,8 +431,8 @@ const Layout = ({
                     value={formValue}
                     placeholder="Search for something"
                     type="text"
-                    name="searchTerm"
-                    id="searchTerm"
+                    name="q"
+                    id="q"
                     className="bg-transparent focus:outline-none flex-1 w-full lg:w-80"
                   />
                   <button type="submit">
@@ -445,17 +445,6 @@ const Layout = ({
                     className="search-close-btn pr-0 lg:hidden">
                     <span className="fal fa-times search-icon text-black border-l-1 border-bg pl-2"></span>
                   </button>
-                  <input
-                    type="hidden"
-                    name="contentType"
-                    value={[
-                      'items',
-                      'resources',
-                      'articles',
-                      'freecycling',
-                      'shops',
-                    ].join(',')}
-                  />
                 </div>
                 <AnimatePresence>
                   {isFocused && (
