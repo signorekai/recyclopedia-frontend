@@ -15,7 +15,10 @@ import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
 import Link from '../components/Link';
 import Logo from '../components/Logo';
+import StructuredData from '../components/StructuredData';
 import OpenGraph, { getOpengraphTags } from '../components/OpenGraph';
+
+import type { WebSite, WithContext } from 'schema-dts';
 
 export default function Home({
   items,
@@ -36,9 +39,25 @@ export default function Home({
     SEO,
   );
 
+  const structuredData: WebSite = {
+    '@type': 'WebSite',
+    name: 'Recyclopedia.sg',
+    alternateName: 'Recyclopedia',
+    url: 'https://recyclopedia.sg',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://recyclopedia.sg/search?searchTerm={search_term_string}'
+      },
+      "query-input": "required name=search_term_string",
+    }
+  }
+
   return (
     <Layout>
       <Head>
+        <StructuredData data={structuredData} />
         <meta
           name="og:title"
           key="og:title"
@@ -72,13 +91,6 @@ export default function Home({
           </h3>
           <SearchBar
             placeholderText={'Search for something'}
-            searchType={[
-              'items',
-              'resources',
-              'articles',
-              'freecycling',
-              'shops',
-            ]}
             activeBackgroundColor="#252B5C"
             className="lg:w-[720px]"
             wrapperClassName="z-20"
