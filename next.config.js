@@ -15,6 +15,7 @@ const nextConfig = {
       'cdn.recyclopedia.sg',
       'recyclopedia.ap-south-1.linodeobjects.com',
     ],
+    minimumCacheTTL: 172800, // 2 days
   },
 };
 
