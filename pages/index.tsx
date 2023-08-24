@@ -18,7 +18,11 @@ import Logo from '../components/Logo';
 import StructuredData from '../components/StructuredData';
 import OpenGraph, { getOpengraphTags } from '../components/OpenGraph';
 
-import type { WebSite, WithContext } from 'schema-dts';
+import type { WebSite, SearchAction } from 'schema-dts';
+
+type SearchActionWithQueryInput = SearchAction & {
+  "query-input": string
+}
 
 export default function Home({
   items,
@@ -37,21 +41,23 @@ export default function Home({
         'Everything you need to know when you have something to throw. A Singapore based directory of recommendations and advice on reducing your waste-karma with info on donation drives, recycle options, thrift shops, and more.',
     },
     SEO,
-  );
+  ); 
+
+  const searchAction: SearchActionWithQueryInput = {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: 'https://recyclopedia.sg/search?searchTerm={search_term_string}'
+    },
+    "query-input": "required name=search_term_string",
+  }
 
   const structuredData: WebSite = {
     '@type': 'WebSite',
     name: 'Recyclopedia.sg',
     alternateName: 'Recyclopedia',
     url: 'https://recyclopedia.sg',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: 'https://recyclopedia.sg/search?searchTerm={search_term_string}'
-      },
-      "query-input": "required name=search_term_string",
-    }
+    potentialAction: searchAction,
   }
 
   return (
