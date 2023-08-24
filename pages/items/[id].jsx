@@ -227,25 +227,13 @@ function Page({ data }) {
           allowedTags: [],
           allowedAttributes: {},
         })}`;
-        // structuredData.mainEntity.suggestedAnswer.push({
-        //   '@type': 'Answer',
-        //   text: `${
-        //     ItemTagLiterals[data.recommendations[x].recommendation].answer
-        //   } ${sanitizeHtml(data.recommendations[x].recommendationText, {
-        //     allowedTags: [],
-        //     allowedAttributes: {},
-        //   })}`,
-        //   url: `${process.env.NEXT_PUBLIC_LOCATION}${
-        //     router.asPath.split('#')[0]
-        //   }#alternative-${x}`,
-        // });
       }
     }
 
     return (
       <Layout title={data && data.title}>
-        <StructuredData data={structuredData} />
         <Head>
+          <StructuredData data={structuredData} />
           <meta
             name="og:title"
             key="og:title"
