@@ -182,11 +182,6 @@ export default function SearchBar({
             method="get"
             action="/search"
             onSubmit={_handleSubmit}>
-            <input
-              type="hidden"
-              name="contentType"
-              value={searchType.join(',')}
-            />
             {(isFocused === false || width > 1080) && (
               <input
                 value={formValue}
@@ -195,8 +190,8 @@ export default function SearchBar({
                 placeholder={placeholderText}
                 autoComplete="off"
                 type="text"
-                name="searchTerm"
-                id="searchTerm"
+                name="q"
+                id="q"
                 className="search-bar bg-transparent peer text-black"
               />
             )}
@@ -265,19 +260,14 @@ export default function SearchBar({
                   className="search-bar-wrapper bg-white placeholder:text-grey-dark border-0 border-grey-dark relative search-bar-wrapper--active">
                   <div className="w-full flex">
                     <input
-                      type="hidden"
-                      name="contentType"
-                      value={searchType.join(',')}
-                    />
-                    <input
                       value={formValue}
                       onChange={handleFormUpdate}
                       ref={searchBarRef}
                       placeholder={placeholderText}
                       autoComplete="off"
                       type="text"
-                      name="searchTerm"
-                      id="searchTerm"
+                      name="q"
+                      id="q"
                       className="search-bar bg-transparent peer text-black"
                     />
                     <button type="submit">
