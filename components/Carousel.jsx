@@ -21,7 +21,7 @@ export const CarouselCard = ({
   wrapperClassName = '',
   className = '',
   style = {},
-  featured,
+  featured = false,
 }) => {
   if (featured) {
     return (
@@ -57,7 +57,10 @@ export const CarouselCard = ({
  * @param {boolean} [props.desktopControls=true]
  * @param {boolean} [props.autoSlideSize=false]
  * @param {boolean} [props.disableScroll=false]
- * @returns {React.ElementType}
+ * @param {string} [props.prevBtnClassName]
+ * @param {string} [props.nextBtnClassName]
+ * @param {JSX.ElementType} [props.children]
+ * @returns {React.ReactElement}
  */
 export const Carousel = ({
   children,

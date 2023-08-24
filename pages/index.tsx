@@ -110,7 +110,6 @@ export default function Home({
                 key={key}
                 className="w-full"
                 uniqueKey={`card-${key}`}
-                alt={`${item.title} Recycling in Singapore`}
                 content={{
                   image: item.images ? item.images[0] : {},
                   headerText: item.title,
@@ -161,7 +160,6 @@ export default function Home({
                       <Card
                         imagesWrapperClassName="aspect-[320_/_240]"
                         imgClassName=""
-                        alt={`${item.title} Recycling in Singapore`}
                         uniqueKey={`donation-drive-${item.slug}`}
                         content={{
                           image: item.coverImage || {},
@@ -274,7 +272,6 @@ export default function Home({
                       <Card
                         imagesWrapperClassName="aspect-[320_/_240]"
                         imgClassName=""
-                        alt={`${item.title} Recycling in Singapore`}
                         uniqueKey={`donation-drive-${item.slug}`}
                         content={{
                           image: item.coverImage || {},

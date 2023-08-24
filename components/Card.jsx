@@ -80,12 +80,13 @@ const LinkWrapper = ({ children, content }) => {
 /**
  * Card for items / resources
  * @param {Object} props
- * @param {MultiImgCardContentProp|SingleImgCardContentProp} props.content
+ * @param {MultiImgCardContentProp|SingleImgCardContentProp|CardContentProp} props.content
  * @param {string} [props.className=""]
  * @param {string} [props.imagesWrapperClassName="aspect-square"]
  * @param {string} [props.imgClassName=""]
  * @param {'telegram'|'facebook'|'sponsored'|''} [props.prefixIcon]
  * @param {JSX} [props.bookmarkBtn]
+ * @param {string} props.uniqueKey
  * @returns
  */
 const Card = ({
