@@ -84,6 +84,45 @@ class Mailchimp extends React.Component {
   }
 }
 
+Mailchimp.defaultProps = {
+  messages: {
+    sending: 'Sending...',
+    success: 'Thank you for subscribing!',
+    error: 'An unexpected internal error has occurred.',
+    empty: 'You must write an e-mail.',
+    duplicate: 'Too many subscribe attempts for this email address',
+    button: 'Subscribe!',
+  },
+  buttonClassName: '',
+  styles: {
+    sendingMsg: {
+      color: '#0652DD',
+      textAlign: 'center',
+    },
+    successMsg: {
+      color: '#009432',
+      textAlign: 'center',
+    },
+    duplicateMsg: {
+      color: '#EE5A24',
+      textAlign: 'center',
+    },
+    errorMsg: {
+      color: '#ED4C67',
+      textAlign: 'center',
+    },
+  },
+};
+
+Mailchimp.propTypes = {
+  action: PropTypes.string,
+  messages: PropTypes.object,
+  fields: PropTypes.array,
+  styles: PropTypes.object,
+  className: PropTypes.string,
+  buttonClassName: PropTypes.string,
+};
+
 export default function Form() {
   const msg = {
     sending: 'Sending...',
