@@ -723,27 +723,28 @@ export async function getStaticPaths() {
   // const res = await fetch('https://.../posts')
   // const posts = await res.json()
 
-  const ip = process.env.API_URL;
-  const queryParams = qs.stringify({
+  const queryParams = {
+    fields: ['title', 'slug'],
+    publicationState: 'live',
     sort: ['visits:desc', 'title'],
     pagination: {
-      page: 1,
-      pagesize: 20,
+      page: 0,
+      pageSize: 30,
     },
-  });
+  };
 
-  const res = await fetch(`${ip}/items?${queryParams}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.API_KEY}`,
-    },
-  });
-  const result = await res.json();
+  const { data: items } = await staticFetcher(
+    `${process.env.API_URL}/items`,
+    process.env.API_KEY,
+    queryParams,
+  );
 
-  if (result.data.length === 0) {
+  if (items.length === 0) {
     return { notFound: true };
   }
+
   // Get the paths we want to pre-render based on posts
-  const paths = result.data.map((item) => ({
+  const paths = items.map((item) => ({
     params: { id: item.slug },
   }));
 
