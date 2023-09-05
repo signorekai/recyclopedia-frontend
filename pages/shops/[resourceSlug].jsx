@@ -24,7 +24,7 @@ export async function getStaticPaths() {
     },
   }));
 
-  const queryParams = qs.stringify({
+  const queryParams = {
     pagination: {
       page: 1,
       pagesize: 50,
@@ -32,14 +32,13 @@ export async function getStaticPaths() {
     filters: {
       $or: tags,
     },
-  });
+  };
 
-  const res = await fetch(`${ip}/resources?${queryParams}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.API_KEY}`,
-    },
-  });
-  const result = await res.json();
+  const result = await staticFetcher(
+    `${ip}/resources`,
+    process.env.API_KEY,
+    queryParams,
+  );
 
   if (result.data.length === 0) {
     return { notFound: true };

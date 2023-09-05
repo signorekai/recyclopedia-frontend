@@ -258,7 +258,7 @@ export async function getStaticPaths() {
       sort: ['updatedAt:desc'],
       pagination: {
         page: 1,
-        pagesize: 40,
+        pagesize: 10,
       },
     })}`,
     process.env.API_KEY,
@@ -283,10 +283,6 @@ export async function getStaticProps({ params }) {
       'resources.images',
       'category',
     ],
-    pagination: {
-      page: 1,
-      pagesize: 10,
-    },
     filters: { slug: { $eq: articleSlug } },
   };
 

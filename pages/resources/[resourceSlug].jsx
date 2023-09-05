@@ -10,7 +10,7 @@ export async function getStaticPaths() {
   const ip = process.env.API_URL;
 
   const { data: pageOptions } = await staticFetcher(
-    `${ip}/shops-page`,
+    `${ip}/resource-page`,
     process.env.API_KEY,
     {
       populate: ['resourceTags'],
