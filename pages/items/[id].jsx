@@ -16,11 +16,9 @@ import { Carousel, CarouselCard } from '../../components/Carousel';
 import Card from '../../components/Card';
 import NewImage from '../../components/Image';
 import { ReportBtn } from '../../components/Report';
-import { useRouter } from 'next/router';
 import { BookmarkButton } from '../../components/BookmarkButton';
 import Masonry from '../../components/Masonry';
 import { getOpengraphTags } from '../../components/OpenGraph';
-import StructuredData from '../../components/StructuredData';
 
 const ItemTagLiterals = {
   Recycle: {
@@ -227,9 +225,8 @@ function Page({ data }) {
     }
 
     return (
-      <Layout title={data && data.title}>
+      <Layout title={data && data.title} structuredData={structuredData}>
         <Head>
-          <StructuredData data={structuredData} />
           <meta
             name="og:title"
             key="og:title"

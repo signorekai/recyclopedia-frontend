@@ -15,7 +15,6 @@ import SearchBar from '../components/SearchBar';
 import Card from '../components/Card';
 import Link from '../components/Link';
 import Logo from '../components/Logo';
-import StructuredData from '../components/StructuredData';
 import OpenGraph, { getOpengraphTags } from '../components/OpenGraph';
 
 import type { WebSite, SearchAction } from 'schema-dts';
@@ -61,9 +60,8 @@ export default function Home({
   }
 
   return (
-    <Layout>
+    <Layout structuredData={structuredData}>
       <Head>
-        <StructuredData data={structuredData} />
         <meta
           name="og:title"
           key="og:title"
@@ -96,6 +94,7 @@ export default function Home({
             <span className="block md:inline">something to throw</span>
           </h3>
           <SearchBar
+            microData={true}
             placeholderText={'Search for something'}
             activeBackgroundColor="#252B5C"
             className="lg:w-[720px]"

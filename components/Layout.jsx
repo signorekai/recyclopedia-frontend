@@ -14,6 +14,7 @@ import Logo from './Logo';
 import { SWRFetcher, useWindowDimensions } from '../lib/hooks';
 import { _cacheSearchTerm, Suggestion } from './SearchBar';
 import StickyNewsletterButton from './StickyNewsletterButton';
+import StructuredData from './StructuredData';
 
 const menuWithDropdown = [
   {
@@ -113,6 +114,7 @@ const Layout = ({
   showHeaderOn = 'UP',
   hideHeaderOn = 'DOWN',
   headerContainerStyle = {},
+  structuredData = {},
   ...props
 }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -208,6 +210,7 @@ const Layout = ({
   return (
     <>
       <Head>
+        {structuredData !== {} && <StructuredData data={structuredData} />}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
           rel="apple-touch-icon"

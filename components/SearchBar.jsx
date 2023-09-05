@@ -64,8 +64,10 @@ export const _cacheSearchTerm = (term, key) => {
  * @param {handleOnChange} [props.handleOnChange] callback when text input is updated
  * @param {boolean} [props.showSuggestions=true] show or hide suggestions
  * @param {boolean} [props.showBottomSpacing=true] show or hide bottom spacing
+ * @param {boolean} [props.microData=false] show or hide microdata
  */
 export default function SearchBar({
+  microData = false,
   placeholderText = 'Search Items',
   activeBackgroundColor = 'transparent',
   inactiveBackgroundColor = 'transparent',
@@ -160,7 +162,7 @@ export default function SearchBar({
 
   return (
     <>
-      <motion.div
+      <div
         className={`w-full mx-auto px-4 ${className}`}
         style={{
           top,
@@ -168,6 +170,9 @@ export default function SearchBar({
         }}>
         <motion.div
           layoutId={`${uniq.current}-search-bar`}
+          {...(microData
+            ? { itemScope: true, itemtype: 'https://schema.org/WebSite' }
+            : {})}
           className={`search-bar-wrapper search-bar-wrapper--transparent ${wrapperClassName} ${
             isFocused &&
             width > 1080 &&
@@ -176,13 +181,29 @@ export default function SearchBar({
               ? 'rounded-b-none rounded-t-22'
               : ''
           }`}>
+          {microData && (
+            <meta {...{ itemprop: 'url' }} content="https://recyclopedia.sg/" />
+          )}
           <form
             className="w-full flex relative"
             ref={formRef}
             onFocus={_handleOnFocus}
             method="get"
             action="/search"
+            {...(microData
+              ? {
+                  itemScope: true,
+                  itemtype: 'https://schema.org/SearchAction',
+                  itemprop: 'potentialAction',
+                }
+              : {})}
             onSubmit={_handleSubmit}>
+            {microData && (
+              <meta
+                {...{ itemprop: 'target' }}
+                content="https://recyclopedia.sg/search?q={q}"
+              />
+            )}
             {(isFocused === false || width > 1080) && (
               <input
                 value={formValue}
@@ -193,6 +214,11 @@ export default function SearchBar({
                 type="text"
                 name="q"
                 id="q"
+                {...(microData
+                  ? {
+                      itemProp: 'query-input',
+                    }
+                  : {})}
                 className="search-bar bg-transparent peer text-black"
               />
             )}
@@ -233,7 +259,7 @@ export default function SearchBar({
             )}
           </AnimatePresence>
         </motion.div>
-      </motion.div>
+      </div>
       <AnimatePresence>
         {isFocused && width < 1080 && (
           <motion.div
