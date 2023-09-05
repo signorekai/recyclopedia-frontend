@@ -18,6 +18,7 @@ import Logo from '../components/Logo';
 import OpenGraph, { getOpengraphTags } from '../components/OpenGraph';
 
 import type { WebSite, SearchAction } from 'schema-dts';
+import { getLargestPossibleImage } from '../lib/functions';
 
 type SearchActionWithQueryInput = SearchAction & {
   "query-input": string
@@ -308,7 +309,9 @@ export async function getStaticProps() {
   const ip = process.env.API_URL;
 
   const { data: generalSettings } = await staticFetcher(
-    `${ip}/general-setting?${qs.stringify({
+    `${ip}/general-setting`,
+    process.env.API_KEY,
+    {
       populate: [
         'homePageFeaturedArticles',
         'homePageFeaturedArticles.article.coverImage',
@@ -317,8 +320,7 @@ export async function getStaticProps() {
         'homepageFeaturedDonationDrives.article.coverImage',
         'homepageFeaturedDonationDrives.article.category',
       ],
-    })}`,
-    process.env.API_KEY,
+    }
   );
 
   const { data: pageOptions } = await staticFetcher(
@@ -331,24 +333,38 @@ export async function getStaticProps() {
 
   let newsItems =
     generalSettings.homePageFeaturedArticles.map(
-      (article) => article.article,
+      ({ article }) => ({
+        coverImage: {
+          url: getLargestPossibleImage(article.coverImage, 'large')
+        },
+        title: article.title,
+        slug: article.slug,
+      }),
     ) || [];
 
   let donationDrives =
     generalSettings.homepageFeaturedDonationDrives.map(
-      (article) => article.article,
+      ({ article }) => ({
+        coverImage: {
+          url: getLargestPossibleImage(article.coverImage, 'large')
+        },
+        title: article.title,
+        slug: article.slug, 
+      }),
     ) || [];
 
   const { data: items } = await staticFetcher(
-    `${ip}/items?${qs.stringify({
+    `${ip}/items`,
+    process.env.API_KEY,
+    {
       sort: ['visits:desc', 'title'],
+      fields: ['title', 'slug'],
       populate: ['images'],
       pagination: {
         page: 1,
         pageSize: ITEMS_PER_PAGE,
       },
-    })}`,
-    process.env.API_KEY,
+    }
   );
 
   return {
