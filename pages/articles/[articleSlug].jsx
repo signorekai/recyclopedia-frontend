@@ -274,7 +274,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const { articleSlug } = params;
   const ip = process.env.API_URL;
-  const query = qs.stringify({
+  const queryParams = {
     populate: [
       'coverImage',
       'items',
@@ -283,12 +283,17 @@ export async function getStaticProps({ params }) {
       'resources.images',
       'category',
     ],
+    pagination: {
+      page: 1,
+      pagesize: 10,
+    },
     filters: { slug: { $eq: articleSlug } },
-  });
+  };
 
   const { data: articles } = await staticFetcher(
-    `${ip}/articles?${query}`,
+    `${ip}/articles`,
     process.env.API_KEY,
+    queryParams,
   );
 
   if (articles.length === 0) {

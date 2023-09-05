@@ -28,7 +28,7 @@ export async function getStaticPaths() {
   const queryParams = qs.stringify({
     pagination: {
       page: 1,
-      pagesize: 50,
+      pagesize: 10,
     },
     filters: {
       $or: tags,

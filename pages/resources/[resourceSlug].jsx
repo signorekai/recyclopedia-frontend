@@ -28,7 +28,7 @@ export async function getStaticPaths() {
   const result = await staticFetcher(`${ip}/resources`, process.env.API_KEY, {
     pagination: {
       page: 1,
-      pagesize: 50,
+      pagesize: 10,
     },
     filters: {
       $or: tags,

@@ -65,6 +65,10 @@ export async function getStaticProps({ params }) {
       'SEO',
       'SEO.image',
     ],
+    pagination: {
+      page: 1,
+      pagesize: 10,
+    },
     filters: {
       slug: {
         $eq: resourceSlug,
