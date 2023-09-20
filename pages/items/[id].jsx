@@ -249,11 +249,7 @@ function Page({ data }) {
           <meta property="og:image" key="og:image" content={meta.image} />
         </Head>
         <div className="hidden container lg:block">
-          <div
-            className="lg:grid grid-cols-12 grid-rows-12 gap-2 mt-12"
-            style={{
-              height: desktopImageHeight,
-            }}>
+          <div className="lg:grid grid-cols-12 grid-rows-2 gap-2 mt-12">
             {data.images.map((image, key) => (
               <div
                 key={key}
@@ -261,8 +257,8 @@ function Page({ data }) {
                   key === 0
                     ? 'row-span-full'
                     : {
-                        2: 'row-span-full',
-                        3: 'row-span-6',
+                        2: 'row-span-full aspect-square',
+                        3: 'row-span-1 aspect-[2_/_1]',
                       }[data.images.length]
                 } ${
                   key === 0
