@@ -165,21 +165,7 @@ function Page({ data }) {
     }
   };
 
-  let desktopImageHeight = 0;
   const imageRatio = 1.34;
-
-  if (width > 1080 && data && data.images) {
-    const widths = [
-      0,
-      (1000 * 0.75) / imageRatio,
-      1000 * 0.496,
-      (1000 * 0.67) / imageRatio,
-    ];
-
-    if (widths[data.images.length]) {
-      desktopImageHeight = widths[data.images.length];
-    }
-  }
 
   if (data) {
     const meta = getOpengraphTags(
@@ -255,7 +241,7 @@ function Page({ data }) {
                 key={key}
                 className={`overflow-hidden rounded-md relative ${
                   key === 0
-                    ? 'row-span-full aspect-square'
+                    ? 'row-span-full aspect-[4_/_3]'
                     : {
                         2: 'row-span-full aspect-square',
                         3: 'row-span-1 aspect-[2_/_1]',
