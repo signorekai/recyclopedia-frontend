@@ -68,7 +68,12 @@ export const FAQCard = ({
   };
 
   return (
-    <dl className={`px-4 divider-b after:mt-2 group ${className}`} id={slug}>
+    <dl
+      style={{
+        backgroundColor: expanded ? 'rgba(0,0,0,0.04)' : 'rgba(0,0,0,0)',
+      }}
+      className={`px-4 divider-b after:mt-2 group scroll-mt-12 lg:scroll-mt-14 ${className}`}
+      id={slug}>
       <Wrapper>
         <dt className="flex flex-row items-center group-hover:opacity-80">
           <h3
