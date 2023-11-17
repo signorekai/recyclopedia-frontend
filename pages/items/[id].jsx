@@ -235,16 +235,18 @@ function Page({ data }) {
           <meta property="og:image" key="og:image" content={meta.image} />
         </Head>
         <div className="hidden container lg:block">
-          <div className="lg:grid grid-cols-12 grid-rows-2 gap-2 mt-12">
+          <div className="lg:grid grid-cols-12 grid-rows-2 gap-2 mt-12 lg:max-h-[60vh]">
             {data.images.map((image, key) => (
               <div
                 key={key}
                 className={`overflow-hidden rounded-md relative ${
                   key === 0
-                    ? 'row-span-full aspect-[4_/_3]'
+                    ? data.images.length === 3
+                      ? 'row-span-full aspect-[4/3]'
+                      : 'row-span-full aspect-square'
                     : {
                         2: 'row-span-full aspect-square',
-                        3: 'row-span-1 aspect-[2_/_1]',
+                        3: 'row-span-1',
                       }[data.images.length]
                 } ${
                   key === 0
