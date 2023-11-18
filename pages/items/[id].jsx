@@ -241,9 +241,9 @@ function Page({ data }) {
                 key={key}
                 className={`overflow-hidden rounded-md relative ${
                   key === 0
-                    ? data.images.length === 3
-                      ? 'row-span-full aspect-[4/3]'
-                      : 'row-span-full aspect-square'
+                    ? data.images.length === 2
+                      ? 'row-span-full aspect-square'
+                      : 'row-span-full aspect-[4_/_3]'
                     : {
                         2: 'row-span-full aspect-square',
                         3: 'row-span-1',
