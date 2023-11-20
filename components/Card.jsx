@@ -6,6 +6,7 @@ import Link from './Link';
 import Image from './Image';
 import NextImage from 'next/image';
 import { CarouselProvider, Slider, Slide, DotGroup } from 'pure-react-carousel';
+import { replaceCDNUri } from '../lib/functions';
 
 const variants = {
   initial: {
@@ -125,7 +126,7 @@ const Card = ({
                           <NextImage
                             className={`group-hover:scale-110 transition-transform ${imgClassName}`}
                             alt={`${content.headerText} Recycling in Singapore`}
-                            src={image.url}
+                            src={replaceCDNUri(image.url)}
                             layout="fixed"
                             width={228}
                             height={228}
@@ -146,10 +147,10 @@ const Card = ({
                       objectPosition="center center"
                       quality={100}
                       sizes="240px"
-                      className="group-hover:scale-110 transition-transform"
+                      className="group-hover:scale-110 transition-transform 150"
                       // width={content.image.width}
                       // height={content.image.height}
-                      src={content.image.url}
+                      src={replaceCDNUri(content.image.url)}
                       alt={`${content.headerText} Recycling in Singapore`}
                     />
                   </LinkWrapper>
@@ -165,7 +166,7 @@ const Card = ({
                     width={content.images[0].width}
                     height={content.images[0].height}
                     sizes="240px"
-                    src={content.images[0].url}
+                    src={replaceCDNUri(content.images[0].url)}
                     alt={`${content.headerText} Recycling in Singapore`}
                   />
                 </LinkWrapper>
