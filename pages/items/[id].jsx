@@ -174,7 +174,9 @@ function Page({ data }) {
         title: data.title,
         image:
           data.images.length > 0 &&
-          getLargestPossibleImage(data.images[0], 'large', 'medium'),
+          replaceCDNUri(
+            getLargestPossibleImage(data.images[0], 'large', 'medium'),
+          ),
       },
       data.SEO,
     );
@@ -232,7 +234,11 @@ function Page({ data }) {
               />
             </>
           )}
-          <meta property="og:image" key="og:image" content={meta.image} />
+          <meta
+            property="og:image"
+            key="og:image"
+            content={replaceCDNUri(meta.image)}
+          />
         </Head>
         <div className="hidden container lg:block">
           <div className="lg:grid grid-cols-12 grid-rows-2 gap-2 mt-12 lg:max-h-[60vh]">
@@ -261,7 +267,7 @@ function Page({ data }) {
                       }[data.images.length]
                 }`}>
                 <NextImage
-                  src={image.url}
+                  src={replaceCDNUri(image.url)}
                   layout="fill"
                   sizes="50vw"
                   priority={true}
