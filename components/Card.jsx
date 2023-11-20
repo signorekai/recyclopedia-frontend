@@ -145,11 +145,11 @@ const Card = ({
                       layout="fill"
                       objectFit="cover"
                       objectPosition="center center"
-                      quality={100}
+                      quality={90}
                       sizes="240px"
-                      className="group-hover:scale-110 transition-transform 150"
-                      // width={content.image.width}
-                      // height={content.image.height}
+                      className="group-hover:scale-110 transition-transform"
+                      width={content.image.width}
+                      height={content.image.height}
                       src={replaceCDNUri(content.image.url)}
                       alt={`${content.headerText} Recycling in Singapore`}
                     />
