@@ -72,6 +72,7 @@ export default function StickyNewsletterButton() {
               className="text-white hover:text-grey-light no-underline w-auto flex flex-row items-center gap-x-4 p-2 px-4">
               <div className="inline-flex flex-shrink-0 items-center">
                 <Image
+                  unoptimized={true}
                   src={mailIcon}
                   width={isDesktop ? 32 : 24}
                   height={isDesktop ? 32 : 24}
