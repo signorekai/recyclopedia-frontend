@@ -162,11 +162,15 @@ export default function Page({ article, categoryTitles, nextPost }) {
                           imagesWrapperClassName="aspect-square"
                           uniqueKey={`related-${key}`}
                           key={`related-${key}`}
+                          cover={{
+                            images: item.images,
+                            showImages: 1,
+                            sizes: ['200px'],
+                          }}
                           content={{
                             contentType: 'items',
                             slug: item.slug,
                             headerText: item.title,
-                            image: item.images ? item.images[0] : {},
                           }}
                         />
                       </CarouselCard>
@@ -191,11 +195,15 @@ export default function Page({ article, categoryTitles, nextPost }) {
                           imagesWrapperClassName="aspect-[4_/_3]"
                           uniqueKey={`related-${key}`}
                           key={`related-${key}`}
+                          cover={{
+                            images: item.images,
+                            showImages: 1,
+                            sizes: ['200px'],
+                          }}
                           content={{
                             contentType: 'resources',
                             slug: item.slug,
                             headerText: item.title,
-                            image: item.images ? item.images[0] : {},
                           }}
                         />
                       </CarouselCard>
