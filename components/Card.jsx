@@ -91,7 +91,7 @@ const LinkWrapper = ({ children, content }) => {
 /**
  * @param {Object} props
  * @param {string} [props.className]
- * @param {(MultiImgCardContentProp | SingleImgCardContentProp) & CardContentProp} props.content
+ * @param {CardContentProp} props.content
  * @param {CoverPropProperties} [props.cover]
  * @param {string} [props.imagesWrapperClassName="aspect-square"]
  * @param {'telegram'|'facebook'|'sponsored'|''} [props.prefixIcon]
@@ -104,7 +104,6 @@ const Card = ({
   className = '',
   uniqueKey,
   imagesWrapperClassName = 'aspect-square rounded-md overflow-hidden',
-  imgClassName = '',
   prefixIcon = '',
   bookmarkBtn = <></>,
 }) => {
@@ -115,6 +114,10 @@ const Card = ({
     cover.sizes = cover.sizes || [];
     cover.className =
       cover.className || 'group-hover:scale-110 transition-transform';
+  }
+
+  if (content.images || content.image) {
+    console.error('DEPRECIATED PROP for <Card>', content);
   }
 
   return (
@@ -182,75 +185,9 @@ const Card = ({
                     <DotGroup className="z-30" />
                   </CarouselProvider>
                 )}
-              {content.images && content.images.length > 1 && (
-                <CarouselProvider
-                  totalSlides={content.images.length}
-                  naturalSlideWidth={228}
-                  naturalSlideHeight={228}>
-                  <Slider
-                    className="rounded-md overflow-hidden"
-                    classNameAnimation="transition-transform duration-200">
-                    {content.images.map((image, key) => (
-                      <Slide
-                        key={`${image.url}-${key}`}
-                        index={key}
-                        className="rounded-md overflow-hidden"
-                        style={{ paddingBottom: 0, lineHeight: 0 }}>
-                        <LinkWrapper passHref content={content}>
-                          <NextImage
-                            className={`group-hover:scale-110 transition-transform ${imgClassName}`}
-                            alt={`${content.headerText} Recycling in Singapore`}
-                            src={replaceCDNUri(image.url)}
-                            layout="fixed"
-                            width={228}
-                            height={228}
-                          />
-                        </LinkWrapper>
-                      </Slide>
-                    ))}
-                  </Slider>
-                  <DotGroup className="z-30" />
-                </CarouselProvider>
+              {typeof cover === 'undefined' && (
+                <div className="w-full h-full bg-grey-light rounded-md"></div>
               )}
-              {typeof content.images === 'undefined' &&
-                content.hasOwnProperty('image') &&
-                content.image.hasOwnProperty('url') && (
-                  <LinkWrapper passHref content={content} className="block">
-                    <NextImage
-                      layout="fill"
-                      objectFit="cover"
-                      objectPosition="center center"
-                      quality={90}
-                      sizes="240px"
-                      className="group-hover:scale-110 transition-transform"
-                      width={content.image.width}
-                      height={content.image.height}
-                      src={replaceCDNUri(content.image.url)}
-                      alt={`${content.headerText} Recycling in Singapore`}
-                    />
-                  </LinkWrapper>
-                )}
-              {content.images && content.images.length === 1 && (
-                <LinkWrapper passHref content={content} className="block">
-                  <NextImage
-                    layout="fill"
-                    objectFit="cover"
-                    objectPosition="center center"
-                    className="group-hover:scale-110 transition-transform"
-                    quality={100}
-                    width={content.images[0].width}
-                    height={content.images[0].height}
-                    sizes="240px"
-                    src={replaceCDNUri(content.images[0].url)}
-                    alt={`${content.headerText} Recycling in Singapore`}
-                  />
-                </LinkWrapper>
-              )}
-              {typeof content.images === 'undefined' &&
-                content.image &&
-                !content.image.hasOwnProperty('url') && (
-                  <div className="w-full h-full bg-grey-light rounded-md"></div>
-                )}
             </div>
             <LinkWrapper passHref content={content}>
               {content.hasOwnProperty('subHeaderText') && (
