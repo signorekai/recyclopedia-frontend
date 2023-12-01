@@ -91,8 +91,11 @@ export default function Page({ ...props }) {
                               slug={item.slug}
                             />
                           }
+                          cover={{
+                            images: [image],
+                            sizes: ['250px'],
+                          }}
                           content={{
-                            image,
                             headerText: item.title,
                             slug: item.slug,
                             contentType: slugs[type],
