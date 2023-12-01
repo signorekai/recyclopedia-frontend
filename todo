@@ -1,13 +1,15 @@
 todos:
-  [] add RECAPTCHA to <ReportForm>
   [] write tests for API endpoints
   [] reset JWT secret
+  [] square: 188px, 364px, 496px
+  [] rectangular: 314px, 576px, 748px, 768px, 
 
 bugs:
   [] back button to use window.history.goBack()
   [] accordion should check for empty tabs
 
 Archive:
+  ✔ add RECAPTCHA to <ReportForm> @done(23-11-28 17:06) @project(todos)
   ✔ stop overlay search bar on desktop @done(22-03-30 17:53) @project(todos)
   ✔ use strapi's responsive images instead of next's @done(22-04-02 00:01) @project(todos)
   ✔ use getStaticProps instead of getServerSideProps for /index.jsx @done(22-04-22 20:07) @project(todos)
