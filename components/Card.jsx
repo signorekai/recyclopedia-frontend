@@ -3,7 +3,7 @@ import React from 'react';
 import ContentLoader from 'react-content-loader';
 
 import Link from './Link';
-import Image from './Image';
+import StrapiImage from './StrapiImage';
 import NextImage from 'next/image';
 import { CarouselProvider, Slider, Slide, DotGroup } from 'pure-react-carousel';
 import { replaceCDNUri } from '../lib/functions';
@@ -65,29 +65,42 @@ const LinkWrapper = ({ children, content }) => {
  * @property {'articles'|'resources'|'items'|'freecycling'|'shops'} contentType
  * @property {string} slug
  */
+
+/**
+ * @typedef {Object} CoverPropProperties
+ * @property {import('./StrapiImage').StrapiImage[]} images
+ * @property {number} [showImages]
+ * @property {(import('./StrapiImage').MinBreakpointImageSize|import('./StrapiImage').MaxBreakpointImageSize|import('./StrapiImage').MinImageSize|import('./StrapiImage').MaxImageSize|import('./StrapiImage').DefaultImageSize|string)[]} [sizes]
+ * @property {"eager"|"lazy"} [loading]
+ * @property {"responsive"|"fill"|"fixed"} [layout="fill"]
+ * @property {string} [className]
+ * @property {number} [width]
+ * @property {number} [height]
+ */
+
 /**
  * @typedef {Object} MultiImgCardContentPropProperties
  * @property {Object[]} images
  */
+
 /**
  * @typedef {Object} SingleImgCardContentPropProperties
  * @property {Object} image
  */
 
 /**
- * Card for items / resources
  * @param {Object} props
+ * @param {string} [props.className]
  * @param {(MultiImgCardContentProp | SingleImgCardContentProp) & CardContentProp} props.content
- * @param {string} [props.className=""]
+ * @param {CoverPropProperties} [props.cover]
  * @param {string} [props.imagesWrapperClassName="aspect-square"]
- * @param {string} [props.imgClassName=""]
  * @param {'telegram'|'facebook'|'sponsored'|''} [props.prefixIcon]
  * @param {JSX} [props.bookmarkBtn]
  * @param {string} props.uniqueKey
- * @returns
  */
 const Card = ({
   content = {},
+  cover = {},
   className = '',
   uniqueKey,
   imagesWrapperClassName = 'aspect-square rounded-md overflow-hidden',
@@ -95,6 +108,15 @@ const Card = ({
   prefixIcon = '',
   bookmarkBtn = <></>,
 }) => {
+  // content.cover defaults
+  if (cover.hasOwnProperty('images')) {
+    cover.showImages = cover.showImages || cover.images.length;
+    cover.layout = cover.layout || 'fill';
+    cover.sizes = cover.sizes || [];
+    cover.className =
+      cover.className || 'group-hover:scale-110 transition-transform';
+  }
+
   return (
     <div className="relative">
       <AnimatePresence>
@@ -108,6 +130,58 @@ const Card = ({
             className={`no-underline ${className} overflow-hidden`}>
             <div className={`${imagesWrapperClassName} relative`}>
               <PrefixIcon type={prefixIcon} />
+              {cover &&
+                cover.images &&
+                (cover.showImages === 1 || cover.images.length === 1) && (
+                  <LinkWrapper passHref content={content}>
+                    <StrapiImage
+                      layout={cover.layout}
+                      className={cover.className}
+                      alt={content.headerText}
+                      loading={cover.loading}
+                      sizes={cover.sizes}
+                      source={cover.images[0]}
+                    />
+                  </LinkWrapper>
+                )}
+              {cover &&
+                cover.images &&
+                cover.showImages !== 1 &&
+                cover.images.length > 1 && (
+                  <CarouselProvider
+                    totalSlides={
+                      cover.showImages === -1
+                        ? cover.images.length
+                        : cover.showImages
+                    }
+                    naturalSlideWidth={cover.width}
+                    naturalSlideHeight={cover.height}>
+                    <Slider
+                      className="rounded-md overflow-hidden"
+                      classNameAnimation="transition-transform duration-200">
+                      {cover.images.map((image, key) => (
+                        <Slide
+                          key={image.url}
+                          index={key}
+                          className="rounded-md overflow-hidden"
+                          style={{ paddingBottom: 0, lineHeight: 0 }}>
+                          <LinkWrapper passHref content={content}>
+                            <StrapiImage
+                              layout={'fixed'}
+                              width={`${cover.width}px`}
+                              height={`${cover.height}px`}
+                              className={cover.className}
+                              sizes={cover.sizes}
+                              alt={content.headerText}
+                              source={image}
+                            />
+                          </LinkWrapper>
+                        </Slide>
+                      ))}
+                    </Slider>
+                    <DotGroup className="z-30" />
+                  </CarouselProvider>
+                )}
               {content.images && content.images.length > 1 && (
                 <CarouselProvider
                   totalSlides={content.images.length}
@@ -139,6 +213,7 @@ const Card = ({
                 </CarouselProvider>
               )}
               {typeof content.images === 'undefined' &&
+                content.hasOwnProperty('image') &&
                 content.image.hasOwnProperty('url') && (
                   <LinkWrapper passHref content={content} className="block">
                     <NextImage
@@ -172,6 +247,7 @@ const Card = ({
                 </LinkWrapper>
               )}
               {typeof content.images === 'undefined' &&
+                content.image &&
                 !content.image.hasOwnProperty('url') && (
                   <div className="w-full h-full bg-grey-light rounded-md"></div>
                 )}
