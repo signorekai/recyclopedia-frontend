@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { motion } from 'framer-motion';
-import qs from 'qs';
 
 import SubscribeForm from '../components/SubscribeForm';
 
@@ -105,19 +104,42 @@ export default function Home({
         </div>
         <div className="container container--narrow relative z-10 lg:mb-16">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 lg:mt-12 home-items-grid">
-            {items.map((item, key) => (
-              <Card
-                key={key}
-                className="w-full"
-                uniqueKey={`card-${key}`}
-                content={{
-                  image: item.images ? item.images[0] : {},
-                  headerText: item.title,
-                  slug: item.slug,
-                  contentType: 'items',
-                }}
-              />
-            ))}
+            {
+              items.map((item, key) => { 
+                /**
+                 * @type {{images: import('./StrapiImage').StrapiImage[]}}
+                 */
+                const {images} = item;
+
+                return(
+                  <Card
+                    key={`item-${item.slug}`}
+                    className="w-full"
+                    uniqueKey={`card-${key}`}
+                    cover={{
+                      images,
+                      showImages: 1,
+                      sizes: [{
+                        min: "1040px",
+                        width: "200px",
+                      },
+                      {
+                        min: "768px",
+                        width: "400px",
+                      },
+                      {
+                        width: "calc(50vw - 0.75rem)",
+                      }],
+                    }}
+                    content={{
+                      headerText: item.title,
+                      slug: item.slug,
+                      contentType: 'items',
+                    }}
+                  />
+                )
+              }
+            )}
           </div>
           <Link href="/items">
             <a className="btn">View all Items</a>
@@ -153,16 +175,22 @@ export default function Home({
               desktopControls={isDesktop === false}
               autoSlideSize={false}
               slideWidth={width > 1080 ? 312 : 0.75 * width}>
-              {donationDrives.map((item, key) => {
+              {donationDrives.map((item) => {
                 if (item !== null) {
                   return (
                     <CarouselCard className="w-[75vw] lg:w-1/4">
                       <Card
                         imagesWrapperClassName="aspect-[320_/_240]"
-                        imgClassName=""
                         uniqueKey={`donation-drive-${item.slug}`}
+                        cover={{
+                          images: [item.coverImage],
+                          showImages: 1,
+                          sizes: [{
+                            minBreakpoint: "lg",
+                            width: "25vw"
+                          }, '75vw']
+                        }}
                         content={{
-                          image: item.coverImage || {},
                           headerText: item.title,
                           slug: item.slug,
                           contentType: 'articles',
@@ -271,10 +299,16 @@ export default function Home({
                     <CarouselCard className="w-[75vw] md:w-1/4">
                       <Card
                         imagesWrapperClassName="aspect-[320_/_240]"
-                        imgClassName=""
-                        uniqueKey={`donation-drive-${item.slug}`}
+                        uniqueKey={`article-${item.slug}`}
+                        cover={{
+                          images: [item.coverImage],
+                          showImages: 1,
+                          sizes: [{
+                            minBreakpoint: "lg",
+                            width: "25vw"
+                          }, '75vw']
+                        }}
                         content={{
-                          image: item.coverImage || {},
                           headerText: item.title,
                           slug: item.slug,
                           contentType: 'articles',
@@ -334,9 +368,7 @@ export async function getStaticProps() {
   let newsItems =
     generalSettings.homePageFeaturedArticles.map(
       ({ article }) => ({
-        coverImage: {
-          url: getLargestPossibleImage(article.coverImage, 'large')
-        },
+        coverImage: article.coverImage,
         title: article.title,
         slug: article.slug,
       }),

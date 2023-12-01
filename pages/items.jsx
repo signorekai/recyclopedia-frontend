@@ -4,7 +4,12 @@ import qs from 'qs';
 
 import Layout from '../components/Layout';
 import Card from '../components/Card';
-import { useFetchContent, ITEMS_PER_PAGE, staticFetcher } from '../lib/hooks';
+import {
+  useFetchContent,
+  ITEMS_PER_PAGE,
+  staticFetcher,
+  useWindowDimensions,
+} from '../lib/hooks';
 import InfiniteLoader from '../components/InfiniteLoader';
 import {
   AccordionBody,
@@ -29,6 +34,8 @@ const Tab = ({ category, columnCount = 3 }) => {
     category,
   });
 
+  const { width: windowWidth } = useWindowDimensions();
+
   return (
     <>
       <div
@@ -45,8 +52,34 @@ const Tab = ({ category, columnCount = 3 }) => {
                 className="w-full"
                 uniqueKey={`card-${key}-${item.slug}`}
                 prefixIcon={item.resourceIcon || ''}
-                content={{
+                cover={{
                   images: item.images,
+                  showImages: -1,
+                  width:
+                    windowWidth >= 1040
+                      ? 228
+                      : windowWidth >= 768
+                      ? windowWidth / 3
+                      : windowWidth / 2,
+                  height:
+                    windowWidth >= 1040
+                      ? 228
+                      : windowWidth >= 768
+                      ? windowWidth / 3
+                      : windowWidth / 2,
+                  sizes: [
+                    {
+                      minBreakpoint: 'lg',
+                      width: '228px',
+                    },
+                    {
+                      minBreakpoint: 'md',
+                      width: '33vw',
+                    },
+                    '50vw',
+                  ],
+                }}
+                content={{
                   headerText: item.title,
                   contentType: 'items',
                   slug: item.slug,
@@ -71,6 +104,8 @@ const Cards = ({ categories, columnCount = 3 }) => {
     category: categories.join('||'),
   });
 
+  const { width: windowWidth } = useWindowDimensions();
+
   const cards = {};
   cards['All'] = (
     <>
@@ -86,10 +121,36 @@ const Cards = ({ categories, columnCount = 3 }) => {
               <Card
                 key={key}
                 className="w-full"
-                uniqueKey={`card-${key}-${item.slug}`}
+                uniqueKey={`item-${item.slug}`}
                 prefixIcon={item.resourceIcon || ''}
-                content={{
+                cover={{
                   images: item.images,
+                  showImages: -1,
+                  width:
+                    windowWidth >= 1040
+                      ? 228
+                      : windowWidth >= 768
+                      ? windowWidth / 3
+                      : windowWidth / 2,
+                  height:
+                    windowWidth >= 1040
+                      ? 228
+                      : windowWidth >= 768
+                      ? windowWidth / 3
+                      : windowWidth / 2,
+                  sizes: [
+                    {
+                      minBreakpoint: 'lg',
+                      width: '228px',
+                    },
+                    {
+                      minBreakpoint: 'md',
+                      width: '33vw',
+                    },
+                    '50vw',
+                  ],
+                }}
+                content={{
                   headerText: item.title,
                   contentType: 'items',
                   slug: item.slug,

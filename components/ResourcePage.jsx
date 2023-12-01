@@ -3,8 +3,6 @@ import { motion } from 'framer-motion';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 
-import NextImage from 'next/image';
-
 import {
   getLargestPossibleImage,
   replaceCDNUri,
@@ -18,6 +16,7 @@ import Image from './Image';
 import { ReportBtn } from './Report';
 import { BookmarkButton } from './BookmarkButton';
 import Card from './Card';
+import StrapiImage from './StrapiImage';
 import OpenGraph, { getOpengraphTags } from './OpenGraph';
 
 const ResourceTagLiterals = {
@@ -174,7 +173,11 @@ function ResourcePage({ data, baseUrl, tags }) {
         </div>
         <div className="bg-bg lg:pt-12 lg:pb-8 ">
           {data.images && data.images.length > 0 && (
-            <div className="aspect-[1_/_1] w-full lg:hidden relative">
+            <div
+              className="w-full lg:hidden relative"
+              style={{
+                aspectRatio: `${data.images[0].width} / ${data.images[0].height}`,
+              }}>
               {data.resource && data.resourceIcon === 'Sponsored' && (
                 <div className="z-10 py-1 px-2 rounded-md tracking-2 absolute bottom-4 left-4 bg-grey-dark bg-opacity-70 text-white font-archivo font-bold text-xs uppercase">
                   SPONSORED
@@ -187,13 +190,11 @@ function ResourcePage({ data, baseUrl, tags }) {
                   src={`/img/${data.resourceIcon.toLowerCase() + '.svg'}`}
                 />
               )}
-              <NextImage
+              <StrapiImage
                 layout={'fill'}
-                objectFit="cover"
-                objectPosition="center center"
-                sizes="100vw"
-                src={data.images[0].url || {}}
-                alt={`${data.title}`}
+                sizes={['100vw']}
+                source={data.images[0]}
+                alt={data.title}
               />
             </div>
           )}
@@ -356,8 +357,22 @@ function ResourcePage({ data, baseUrl, tags }) {
                         <Card
                           uniqueKey={`card-${key}`}
                           prefixIcon={item.resourceIcon || ''}
+                          cover={{
+                            images: item.images,
+                            showImages: 1,
+                            sizes: [
+                              {
+                                minBreakpoint: 'lg',
+                                width: '175px',
+                              },
+                              {
+                                minBreakpoint: 'md',
+                                width: '33vw',
+                              },
+                              '50vw',
+                            ],
+                          }}
                           content={{
-                            image: item.images ? item.images[0] : {},
                             headerText: item.title,
                             contentType: 'items',
                             slug: item.slug,

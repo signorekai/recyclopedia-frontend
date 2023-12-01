@@ -8,6 +8,7 @@ import sanitizeHtml from 'sanitize-html';
 
 import NextImage from 'next/image';
 
+import StrapiImage from '../../components/StrapiImage';
 import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import { staticFetcher, useWindowDimensions } from '../../lib/hooks';
@@ -245,7 +246,7 @@ function Page({ data }) {
             {data.images.map((image, key) => (
               <div
                 key={key}
-                className={`overflow-hidden rounded-md relative ${
+                className={`overflow-hidden relative ${
                   key === 0
                     ? data.images.length === 2
                       ? 'row-span-full aspect-square'
@@ -266,8 +267,17 @@ function Page({ data }) {
                         3: 'col-span-4',
                       }[data.images.length]
                 }`}>
-                <NextImage
-                  src={replaceCDNUri(image.url)}
+                <StrapiImage
+                  className="rounded-md "
+                  layout="fill"
+                  source={image}
+                  width={image.width}
+                  height={image.height}
+                  alt={data.title}
+                  style={{ maxHeight: '60vh' }}
+                  sizes={['750px']}
+                />
+                {/* <NextImage src={replaceCDNUri(image.url)}
                   layout="fill"
                   sizes="50vw"
                   priority={true}
@@ -276,7 +286,7 @@ function Page({ data }) {
                   width={image.width}
                   height={image.height}
                   alt={`${data.title} Recycling in Singapore`}
-                />
+                /> */}
               </div>
             ))}
           </div>
@@ -612,8 +622,22 @@ function Page({ data }) {
                             uniqueKey={`card-${key}`}
                             alt={`${item.title} Recycling in Singapore`}
                             prefixIcon={item.resourceIcon || ''}
+                            cover={{
+                              images: item.images,
+                              showImages: 1,
+                              sizes: [
+                                {
+                                  minBreakpoint: 'lg',
+                                  width: '175px',
+                                },
+                                {
+                                  minBreakpoint: 'md',
+                                  width: '33vw',
+                                },
+                                '50vw',
+                              ],
+                            }}
                             content={{
-                              image: item.images ? item.images[0] : {},
                               headerText: item.title,
                               contentType: 'items',
                               slug: item.slug,

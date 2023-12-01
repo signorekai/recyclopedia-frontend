@@ -9,6 +9,7 @@ import {
   useSearchBarTopValue,
   ITEMS_PER_PAGE,
   staticFetcher,
+  useWindowDimensions,
 } from '../lib/hooks';
 import InfiniteLoader from './InfiniteLoader';
 import { AccordionBody, AccordionHeader, AccordionProvider } from './Accordion';
@@ -30,6 +31,8 @@ const ResourceTab = ({ tag, columnCount = 3, contentType }) => {
     tag,
   });
 
+  const { width: windowWidth } = useWindowDimensions();
+
   return (
     <>
       <div
@@ -45,8 +48,34 @@ const ResourceTab = ({ tag, columnCount = 3, contentType }) => {
               className="w-full"
               uniqueKey={`card-${key}`}
               prefixIcon={item.resourceIcon || ''}
+              cover={{
+                images: item.images,
+                showImages: -1,
+                width:
+                  windowWidth >= 1040
+                    ? 228
+                    : windowWidth >= 768
+                    ? windowWidth / 3
+                    : windowWidth / 2,
+                height:
+                  windowWidth >= 1040
+                    ? 228
+                    : windowWidth >= 768
+                    ? windowWidth / 3
+                    : windowWidth / 2,
+                sizes: [
+                  {
+                    minBreakpoint: 'lg',
+                    width: '228px',
+                  },
+                  {
+                    minBreakpoint: 'md',
+                    width: '33vw',
+                  },
+                  '50vw',
+                ],
+              }}
               content={{
-                image: item.images ? item.images[0] : {},
                 headerText: item.title,
                 contentType,
                 slug: item.slug,
@@ -70,6 +99,8 @@ const Cards = ({ tags, columnCount = 3, contentType }) => {
     tag: tags.join(','),
   });
 
+  const { width: windowWidth } = useWindowDimensions();
+
   const items = {};
   items['All'] = (
     <>
@@ -86,8 +117,34 @@ const Cards = ({ tags, columnCount = 3, contentType }) => {
               className="w-full test"
               uniqueKey={`card-${key}`}
               prefixIcon={item.resourceIcon || ''}
+              cover={{
+                images: item.images,
+                showImages: -1,
+                width:
+                  windowWidth >= 1040
+                    ? 228
+                    : windowWidth >= 768
+                    ? windowWidth / 3
+                    : windowWidth / 2,
+                height:
+                  windowWidth >= 1040
+                    ? 228
+                    : windowWidth >= 768
+                    ? windowWidth / 3
+                    : windowWidth / 2,
+                sizes: [
+                  {
+                    minBreakpoint: 'lg',
+                    width: '228px',
+                  },
+                  {
+                    minBreakpoint: 'md',
+                    width: '33vw',
+                  },
+                  '50vw',
+                ],
+              }}
               content={{
-                image: item.images ? item.images[0] : {},
                 headerText: item.title,
                 contentType,
                 slug: item.slug,
