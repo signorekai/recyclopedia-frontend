@@ -105,12 +105,26 @@ const SingleSearchType = ({
               }
               return (
                 <Card
-                  key={key}
+                  key={`single-search-result-${key}`}
                   className="w-full"
                   uniqueKey={`card-${key}`}
                   prefixIcon={item.resourceIcon || ''}
+                  cover={{
+                    images: [image],
+                    showImages: 1,
+                    sizes: [
+                      {
+                        minBreakpoint: 'lg',
+                        width: '240px',
+                      },
+                      {
+                        minBreakpoint: 'md',
+                        width: '40vw',
+                      },
+                      '200px',
+                    ],
+                  }}
                   content={{
-                    image,
                     headerText: item.title,
                     slug: item.slug,
                     contentType: type,
@@ -231,7 +245,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                     }
                     return (
                       <CarouselCard
-                        key={itemKey}
+                        key={`${type}-${itemKey}`}
                         style={{
                           width:
                             width > 1080
@@ -240,9 +254,23 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                         }}>
                         <Card
                           className="w-full"
-                          uniqueKey={`${type}-${item.slug}`}
+                          uniqueKey={`${type}-${itemKey}-${item.slug}`}
+                          cover={{
+                            images: [image],
+                            showImages: 1,
+                            sizes: [
+                              {
+                                minBreakpoint: 'lg',
+                                width: '240px',
+                              },
+                              {
+                                minBreakpoint: 'md',
+                                width: '40vw',
+                              },
+                              '200px',
+                            ],
+                          }}
                           content={{
-                            image,
                             headerText: item.title,
                             slug: item.slug,
                             contentType: type,
@@ -253,7 +281,7 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
                   })}
                   {values.length > 3 && (
                     <CarouselCard
-                      uniqueKey={`${type}-see-all`}
+                      key={`${type}-see-all`}
                       className="aspect-square"
                       style={{
                         width:
