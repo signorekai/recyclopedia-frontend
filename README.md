@@ -41,3 +41,5 @@ Open [https://localhost:3000](https://localhost:3000) with your browser to see t
 10. Wait for the site to finish building.
 11. Check if the deployment is working properly - check the latest deployment, and "Visit" the site. The site should load & work properly.
 12. Time to setup the domain. Head to `Settings > Domains` and add `https://recyclopedia.sg` to the project. Select the first option in the popup modal, which should be the recommended option (add www.recyclopedia.sg and redirect recyclopedia.sg to it).
+13. Configure the [Recyclopedia CMS "Incremental Server Rendering" webhook](https://cms.recyclopedia.sg/admin/settings/webhooks/2) - the value of the "Authorization" key should be in this format: `Bearer <XYZ>`, where <XYZ> is the value for the `CONTENT_UPDATE_KEY` environment value. Save your changes.
+14. The domain should point to your Vercel project now!
