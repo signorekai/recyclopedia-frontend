@@ -10,6 +10,10 @@ npm run dev
 
 Open [https://localhost:3000](https://localhost:3000) with your browser to see the result.
 
+## Git commit guidelines
+
+The commit messages of this project follows the [`Gitmoji`](https://gitmoji.dev/) guidelines.
+
 ## In case Alfred gets hit by a truck
 
 1. Go to `Settings > General > Advanced > Export Project`. Wait for the export to complete, and download the exported file.
