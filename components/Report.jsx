@@ -358,17 +358,25 @@ export const FeedbackForm = ({
 /**
  *
  * @param {Object} props
- * @param {"Make A Suggestion"|"General Feedback / Enquiry"|"Report An Error"} [props.topic]
+ * @param {string} [props.defaultTopic]
  * @param {boolean} [props.openModal=false]
- * @returns
+ * @param {string} [props.record='']
+ * @param {string} [props.item='']
+ * @param {string} [props.resource='']
+ * @param {number} props.delay
+ * @param {function} props.handleClick
+ * @param {Object[]} [props.topics]
+ * @param {string} props.topics[].value
+ * @param {string} props.topics[].label
  */
 export const FeedbackModal = ({
   openModal = false,
   record = '',
-  topic = '',
+  defaultTopic = '',
   item = '',
   resource = '',
   handleClick = () => {},
+  topics = [],
   delay,
 }) => (
   <AnimatePresence>
@@ -391,9 +399,10 @@ export const FeedbackModal = ({
           <h2 className="text-black inline-block px-4">Feedback</h2>
           <div className="flex-1 overflow-x-hidden overflow-y-auto px-4 pb-4">
             <FeedbackForm
+              topics={topics}
               item={item}
               resource={resource}
-              defaultTopic={topic}
+              defaultTopic={defaultTopic}
               defaultRecord={record}
               delay={delay}
               handleModalClick={handleClick}
@@ -405,12 +414,24 @@ export const FeedbackModal = ({
   </AnimatePresence>
 );
 
+/**
+ *@param {Object} props
+ * @param {Object[]} [props.topics]
+ * @param {string} props.topics[].value
+ * @param {string} props.topics[].label
+ * @param {string} [props.defaultTopic='']
+ * @param {string} [props.record='']
+ * @param {string} [props.item='']
+ * @param {string} [props.resource='']
+ * @param {number} [props.delay=0]
+ */
 export const ReportBtn = ({
   record = '',
-  topic = '',
+  defaultTopic = 'Report an Error on Recyclopedia.sg',
   item = '',
   resource = '',
   delay = 0,
+  topics = [],
 }) => {
   const [openModal, setOpenModal] = useState(false);
   let handler;
@@ -440,11 +461,12 @@ export const ReportBtn = ({
         </button>
       </div>
       <FeedbackModal
+        topics={topics}
         item={item}
         resource={resource}
         openModal={openModal}
         record={record}
-        topic={topic}
+        defaultTopic={defaultTopic}
         delay={delay}
         handleClick={_handleClick}
       />
