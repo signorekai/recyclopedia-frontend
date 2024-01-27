@@ -23,6 +23,7 @@ import { Carousel, CarouselCard } from '../components/Carousel';
 import { getOrSetVisitorToken } from '../lib/analytics';
 import { FeedbackModal, ReportBtn } from '../components/Report';
 import { FAQCard } from './faq';
+import { processTopics } from './feedback';
 
 const SingleSearchType = ({
   type,
@@ -182,7 +183,7 @@ const SingleSearchType = ({
           </p>
           <FeedbackModal
             openModal={openModal}
-            topic="Make A Suggestion"
+            defaultTopic="Make A Suggestion"
             handleClick={_handleClick}
           />
         </div>
@@ -191,8 +192,9 @@ const SingleSearchType = ({
   );
 };
 
-const MultiSearchType = ({ type, query, data, pageOptions }) => {
+const MultiSearchType = ({ type, query, data, pageOptions, contactForm }) => {
   const { width } = useWindowDimensions();
+  const contactFormTopics = processTopics(contactForm.Topics);
   const CardWidth = width > 1080 ? 23 : 40;
   const router = useRouter();
 
@@ -380,8 +382,9 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
           </button>
           <FeedbackModal
             openModal={openModal}
-            topic="Make A Suggestion"
+            defaultTopic="Make a Suggestion"
             handleClick={_handleClick}
+            topics={contactFormTopics}
           />
 
           <div className="mt-6 lg:mt-10 block w-full border-b-1 border-b-grey-light "></div>
@@ -393,6 +396,8 @@ const MultiSearchType = ({ type, query, data, pageOptions }) => {
 
 export default function Page(props) {
   const { faqResults } = props;
+  const contactFormTopics = processTopics(props.contactForm.Topics);
+
   return (
     <Layout title={`Search Results for "${props.query}"`}>
       {props.success && props.type.length === 1 && (
@@ -431,7 +436,11 @@ export default function Page(props) {
           })}
         </div>
       )}
-      <ReportBtn record={`Search results for "${props.query}"`} delay={3000} />
+      <ReportBtn
+        defaultTopic={`Search results for "${props.query}"`}
+        delay={3000}
+        topics={contactFormTopics}
+      />
     </Layout>
   );
 }
@@ -703,10 +712,20 @@ export async function getServerSideProps({ req, query, res }) {
         },
       );
 
+      const { data: contactForm } = await staticFetcher(
+        `${process.env.API_URL}/contact-us-page`,
+        process.env.API_KEY,
+        {
+          fields: ['id'],
+          populate: ['Topics'],
+        },
+      );
+
       return {
         props: {
           success: true,
           ...search,
+          contactForm,
           data,
           faqResults,
           pageOptions,

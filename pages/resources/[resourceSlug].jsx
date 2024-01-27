@@ -117,6 +117,15 @@ export async function getStaticProps({ params }) {
     );
   }
   await Promise.all(promises);
+  const { data: contactForm } = await staticFetcher(
+    `${process.env.API_URL}/contact-us-page`,
+    process.env.API_KEY,
+    {
+      fields: ['id'],
+      populate: ['Topics'],
+    },
+  );
+  data.contactForm = contactForm;
 
   return { props: { data, categoryTags } };
 }

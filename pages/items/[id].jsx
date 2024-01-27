@@ -20,6 +20,7 @@ import { ReportBtn } from '../../components/Report';
 import { BookmarkButton } from '../../components/BookmarkButton';
 import Masonry from '../../components/Masonry';
 import { getOpengraphTags } from '../../components/OpenGraph';
+import { processTopics } from '../feedback';
 
 const ItemTagLiterals = {
   Recycle: {
@@ -169,6 +170,7 @@ function Page({ data }) {
   const imageRatio = 1.34;
 
   if (data) {
+    const contactFormTopics = processTopics(data.contactForm.Topics);
     const meta = getOpengraphTags(
       {
         description: `Where to recycle ${data.title.toLowerCase()} in Singapore. Find the best ways to recycle, upcycle or donate old, used, or new ${data.title.toLowerCase()}`,
@@ -713,6 +715,7 @@ function Page({ data }) {
           </span>
           <div className="divider-b mt-2"></div>
           <ReportBtn
+            topics={contactFormTopics}
             item={data.id}
             record={`${data.title} (Items)`}
             delay={3000}
@@ -817,6 +820,16 @@ export async function getStaticProps({ params }) {
     }
     data.itemTag.items = relatedItems;
   }
+
+  const { data: contactForm } = await staticFetcher(
+    `${process.env.API_URL}/contact-us-page`,
+    process.env.API_KEY,
+    {
+      fields: ['id'],
+      populate: ['Topics'],
+    },
+  );
+  data.contactForm = contactForm;
 
   return { props: { data } };
 }

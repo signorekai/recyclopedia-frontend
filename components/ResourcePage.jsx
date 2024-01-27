@@ -18,6 +18,7 @@ import { BookmarkButton } from './BookmarkButton';
 import Card from './Card';
 import StrapiImage from './StrapiImage';
 import OpenGraph, { getOpengraphTags } from './OpenGraph';
+import { processTopics } from '../pages/feedback';
 
 const ResourceTagLiterals = {
   Recycling: {
@@ -107,6 +108,7 @@ function ResourcePage({ data, baseUrl, tags }) {
   };
 
   if (data) {
+    const contactFormTopics = processTopics(data.contactForm.Topics);
     const meta = getOpengraphTags(
       {
         description: `Learn more about ${data.title} here.`,
@@ -404,8 +406,8 @@ function ResourcePage({ data, baseUrl, tags }) {
           <div className="divider-b mt-2"></div>
           <ReportBtn
             resource={data.id}
-            topic="Report An Error"
             delay={3000}
+            topics={contactFormTopics}
             record={`${data.title} (Freecycling Resources)`}
           />
         </div>

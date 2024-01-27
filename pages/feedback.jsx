@@ -5,9 +5,23 @@ import { FeedbackForm } from '../components/Report';
 import { staticFetcher } from '../lib/hooks';
 import { replaceCDNUri } from '../lib/functions';
 import OpenGraph, { getOpengraphTags } from '../components/OpenGraph';
+import React from 'react';
+
+export const processTopics = (topics) => {
+  return topics.map((topic) => {
+    return {
+      label: topic.title,
+      value: topic.title,
+      showForm: topic.showForm,
+      errorMsg: topic.errorMsg,
+    };
+  });
+};
 
 export default function Page({ pageOptions }) {
-  const { title, bodyText, SEO } = pageOptions;
+  const { title, bodyText, SEO, Topics } = pageOptions;
+
+  const compiledTopics = processTopics(Topics);
 
   const meta = getOpengraphTags({ title }, SEO);
 
@@ -40,7 +54,7 @@ export default function Page({ pageOptions }) {
         <div
           className="mb-10 article-body article-body--wide"
           dangerouslySetInnerHTML={{ __html: replaceCDNUri(bodyText) }}></div>
-        <FeedbackForm />
+        <FeedbackForm topics={compiledTopics} />
       </div>
     </Layout>
   );
@@ -51,7 +65,7 @@ export async function getStaticProps() {
     `${process.env.API_URL}/contact-us-page`,
     process.env.API_KEY,
     {
-      populate: ['SEO', 'SEO.image'],
+      populate: ['SEO', 'SEO.image', 'Topics'],
     },
   );
 
