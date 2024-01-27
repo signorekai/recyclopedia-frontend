@@ -393,6 +393,11 @@
 }
 
 @layer utilities {
+  .team-member-link:not(:last-child)::after {
+    content: '•';
+    @apply px-3 no-underline;
+  }
+
   .inline-link {
     a {
       @apply underline;
