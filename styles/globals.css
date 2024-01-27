@@ -312,9 +312,15 @@
   }
 
   .field-wrapper {
+    @apply transition-opacity duration-300;
+
     & + .field-wrapper {
       @apply mt-6;
     }
+  }
+
+  .field-wrapper--disabled {
+    @apply opacity-10 pointer-events-none select-none;
   }
 
   .text-input-wrapper {

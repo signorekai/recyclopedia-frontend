@@ -107,18 +107,25 @@ const CheckAuth = () => {
 /**
  *
  * @param {Object} props
- * @param {"Make A Suggestion"|"General Feedback / Enquiry"|"Report An Error"} props.defaultTopic
+ * @param {Object[]} [props.topics]
+ * @param {string} props.topics[].value
+ * @param {string} props.topics[].label
+ * @param {string} [props.defaultTopic='']
+ * @param {string} [props.defaultRecord='']
  * @returns
  */
 export const FeedbackForm = ({
   defaultTopic = '',
-  defaultRecord,
+  topics = [],
+  defaultRecord = '',
   item,
   resource,
   handleModalClick = () => {},
   delay,
 }) => {
   const [showSuccess, setShowSuccess] = useState(false);
+  const [disabledForm, setDisabledForm] = useState(false);
+  const [showDisabledFormMsg, setShowDisabledFormMsg] = useState(false);
   const { data, status: authStatus } = useSession();
   const recaptchaRef = useRef();
   let handler;
@@ -178,114 +185,169 @@ export const FeedbackForm = ({
             }}
             onSubmit={_handleSubmit}
             validationSchema={FeedbackFormSchema}>
-            {({ isSubmitting, values, setFieldValue }) => (
-              <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
-                <Form className="">
-                  <CheckAuth />
-                  <Field
-                    name="topic"
-                    options={[
-                      {
-                        value: 'Make A Suggestion',
-                        label: 'Make A Suggestion',
-                      },
-                      {
-                        value: 'General Feedback / Enquiry',
-                        label: 'General Feedback / Enquiry',
-                      },
-                      { value: 'Report An Error', label: 'Report An Error' },
-                    ]}
-                    component={({
-                      field,
-                      options,
-                      form: { errors, setFieldValue },
-                    }) => (
-                      <div className="field-wrapper">
-                        <div className="flex flex-row pb-1">
-                          <h5 className="text-left flex-1">Topic*:</h5>
-                          {errors[field.name] && (
-                            <div className="text-sm text-red pb-1">
-                              {errors[field.name]}
-                            </div>
-                          )}
+            {({ isSubmitting, values, setFieldValue }) => {
+              for (let topic of topics) {
+                if (
+                  !!topic.label === true &&
+                  values.topic.length > 0 &&
+                  topic.label === values.topic &&
+                  topic.showForm === false
+                ) {
+                  setShowDisabledFormMsg(topic.errorMsg);
+                  setDisabledForm(true);
+                  break;
+                } else {
+                  setShowDisabledFormMsg(false);
+                  setDisabledForm(false);
+                }
+              }
+
+              return (
+                <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
+                  <Form className="">
+                    <CheckAuth />
+                    <Field
+                      name="topic"
+                      options={topics}
+                      component={({
+                        field,
+                        options,
+                        form: { errors, setFieldValue },
+                      }) => (
+                        <div className="field-wrapper">
+                          <div className="flex flex-row pb-1">
+                            <h5 className="text-left flex-1">Subject*:</h5>
+                            {errors[field.name] && (
+                              <div className="text-sm text-red pb-1">
+                                {errors[field.name]}
+                              </div>
+                            )}
+                          </div>
+                          <div className="text-lg">
+                            <Select
+                              tabSelectsValue={true}
+                              options={options}
+                              value={
+                                options
+                                  ? options.find(
+                                      (option) => option.value === field.value,
+                                    )
+                                  : ''
+                              }
+                              onChange={(option) =>
+                                setFieldValue(field.name, option.value)
+                              }
+                              onBlur={field.onBlur}
+                            />
+                          </div>
                         </div>
-                        <div className="text-lg">
-                          <Select
-                            tabSelectsValue={true}
-                            options={options}
-                            value={
-                              options
-                                ? options.find(
-                                    (option) => option.value === field.value,
-                                  )
-                                : ''
-                            }
-                            onChange={(option) =>
-                              setFieldValue(field.name, option.value)
-                            }
-                            onBlur={field.onBlur}
-                          />
-                        </div>
-                      </div>
-                    )}
-                  />
-                  <Field
-                    type="text"
-                    name="record"
-                    label="Record"
-                    tooltip="What item / resource is it regarding?"
-                    component={TextInput}
-                  />
-                  <Field
-                    type="text"
-                    name="name"
-                    label="Name*"
-                    component={TextInput}
-                  />
-                  <Field
-                    type="email"
-                    name="email"
-                    label="Email*"
-                    component={TextInput}
-                  />
-                  <Field
-                    name="message"
-                    label="Your Message*"
-                    component={TextArea}
-                  />
-                  <span className="text-sm text-grey-mid">
-                    * denotes compulsory.
-                  </span>
-                  <div className="mt-4">
-                    <ReCAPTCHA
-                      ref={recaptchaRef}
-                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                      onChange={(code) => {
-                        setFieldValue('recaptcha', code);
-                      }}
-                    />
-                  </div>
-                  <p className="mt-4 text-blue-dark">
-                    <strong>
-                      Please note that we do not provide recycling or collection
-                      services. Recyclopedia.sg is a reference website.
-                    </strong>
-                  </p>
-                  <div className="">
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="form-submission-btn">
-                      {isSubmitting ? (
-                        <span className="far fa-spinner-third animate-spin" />
-                      ) : (
-                        'Submit'
                       )}
-                    </button>
-                  </div>
-                </Form>
-              </FocusTrap>
-            )}
+                    />
+                    <div className="relative mt-6">
+                      <AnimatePresence>
+                        {showDisabledFormMsg && (
+                          <motion.div
+                            initial={{
+                              opacity: 0,
+                              marginTop: 30,
+                            }}
+                            animate={{
+                              opacity: 1,
+                              marginTop: 0,
+                            }}
+                            exit={{
+                              opacity: 0,
+                              marginTop: -30,
+                            }}
+                            className="absolute z-30 top-1/2 left-1/2 -translate-x-1/2 w-3/4 -translate-y-1/2"
+                            dangerouslySetInnerHTML={{
+                              __html: showDisabledFormMsg,
+                            }}></motion.div>
+                        )}
+                      </AnimatePresence>
+                      <Field
+                        type="text"
+                        name="record"
+                        label="Record"
+                        tooltip="What item / resource is it regarding?"
+                        component={TextInput}
+                        disabled={disabledForm}
+                        className={`${
+                          disabledForm ? 'field-wrapper--disabled' : ''
+                        }`}
+                      />
+                      <Field
+                        type="text"
+                        name="name"
+                        label="Name*"
+                        component={TextInput}
+                        disabled={disabledForm}
+                        className={`${
+                          disabledForm ? 'field-wrapper--disabled' : ''
+                        }`}
+                      />
+                      <Field
+                        type="email"
+                        name="email"
+                        label="Email*"
+                        component={TextInput}
+                        disabled={disabledForm}
+                        className={`${
+                          disabledForm ? 'field-wrapper--disabled' : ''
+                        }`}
+                      />
+                      <Field
+                        name="message"
+                        label="Your Message*"
+                        disabled={disabledForm}
+                        component={TextArea}
+                        className={`${
+                          disabledForm ? 'field-wrapper--disabled' : ''
+                        }`}
+                      />
+                      <span
+                        className={`text-sm text-grey-mid ${
+                          disabledForm ? 'field-wrapper--disabled' : ''
+                        }`}>
+                        * denotes compulsory.
+                      </span>
+                      <div
+                        className={`mt-4 ${
+                          disabledForm ? 'field-wrapper--disabled' : ''
+                        }`}>
+                        <ReCAPTCHA
+                          ref={recaptchaRef}
+                          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                          onChange={(code) => {
+                            setFieldValue('recaptcha', code);
+                          }}
+                        />
+                      </div>
+                      <p
+                        className={`mt-4 text-blue-dark ${
+                          disabledForm ? 'field-wrapper--disabled' : ''
+                        }`}>
+                        <strong>
+                          Please note that we do not provide recycling or
+                          collection services. Recyclopedia.sg is a reference
+                          website.
+                        </strong>
+                      </p>
+                      <button
+                        type="submit"
+                        disabled={isSubmitting || disabledForm}
+                        className="form-submission-btn">
+                        {isSubmitting ? (
+                          <span className="far fa-spinner-third animate-spin" />
+                        ) : (
+                          'Submit'
+                        )}
+                      </button>
+                    </div>
+                  </Form>
+                </FocusTrap>
+              );
+            }}
           </Formik>
         )}
       </AnimatePresence>
