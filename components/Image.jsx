@@ -10,6 +10,7 @@ import NextImage from 'next/image';
  * @param {"responsive"|"fixed"} [props.layout="responsive"]
  * @param {string} [props.wrapperClassName]
  * @param {string} [props.className]
+ * @param {string} props.alt
  * @returns
  */
 export default function Image({
