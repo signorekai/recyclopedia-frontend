@@ -62,7 +62,7 @@ function Plain({
           );
         })()}
         <article
-          className="article-body mt-4 text-lg"
+          className="user-editable mt-4 text-lg"
           dangerouslySetInnerHTML={{
             __html: replaceCDNUri(bodyText),
           }}></article>

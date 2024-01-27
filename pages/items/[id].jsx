@@ -595,7 +595,7 @@ function Page({ data }) {
                   Insights
                 </h5>
                 <div
-                  className="text-base lg:text-lg mt-2 lg:mt-0 flex-1 inline-link article-body info-insights"
+                  className="text-base lg:text-lg mt-2 lg:mt-0 flex-1 inline-link user-editable info-insights"
                   dangerouslySetInnerHTML={{
                     __html: replaceCDNUri(data.otherInfo),
                   }}></div>

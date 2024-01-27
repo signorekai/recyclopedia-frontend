@@ -500,7 +500,7 @@
     @apply bg-bg px-4 py-2;
   }
 
-  .article-body {
+  .user-editable {
     @apply lg:w-3/4;
 
     .video {
@@ -512,7 +512,7 @@
       @apply text-center text-xs italic text-[#aaa];
     }
 
-    &.article-body--wide {
+    &.user-editable--wide {
       @apply lg:w-full;
     }
 

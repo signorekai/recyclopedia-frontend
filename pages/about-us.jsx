@@ -59,7 +59,7 @@ export default function Page({ pageOptions }) {
       </div>
       <div className="container">
         <div
-          className="pt-8 pb-0 article-body"
+          className="pt-8 pb-0 user-editable"
           dangerouslySetInnerHTML={{ __html: replaceCDNUri(bodyText) }}></div>
       </div>
       <div className="my-8 md:my-20">

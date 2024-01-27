@@ -122,7 +122,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
               )}
             </div>
             <article
-              className="article-body mt-4 text-lg divider-b divider-b-8"
+              className="user-editable mt-4 text-lg divider-b divider-b-8"
               dangerouslySetInnerHTML={{
                 __html: replaceCDNUri(article.content),
               }}></article>

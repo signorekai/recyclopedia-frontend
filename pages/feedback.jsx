@@ -52,7 +52,7 @@ export default function Page({ pageOptions }) {
       <div className="container container--narrow h-full pt-4 lg:pt-10">
         <h1 className="text-black">{title}</h1>
         <div
-          className="mb-10 article-body article-body--wide"
+          className="mb-10 user-editable user-editable--wide"
           dangerouslySetInnerHTML={{ __html: replaceCDNUri(bodyText) }}></div>
         <FeedbackForm topics={compiledTopics} />
       </div>

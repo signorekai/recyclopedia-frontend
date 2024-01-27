@@ -274,7 +274,7 @@ function ResourcePage({ data, baseUrl, tags }) {
                       <i className="far fa-info-circle" /> Info
                     </h5>
                     <div
-                      className="text-base lg:text-lg mt-2 lg:mt-1 !leading-snug article-body lg:w-full info-insights"
+                      className="text-base lg:text-lg mt-2 lg:mt-1 !leading-snug user-editable lg:w-full info-insights"
                       dangerouslySetInnerHTML={{
                         __html: replaceCDNUri(data.description),
                       }}
