@@ -26,7 +26,7 @@ export const TextInput = ({
   form: { touched, errors },
   label,
   tooltip = '',
-  className,
+  className = '',
   ...props
 }) => {
   return (
@@ -54,10 +54,11 @@ export const TextInput = ({
 export const TextArea = ({
   field,
   options,
+  className = '',
   form: { touched, errors },
   ...props
 }) => (
-  <div className="field-wrapper">
+  <div className={`field-wrapper ${className}`}>
     <div className="flex flex-row pb-1">
       <h5 className="text-left flex-1">{props.label}:</h5>
       {touched[field.name] && errors[field.name] && (
