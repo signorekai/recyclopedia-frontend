@@ -12,12 +12,7 @@ import Link from './Link';
 export const FeedbackFormSchema = object({
   name: string().required('Name required'),
   email: string().email('Email is invalid').required('Email required'),
-  topic: string()
-    .matches(
-      /^(Make A Suggestion|General Feedback \/ Enquiry|Report An Error)$/,
-      { message: 'Invalid topic' },
-    )
-    .required('Please choose a topic'),
+  topic: string().required('Please choose a topic'),
   record: string(),
   message: string().required('Please type your message'),
   item: number(),
