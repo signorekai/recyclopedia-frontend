@@ -20,9 +20,7 @@ export const processTopics = (topics) => {
 
 export default function Page({ pageOptions }) {
   const { title, bodyText, SEO, Topics } = pageOptions;
-
   const compiledTopics = processTopics(Topics);
-
   const meta = getOpengraphTags({ title }, SEO);
 
   return (
