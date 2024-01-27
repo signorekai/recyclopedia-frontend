@@ -63,7 +63,7 @@ export default function Page({ pageOptions }) {
           dangerouslySetInnerHTML={{ __html: replaceCDNUri(bodyText) }}></div>
       </div>
       <div className="my-8 md:my-20">
-        <div className="container max-w-[72rem] divider-b "></div>
+        <div className="container divider-b "></div>
         <div className="container flex flex-col lg:flex-row mt-8 lg:my-12 items-start">
           <h2 className="text-black lg:w-1/4 lg:justify-start">Contact Us</h2>
           <div className="w-full md:w-3/4 md:pl-4">
@@ -86,7 +86,7 @@ export default function Page({ pageOptions }) {
             </p>
           </div>
         </div>
-        <div className="container max-w-[72rem] divider-b mt-6"></div>
+        <div className="container divider-b mt-6"></div>
         <div className="container flex flex-col lg:flex-row mt-8 lg:my-12 items-start">
           <h2 className="text-black lg:w-1/4 lg:justify-start">
             Be part of the project
