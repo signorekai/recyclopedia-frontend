@@ -259,7 +259,7 @@ export const FeedbackForm = ({
                               opacity: 0,
                               marginTop: -30,
                             }}
-                            className="absolute z-30 top-1/2 left-1/2 -translate-x-1/2 w-3/4 -translate-y-1/2 user-editable"
+                            className="absolute z-30 top-1/4 left-1/2 -translate-x-1/2 w-3/4 user-editable"
                             dangerouslySetInnerHTML={{
                               __html: showDisabledFormMsg,
                             }}></motion.div>
