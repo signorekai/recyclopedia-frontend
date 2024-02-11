@@ -107,6 +107,10 @@ export default async function handler(req, res) {
     case 'privacy-policy':
       url.push('/privacy-policy');
       break;
+
+    case 'team-page':
+      url.push('/team');
+      break;
   }
 
   console.table(url);
