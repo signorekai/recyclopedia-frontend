@@ -64,6 +64,10 @@ const menuWithDropdown = [
         href: '/about-us',
       },
       {
+        label: 'Meet the Team',
+        href: '/team',
+      },
+      {
         label: 'FAQ',
         href: '/faq',
       },
