@@ -214,7 +214,7 @@ export const FeedbackForm = ({
                         options,
                         form: { errors, setFieldValue },
                       }) => (
-                        <div className="field-wrapper">
+                        <div className="field-wrapper relative z-20">
                           <div className="flex flex-row pb-1">
                             <h5 className="text-left flex-1">Subject*:</h5>
                             {errors[field.name] && (
@@ -259,7 +259,7 @@ export const FeedbackForm = ({
                               opacity: 0,
                               marginTop: -30,
                             }}
-                            className="absolute z-30 top-[10%] left-1/2 -translate-x-1/2 w-3/4 user-editable"
+                            className="absolute z-10 top-[10%] left-1/2 -translate-x-1/2 w-3/4 user-editable"
                             dangerouslySetInnerHTML={{
                               __html: showDisabledFormMsg,
                             }}></motion.div>
