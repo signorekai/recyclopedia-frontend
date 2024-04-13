@@ -311,7 +311,7 @@ export async function getStaticProps({ params }) {
     process.env.API_KEY,
   );
 
-  const { data: nextPost } = await staticFetcher(
+  const { data: nextPosts } = await staticFetcher(
     `${process.env.API_URL}/articles`,
     process.env.API_KEY,
     {
@@ -319,19 +319,35 @@ export async function getStaticProps({ params }) {
         id: {
           $ne: articles[0].id,
         },
-        updatedAt: {
-          $lt: articles[0].updatedAt,
+        order: {
+          $lte: articles[0].order,
         },
       },
-      sort: ['updatedAt:desc'],
-      fields: ['title', 'slug', 'excerpt'],
+      sort: ['order:desc', 'updatedAt:desc'],
+      fields: ['title', 'slug', 'excerpt', 'order', 'updatedAt'],
       populate: ['category', 'coverImage'],
       pagination: {
         start: 0,
-        limit: 1,
+        limit: 10,
       },
     },
   );
+
+  let nextPost = [];
+
+  for (const fetchedNextPost of nextPosts) {
+    if (
+      fetchedNextPost.order === articles[0].order &&
+      new Date(fetchedNextPost.updatedAt).getTime() <
+        new Date(articles[0].updatedAt).getTime()
+    ) {
+      nextPost.push(fetchedNextPost);
+      break;
+    } else if (fetchedNextPost.order < articles[0].order) {
+      nextPost.push(fetchedNextPost);
+      break;
+    }
+  }
 
   const categoryTitles = categoryData.map(({ title }) => title);
 
