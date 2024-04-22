@@ -1,19 +1,17 @@
 import { CarouselProvider, Slider, Slide, DotGroup } from 'pure-react-carousel';
 import { motion } from 'framer-motion';
 import { DateTime } from 'luxon';
-import qs from 'qs';
 import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import sanitizeHtml from 'sanitize-html';
-
-import NextImage from 'next/image';
+import orderBy from 'lodash.orderby';
 
 import StrapiImage from '../../components/StrapiImage';
 import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import { staticFetcher, useWindowDimensions } from '../../lib/hooks';
 import { getLargestPossibleImage, replaceCDNUri } from '../../lib/functions';
-import { Carousel, CarouselCard } from '../../components/Carousel';
+import { CarouselCard } from '../../components/Carousel';
 import Card from '../../components/Card';
 import NewImage from '../../components/Image';
 import { ReportBtn } from '../../components/Report';
@@ -653,7 +651,7 @@ function Page({ data }) {
                 <div className="divider-b mt-4 mb-2"></div>
               </>
             )}
-          {data.articles && data.articles.length > 0 && (
+          {data.readMore && data.readMore.length > 0 && (
             <section className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-4 mt-6">
               <div className="lg:col-span-1">
                 <h5 className="text-left mb-2">
@@ -662,7 +660,7 @@ function Page({ data }) {
                 </h5>
               </div>
               <div className={`lg:col-span-3 flex flex-col mb-8 lg:mb-12`}>
-                {data.articles.map((article) => (
+                {data.readMore.map((article) => (
                   <div key={article.slug} className="w-full">
                     <Link key={article.slug} href={`/articles/${article.slug}`}>
                       <a className="group no-underline">
@@ -797,6 +795,7 @@ export async function getStaticProps({ params }) {
   }
 
   const data = results.data[0];
+  data.readMore = orderBy(data.articles, ['order', 'title'], ['desc', 'asc']);
 
   let relatedItems = [];
   let relatedItemsIndex = [];
