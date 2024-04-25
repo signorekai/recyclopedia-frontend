@@ -103,7 +103,7 @@ export default function Home({
           />
         </div>
         <div className="container container--narrow relative z-10 lg:mb-16">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 lg:mt-12 home-items-grid">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-4 gap-y-4 lg:gap-y-6 mt-6 lg:mt-12 home-items-grid" id="topItems">
             {
               items.map((item, key) => { 
                 /**
@@ -177,6 +177,7 @@ export default function Home({
               slideWidth={width > 1080 ? 312 : 0.75 * width}>
               {donationDrives.map((item) => {
                 if (item !== null) {
+                  console.log(180, item)
                   return (
                     <CarouselCard className="w-[75vw] lg:w-1/4">
                       <Card
@@ -374,10 +375,12 @@ export async function getStaticProps() {
       }),
     ) || [];
 
+
   let donationDrives =
     generalSettings.homepageFeaturedDonationDrives.map(
       ({ article }) => ({
         coverImage: {
+          ...article.coverImage,
           url: getLargestPossibleImage(article.coverImage, 'large')
         },
         title: article.title,

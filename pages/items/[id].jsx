@@ -320,7 +320,7 @@ function Page({ data }) {
                 {data.images.map((image, key) => (
                   <Slide key={key} index={key} style={{ paddingBottom: 0 }}>
                     <NewImage
-                      alt={`${data.title} Recycling in Singapore`}
+                      alt={image.alternativeText}
                       source={image}
                       width={image.width > width ? image.width : width}
                       height={
@@ -339,7 +339,7 @@ function Page({ data }) {
             <div className="w-full" style={{ height: width * 0.75 }}>
               <NewImage
                 layout="responsive"
-                alt={`${data.title} Recycling in Singapore`}
+                alt={data.images[0].alternativeText}
                 source={data.images[0]}
                 width={data.images[0].width}
                 height={data.images[0].height}
@@ -502,7 +502,7 @@ function Page({ data }) {
                                       }
                                       width={256}
                                       height={192}
-                                      alt={`${resource.title} Recycling in Singapore`}
+                                      alt={resource.images[0].alternativeText}
                                     />
                                     <h4 className="pb-2 px-3 text-blue group-hover:text-blue-dark text-lg">
                                       {resource.title}
@@ -549,7 +549,7 @@ function Page({ data }) {
                                   source={resource.images[0]}
                                   width={80}
                                   height={80}
-                                  alt={`${resource.title} Recycling in Singapore`}
+                                  alt={resource.images[0].alternativeText}
                                 />
                               ) : (
                                 <div className="w-20 h-20 bg-grey-light" />
@@ -620,7 +620,6 @@ function Page({ data }) {
                         <div key={`related-items-${key}`} className="w-full">
                           <Card
                             uniqueKey={`card-${key}`}
-                            alt={`${item.title} Recycling in Singapore`}
                             prefixIcon={item.resourceIcon || ''}
                             cover={{
                               images: item.images,
@@ -670,7 +669,7 @@ function Page({ data }) {
                               wrapperClassName="md:rounded-md"
                               className="aspect-[4/3] group-hover:scale-110 transition-transform"
                               sizes="270px"
-                              alt={article.title}
+                              alt={article.coverImage.alternativeText}
                               source={article.coverImage || {}}
                               layout="responsive"
                             />

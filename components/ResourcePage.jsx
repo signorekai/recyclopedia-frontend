@@ -196,7 +196,7 @@ function ResourcePage({ data, baseUrl, tags }) {
                 layout={'fill'}
                 sizes={['100vw']}
                 source={data.images[0]}
-                alt={data.title}
+                alt={data.images[0].alternativeText}
               />
             </div>
           )}
@@ -224,7 +224,7 @@ function ResourcePage({ data, baseUrl, tags }) {
                       width={480}
                       height={480}
                       source={data.images[0] || {}}
-                      alt={`${data.title}`}
+                      alt={data.images[0].alternativeText}
                     />
                   </>
                 )}

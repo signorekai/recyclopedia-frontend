@@ -140,7 +140,7 @@ const Card = ({
                     <StrapiImage
                       layout={cover.layout}
                       className={cover.className}
-                      alt={content.headerText}
+                      alt={cover.images[0].alternativeText}
                       loading={cover.loading}
                       sizes={cover.sizes}
                       source={cover.images[0]}
@@ -175,7 +175,7 @@ const Card = ({
                               height={`${cover.height}px`}
                               className={cover.className}
                               sizes={cover.sizes}
-                              alt={content.headerText}
+                              alt={image.alternativeText}
                               source={image}
                             />
                           </LinkWrapper>
