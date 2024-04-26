@@ -167,6 +167,7 @@ export default function Image({
         src={replaceCDNUri(source.url)}
         sizes={compiledSizes}
         alt={alt}
+        title={alt}
       />
     </span>
   );

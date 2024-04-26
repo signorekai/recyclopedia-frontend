@@ -89,6 +89,11 @@ export default function Image({
               ? source.alternativeText
               : alt
           }
+          title={
+            source.name !== source.alternativeText
+              ? source.alternativeText
+              : alt
+          }
           className={`object-cover object-center absolute w-0 h-0 min-w-full max-w-full min-h-full max-h-full ${className}`}
           style={style}
         />
