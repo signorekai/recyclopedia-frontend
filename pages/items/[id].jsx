@@ -273,7 +273,7 @@ function Page({ data }) {
                   source={image}
                   width={image.width}
                   height={image.height}
-                  alt={data.title}
+                  alt={image.alternativeText}
                   style={{ maxHeight: '60vh' }}
                   sizes={['750px']}
                 />
