@@ -3,7 +3,11 @@ import qs from 'qs';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 
-import { getLargestPossibleImage, replaceCDNUri } from '../../lib/functions';
+import {
+  addMissingTitleToImg,
+  getLargestPossibleImage,
+  replaceCDNUri,
+} from '../../lib/functions';
 import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import { Carousel, CarouselCard } from '../../components/Carousel';
@@ -124,7 +128,7 @@ export default function Page({ article, categoryTitles, nextPost }) {
             <article
               className="user-editable mt-4 text-lg divider-b divider-b-8"
               dangerouslySetInnerHTML={{
-                __html: replaceCDNUri(article.content),
+                __html: addMissingTitleToImg(replaceCDNUri(article.content)),
               }}></article>
           </div>
           <div className="container">

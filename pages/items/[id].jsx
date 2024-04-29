@@ -10,7 +10,11 @@ import StrapiImage from '../../components/StrapiImage';
 import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import { staticFetcher, useWindowDimensions } from '../../lib/hooks';
-import { getLargestPossibleImage, replaceCDNUri } from '../../lib/functions';
+import {
+  addMissingTitleToImg,
+  getLargestPossibleImage,
+  replaceCDNUri,
+} from '../../lib/functions';
 import { CarouselCard } from '../../components/Carousel';
 import Card from '../../components/Card';
 import NewImage from '../../components/Image';
@@ -447,7 +451,9 @@ function Page({ data }) {
                       <div
                         className="text-white text-lg recommendation__box"
                         dangerouslySetInnerHTML={{
-                          __html: replaceCDNUri(item.recommendationText),
+                          __html: addMissingTitleToImg(
+                            replaceCDNUri(item.recommendationText),
+                          ),
                         }}
                       />
                     </RecommendationCard>
@@ -455,7 +461,9 @@ function Page({ data }) {
                       <div
                         className="text-base lg:text-lg mt-2 lg:mt-4 px-2 inline-link"
                         dangerouslySetInnerHTML={{
-                          __html: replaceCDNUri(item.otherText),
+                          __html: addMissingTitleToImg(
+                            replaceCDNUri(item.otherText),
+                          ),
                         }}
                       />
                     )}
@@ -595,7 +603,7 @@ function Page({ data }) {
                 <div
                   className="text-base lg:text-lg mt-2 lg:mt-0 flex-1 inline-link user-editable info-insights"
                   dangerouslySetInnerHTML={{
-                    __html: replaceCDNUri(data.otherInfo),
+                    __html: addMissingTitleToImg(replaceCDNUri(data.otherInfo)),
                   }}></div>
               </section>
               <div className="divider-b mt-8"></div>

@@ -5,7 +5,7 @@ import NewImage from '../components/Image';
 import { staticFetcher, useWindowDimensions } from '../lib/hooks';
 
 import AboutUsBg from '../assets/img/about-us.svg';
-import { replaceCDNUri } from '../lib/functions';
+import { addMissingTitleToImg, replaceCDNUri } from '../lib/functions';
 import OpenGraph, { getOpengraphTags } from '../components/OpenGraph';
 import Head from 'next/head';
 
@@ -52,7 +52,7 @@ export default function Page({ pageOptions }) {
             <h1
               className="text-black"
               dangerouslySetInnerHTML={{
-                __html: replaceCDNUri(description),
+                __html: addMissingTitleToImg(replaceCDNUri(description)),
               }}></h1>
           </div>
         </div>
@@ -60,7 +60,9 @@ export default function Page({ pageOptions }) {
       <div className="container">
         <div
           className="pt-8 pb-0 user-editable"
-          dangerouslySetInnerHTML={{ __html: replaceCDNUri(bodyText) }}></div>
+          dangerouslySetInnerHTML={{
+            __html: addMissingTitleToImg(replaceCDNUri(bodyText)),
+          }}></div>
       </div>
       <div className="my-8 md:my-20">
         <div className="container divider-b "></div>

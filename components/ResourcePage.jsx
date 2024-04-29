@@ -4,6 +4,7 @@ import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 
 import {
+  addMissingTitleToImg,
   getLargestPossibleImage,
   replaceCDNUri,
   replaceText,
@@ -276,7 +277,9 @@ function ResourcePage({ data, baseUrl, tags }) {
                     <div
                       className="text-base lg:text-lg mt-2 lg:mt-1 !leading-snug user-editable lg:w-full info-insights"
                       dangerouslySetInnerHTML={{
-                        __html: replaceCDNUri(data.description),
+                        __html: addMissingTitleToImg(
+                          replaceCDNUri(data.description),
+                        ),
                       }}
                     />
                   </motion.div>
@@ -322,7 +325,9 @@ function ResourcePage({ data, baseUrl, tags }) {
                     <div
                       className="text-base lg:text-lg mt-2 lg:mt-1 px-2 !leading-snug"
                       dangerouslySetInnerHTML={{
-                        __html: replaceCDNUri(data.locations),
+                        __html: addMissingTitleToImg(
+                          replaceCDNUri(data.locations),
+                        ),
                       }}
                     />
                   </motion.div>
@@ -346,7 +351,7 @@ function ResourcePage({ data, baseUrl, tags }) {
                     <div
                       className="text-base lg:text-lg mt-2 lg:mt-0 mb-6 !leading-snug"
                       dangerouslySetInnerHTML={{
-                        __html: replaceCDNUri(data.items),
+                        __html: addMissingTitleToImg(replaceCDNUri(data.items)),
                       }}
                     />
                   )}

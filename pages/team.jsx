@@ -3,7 +3,7 @@ import Layout from '../components/Layout';
 import React from 'react';
 import { getOpengraphTags } from '../components/OpenGraph';
 import { staticFetcher, useWindowDimensions } from '../lib/hooks';
-import { replaceCDNUri } from '../lib/functions';
+import { addMissingTitleToImg, replaceCDNUri } from '../lib/functions';
 import Image from '../components/Image';
 
 export default function Page({ pageOptions }) {
@@ -65,7 +65,7 @@ export default function Page({ pageOptions }) {
               <div
                 className="user-editable pt-6"
                 dangerouslySetInnerHTML={{
-                  __html: replaceCDNUri(member.biography),
+                  __html: addMissingTitleToImg(replaceCDNUri(member.biography)),
                 }}></div>
               <div
                 className={`team-member-links pt-6 ${
@@ -111,7 +111,9 @@ export default function Page({ pageOptions }) {
         </h2>
         <div
           className="pt-6 user-editable pb-10 lg:pb-20"
-          dangerouslySetInnerHTML={{ __html: replaceCDNUri(bodyText) }}></div>
+          dangerouslySetInnerHTML={{
+            __html: addMissingTitleToImg(replaceCDNUri(bodyText)),
+          }}></div>
       </div>
     </Layout>
   );

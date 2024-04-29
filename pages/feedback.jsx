@@ -3,7 +3,7 @@ import Layout from '../components/Layout';
 import { FeedbackForm } from '../components/Report';
 
 import { staticFetcher } from '../lib/hooks';
-import { replaceCDNUri } from '../lib/functions';
+import { addMissingTitleToImg, replaceCDNUri } from '../lib/functions';
 import OpenGraph, { getOpengraphTags } from '../components/OpenGraph';
 import React from 'react';
 
@@ -51,7 +51,9 @@ export default function Page({ pageOptions }) {
         <h1 className="text-black">{title}</h1>
         <div
           className="mb-10 user-editable user-editable--wide"
-          dangerouslySetInnerHTML={{ __html: replaceCDNUri(bodyText) }}></div>
+          dangerouslySetInnerHTML={{
+            __html: addMissingTitleToImg(replaceCDNUri(bodyText)),
+          }}></div>
         <FeedbackForm topics={compiledTopics} />
       </div>
     </Layout>

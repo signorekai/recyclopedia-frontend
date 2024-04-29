@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Layout from './Layout';
 import { DateTime } from 'luxon';
-import { replaceCDNUri } from '../lib/functions';
+import { addMissingTitleToImg, replaceCDNUri } from '../lib/functions';
 import OpenGraph, { getOpengraphTags } from './OpenGraph';
 
 function Plain({
@@ -64,7 +64,7 @@ function Plain({
         <article
           className="user-editable mt-4 text-lg"
           dangerouslySetInnerHTML={{
-            __html: replaceCDNUri(bodyText),
+            __html: addMissingTitleToImg(replaceCDNUri(bodyText)),
           }}></article>
       </div>
     </Layout>

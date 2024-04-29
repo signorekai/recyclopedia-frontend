@@ -5,7 +5,7 @@ import { motion, useMotionValue } from 'framer-motion';
 import { useRouter } from 'next/router';
 
 import Layout from '../components/Layout';
-import { replaceCDNUri } from '../lib/functions';
+import { addMissingTitleToImg, replaceCDNUri } from '../lib/functions';
 import OpenGraph, { getOpengraphTags } from '../components/OpenGraph';
 import Link from 'next/link';
 
@@ -100,14 +100,18 @@ export const FAQCard = ({
             <a className="no-underline">
               <div
                 className="mt-4 mb-2"
-                dangerouslySetInnerHTML={{ __html: replaceCDNUri(content) }}
+                dangerouslySetInnerHTML={{
+                  __html: addMissingTitleToImg(replaceCDNUri(content)),
+                }}
               />
             </a>
           </Link>
         ) : (
           <div
             className="mt-4 mb-2"
-            dangerouslySetInnerHTML={{ __html: replaceCDNUri(content) }}
+            dangerouslySetInnerHTML={{
+              __html: addMissingTitleToImg(replaceCDNUri(content)),
+            }}
           />
         )}
       </motion.dd>

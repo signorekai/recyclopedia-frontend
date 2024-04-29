@@ -24,6 +24,7 @@
     "nextjs-google-analytics": "^2.1.0",
     "nextjs-progressbar": "0.0.14",
     "node-fetch": "^3.2.3",
+    "node-html-parser": "^6.1.13",
     "pluralize": "^8.0.0",
     "prop-types": "^15.8.1",
     "pure-react-carousel": "^1.28.1",
