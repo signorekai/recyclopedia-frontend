@@ -177,7 +177,6 @@ export default function Home({
               slideWidth={width > 1080 ? 312 : 0.75 * width}>
               {donationDrives.map((item) => {
                 if (item !== null) {
-                  console.log(180, item)
                   return (
                     <CarouselCard className="w-[75vw] lg:w-1/4">
                       <Card
