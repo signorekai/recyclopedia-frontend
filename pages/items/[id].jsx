@@ -478,115 +478,126 @@ function Page({ data }) {
                         columns={3}
                         className="mt-4"
                         card={({ resource }, key) => {
-                          return (
-                            <div key={`resource-${key}`} className="">
-                              <CarouselCard
-                                featured={resource.featured === true}
-                                className={`w-full group rounded-md bg-white-pure border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative ${
-                                  resource.featured === true
-                                    ? 'm-[2px] basic-carousel__card--featured border-0'
-                                    : ' border-1'
-                                } `}>
-                                <Link href={`/resources/${resource.slug}`}>
-                                  <a className="no-underline group-hover:opacity-100 group-active:opacity-100 relative">
-                                    {resource.resourceIcon &&
-                                      resource.resourceIcon.length > 0 && (
-                                        <img
-                                          alt=""
-                                          className="absolute top-2 left-2 z-40 h-4 md:h-10"
-                                          src={`/img/${
-                                            resource.resourceIcon.toLowerCase() +
-                                            '.svg'
-                                          }`}
-                                        />
-                                      )}
-                                    <NewImage
-                                      className="group-hover:scale-110 transition-transform"
-                                      layout="responsive"
-                                      source={
-                                        resource.images
-                                          ? resource.images[0]
-                                          : {}
-                                      }
-                                      width={256}
-                                      height={192}
-                                      alt={resource.images[0].alternativeText}
-                                    />
-                                    <h4 className="pb-2 px-3 text-blue group-hover:text-blue-dark text-lg">
-                                      {resource.title}
-                                    </h4>
-                                  </a>
-                                </Link>
-                              </CarouselCard>
-                            </div>
-                          );
+                          if (resource) {
+                            return (
+                              <div key={`resource-${key}`} className="">
+                                <CarouselCard
+                                  featured={resource.featured === true}
+                                  className={`w-full group rounded-md bg-white-pure border-grey-light group-active:border-grey-mid group-active:bg-bg overflow-hidden relative ${
+                                    resource.featured === true
+                                      ? 'm-[2px] basic-carousel__card--featured border-0'
+                                      : ' border-1'
+                                  } `}>
+                                  <Link href={`/resources/${resource.slug}`}>
+                                    <a className="no-underline group-hover:opacity-100 group-active:opacity-100 relative">
+                                      {resource.resourceIcon &&
+                                        resource.resourceIcon.length > 0 && (
+                                          <img
+                                            alt=""
+                                            className="absolute top-2 left-2 z-40 h-4 md:h-10"
+                                            src={`/img/${
+                                              resource.resourceIcon.toLowerCase() +
+                                              '.svg'
+                                            }`}
+                                          />
+                                        )}
+                                      <NewImage
+                                        className="group-hover:scale-110 transition-transform"
+                                        layout="responsive"
+                                        source={
+                                          resource.images
+                                            ? resource.images[0]
+                                            : {}
+                                        }
+                                        width={256}
+                                        height={192}
+                                        alt={resource.images[0].alternativeText}
+                                      />
+                                      <h4 className="pb-2 px-3 text-blue group-hover:text-blue-dark text-lg">
+                                        {resource.title}
+                                      </h4>
+                                    </a>
+                                  </Link>
+                                </CarouselCard>
+                              </div>
+                            );
+                          } else {
+                            return <></>;
+                          }
                         }}
                       />
                     </div>
                   ) : (
                     <section className="grid gap-y-2 my-4 divider-b after:mt-6">
-                      {item.resourcesComp.map(({ resource }, key) => (
-                        <Link
-                          key={key}
-                          href={`/resources/${resource.slug}`}
-                          passHref>
-                          <motion.a
-                            initial={{
-                              y: 30,
-                              opacity: 0,
-                            }}
-                            transition={{ duration: 0.4, ease: 'easeOut' }}
-                            whileInView={{ x: 0, y: 0, opacity: 1 }}
-                            viewport={{ once: true, margin: '50px' }}
-                            className={`no-underline ${
-                              resource.featured === true
-                                ? 'basic-carousel__card-wrapper'
-                                : ''
-                            } motion-controlled`}>
-                            <div
-                              className={`h-20 bg-white-pure border-1 rounded-md border-grey-light flex flex-row justify-between items-center relative overflow-hidden ${
-                                resource.featured === true
-                                  ? 'basic-carousel__card--featured'
-                                  : ''
-                              }`}>
-                              <h4 className="px-4 text-blue-light">
-                                {resource.title}
-                              </h4>
-                              {resource.images && resource.images.length > 0 ? (
-                                <NewImage
-                                  source={resource.images[0]}
-                                  width={80}
-                                  height={80}
-                                  alt={resource.images[0].alternativeText}
-                                />
-                              ) : (
-                                <div className="w-20 h-20 bg-grey-light" />
-                              )}
-                              {resource.resourceIcon &&
-                                resource.resourceIcon.length > 0 && (
-                                  <img
-                                    alt=""
-                                    className="absolute top-2 right-14 z-40 h-4 md:h-10"
-                                    src={`/img/${
-                                      resource.resourceIcon.toLowerCase() +
-                                      '.svg'
-                                    }`}
+                      {item.resourcesComp.map(({ resource }, key) => {
+                        if (resource) {
+                          return (
+                            <Link
+                              key={key}
+                              href={`/resources/${resource.slug}`}
+                              passHref>
+                              <motion.a
+                                initial={{
+                                  y: 30,
+                                  opacity: 0,
+                                }}
+                                transition={{ duration: 0.4, ease: 'easeOut' }}
+                                whileInView={{ x: 0, y: 0, opacity: 1 }}
+                                viewport={{ once: true, margin: '50px' }}
+                                className={`no-underline ${
+                                  resource.featured === true
+                                    ? 'basic-carousel__card-wrapper'
+                                    : ''
+                                } motion-controlled`}>
+                                <div
+                                  className={`h-20 bg-white-pure border-1 rounded-md border-grey-light flex flex-row justify-between items-center relative overflow-hidden ${
+                                    resource.featured === true
+                                      ? 'basic-carousel__card--featured'
+                                      : ''
+                                  }`}>
+                                  <h4 className="px-4 text-blue-light">
+                                    {resource.title}
+                                  </h4>
+                                  {resource.images &&
+                                  resource.images.length > 0 ? (
+                                    <NewImage
+                                      source={resource.images[0]}
+                                      width={80}
+                                      height={80}
+                                      alt={resource.images[0].alternativeText}
+                                    />
+                                  ) : (
+                                    <div className="w-20 h-20 bg-grey-light" />
+                                  )}
+                                  {resource.resourceIcon &&
+                                    resource.resourceIcon.length > 0 && (
+                                      <img
+                                        alt=""
+                                        className="absolute top-2 right-14 z-40 h-4 md:h-10"
+                                        src={`/img/${
+                                          resource.resourceIcon.toLowerCase() +
+                                          '.svg'
+                                        }`}
+                                      />
+                                    )}
+                                </div>
+                                {resource.featured === true && (
+                                  <motion.div
+                                    viewport={{ once: true }}
+                                    whileInView={{
+                                      animation:
+                                        'animateFeatured 7s 1 linear forwards',
+                                    }}
+                                    className="basic-carousel__card-highlight"
                                   />
                                 )}
-                            </div>
-                            {resource.featured === true && (
-                              <motion.div
-                                viewport={{ once: true }}
-                                whileInView={{
-                                  animation:
-                                    'animateFeatured 7s 1 linear forwards',
-                                }}
-                                className="basic-carousel__card-highlight"
-                              />
-                            )}
-                          </motion.a>
-                        </Link>
-                      ))}
+                              </motion.a>
+                            </Link>
+                          );
+                        } else {
+                          return <></>;
+                        }
+                      })}
                     </section>
                   )}
                 </section>
