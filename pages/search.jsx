@@ -566,21 +566,6 @@ export async function getServerSideProps({ req, query, res }) {
         });
       });
 
-      await articlesIndex.search(search.query).then(({ hits }) => {
-        hits.forEach((article) => {
-          if (article.publishedAt !== null) {
-            if (!data.articles) data.articles = [];
-
-            data.articles.push({
-              id: article.objectID,
-              title: article.title,
-              slug: article.slug,
-              coverImage: article.coverImage,
-            });
-          }
-        });
-      });
-
       const faqResults = [];
       await faqIndex.search(search.query).then(({ hits }) => {
         if (hits.length > 0) {
@@ -628,6 +613,21 @@ export async function getServerSideProps({ req, query, res }) {
               console.log(resource.title, 'already in', type);
             }
           });
+        });
+      });
+
+      await articlesIndex.search(search.query).then(({ hits }) => {
+        hits.forEach((article) => {
+          if (article.publishedAt !== null) {
+            if (!data.articles) data.articles = [];
+
+            data.articles.push({
+              id: article.objectID,
+              title: article.title,
+              slug: article.slug,
+              coverImage: article.coverImage,
+            });
+          }
         });
       });
 
